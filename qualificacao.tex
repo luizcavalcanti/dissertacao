@@ -1,0 +1,83 @@
+\documentclass[
+    12pt,
+    a4paper,
+    english,
+    oneside, %TODO retirar para impressão final
+    brazil,
+    sumario=tradicional]{abntex2}
+\usepackage{lmodern}
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage{lastpage}
+\usepackage{indentfirst}
+\usepackage{color}
+\usepackage{graphicx}
+\usepackage{caption}
+\usepackage{subcaption}
+\usepackage{microtype}
+\usepackage[brazil]{babel}
+\usepackage[brazilian,hyperpageref]{backref}
+\usepackage[alf]{abntex2cite}
+
+%%%% Configurações %%%%
+\renewcommand{\backrefpagesname}{Citado na(s) página(s):~}
+\renewcommand{\backref}{}
+\renewcommand*{\backrefalt}[4]{
+	\ifcase #1 %
+		Nenhuma citação no texto.%
+	\or
+		Citado na página #2.%
+	\else
+		Citado #1 vezes nas páginas #2.%
+	\fi}%
+
+\setlength{\parindent}{1.3cm}
+\setlength{\parskip}{0.2cm}
+
+%%%% Constantes de autoria %%%%
+
+\titulo{Um modelo de aprendizagem de máquina para detecção de anomalias em imagens aéreas da floresta amazônica}
+\autor{Luiz Carlos A. M. Cavalcanti}
+\local{Manaus}
+\data{2015}
+\orientador[Orientadora:]{Prof\textsuperscript{a}. Dra. Eulanda Miranda dos Santos}
+\instituicao{
+    PODER EXECUTIVO
+    \par
+    MINISTÉRIO DA EDUCAÇÃO
+    \par
+    UNIVERSIDADE FEDERAL DO AMAZONAS
+    \par
+    INSTITUTO DE COMPUTAÇÃO
+    \par
+    PROGRAMA DE PÓS-GRADUAÇÃO EM INFORMÁTICA
+}
+
+\preambulo{Proposta de dissertação apresentada ao Programa de Pós-graduação em Informática da Universidade Federal do Amazonas como requisito parcial para obtenção do grau de Mestre em Informática. 
+Área de concentração: Visão Computacional e Robótica}
+
+\tipotrabalho{Dissertação (Mestrado)}
+
+%%%% Documento %%%%
+
+\begin{document}
+
+\input{capa}
+
+\input{resumo}
+
+\textual
+
+\input{introducao}
+
+\input{fundamentacao}
+
+\input{metodologia}
+
+\input{experimentos}
+
+\input{cronograma}
+
+\bibliography{qualificacao}
+
+\end{document}
