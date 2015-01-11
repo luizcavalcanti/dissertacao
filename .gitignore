@@ -1,3 +1,4 @@
+#temp files
 *.log
 *.aux
 *.bbl
@@ -10,3 +11,6 @@
 *.ps
 *.pdf
 *.toc
+
+#temp dirs
+.texpadtmp
