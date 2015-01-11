@@ -2,7 +2,7 @@
 
 Neste capítulo são discutidos os conceitos básicos ao entendimento deste trabalho, abrangendo aprendizagem de máquina, processamento digital de imagens, segmentação de imagens e extração de características.
 
-\section{Aprendizagem de Máquina}
+\section{Aprendizagem de máquina e reconhecimento de padrões}
 
 Conforme \cite{alpaydin:2010}, aprendizagem de máquina é uma área da inteligência artificial que estuda métodos computacionais, a fim de obter um determinado conhecimento específico através de experiências. A aplicação prática de aprendizado de máquina inclui o processamento de linguagem natural, diagnósticos médicos, detecção de intrusos, entre outros. Um sistema de aprendizado tem a função de analisar informações e generalizá-las, para a extração de novos conhecimentos.
 
@@ -21,7 +21,7 @@ Os problemas de aprendizagem podem ainda ser divididos de acordo com o tipo de s
 	\item \textbf{Problemas de regressão}: quando a saída esperada para o é um valor numérico, normalmente contínuo.
 \end{itemize}
 
-Um problema de classificação, ou seja, um problema em que o objetivo é atribuir corretamente classes discretas (rótulos) aos exemplos de dados, consiste na determinação de regras e posterior classificação desses exemplos. Este conjunto de regras (classificador) recebe como entrada um vetor de características e oferece como saída uma classe resultante para a instância que as características descrevem, conforme pode ser visto na figura \ref{fig:classificador}.
+Um problema de classificação, ou seja, um problema em que o objetivo é atribuir corretamente classes discretas (rótulos) aos exemplos de dados, consiste na determinação de regras e posterior classificação desses exemplos. Este conjunto de regras é criado por um classificador, que recebe como entrada um vetor de características e oferece como saída uma classe resultante para a instância que as características descrevem, conforme pode ser visto na figura \ref{fig:classificador}.
 
 \begin{figure}[h!]
   \centering
@@ -32,7 +32,9 @@ Um problema de classificação, ou seja, um problema em que o objetivo é atribu
 
 Os tipos de classificadores utilizados neste trabalho serão discutidos com mais detalhes na seção \ref{sec:classificacao}.
 
-O fluxo de uma solução de classificação passa normalmente por três etapas, detalhadas nas próximas seções:
+Para composição do modelo de aprendizagem, uma base de dados de treinamento é utilizada. Esta base deve possuir uma quantidade significativa e com boa representatividade das classes envolvidas no problema. Normalmente se usa uma parte da base de dados de treinamento para validação do modelo de aprendizado (validação cruzada) ou mesmo uma base de dados diferente (base de testes ou validação), para que indicadores de qualidade do modelo possam ser avaliados. A seção \ref{sec:avaliacao} discorre sobre os métodos de avaliação utilizados neste trabalho.
+
+Técnicas de aprendizagem de máquina podem ser utilizadas para encontrar padrões em diversos domínios, inclusive em imagens. É neste ponto que a disciplina de aprendizagem de máquina, advinda da área de inteligência artificial, se encontra com a disciplina de reconhecimento de padrões, advinda da área de processamento de sinais. Segundo \cite{jain:1989}, o fluxo padrão para soluções de reconhecimento de padrões consiste em três etapas:
 
 \begin{enumerate}
     \item Filtragem e pré-processamento da entrada;
@@ -40,33 +42,11 @@ O fluxo de uma solução de classificação passa normalmente por três etapas, 
     \item Classificação.
 \end{enumerate}
 
-
-%Os algoritmos utilizados em problemas de classificação podem ser categorizados em:
-
-%\begin{itemize}
-%	\item \textbf{Probabilísticos}:
-%	\item \textbf{Geométicos}:
-%	\item \textbf{Simbólicos}:
-%\end{itemize}
-
-% TODO O que são conjuntos de classificadores?
-% TODO falar dos essembles e etc.
-
-% TODO O que é reconhecimento de padrões?
-% TODO Como reconhecimento de padrões e aprendizagem de máquina se integram?
-
-%Existe uma grande variedade de algoritmos de aprendizagem de máquina propostos na literatura tais como Árvores de Decisão, k Vizinhos mais Próximos (kNN), Redes Neurais Artificiais, Support Vector Machines (SVM), etc. [Santos, 2008]. Além desses métodos individuais, os algoritmos de aprendizagem de máquina podem também ser combinados em conjuntos de classificadores [Dietterich, 2000].
-
-%anto classificadores individuais quanto conjuntos de classificadores são treinados usando vetores de características. Segundo \cite{jain:1989}, o processo de reconhecimento de padrões em imagens normalmente passa por três etapas:
-%\begin{itemize}
-%    \item Filtragem e pré-processamento da entrada;
-%    \item Extração e seleção de características;
-%    \item Classificação
-%\end{itemize}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Filtragem e Pré-processamento}
 
-A etapa de filtragem e pré-processamento é responsável pela escolha e montagem da base de treinamento que será usada no processo de aprendizagem.
+A etapa de filtragem e pré-processamento é responsável pela escolha e montagem da base de dados que será usada no processo de aprendizagem.
 
 %TODO Reaproveitar: Em aprendizado relacionado a imagens, essa etapa é comumente a responsável por normalizar e salientar as características desejadas nas amostras (realce de imagens, filtragem, etc). Nesta etapa, dados irrelevantes, redundantes ou distorcidos são eliminados.
 
@@ -82,14 +62,21 @@ São muitos os exemplos de classificadores que existem na literatura. Alguns dos
 
 Os algoritmos utilizados neste trabalho serão discutidos no capítulo \ref{cap:metodologia}
 
-\section{Trabalhos Relacionados}
+%Os algoritmos utilizados em problemas de classificação podem ser categorizados em:
 
-O trabalho de \cite{dubuisson:2000} apresenta uma técnica de segmentação focada em imagens aéreas coloridas que realiza a segmentações separadamente por cor e textura, para no final unir as duas e chegar a uma segmentação final utilizando um algoritmo de classificação por máxima verosimilhança (\textit{Maximum Likelihood}). O objetivo do trabalho de \cite{dubuisson:2000} é atualização de mapas antigos a partir de imagens recentes, mas as técnicas, se comprovadamente úteis ao problema deste trabalho, podem ser aplicadas em uma pré-classificação de tipos de terreno.
+%\begin{itemize}
+%	\item \textbf{Probabilísticos}:
+%	\item \textbf{Geométicos}:
+%	\item \textbf{Simbólicos}:
+%\end{itemize}
 
-De acordo com \cite{sadgal:2005}, o processamento de imagens digitais que representam cenas naturais requer elaboração substancial em todos os níveis: pré-processamento, segmentação, reconhecimento e interpretação. O trabalho apresentado sugere uma abordagem onde todas essas etapas acontecem em um único nível, e propõe um modelo de visão que tenta generalizar o reconhecimento de objetos utilizando categorização e cooperação.  A solução proposta combina processos estocásticos, dentre os quais Inferência Bayesiana, Campos Aleatórios de Markov, com métodos não estocásticos como Redes Neurais Artificiais. Esta diversidade de métodos é utilizada na segmentação e na extração de características de cores, texturas e formas, que depois são usadas na classificação dos objetos.
+% TODO O que são conjuntos de classificadores?
+% TODO falar dos essembles e etc.
 
-A pesquisa realizada por \cite{ahmadi:2013} tem como objetivo fazer segmentação semântica e classificação de imagens aéreas, pixel a pixel. Para tal, diversos classificadores e atributos das imagens são testados, chegando-se a conclusão de que o uso do algoritmo de KNN em características de cor e textura, mais precisamente o filtro de Gabor \cite{fogel:1989} dos canais de matiz, saturação e intensidade (HSV) de cada pixel, obtiveram os melhores resultados, com um desempenho computacional superior aos métodos de baseline.
+%Existe uma grande variedade de algoritmos de aprendizagem de máquina propostos na literatura tais como Árvores de Decisão, k Vizinhos mais Próximos (kNN), Redes Neurais Artificiais, Support Vector Machines (SVM), etc. [Santos, 2008]. Além desses métodos individuais, os algoritmos de aprendizagem de máquina podem também ser combinados em conjuntos de classificadores [Dietterich, 2000].
 
-O trabalho de \cite{ghiasi:2013} realiza segmentação e classificação de tipos de terreno em imagens aéreas através de dois passos: primeiramente a imagem é dividida em superpixels, utilizando a técnica de fluxos geométricos de \cite{levinshtein:2009}; posteriormente, cada superpixel tem suas características de textura e cor extraídas e é classificado através do algoritmo KNN. As características apontadas como mais úteis pelos autores são o Local Binary Pattern Histogram Fourier (LBP-HF) \cite{ahonen:2009} para informações de textura e histograma dos canais RGB para informações sobre cores. O artigo alega conseguir realizar o processo em tempo real, com precisão superior a 95\% em todas as classes utilizadas.
 
-Este trabalho pretende adaptar ou enriquecer os métodos utilizados na literatura, aplicando-os especificamente à segmentação e classificação de imagens aéreas de floresta amazônica, que possui seus desafios característicos, visto que o tipo de terreno e vegetação apresentam padrões diferentes dos vários trabalhos realizados em áreas urbanas ou florestas temperadas.
+\subsection{Avaliação}\label{sec:avaliacao}
+
+Dentre indicadores importantes para a avaliação do modelo de aprendizagem criado estão: a acurácia, ou seja, o percentual de exemplos na base de validação que são classificados corretamente pelo modelo criado; a variância, que é o quanto a acurácia varia entre diferentes bases de validação;
+
