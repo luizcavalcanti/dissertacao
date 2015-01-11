@@ -1,8 +1,8 @@
 \chapter{Fundamentação Teórica e Trabalhos Relacionados}
 
-Neste capítulo são discutidos os conceitos básicos ao entendimento deste trabalho, abrangendo processamento digital de imagens, segmentação de imagens, extração de características e aprendizagem de máquina.
+Neste capítulo são discutidos os conceitos básicos ao entendimento deste trabalho, abrangendo aprendizagem de máquina, processamento digital de imagens, segmentação de imagens e extração de características.
 
-\section{Aprendizagem de Máquina e Reconhecimento de Padrões}
+\section{Aprendizagem de Máquina}
 
 Conforme \cite{alpaydin:2010}, aprendizagem de máquina é uma área da inteligência artificial que estuda métodos computacionais, a fim de obter um determinado conhecimento específico através de experiências. A aplicação prática de aprendizado de máquina inclui o processamento de linguagem natural, diagnósticos médicos, detecção de intrusos, entre outros. Um sistema de aprendizado tem a função de analisar informações e generalizá-las, para a extração de novos conhecimentos.
 
@@ -15,22 +15,39 @@ Segundo \cite{russell:2010}, os tipos de aprendizagem podem ser classificados de
 \end{itemize}
 
 Os problemas de aprendizagem podem ainda ser divididos de acordo com o tipo de saída que demandam:
+
 \begin{itemize}
 	\item \textbf{Problemas de classificação}: quando a saída esperada para o problema é uma classe ou categoria, ou seja, um valor discreto;
 	\item \textbf{Problemas de regressão}: quando a saída esperada para o é um valor numérico, normalmente contínuo.
 \end{itemize}
 
-% TODO O que são classificadores?
-% TODO falar dos tipos de classificadores: probabilistico, geométrico, simbólico, etc
+Um problema de classificação, ou seja, um problema em que o objetivo é atribuir corretamente classes discretas (rótulos) aos exemplos de dados, consiste na determinação de regras e posterior classificação desses exemplos. Este conjunto de regras (classificador) recebe como entrada um vetor de características e oferece como saída uma classe resultante para a instância que as características descrevem, conforme pode ser visto na figura \ref{fig:classificador}.
 
-Um problema de classificação, ou seja, um problema em que o objetivo é atribuir corretamente classes discretas aos exemplos de dados, consiste na determinação de regras e posterior classificação desses exemplos. Os classificadores podem ser categorizados em:
+\begin{figure}[h!]
+  \centering
+  \includegraphics[width=0.7\textwidth]{imgs/classificador}
+  \caption{Representação de classificador como uma função de bloco}
+  \label{fig:classificador}
+\end{figure}
 
-\begin{itemize}
-	\item \textbf{Probabilísticos}:
-	\item \textbf{Geométicos}:
-	\item \textbf{Simbólicos}:
-\end{itemize}
+Os tipos de classificadores utilizados neste trabalho serão discutidos com mais detalhes na seção \ref{sec:classificacao}.
 
+O fluxo de uma solução de classificação passa normalmente por três etapas, detalhadas nas próximas seções:
+
+\begin{enumerate}
+    \item Filtragem e pré-processamento da entrada;
+    \item Extração e seleção de características;
+    \item Classificação.
+\end{enumerate}
+
+
+%Os algoritmos utilizados em problemas de classificação podem ser categorizados em:
+
+%\begin{itemize}
+%	\item \textbf{Probabilísticos}:
+%	\item \textbf{Geométicos}:
+%	\item \textbf{Simbólicos}:
+%\end{itemize}
 
 % TODO O que são conjuntos de classificadores?
 % TODO falar dos essembles e etc.
@@ -38,24 +55,26 @@ Um problema de classificação, ou seja, um problema em que o objetivo é atribu
 % TODO O que é reconhecimento de padrões?
 % TODO Como reconhecimento de padrões e aprendizagem de máquina se integram?
 
-%Existe uma grande variedade de algoritmos de aprendizagem de máquina propostos na literatura tais como Árvores de Decisão, k Vizinhos mais Próximos (kNN), Redes Neurais Artificiais, Support Vector Machines (SVM), etc. [Santos, 2008]. Além desses métodos individuais, os algoritmos de aprendizagem de máquina podem também ser combinados em conjuntos de classificadores [Dietterich, 2000]. 
+%Existe uma grande variedade de algoritmos de aprendizagem de máquina propostos na literatura tais como Árvores de Decisão, k Vizinhos mais Próximos (kNN), Redes Neurais Artificiais, Support Vector Machines (SVM), etc. [Santos, 2008]. Além desses métodos individuais, os algoritmos de aprendizagem de máquina podem também ser combinados em conjuntos de classificadores [Dietterich, 2000].
 
-Tanto classificadores individuais quanto conjuntos de classificadores são treinados usando vetores de características. Segundo \cite{jain:1989}, o processo de reconhecimento de padrões em imagens normalmente passa por três etapas: 
-\begin{itemize}
-    \item Filtragem e pré-processamento da entrada;
-    \item Extração e seleção de características;
-    \item Classificação
-\end{itemize}
+%anto classificadores individuais quanto conjuntos de classificadores são treinados usando vetores de características. Segundo \cite{jain:1989}, o processo de reconhecimento de padrões em imagens normalmente passa por três etapas:
+%\begin{itemize}
+%    \item Filtragem e pré-processamento da entrada;
+%    \item Extração e seleção de características;
+%    \item Classificação
+%\end{itemize}
 
 \subsection{Filtragem e Pré-processamento}
 
-A etapa de filtragem e pré-processamento é responsável pela escolha e montagem da base de treinamento que será usada no processo de aprendizagem. Também podem ser aplicados a dados após o treinamento, caso precisem de algum tipo de pré-processamento. Em aprendizado relacionado a imagens, essa etapa é comumente a responsável por normalizar e salientar as características desejadas nas amostras (realce de imagens, filtragem, etc). Nesta etapa, dados irrelevantes, redundantes ou distorcidos são eliminados.
+A etapa de filtragem e pré-processamento é responsável pela escolha e montagem da base de treinamento que será usada no processo de aprendizagem.
+
+%TODO Reaproveitar: Em aprendizado relacionado a imagens, essa etapa é comumente a responsável por normalizar e salientar as características desejadas nas amostras (realce de imagens, filtragem, etc). Nesta etapa, dados irrelevantes, redundantes ou distorcidos são eliminados.
 
 \subsection{Extração de Características}
 
 A extração de características é feita selecionando os atributos oriundos dos dados (imagens, no trabalho em questão), a fim de encontrar as características úteis para o processo de reconhecimento. Essa etapa é crítica ao sucesso do aprendizado, uma vez que bons algoritmos de aprendizado só obtém êxito com uma bom conjunto de características relevantes ao problema.
 
-\subsection{Classificação}
+\subsection{Classificação}\label{sec:classificacao}
 
 Nesta etapa, todas as amostras de treinamento são classificadas e um modelo de aprendizado é gerado. Posteriormente ao processo de aprendizado, é nesta mesma etapa que as amostras não classificadas (ou rotuladas) receberão uma classe dentre as envolvidas no problema. É neste momento que podemos comparar o desempenho de diferentes algoritmos de aprendizado para o conjunto de características escolhidos para representar o problema. Comumente, o percentual de acerto obtido na classificação das amostras não rotuladas é um importante parâmetro para medir a acurácia do método.
 
