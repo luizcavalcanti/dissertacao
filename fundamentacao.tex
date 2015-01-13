@@ -122,7 +122,7 @@ Alguns valores podem ser obtidos através desta matriz. A própria acurácia do 
 \label{eq:acuracia}
 \end{equation}
 
-Ainda é possível obter a precisão e revocação. A precisão é o número de elementos relevantes recuperados dividido pelo número total de elementos recuperados (equação \ref{eq:precisao}) e a revocação é definida como o número de elementos relevantes recuperados dividido pelo número total de elementos relevantes existentes, que deveriam ter sido recuperados (equação \ref{eq:revocacao}).
+Ainda é possível obter a precisão e revocação. A precisão é o número de elementos relevantes recuperados dividido pelo número total de elementos recuperados (equação \ref{eq:precisao}) enquanto a revocação é definida como o número de elementos relevantes recuperados dividido pelo número total de elementos relevantes existentes, que deveriam ter sido recuperados (equação \ref{eq:revocacao}).
 
 \begin{equation}
   Precisão = \frac{TP}{TP+FP}
@@ -137,6 +137,8 @@ Ainda é possível obter a precisão e revocação. A precisão é o número de 
 
 \section{Segmentação de imagens}
 
+O processo de segmentação subdivide uma imagem em suas várias regiões ou objetos. O nível em que a subdivisão é feita depende do problema a ser resolvido, ou seja, a segmentação deve parar quando os objetos de interesse de uma aplicação forem isolados. Por exemplo, na inspeção automática de uma linha de montagem de produtos eletrônicos, o interesse reside em analisar imagens dos produtos com o objetivo de determinar a presença ou ausência de anomalias específicas, como componentes faltando ou conexões quebradas. Não há sentido em continuar segmentando além do nível de detalhes necessário para a identificação destes elementos.
 
+Segmentação de imagens não-triviais é um dos problemas mais difíceis em processamento digital de imagens \cite{gonzalez:2002}. Algoritmos de segmentação geralmente se baseiam em uma das duas propriedades básicas de valores de intensidade dos pixels: descontinuidade e similaridade. Na primeira propriedade, a abordagem é particionar a imagem baseando-se em mudanças abruptas na intensidade dos pixels, como as bordas. A segunda categoria se baseia no particionamento de uma imagem em regiões que são similares de acordo com um critério em particular, que pode ser coloração, textura, entre outros.
 
-
+Neste trabalho, conforme será descrito no capítulo \ref{cap:metodologia}, testamos uma série de atributos para determinar a melhor forma de segmentar as regiões das imagens aéreas da floresta amazônica, como uma das etapas da pesquisa de detecção de anomalias.
