@@ -97,11 +97,23 @@ São muitos os exemplos de classificadores que existem na literatura. Alguns dos
 
 \subsection{Avaliação}\label{sec:avaliacao}
 
-Tanto durante o desenvolvimento de uma solução, quanto após sua execução em ambiente de produção, é preciso aferir ou quantificar o desempenho de um classificador. Isso é útil para determinar a qualidade do modelo criado, bem como inspecionar se os atributos escolhidos são adequados para a classificação dos exemplos.
+Tanto durante o desenvolvimento de uma solução, quanto após sua execução em ambiente de produção, é preciso aferir ou quantificar o desempenho de um classificador. Isso é útil para determinar a qualidade do modelo criado, se o modelo continua adequado, bem como inspecionar se os atributos escolhidos são adequados para a classificação dos exemplos.
 
-Comumente, o percentual de acerto obtido na classificação das amostras não rotuladas é um importante parâmetro para medir o desempenho do modelo. Este parâmetro é conhecido como acurácia ou taxa de reconhecimento. O oposto da acurácia é conhecido como taxa de erro.
+Comumente, o percentual de acerto obtido na classificação das amostras é um importante parâmetro para medir o desempenho do modelo. Este parâmetro é conhecido como acurácia ou taxa de reconhecimento. O oposto da acurácia é conhecido como taxa de erro.
 
-A matriz de confusão...
+De grande importância também é a composição da matriz de confusão (tabela \ref{tab:matrixConfusao}). Nela pode-se avaliar como um modelo está se comportando em termos de falsos positivos (um exemplo é classificado como pertencente à classe C, mas não é) e falsos negativos (um exemplo é atribuído a outra classe, mas deveria ser da classe C). A principal função desta matriz é a dar possibilidade de pensar sobre o custo dos erros, ou seja, mesmo que a taxa de acerto para o problema seja alto, uma ou mais classes do problema pode ter uma taxa de acerto bem abaixo do esperado.
+
+% Please add the following required packages to your document preamble:
+% \usepackage{multirow}
+\begin{table}[h]
+  \begin{tabular}{cccc}
+  \multicolumn{2}{c}{\textbf{Resultado obtido}}                 &          &                                              \\
+  \multicolumn{1}{c|}{Classe A} & \multicolumn{1}{c|}{Classe B} &          &                                              \\ \cline{1-3}
+  \multicolumn{1}{c|}{TP}       & \multicolumn{1}{c|}{FN}       & Classe A & \multirow{2}{*}{\textbf{Resultado esperado}} \\ \cline{1-3}
+  \multicolumn{1}{c|}{FP}       & \multicolumn{1}{c|}{TN}       & Classe B &
+  \end{tabular}
+  \label{tab:matrixConfusao}
+\end{table}
 
 Revocação...
 
