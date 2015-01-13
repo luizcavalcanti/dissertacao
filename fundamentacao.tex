@@ -4,9 +4,9 @@ Neste capítulo são discutidos os conceitos básicos ao entendimento deste trab
 
 \section{Aprendizagem de máquina e reconhecimento de padrões}
 
-Conforme \cite{alpaydin:2010}, aprendizagem de máquina é uma área da inteligência artificial que estuda métodos computacionais, a fim de obter um determinado conhecimento específico através de experiências. A aplicação prática de aprendizado de máquina inclui o processamento de linguagem natural, diagnósticos médicos, detecção de intrusos, entre outros. Um sistema de aprendizado tem a função de analisar informações e generalizá-las, para a extração de novos conhecimentos.
+Conforme \citeonline{alpaydin:2010}, aprendizagem de máquina é uma área da inteligência artificial que estuda métodos computacionais, a fim de obter um determinado conhecimento específico através de experiências. A aplicação prática de aprendizado de máquina inclui o processamento de linguagem natural, diagnósticos médicos, detecção de intrusos, entre outros. Um sistema de aprendizado tem a função de analisar informações e generalizá-las, para a extração de novos conhecimentos.
 
-Segundo \cite{russell:2010}, os tipos de aprendizagem podem ser classificados de acordo com o tipo de \textit{feedback} que recebem do ambiente:
+Segundo \citeonline{russell:2010}, os tipos de aprendizagem podem ser classificados de acordo com o tipo de \textit{feedback} que recebem do ambiente:
 
 \begin{itemize}
     \item \textbf{Aprendizagem não-supervisionada}: o agente aprende padrões na entrada, embora não seja fornecido nenhum \textit{feedback} explícito. A tarefa mais comum de aprendizagem não-supervisionada é o agrupamento, ou seja, a detecção de grupos de exemplos de entrada potencialmente úteis.
@@ -34,7 +34,7 @@ Os tipos de classificadores utilizados neste trabalho serão discutidos com mais
 
 Para composição do modelo de aprendizagem, uma base de dados de treinamento é utilizada. Esta base deve possuir uma quantidade significativa e com boa representatividade das classes envolvidas no problema. Normalmente se usa uma parte da base de dados de treinamento para validação do modelo de aprendizado (validação cruzada) ou mesmo uma base de dados diferente (base de testes ou validação), para que indicadores de qualidade do modelo possam ser avaliados. A seção \ref{sec:avaliacao} discorre sobre os métodos de avaliação utilizados neste trabalho.
 
-Técnicas de aprendizagem de máquina podem ser utilizadas para encontrar padrões em diversos domínios, inclusive em imagens. É neste ponto que a disciplina de aprendizagem de máquina, advinda da área de inteligência artificial, se encontra com a disciplina de reconhecimento de padrões, advinda da área de processamento de sinais. Segundo \cite{jain:1989}, o fluxo padrão para soluções de reconhecimento de padrões consiste em três etapas:
+Técnicas de aprendizagem de máquina podem ser utilizadas para encontrar padrões em diversos domínios, inclusive em imagens. É neste ponto que a disciplina de aprendizagem de máquina, advinda da área de inteligência artificial, se encontra com a disciplina de reconhecimento de padrões, advinda da área de processamento de sinais. Segundo \citeonline{jain:1989}, o fluxo padrão para soluções de reconhecimento de padrões consiste em três etapas:
 
 \begin{enumerate}
     \item Filtragem e pré-processamento da entrada;
@@ -42,25 +42,47 @@ Técnicas de aprendizagem de máquina podem ser utilizadas para encontrar padrõ
     \item Classificação.
 \end{enumerate}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \subsection{Filtragem e Pré-processamento}
 
-A etapa de filtragem e pré-processamento é responsável pela escolha e montagem da base de dados que será usada no processo de aprendizagem.
+A etapa de filtragem e pré-processamento é responsável pela escolha e montagem da base de dados que será usada no processo de aprendizagem. A base deve conter uma quantidade significativa de exemplos de todas as classes envolvidas no problema.
 
-%TODO Reaproveitar: Em aprendizado relacionado a imagens, essa etapa é comumente a responsável por normalizar e salientar as características desejadas nas amostras (realce de imagens, filtragem, etc). Nesta etapa, dados irrelevantes, redundantes ou distorcidos são eliminados.
+Em aprendizado relacionado a imagens, essa etapa é comumente a responsável por normalizar e salientar as características desejadas nas amostras (realce de imagens, filtragem, etc). Exemplos irrelevantes, distorcidos ou repetidos também são eliminados durante a filtragem.
+
+O objetivo principal desta etapa é preparar a base de dados para as etapas seguintes.
+
 
 \subsection{Extração de Características}
 
 A extração de características é feita selecionando os atributos oriundos dos dados (imagens, no trabalho em questão), a fim de encontrar as características úteis para o processo de reconhecimento. Essa etapa é crítica ao sucesso do aprendizado, uma vez que bons algoritmos de aprendizado só obtém êxito com uma bom conjunto de características relevantes ao problema.
 
+Em projetos que envolvem classificação de imagens, uma gama de atributos podem ser extraídos, e podem ser descritos pelo nível da informação que representam. Nesta etapa há uma forte contribuição da disciplina de processamento digital de imagens \cite{gonzalez:2002}, que descreve filtragens, transformações e outras técnicas capazes de extrair informações sobre uma imagem ou pedaços dela.
+
+Segundo \citeonline{nixon:2008}, informações de baixo-nível como bordas, histogramas de intensidade e coloração, são úteis para o reconhecimento de padrões em imagens, assim como características de níveis mais altos, como texturas, transformadas de Hough e extração de regiões conectadas.
+
+O produto desta etapa é a representação de cada exemplo da base de dados em um vetor de características, de forma que possa ser usado por um ou mais classificadores em uma etapa futura.
+
+
 \subsection{Classificação}\label{sec:classificacao}
 
-Nesta etapa, todas as amostras de treinamento são classificadas e um modelo de aprendizado é gerado. Posteriormente ao processo de aprendizado, é nesta mesma etapa que as amostras não classificadas (ou rotuladas) receberão uma classe dentre as envolvidas no problema. É neste momento que podemos comparar o desempenho de diferentes algoritmos de aprendizado para o conjunto de características escolhidos para representar o problema. Comumente, o percentual de acerto obtido na classificação das amostras não rotuladas é um importante parâmetro para medir a acurácia do método.
+Nesta etapa, todas as amostras de treinamento são classificadas e um modelo de aprendizado é gerado. Posteriormente ao processo de aprendizado, é nesta mesma etapa que as amostras não classificadas receberão uma classe dentre as envolvidas no problema. É neste momento que podemos comparar o desempenho de diferentes algoritmos de aprendizado para o conjunto de características escolhido para representar o problema.
 
-São muitos os exemplos de classificadores que existem na literatura. Alguns dos mais utilizados são: classificadores estatísticos, redes neurais artificiais, árvores de decisão, máquinas de vetores de suporte, KNN, etc \cite{jain:1989}.
+Pode-se usar múltiplos classificadores mais simples, ao invés de apenas um mais robusto. Esta abordagem é chamada de sistemas com múltiplos classificadores (do inglês \textit{multiple classifier systems}) e podem ser compostos por classificadores do mesmo tipo (denominado \textit{Ensemble} de classificadores) ou de diferentes tipos.
 
-Os algoritmos utilizados neste trabalho serão discutidos no capítulo \ref{cap:metodologia}
+São muitos os exemplos de classificadores que existem na literatura. Alguns dos mais utilizados são: classificadores estatísticos, redes neurais artificiais, árvores de decisão, máquinas de vetores de suporte, KNN, etc \cite{jain:1989}. 
+
+%\subsubsection{Árvores de decisão}
+
+%Árvores de decisão são considerados algoritmos de aprendizagem simbólica.
+
+
+%Decision tree learning uses a decision tree as a predictive model which maps observations about an item to conclusions about the item's target value. It is one of the predictive modelling approaches used in statistics, data mining and machine learning. Tree models where the target variable can take a finite set of values are called classification trees. In these tree structures, leaves represent class labels and branches represent conjunctions of features that lead to those class labels. Decision trees where the target variable can take continuous values (typically real numbers) are called regression trees.
+
+%In decision analysis, a decision tree can be used to visually and explicitly represent decisions and decision making. In data mining, a decision tree describes data but not decisions; rather the resulting classification tree can be an input for decision making. This page deals with decision trees in data mining.
+
+%Decision tree learning is a method commonly used in data mining.[1] The goal is to create a model that predicts the value of a target variable based on several input variables. An example is shown on the right. Each interior node corresponds to one of the input variables; there are edges to children for each of the possible values of that input variable. Each leaf represents a value of the target variable given the values of the input variables represented by the path from the root to the leaf.
+
+%A decision tree is a simple representation for classifying examples. Decision tree learning is one of the most successful techniques for supervised classification learning[citation needed]. For this section, assume that all of the features have finite discrete domains, and there is a single target feature called the classification. Each element of the domain of the classification is called a class. A decision tree or a classification tree is a tree in which each internal (non-leaf) node is labeled with an input feature. The arcs coming from a node labeled with a feature are labeled with each of the possible values of the feature. Each leaf of the tree is labeled with a class or a probability distribution over the classes.
 
 %Os algoritmos utilizados em problemas de classificação podem ser categorizados em:
 
@@ -70,13 +92,24 @@ Os algoritmos utilizados neste trabalho serão discutidos no capítulo \ref{cap:
 %	\item \textbf{Simbólicos}:
 %\end{itemize}
 
-% TODO O que são conjuntos de classificadores?
-% TODO falar dos essembles e etc.
-
 %Existe uma grande variedade de algoritmos de aprendizagem de máquina propostos na literatura tais como Árvores de Decisão, k Vizinhos mais Próximos (kNN), Redes Neurais Artificiais, Support Vector Machines (SVM), etc. [Santos, 2008]. Além desses métodos individuais, os algoritmos de aprendizagem de máquina podem também ser combinados em conjuntos de classificadores [Dietterich, 2000].
 
 
 \subsection{Avaliação}\label{sec:avaliacao}
 
-Dentre indicadores importantes para a avaliação do modelo de aprendizagem criado estão: a acurácia, ou seja, o percentual de exemplos na base de validação que são classificados corretamente pelo modelo criado; a variância, que é o quanto a acurácia varia entre diferentes bases de validação;
+Tanto durante o desenvolvimento de uma solução, quanto após sua execução em ambiente de produção, é preciso aferir ou quantificar o desempenho de um classificador. Isso é útil para determinar a qualidade do modelo criado, bem como inspecionar se os atributos escolhidos são adequados para a classificação dos exemplos.
+
+Comumente, o percentual de acerto obtido na classificação das amostras não rotuladas é um importante parâmetro para medir o desempenho do modelo. Este parâmetro é conhecido como acurácia ou taxa de reconhecimento. O oposto da acurácia é conhecido como taxa de erro.
+
+A matriz de confusão...
+
+Revocação...
+
+
+
+%Dentre indicadores importantes para a avaliação do modelo de aprendizagem criado estão: a acurácia, ou seja, o percentual de exemplos na base de validação que são classificados corretamente pelo modelo criado; a variância, que é o quanto a acurácia varia entre diferentes bases de validação;
+
+
+
+\section{Segmentação de imagens}
 
