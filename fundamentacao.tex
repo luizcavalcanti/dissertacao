@@ -106,17 +106,36 @@ De grande importância também é a composição da matriz de confusão (tabela 
 % Please add the following required packages to your document preamble:
 % \usepackage{multirow}
 \begin{table}[h]
+  \centering
   \begin{tabular}{cccc}
-  \multicolumn{2}{c}{\textbf{Resultado obtido}}                 &          &                                              \\
-  \multicolumn{1}{c|}{Classe A} & \multicolumn{1}{c|}{Classe B} &          &                                              \\ \cline{1-3}
-  \multicolumn{1}{c|}{TP}       & \multicolumn{1}{c|}{FN}       & Classe A & \multirow{2}{*}{\textbf{Resultado esperado}} \\ \cline{1-3}
-  \multicolumn{1}{c|}{FP}       & \multicolumn{1}{c|}{TN}       & Classe B &
+  \multicolumn{2}{c}{\textbf{Resultado obtido}}                  &                               &                                              \\ \cline{1-2}
+  \multicolumn{1}{|c|}{Classe A} & \multicolumn{1}{c|}{Classe B} &                               &                                              \\ \cline{1-3}
+  \multicolumn{1}{|c|}{TP}       & \multicolumn{1}{c|}{FN}       & \multicolumn{1}{c|}{Classe A} & \multirow{2}{*}{\textbf{Resultado esperado}} \\ \cline{1-3}
+  \multicolumn{1}{|c|}{FP}       & \multicolumn{1}{c|}{TN}       & \multicolumn{1}{c|}{Classe B} &                                              \\ \cline{1-3}
   \end{tabular}
+  \caption{Um modelo de matriz de confusão}
   \label{tab:matrixConfusao}
 \end{table}
 
-Revocação...
+Alguns valores podem ser obtidos através desta matriz. A própria acurácia do modelo pode ser obtida com a seguinte equação:
 
+\begin{equation}
+  Acurácia = \frac{TP+TN}{TP+FP+TN+FN}
+\label{eq:acuracia}
+\end{equation}
+
+Ainda é possível obter a precisão e revocação. A precisão é o número de elementos relevantes recuperados dividido pelo número total de elementos recuperados (equação \ref{eq:precisao}) e a revocação é definida como o número de elementos relevantes recuperados dividido pelo número total de elementos relevantes existentes, que deveriam ter sido recuperados (equação \ref{eq:revocacao}).
+
+\begin{equation}
+  Precisão = \frac{TP}{TP+FP}
+\label{eq:precisao}
+\end{equation}
+
+
+\begin{equation}
+  Revocação = \frac{TP}{TP+FN}
+\label{eq:revocacao}
+\end{equation}
 
 
 %Dentre indicadores importantes para a avaliação do modelo de aprendizagem criado estão: a acurácia, ou seja, o percentual de exemplos na base de validação que são classificados corretamente pelo modelo criado; a variância, que é o quanto a acurácia varia entre diferentes bases de validação;
