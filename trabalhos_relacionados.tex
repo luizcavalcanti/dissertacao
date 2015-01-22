@@ -11,9 +11,9 @@ Ambas as seções a seguir apresentam os trabalhos relacionados em ordem cronol�
 
 palavras-chave: aerial image segmentation, terrain classification, terrain segmentation
 
-\cite{deng:2001}
+O trabalho de \citeonline{deng:2001} trata de um algoritmo chamado JSEG, que obtém a segmentação da imagem em duas etapas. A primeira é a  quantização das cores da imagem em diversas classes. Baseado nessas cores quantizadas, a segunda etapa computa o valor de uma variável \textit{J} indicando a intensidade das bordas e utiliza um método de crescimento de região para segmentar a imagem baseada neste valor \textit{J}. O algoritmo ainda permite que o utilizador especifique o tamanho da janela para computar o valor de \textit{J}, o que torna o método bastante flexível para imagens de naturezas diferentes. Em imagens aéreas de escala considerável, como as utilizada neste trabalho, pode-se usar uma janela diminuta, já que os detalhes importantes podem ser bem pequenos. Para diminuir super-segmentação, os segmentos encontrados na segunda etapa são fundidos de acordo com com seus histogramas coloridos.
 
-\cite{comaniciu:2002}
+A abordagem utilizando mean-shift desenvolvida por \citeonline{comaniciu:2002} oferece uma ferramenta interessante para resolver o problema de segmentação de imagens. O algoritmos computa vetores de mean-shift iterativamente para mapear pixels para o domínio espacial e de cores do centro de seus agrupamentos (\textit{clusters}). Após a convergência, os \textit{clusters} são fundidos de acordo com parâmetros de similaridade. Parâmetros como largura de banda espacial, de cores e o tamanho do menor \textit{cluster}.
 
 \cite{benz:2004}
 
