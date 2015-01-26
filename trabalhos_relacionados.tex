@@ -3,13 +3,17 @@
 % aerial image classification
 % aerial image segmentation
 
-Os trabalhos relacionados apresentados nesta seção foram divididos primeiramente por assunto: de início, nos concentramos nos trabalhos publicados em segmentação de imagens aéreas, uma vez que esta é o primeiro desafio técnico a ser enfrentado pelo trabalho proposto. Depois fazemos o levantamento dos trabalhos relevantes na disciplina de aprendizagem de máquina, mais especificamente nos trabalhos sobre classificação de imagens aéreas.
+Os trabalhos relacionados apresentados nesta seção foram divididos primeiramente por assunto: de início, nos concentramos nos trabalhos publicados em segmentação de imagens que são considerados estado da arte, uma vez que esta é o primeiro desafio técnico a ser enfrentado pelo trabalho proposto. Depois fazemos o levantamento dos trabalhos relevantes na disciplina de aprendizagem de máquina, mais especificamente nos trabalhos sobre classificação de imagens aéreas.
 
 Ambas as seções a seguir apresentam os trabalhos relacionados em ordem cronológica de publicação, listando suas características, vantagens e desvantagens. No fim de cada seção, é apresentada uma tabela de comparação entre os métodos utilizados na literatura.
 
 \section{Segmentação de imagens}
 
 %\textbf{palavras-chave}: aerial image segmentation, terrain classification, terrain segmentation
+
+Os trabalhos relacionados nesta seção foram escolhidos por terem obtido os maiores índices de precisão e revocação em uma base de dados de imagens naturais bastante conhecida pela comunidade de processamento de imagens, \textit{Berkeley Segmentation Data Set and Benchmarks 500}, também conhecida como BSDS500. Uma comparação entre os mais promissores algoritmos de segmentação de imagens foi realizada por \citeonline{pami:2011}, consistindo na segmentação das imagens presentes no BSDS500 manualmente por seres humanos, e depois segmentadas pelos diversos algoritmos testados. A precisão e revocação de cada algoritmo são obtidas através de comparação com a segmentação manual.
+
+Para reduzir ainda mais o número de algoritmos a serem inspecionados para este trabalho, o \textit{survey} de \citeonline{yuan2:2013} compara os mesmos algoritmos que \citeonline{pami:2011} abordou, mas dessa vez em uma base de imagens aéreas. A metodologia é a mesma usada no BSDS500. Os algoritmos com os melhores resultados foram selecionados para serem utilizados na construção deste trabalho de pesquisa.
 
 O trabalho de \citeonline{deng:2001} trata de um algoritmo chamado JSEG, que obtém a segmentação da imagem em duas etapas. A primeira é a  quantização das cores da imagem em diversas classes. Baseado nessas cores quantizadas, a segunda etapa computa o valor de uma variável \textit{J} indicando a intensidade das bordas e utiliza um método de crescimento de região para segmentar a imagem baseada neste valor \textit{J}. O algoritmo ainda permite que o utilizador especifique o tamanho da janela para computar o valor de \textit{J}, o que torna o método bastante flexível para imagens de naturezas diferentes. Em imagens aéreas de escala considerável, como as utilizada neste trabalho, pode-se usar uma janela diminuta, já que os detalhes importantes podem ser bem pequenos. Para diminuir super-segmentação, os segmentos encontrados na segunda etapa são fundidos de acordo com com seus histogramas coloridos.
 
@@ -23,37 +27,31 @@ O algoritmo de \textit{Statistical Region Merging} (SRM) publicado por \citeonli
 
 O trabalho de \citeonline{yuan:2013} apresenta um algoritmo chamado \textit{Factorization-based segmentation} (FSEG). O FSEG primeiramente computa o histograma espectral para cada pixel da imagem, que é um amalgama de diversas respostas à filtros em uma janela local. Baseado na proposta de que cada característica pode ser aproximada por uma combinação linear de diversas características representativas e suas combinações ponderadas. Por fim, um pixel é dito pertencente à região com maior peso. O algoritmo FSEG utiliza decomposição de valores singulares e fatorização de matrizes não-negativas para aumentar a eficiência computacional da segmentação, o que é atrativo quando o tempo de processamento é um fator importante.
 
-O algoritmo introduzido por \citeonline{arbelaez:2011} realiza segmentação em várias etapas. Primeiramente a técnica combina informações de intensidade, textura e coloração para computar vetores que servirão como  detectores de contorno. Posteriormente, uma técnica de \textit{watershed} é aplicada à saída do detector de contornos para produzir uma segmentação hierárquica da imagem. Uma vantagem importante desta técnica é a possibilidade de ajustar a escala de segmentação, portanto o usuário pode escolher uma escala que mais se adequa ao tipo de imagem do problema. O algoritmo foi batizado de gPb-owt-ucm, um amalgama das abreviações das técnicas utilizadas em suas etapas.
+O algoritmo gPb-owt-ucm introduzido por \citeonline{arbelaez:2011} realiza segmentação em várias etapas. Primeiramente a técnica combina informações de intensidade, textura e coloração para computar vetores que servirão como  detectores de contorno. Posteriormente, uma técnica de \textit{watershed} é aplicada à saída do detector de contornos para produzir uma segmentação hierárquica da imagem. Uma vantagem importante desta técnica é a possibilidade de ajustar a escala de segmentação, portanto o usuário pode escolher uma escala que mais se adequa ao tipo de imagem do problema.
 
-% gPb-owt-ucm, 
-% Felz-Hutt
-% FSEG
-% SRM
+\textbf{DÚVIDA: Vale a pena fazer a tabela abaixo? Não sei que dados são relevantes para comparação neste momento, sem experimentos no meu trabalho}
 
 A tabela \ref{tab:sumarioSegmentacao} exibe uma comparação das características das diversas técnicas de segmentação de imagens relacionados levantadas neste trabalho.
 
 \begin{table}[h]
 \begin{tabular}{|l|l|l|}
 \hline
-\textbf{Técnica} & \textbf{Características} & \textbf{Aprendizado} \\ \hline
-JSEG        & Cor, borda & - \\ \hline
-Mean-shift  &  & - \\ \hline
-Felz-Hutt   &  & - \\ \hline
-FSEG        &  & - \\ \hline
-SRM         &  & - \\ \hline
-gPb-owt-ucm &  & - \\ \hline
+\textbf{Algoritmo} & \textbf{Características} & \textbf{Técnicas} \\ \hline
+JSEG        & Cor, borda & \\ \hline
+Mean-shift  & Cor, posição & \\ \hline
+MSEG        & Cor, morfologia & \\ \hline
+FSEG        & Textura & \\ \hline
+SRM         & Cor, intensidade & \\ \hline
+gPb-owt-ucm & Cor, borda & \\ \hline
 \end{tabular}
 \caption{Comparação entre os trabalhos sobre segmentação de imagens}
 \label{tab:sumarioSegmentacao}
 \end{table}
 
-%\cite{benz:2004}
-
-%\cite{nock:2004}
-
-%\cite{arbelaez:2011}
-
-%\cite{yuan:2013}
+% gPb-owt-ucm
+% Felz-Hutt
+% FSEG
+% SRM
 
 \section{Classificação de imagens aéreas}
 
