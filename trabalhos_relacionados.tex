@@ -15,34 +15,34 @@ Os trabalhos relacionados nesta seção foram escolhidos por terem obtido os mai
 
 Para reduzir ainda mais o número de algoritmos a serem inspecionados para este trabalho, o \textit{survey} de \citeonline{yuan2:2013} compara os mesmos algoritmos que \citeonline{pami:2011} abordou, mas dessa vez em uma base de imagens aéreas. A metodologia é a mesma usada no BSDS500. Os algoritmos com os melhores resultados foram selecionados para serem utilizados na construção deste trabalho de pesquisa.
 
-O trabalho de \citeonline{deng:2001} trata de um algoritmo chamado JSEG, que obtém a segmentação da imagem em duas etapas. A primeira é a  quantização das cores da imagem em diversas classes. Baseado nessas cores quantizadas, a segunda etapa computa o valor de uma variável \textit{J} indicando a intensidade das bordas e utiliza um método de crescimento de região para segmentar a imagem baseada neste valor \textit{J}. O algoritmo ainda permite que o utilizador especifique o tamanho da janela para computar o valor de \textit{J}, o que torna o método bastante flexível para imagens de naturezas diferentes. Em imagens aéreas de escala considerável, como as utilizada neste trabalho, pode-se usar uma janela diminuta, já que os detalhes importantes podem ser bem pequenos. Para diminuir super-segmentação, os segmentos encontrados na segunda etapa são fundidos de acordo com com seus histogramas coloridos.
+O trabalho de \citeonline{deng:2001} trata de um algoritmo chamado JSEG, que obtém a segmentação da imagem em duas etapas. A primeira é a  quantização das cores da imagem em diversas classes. Baseado nessas cores quantizadas, a segunda etapa computa o valor de uma variável \textit{J} indicando a intensidade das bordas e utiliza um método de crescimento de região para segmentar a imagem baseada neste valor \textit{J}. O algoritmo ainda permite que o utilizador especifique o tamanho da janela para computar o valor de \textit{J}, o que torna o método bastante flexível para imagens de naturezas diferentes. Em imagens aéreas de escala considerável, como as utilizadas neste trabalho, pode-se usar uma janela diminuta, já que os detalhes importantes podem ser bem pequenos. Para diminuir super-segmentação, os segmentos encontrados na segunda etapa são fundidos de acordo com com seus histogramas coloridos.
 
-A abordagem utilizando mean-shift desenvolvida por \citeonline{comaniciu:2002} oferece uma ferramenta interessante para resolver o problema de segmentação de imagens. O algoritmos computa vetores de mean-shift iterativamente para mapear pixels para o domínio espacial e de cores do centro de seus agrupamentos (\textit{clusters}). Após a convergência, os \textit{clusters} são fundidos de acordo com parâmetros de similaridade. Parâmetros como largura de banda espacial, de cores e o tamanho do menor \textit{cluster}.
+A abordagem utilizando mean-shift desenvolvida por \citeonline{comaniciu:2002} oferece uma ferramenta interessante para resolver o problema de segmentação de imagens. O algoritmo computa vetores de mean-shift iterativamente para mapear pixels para o domínio espacial e de cores do centro de seus agrupamentos (\textit{clusters}). Após a convergência, os \textit{clusters} são fundidos de acordo com parâmetros de similaridade. Parâmetros como largura de banda espacial, de cores e o tamanho do menor \textit{cluster}.
 
 O algoritmo MSEG, descrito por \citeonline{felzenszwalb:2004}, é amplamente usado pela comunidade de sensoriamento remoto. No MSEG, o aumento na heterogeneidade no momento da junção de um par de segmentos é computado como uma soma ponderada de medidas de coloração e morfologia. O procedimento de junção é realizado iterativamente, e  junta os pares de segmento que resultam no menor aumento de heterogeneidade possível, até que a soma exceda um limiar, que pode ser parametrizado pelo utilizador.
 
 Sob a óptica de grafos, os pixels são tratados como nodos e os pesos de suas arestas representam a diferença entre características entre os pixels. Um segmento corresponde a um componente conectado nesse grafo. Um parâmetro é utilizado para definir a escala observada na segmentação, o que influi no tamanho e número dos segmentos resultantes.
 
-O algoritmo de \textit{Statistical Region Merging} (SRM) publicado por \citeonline{nock:2004} utiliza um procedimento simples de junção acompanhado de uma operação de ordenação para segmentar imagens com eficiência. Duas regiões são unidas se o valor médio dos pixels das duas regiões estão mais próximos que um limiar previamente definido. A coesão da segmentação pode ser controlada por um parâmetro definido pelo usuário.
+O algoritmo de \textit{Statistical Region Merging} (SRM) publicado por \citeonline{nock:2004} utiliza um procedimento simples de junção acompanhado de uma operação de ordenação para segmentar imagens com eficiência. Duas regiões são unidas se os valores médios dos pixels das duas regiões estão mais próximos que um limiar previamente definido. A coesão da segmentação pode ser controlada por um parâmetro definido pelo usuário.
 
-O trabalho de \citeonline{yuan:2013} apresenta um algoritmo chamado \textit{Factorization-based segmentation} (FSEG). O FSEG primeiramente computa o histograma espectral para cada pixel da imagem, que é um amalgama de diversas respostas à filtros em uma janela local. Baseado na proposta de que cada característica pode ser aproximada por uma combinação linear de diversas características representativas e suas combinações ponderadas. Por fim, um pixel é dito pertencente à região com maior peso. O algoritmo FSEG utiliza decomposição de valores singulares e fatorização de matrizes não-negativas para aumentar a eficiência computacional da segmentação, o que é atrativo quando o tempo de processamento é um fator importante.
+O trabalho de \citeonline{yuan:2013} apresenta um algoritmo chamado \textit{Factorization-based segmentation} (FSEG). O FSEG primeiramente computa o histograma espectral para cada pixel da imagem, que é um amalgama de diversas respostas aos filtros em uma janela local. Baseado na proposta de que cada característica pode ser aproximada por uma combinação linear de diversas características representativas e suas combinações ponderadas. Por fim, um pixel é dito pertencente à região com maior peso. O algoritmo FSEG utiliza decomposição de valores singulares e fatorização de matrizes não-negativas para aumentar a eficiência computacional da segmentação, o que é atrativo quando o tempo de processamento é um fator importante.
 
 O algoritmo gPb-owt-ucm introduzido por \citeonline{arbelaez:2011} realiza segmentação em várias etapas. Primeiramente a técnica combina informações de intensidade, textura e coloração para computar vetores que servirão como  detectores de contorno. Posteriormente, uma técnica de \textit{watershed} é aplicada à saída do detector de contornos para produzir uma segmentação hierárquica da imagem. Uma vantagem importante desta técnica é a possibilidade de ajustar a escala de segmentação, portanto o usuário pode escolher uma escala que mais se adequa ao tipo de imagem do problema.
 
-\textbf{DÚVIDA: Vale a pena fazer a tabela abaixo? Não sei que dados são relevantes para comparação neste momento, sem experimentos no meu trabalho}
+\textbf{DÚVIDA: Vale a pena fazer a tabela abaixo? Não sei que dados são relevantes para comparação neste momento, sem experimentos no meu trabalho. Os papers não apresentam dados sobre precisão, nem performance.}
 
 A tabela \ref{tab:sumarioSegmentacao} exibe uma comparação das características das diversas técnicas de segmentação de imagens relacionados levantadas neste trabalho.
 
 \begin{table}[h]
-\begin{tabular}{|l|l|l|}
+\begin{tabular}{|l|l|l|c|}
 \hline
-\textbf{Algoritmo} & \textbf{Características} & \textbf{Técnicas} \\ \hline
-JSEG        & Cor, borda & \\ \hline
-Mean-shift  & Cor, posição & \\ \hline
-MSEG        & Cor, morfologia & \\ \hline
-FSEG        & Textura & \\ \hline
-SRM         & Cor, intensidade & \\ \hline
-gPb-owt-ucm & Cor, borda & \\ \hline
+\textbf{Algoritmo} & \textbf{Características} & \textbf{Técnicas} & \textbf{Precisão} \\ \hline
+JSEG        & Cor, borda & - & \\ \hline
+Mean-shift  & Cor, posição &  & \\ \hline
+MSEG        & Cor, morfologia &  & \\ \hline
+FSEG        & Textura &  & \\ \hline
+SRM         & Cor, intensidade &  & \\ \hline
+gPb-owt-ucm & Cor, borda &  & \\ \hline
 \end{tabular}
 \caption{Comparação entre os trabalhos sobre segmentação de imagens}
 \label{tab:sumarioSegmentacao}
@@ -56,13 +56,31 @@ gPb-owt-ucm & Cor, borda & \\ \hline
 \section{Classificação de imagens aéreas}
 
 %\textbf{palavras-chave}: aerial image classification
+Os trabalhos relacionados sobre classificação de imagens aéreas foram selecionados de acordo com suas semelhanças com o trabalho proposto neste documento. Todos tratam de imagens aéreas ortogonais, ou seja, com inclinação de aproximadamente 90\degree em relação ao solo, em cenas naturais e com bases de dados com forte presença de vegetação. Os trabalhos relacionados expressam diferentes formas de classificação das imagens: classificação de pixels individuais, blocos ou superpixels.
 
-O trabalho de \citeonline{dubuisson:2000} apresenta uma técnica de segmentação focada em imagens aéreas coloridas que realiza a segmentações separadamente por cor e textura, para no final unir as duas e chegar a uma segmentação final utilizando um algoritmo de classificação por máxima verosimilhança (\textit{Maximum Likelihood}). O objetivo do trabalho de \cite{dubuisson:2000} é atualização de mapas antigos a partir de imagens recentes, mas as técnicas, se comprovadamente úteis ao problema deste trabalho, podem ser aplicadas em uma pré-classificação de tipos de terreno.
+Todos os trabalhos descritos a seguir possuem imagens em escala similar às imagens de VANTs, baseando-se na altitude regular de operação desses equipamentos. O fato de terem sido coletadas com VANTs ou não, é de pouca importância para efeitos de comparação, já que os aspectos técnicos das imagens são compatíveis.
 
-De acordo com \citeonline{sadgal:2005}, o processamento de imagens digitais que representam cenas naturais requer elaboração substancial em todos os níveis: pré-processamento, segmentação, reconhecimento e interpretação. O trabalho apresentado sugere uma abordagem onde todas essas etapas acontecem em um único nível, e propõe um modelo de visão que tenta generalizar o reconhecimento de objetos utilizando categorização e cooperação.  A solução proposta combina processos estocásticos, dentre os quais Inferência Bayesiana, Campos Aleatórios de Markov, com métodos não estocásticos como Redes Neurais Artificiais. Esta diversidade de métodos é utilizada na segmentação e na extração de características de cores, texturas e formas, que depois são usadas na classificação dos objetos.
+O trabalho de \citeonline{dubuisson:2000} apresenta uma técnica de segmentação focada em imagens aéreas coloridas que realiza a segmentações separadamente por cor e textura, para no final unir as duas e chegar a uma segmentação final utilizando um algoritmo de classificação por máxima verosimilhança (\textit{Maximum Likelihood}). O objetivo do trabalho de \citeonline{dubuisson:2000} é atualização de mapas antigos a partir de imagens recentes, mas as técnicas, se comprovadamente úteis ao problema deste trabalho, podem ser aplicadas em uma pré-classificação de tipos de terreno.
 
-A pesquisa realizada por \citeonline{ahmadi:2013} tem como objetivo fazer segmentação semântica e classificação de imagens aéreas, pixel a pixel. Para tal, diversos classificadores e atributos das imagens são testados, chegando-se a conclusão de que o uso do algoritmo de KNN em características de cor e textura, mais precisamente o filtro de Gabor \cite{fogel:1989} dos canais de matiz, saturação e intensidade (HSV) de cada pixel, obtiveram os melhores resultados, com um desempenho computacional superior aos métodos de baseline.
+De acordo com \citeonline{sadgal:2005}, o processamento de imagens digitais que representam cenas naturais requer elaboração substancial em todos os níveis: pré-processamento, segmentação, reconhecimento e interpretação. O trabalho apresentado sugere uma abordagem onde todas essas etapas acontecem em um único nível, e propõe um modelo de visão que tenta generalizar o reconhecimento de objetos utilizando categorização e cooperação.  A solução proposta combina processos estocásticos, dentre os quais Inferência Bayesiana, Campos Aleatórios de Markov, com métodos não estocásticos como Redes Neurais Artificiais. Esta diversidade de métodos é utilizada na segmentação e na extração de características de cores, texturas e formas, que depois são usadas na classificação dos objetos. Embora pouco seja falado sobre o esforço computacional da solução, os resultados parecem ser satisfatórios em imagens naturais.
 
-O trabalho de \citeonline{ghiasi:2013} realiza segmentação e classificação de tipos de terreno em imagens aéreas através de dois passos: primeiramente a imagem é dividida em superpixels, utilizando a técnica de fluxos geométricos de \cite{levinshtein:2009}; posteriormente, cada superpixel tem suas características de textura e cor extraídas e é classificado através do algoritmo KNN. As características apontadas como mais úteis pelos autores são o Local Binary Pattern Histogram Fourier (LBP-HF) \cite{ahonen:2009} para informações de textura e histograma dos canais RGB para informações sobre cores. O artigo alega conseguir realizar o processo em tempo real, com precisão superior a 95\% em todas as classes utilizadas.
+A pesquisa realizada por \citeonline{ahmadi:2013} tem como objetivo fazer segmentação e classificação de imagens aéreas, pixel a pixel. Para tal, diversos classificadores e atributos das imagens são testados, chegando-se a conclusão de que o uso do algoritmo de KNN em características de cor e textura, mais precisamente o filtro de Gabor \cite{fogel:1989} dos canais de matiz, saturação e intensidade (HSV) de cada pixel, obtiveram os melhores resultados, com um desempenho computacional superior aos métodos de baseline.
+
+O trabalho de \citeonline{ghiasi:2013} realiza segmentação e classificação de tipos de terreno em imagens aéreas através de dois passos: primeiramente a imagem é dividida em superpixels, utilizando a técnica de fluxos geométricos de \citeonline{levinshtein:2009}; posteriormente, cada superpixel tem suas características de textura e cor extraídas e é classificado através do algoritmo KNN. As características apontadas como mais úteis pelos autores são o Local Binary Pattern Histogram Fourier (LBP-HF) \cite{ahonen:2009} para informações de textura e histograma dos canais RGB para informações sobre cores. O artigo alega conseguir realizar o processo em tempo real, com precisão superior a 95\% em todas as classes utilizadas.
+
+\begin{table}[h]
+\begin{tabular}{|l|l|l|c|}
+\hline
+\textbf{Trabalho} & \textbf{Características} & \textbf{Tipo de aprendizado} & \textbf{Precisão} \\ \hline
+Dubuisson-Jolly & Cor, textura & Máxima verosimilhança & 91,86\% \\ \hline
+Sadgal          & Cor, textura, morfologia & Probabilísticos, redes neurais & - \\ \hline
+Ahmadi          & Cor, textura & KNN & 82,23\% \\ \hline
+Ghiasi          & Cor, textura & KNN & 95\% \\ \hline
+\end{tabular}
+\caption{Comparação entre os trabalhos sobre classificação de imagens aéreas}
+\label{tab:sumarioClassificacao}
+\end{table}
 
 Este trabalho pretende adaptar ou enriquecer os métodos utilizados na literatura, aplicando-os especificamente à segmentação e classificação de imagens aéreas de floresta amazônica, que possui seus desafios característicos, visto que o tipo de terreno e vegetação apresentam padrões diferentes dos vários trabalhos realizados em áreas urbanas ou florestas temperadas.
+
+O diferencial deste trabalho em relação aos demais reside na organização e ordenação das etapas de aprendizado, realizando a classificação em dois níveis: primeiramente uma segmentação por tipo de terreno é realizada, e posteriormente métodos de classificação são usados para detecção de anomalias para cada tipo de terreno encontrado. Mais detalhes sobre o método proposto serão discutidos no capítulo \ref{cap:metodologia}.
