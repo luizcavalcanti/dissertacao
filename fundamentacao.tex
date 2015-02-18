@@ -1,4 +1,4 @@
-\chapter{Fundamentação Teórica e Trabalhos Relacionados}
+\chapter{Fundamentação Teórica}
 
 Neste capítulo são discutidos os conceitos básicos ao entendimento deste trabalho, abrangendo aprendizagem de máquina, processamento digital de imagens, segmentação de imagens e extração de características.
 
@@ -18,7 +18,7 @@ Os problemas de aprendizagem podem ainda ser divididos de acordo com o tipo de s
 
 \begin{itemize}
 	\item \textbf{Problemas de classificação}: quando a saída esperada para o problema é uma classe ou categoria, ou seja, um valor discreto;
-	\item \textbf{Problemas de regressão}: quando a saída esperada para o é um valor numérico, normalmente contínuo.
+	\item \textbf{Problemas de regressão}: quando a saída esperada para o problema é um valor numérico, normalmente contínuo.
 \end{itemize}
 
 Um problema de classificação, ou seja, um problema em que o objetivo é atribuir corretamente classes discretas (rótulos) aos exemplos de dados, consiste na determinação de regras e posterior classificação desses exemplos. Este conjunto de regras é criado por um classificador, que recebe como entrada um vetor de características e oferece como saída uma classe resultante para a instância que as características descrevem, conforme pode ser visto na figura \ref{fig:classificador}.
@@ -34,7 +34,7 @@ Os tipos de classificadores utilizados neste trabalho serão discutidos com mais
 
 Para composição do modelo de aprendizagem, uma base de dados de treinamento é utilizada. Esta base deve possuir uma quantidade significativa e com boa representatividade das classes envolvidas no problema. Normalmente se usa uma parte da base de dados de treinamento para validação do modelo de aprendizado (validação cruzada) ou mesmo uma base de dados diferente (base de testes ou validação), para que indicadores de qualidade do modelo possam ser avaliados. A seção \ref{sec:avaliacao} discorre sobre os métodos de avaliação utilizados neste trabalho.
 
-Técnicas de aprendizagem de máquina podem ser utilizadas para encontrar padrões em diversos domínios, inclusive em imagens. É neste ponto que a disciplina de aprendizagem de máquina, advinda da área de inteligência artificial, se encontra com a disciplina de reconhecimento de padrões, advinda da área de processamento de sinais. Segundo \citeonline{jain:1989}, o fluxo padrão para soluções de reconhecimento de padrões consiste em três etapas:
+Técnicas de aprendizagem de máquina podem ser utilizadas para encontrar padrões em diversos domínios, inclusive em imagens. É neste ponto que a linha de pesquisa de aprendizagem de máquina, advinda da área de inteligência artificial, se encontra com a linha de pesquisa de reconhecimento de padrões, advinda da área de processamento de sinais. Segundo \citeonline{jain:1989}, o fluxo padrão para soluções de reconhecimento de padrões consiste em três etapas:
 
 \begin{enumerate}
     \item Filtragem e pré-processamento da entrada;
@@ -47,27 +47,25 @@ Técnicas de aprendizagem de máquina podem ser utilizadas para encontrar padrõ
 
 A etapa de filtragem e pré-processamento é responsável pela escolha e montagem da base de dados que será usada no processo de aprendizagem. A base deve conter uma quantidade significativa de exemplos de todas as classes envolvidas no problema.
 
-Em aprendizado relacionado a imagens, essa etapa é comumente a responsável por normalizar e salientar as características desejadas nas amostras (realce de imagens, filtragem, etc). Exemplos irrelevantes, distorcidos ou repetidos também são eliminados durante a filtragem.
-
-O objetivo principal desta etapa é preparar a base de dados para as etapas seguintes.
+Em aprendizado relacionado a imagens, essa etapa é comumente a responsável por normalizar e salientar as características desejadas nas amostras (realce de imagens, filtragem, etc). Exemplos irrelevantes, distorcidos ou repetidos também são eliminados durante a filtragem. O objetivo principal desta etapa é preparar a base de dados para as etapas seguintes.
 
 
 \subsection{Extração de Características}
 
 A extração de características é feita selecionando os atributos oriundos dos dados (imagens, no trabalho em questão), a fim de encontrar as características úteis para o processo de reconhecimento. Essa etapa é crítica ao sucesso do aprendizado, uma vez que bons algoritmos de aprendizado só obtêm êxito com um bom conjunto de características relevantes ao problema.
 
-Em projetos que envolvem classificação de imagens, uma gama de atributos pode ser extraída, e podem ser descritos pelo nível da informação que representam. Nesta etapa há uma forte contribuição da disciplina de processamento digital de imagens \cite{gonzalez:2002}, que descreve filtragens, transformações e outras técnicas capazes de extrair informações sobre uma imagem ou pedaços dela.
+Em projetos que envolvem classificação de imagens, uma gama de atributos pode ser extraída, e podem ser descritos pelo nível da informação que representam. Nesta etapa há uma forte contribuição da linha de pesquisa de processamento digital de imagens \cite{gonzalez:2002}, que descreve filtragens, transformações e outras técnicas capazes de extrair informações sobre uma imagem ou pedaços dela.
 
 Segundo \citeonline{nixon:2008}, informações de baixo-nível como bordas, histogramas de intensidade e coloração, são úteis para o reconhecimento de padrões em imagens, assim como características de níveis mais altos, como texturas, transformadas de Hough e extração de regiões conectadas.
 
-O produto desta etapa é a representação de cada exemplo da base de dados em um vetor de características, de forma que possa ser usado por um ou mais classificadores em uma etapa futura.
+O produto desta etapa é a representação de cada exemplo da base de dados em um vetor de características, de forma que possa ser usado por um ou mais classificadores em uma etapa posterior.
 
 
 \subsection{Classificação}\label{sec:classificacao}
 
 Nesta etapa, todas as amostras de treinamento são classificadas e um modelo de aprendizado é gerado. Posteriormente ao processo de aprendizado, é nesta mesma etapa que as amostras não classificadas receberão uma classe dentre as envolvidas no problema. É neste momento que podemos comparar o desempenho de diferentes algoritmos de aprendizado para o conjunto de características escolhido para representar o problema.
 
-Pode-se usar múltiplos classificadores mais simples, ao invés de apenas um mais robusto. Esta abordagem é chamada de sistemas com múltiplos classificadores (do inglês \textit{multiple classifier systems}) e podem ser compostos por classificadores do mesmo tipo (denominado \textit{Ensemble} de classificadores) ou de diferentes tipos.
+Pode-se também usar múltiplos classificadores, ao invés de apenas. Esta abordagem é chamada de sistemas com múltiplos classificadores (do inglês \textit{multiple classifier systems}), os quais podem ser compostos por classificadores do mesmo tipo (denominado \textit{Ensemble} de classificadores) ou de diferentes tipos.
 
 São muitos os exemplos de classificadores que existem na literatura. Alguns dos mais utilizados são: classificadores estatísticos, redes neurais artificiais, árvores de decisão, máquinas de vetores de suporte, KNN, etc \cite{jain:1989}. 
 
