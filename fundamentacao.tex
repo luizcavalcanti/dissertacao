@@ -1,6 +1,25 @@
 \chapter{Fundamentação Teórica}
 
-Neste capítulo são discutidos os conceitos básicos ao entendimento deste trabalho, abrangendo aprendizagem de máquina, processamento digital de imagens, segmentação de imagens e extração de características.
+Neste capítulo são discutidos os conceitos básicos ao entendimento deste trabalho, abrangendo processamento digital de imagens, segmentação de imagens, aprendizagem de máquina, extração de características e avaliação de desempenho dos métodos utilizados.
+
+\section{Processamento Digital de Imagens}
+
+Uma imagem pode ser definida por uma função bi-dimensional, $f(x,y)$, onde $x$ e $y$ são coordenadas espaciais de um plano, e a amplitude de $f$ para um par de coordenadas $(x,y)$ é chamada de intensidade da imagem naquele ponto. Quando $x$, $y$ e a amplitude de valores de $f$ são todas quantidades finitas e discretas, podemos chamar a imagem de imagem  digital. A linha de pesquisa de processamento digital de imagens se refere ao processamento digital dessas imagens através de um computador digital \cite{gonzalez:2002}.
+
+Uma imagem digital é composta por um número finito de elementos, cada um com um valor ($f$) e localização ($x$ e $y$) particulares. Estes elementos são chamados de elementos da imagem ou \textit{pixels}, do inglês \textit{picture elements}.
+
+Ainda de acordo com \citeonline{gonzalez:2002}, o interesse em processamento digital de imagens advém de duas principais áreas de aplicação: melhoramento de informações pictóricas para interpretação humana; e processamento de imagens para armazenamento e transmissão de dados, e representação para percepção de máquinas autônomas.
+
+\subsection{Segmentação de Imagens}
+
+O processo de segmentação subdivide uma imagem em suas várias regiões ou objetos. O nível em que a subdivisão é feita depende do problema a ser resolvido, ou seja, a segmentação deve parar quando os objetos de interesse de uma aplicação forem isolados. Por exemplo, na inspeção automática de uma linha de montagem de produtos eletrônicos, o interesse reside em analisar imagens dos produtos com o objetivo de determinar a presença ou ausência de anomalias específicas, como componentes faltando ou conexões quebradas. Não há sentido em continuar segmentando além do nível de detalhes necessário para a identificação destes elementos.
+
+Segmentação de imagens é um dos problemas mais difíceis em processamento digital de imagens \cite{gonzalez:2002}. Algoritmos de segmentação geralmente se baseiam em uma das duas propriedades básicas de valores de intensidade dos pixels: descontinuidade e similaridade. Na primeira propriedade, a abordagem é particionar a imagem baseando-se em mudanças abruptas na intensidade dos pixels, como as bordas. A segunda categoria se baseia no particionamento de uma imagem em regiões que são similares de acordo com um critério em particular, que pode ser coloração, textura, entre outros.
+
+Neste trabalho, conforme será descrito no capítulo \ref{cap:metodologia}, testamos uma série de atributos para determinar a melhor forma de segmentar as regiões das imagens aéreas da floresta amazônica, como uma das etapas da pesquisa de detecção de anomalias.
+
+Muitas vezes, técnicas de segmentação de imagens não são suficientes para isolar ou detectar componentes específicos na coleção de imagens. Trabalhos recentes têm utilizado, com frequência, algoritmos de aprendizagem de máquina para resolver este problema.
+
 
 \section{Aprendizagem de máquina e reconhecimento de padrões}
 
@@ -92,10 +111,11 @@ São muitos os exemplos de classificadores que existem na literatura. Alguns dos
 
 %Existe uma grande variedade de algoritmos de aprendizagem de máquina propostos na literatura tais como Árvores de Decisão, k Vizinhos mais Próximos (kNN), Redes Neurais Artificiais, Support Vector Machines (SVM), etc. [Santos, 2008]. Além desses métodos individuais, os algoritmos de aprendizagem de máquina podem também ser combinados em conjuntos de classificadores [Dietterich, 2000].
 
+Tanto durante o desenvolvimento de uma solução, quanto após sua execução em ambiente de produção, é preciso aferir ou quantificar o desempenho da técnica desenvolvida ou utilizada.
 
-\subsection{Avaliação}\label{sec:avaliacao}
+\section{Avaliação}\label{sec:avaliacao}
 
-Tanto durante o desenvolvimento de uma solução, quanto após sua execução em ambiente de produção, é preciso aferir ou quantificar o desempenho de um classificador. Isso é útil para determinar a qualidade do modelo criado, se o modelo continua adequado, bem como inspecionar se os atributos escolhidos são adequados para a classificação dos exemplos.
+Avaliar o desempenho de uma técnica de aprendizagem é útil para determinar a qualidade do modelo criado, aferir se o modelo continua adequado e inspecionar se os atributos escolhidos são relevantes para a classificação das amostras.
 
 Comumente, o percentual de acerto obtido na classificação das amostras é um importante parâmetro para medir o desempenho do modelo. Este parâmetro é conhecido como acurácia ou taxa de reconhecimento. O oposto da acurácia é conhecido como taxa de erro.
 
@@ -132,11 +152,3 @@ Ainda é possível obter a precisão e revocação. A precisão é o número de 
   Revocação = \frac{TP}{TP+FN}
 \label{eq:revocacao}
 \end{equation}
-
-\section{Segmentação de imagens}
-
-O processo de segmentação subdivide uma imagem em suas várias regiões ou objetos. O nível em que a subdivisão é feita depende do problema a ser resolvido, ou seja, a segmentação deve parar quando os objetos de interesse de uma aplicação forem isolados. Por exemplo, na inspeção automática de uma linha de montagem de produtos eletrônicos, o interesse reside em analisar imagens dos produtos com o objetivo de determinar a presença ou ausência de anomalias específicas, como componentes faltando ou conexões quebradas. Não há sentido em continuar segmentando além do nível de detalhes necessário para a identificação destes elementos.
-
-Segmentação de imagens não-triviais é um dos problemas mais difíceis em processamento digital de imagens \cite{gonzalez:2002}. Algoritmos de segmentação geralmente se baseiam em uma das duas propriedades básicas de valores de intensidade dos pixels: descontinuidade e similaridade. Na primeira propriedade, a abordagem é particionar a imagem baseando-se em mudanças abruptas na intensidade dos pixels, como as bordas. A segunda categoria se baseia no particionamento de uma imagem em regiões que são similares de acordo com um critério em particular, que pode ser coloração, textura, entre outros.
-
-Neste trabalho, conforme será descrito no capítulo \ref{cap:metodologia}, testamos uma série de atributos para determinar a melhor forma de segmentar as regiões das imagens aéreas da floresta amazônica, como uma das etapas da pesquisa de detecção de anomalias.
