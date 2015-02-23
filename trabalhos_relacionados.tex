@@ -5,15 +5,17 @@
 
 Os trabalhos relacionados apresentados nesta seção foram divididos primeiramente por assunto: de início, nos concentramos nos trabalhos publicados em segmentação de imagens que são considerados estado da arte, uma vez que esta é o primeiro desafio técnico a ser enfrentado pelo trabalho proposto. Depois, fazemos o levantamento de trabalhos relevantes sobre classificação de imagens aéreas.
 
-Ambas as seções a seguir apresentam os trabalhos relacionados em ordem cronológica de publicação, listando suas características, vantagens e desvantagens. No fim de cada seção, é apresentada uma tabela de comparação entre os métodos utilizados na literatura.
+Ambas as seções a seguir apresentam os trabalhos relacionados em ordem própria. A seção \ref{sec:trSegmentacao} apresenta os trabalhos sobre segmentação de imagens de acordo com a ordem apresentada no trabalho de comparação realizado por \citeonline{pami:2011}, explanado com mais detalhes sem seguida. A seção \ref{sec:trClassificacao} apresenta os trabalhos relacionados sobre classificação de imagens aéreas em ordem cronológica de publicação.
 
-\section{Segmentação de imagens}
+Cara artigo é descrito com suas características, vantagens e desvantagens. No fim de cada seção, é apresentada uma tabela de comparação entre os métodos utilizados na literatura.
+
+\section{Segmentação de imagens}\label{sec:trSegmentacao}
 
 %\textbf{palavras-chave}: aerial image segmentation, terrain classification, terrain segmentation
 
 Os trabalhos relacionados nesta seção foram escolhidos por terem obtido os maiores índices de precisão e revocação em uma base de dados de imagens naturais bastante conhecida pela comunidade de processamento de imagens, \textit{Berkeley Segmentation Data Set and Benchmarks 500}, também conhecida como BSDS500. Uma comparação entre os mais promissores algoritmos de segmentação de imagens foi realizada por \citeonline{pami:2011}, consistindo na segmentação das imagens presentes no BSDS500 manualmente por seres humanos, e depois segmentadas pelos diversos algoritmos testados. A precisão e revocação de cada algoritmo são obtidas através de comparação com a segmentação manual.
 
-Para reduzir ainda mais o número de algoritmos a serem inspecionados para este trabalho, o \textit{survey} de \citeonline{yuan2:2013} compara os mesmos algoritmos que \citeonline{pami:2011} abordou, mas dessa vez em uma base de imagens aéreas. A metodologia é a mesma usada no BSDS500. Os algoritmos com os melhores resultados foram selecionados para serem utilizados na construção deste trabalho de pesquisa.
+Para reduzir ainda mais o número de algoritmos a serem inspecionados para este trabalho, a revisão de \citeonline{yuan2:2013} compara os mesmos algoritmos que \citeonline{pami:2011} abordou, mas dessa vez em uma base de imagens aéreas. A metodologia é a mesma usada no BSDS500, mas com uma base especializada. Os algoritmos com os melhores resultados foram selecionados para serem utilizados na construção deste trabalho de pesquisa, e coincidem com os resultados do trabalho de \citeonline{pami:2011}.
 
 O trabalho de \citeonline{deng:2001} trata de um algoritmo chamado JSEG, que obtém a segmentação da imagem em duas etapas. A primeira é a  quantização das cores da imagem em diversas classes. Baseado nessas cores quantizadas, a segunda etapa computa o valor de uma variável \textit{J} indicando a intensidade das bordas e utiliza um método de crescimento de região para segmentar a imagem baseada neste valor \textit{J}. O algoritmo ainda permite que o utilizador especifique o tamanho da janela para computar o valor de \textit{J}, o que torna o método bastante flexível para imagens de naturezas diferentes. Em imagens aéreas de escala considerável, como as utilizadas neste trabalho, pode-se usar uma janela diminuta, já que os detalhes importantes podem ser bem pequenos. Para diminuir super-segmentação, os segmentos encontrados na segunda etapa são fundidos de acordo com com seus histogramas coloridos.
 
@@ -53,7 +55,7 @@ gPb-owt-ucm & Cor, borda &  & \\ \hline
 % FSEG
 % SRM
 
-\section{Classificação de imagens aéreas}
+\section{Classificação de imagens aéreas}\label{sec:trClassificacao}
 
 %\textbf{palavras-chave}: aerial image classification
 Os trabalhos relacionados sobre classificação de imagens aéreas foram selecionados de acordo com suas semelhanças com o trabalho proposto neste documento. Todos tratam de imagens aéreas ortogonais, ou seja, com inclinação de aproximadamente 90\degree em relação ao solo, em cenas naturais e com bases de dados com forte presença de vegetação. Os trabalhos relacionados expressam diferentes formas de classificação das imagens: classificação de pixels individuais, blocos ou superpixels.
