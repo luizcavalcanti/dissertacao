@@ -29,29 +29,26 @@ O trabalho de \citeonline{yuan:2013} apresenta um algoritmo chamado \textit{Fact
 
 O algoritmo gPb-owt-ucm introduzido por \citeonline{arbelaez:2011} realiza segmentação em várias etapas. Primeiramente a técnica combina informações de intensidade, textura e coloração para computar vetores que servirão como  detectores de contorno. Posteriormente, uma técnica de \textit{watershed} é aplicada à saída do detector de contornos para produzir uma segmentação hierárquica da imagem. Uma vantagem importante desta técnica é a possibilidade de ajustar a escala de segmentação, portanto o usuário pode escolher uma escala que mais se adequa ao tipo de imagem do problema.
 
-\textbf{DÚVIDA: Vale a pena fazer a tabela abaixo? Não sei que dados são relevantes para comparação neste momento, sem experimentos no meu trabalho. Os papers não apresentam dados sobre precisão, nem performance.}
-
 A tabela \ref{tab:sumarioSegmentacao} exibe uma comparação das características das diversas técnicas de segmentação de imagens relacionados levantadas neste trabalho.
 
 \begin{table}[h]
-\begin{tabular}{|l|l|l|c|}
+\centering
+\begin{tabular}{|l|l|c|c|}
 \hline
-\textbf{Algoritmo} & \textbf{Características} & \textbf{Técnicas} & \textbf{Precisão} \\ \hline
-JSEG        & Cor, borda & - & \\ \hline
-Mean-shift  & Cor, posição &  & \\ \hline
-MSEG        & Cor, morfologia &  & \\ \hline
-FSEG        & Textura &  & \\ \hline
-SRM         & Cor, intensidade &  & \\ \hline
-gPb-owt-ucm & Cor, borda &  & \\ \hline
+\textbf{Técnica} & \textbf{Características} & \textbf{Prec. bordas} & \textbf{Prec. regiões } \\ \hline
+Manual      &                  & 69\% & 84\% \\ \hline
+gPb-owt-ucm & Cor, borda       & 65\% & 69\% \\ \hline
+FSEG        & Textura          & 61\% & 66\% \\ \hline
+SRM         & Cor, intensidade & 60\% & 60\% \\ \hline
+JSEG        & Cor, borda       & 56\% & 66\% \\ \hline
+MSEG        & Cor, morfologia  & 57\% & 50\% \\ \hline
+Mean-shift  & Cor, posição     & 58\% & 48\% \\ \hline
 \end{tabular}
-\caption{Comparação entre os trabalhos sobre segmentação de imagens}
+\caption{Comparação entre os trabalhos sobre segmentação de imagens, ordenados por desempenho decrescente}
 \label{tab:sumarioSegmentacao}
 \end{table}
 
-% gPb-owt-ucm
-% Felz-Hutt
-% FSEG
-% SRM
+Na base de imagens aéreas utilizada por \citeonline{pami:2011}, o algoritmo gPb-owt-ucm de \citeonline{arbelaez:2011} possui um desempenho superior aos demais algoritmos avaliados, embora ainda seja inferior a segmentação manual feita por seres humanos. Para tentar encontrar algoritmos que superem o desempenho dos trabalhos descritos nesta seção, uma revisão bibliográfica foi feita em artigos sobre classificação de imagens aéreas que utilizem técnicas da disciplina de aprendizagem de máquina.
 
 \section{Classificação de imagens aéreas}\label{sec:trClassificacao}
 
