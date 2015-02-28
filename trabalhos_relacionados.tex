@@ -32,11 +32,12 @@ O algoritmo gPb-owt-ucm introduzido por \citeonline{arbelaez:2011} realiza segme
 A tabela \ref{tab:sumarioSegmentacao} exibe uma comparação das características das diversas técnicas de segmentação de imagens relacionados levantadas neste trabalho.
 
 \begin{table}[h]
+\ABNTEXfontereduzida
 \centering
 \begin{tabular}{|l|l|c|c|}
 \hline
 \textbf{Técnica} & \textbf{Características} & \textbf{Prec. bordas} & \textbf{Prec. regiões } \\ \hline
-Manual      &                  & 69\% & 84\% \\ \hline
+Manual      & Não aplicável    & 69\% & 84\% \\ \hline
 gPb-owt-ucm & Cor, borda       & 65\% & 69\% \\ \hline
 FSEG        & Textura          & 61\% & 66\% \\ \hline
 SRM         & Cor, intensidade & 60\% & 60\% \\ \hline
@@ -48,7 +49,9 @@ Mean-shift  & Cor, posição     & 58\% & 48\% \\ \hline
 \label{tab:sumarioSegmentacao}
 \end{table}
 
-Na base de imagens aéreas utilizada por \citeonline{pami:2011}, o algoritmo gPb-owt-ucm de \citeonline{arbelaez:2011} possui um desempenho superior aos demais algoritmos avaliados, embora ainda seja inferior a segmentação manual feita por seres humanos. Para tentar encontrar algoritmos que superem o desempenho dos trabalhos descritos nesta seção, uma revisão bibliográfica foi feita em artigos sobre classificação de imagens aéreas que utilizem técnicas da disciplina de aprendizagem de máquina.
+Na base de imagens aéreas utilizada por \citeonline{pami:2011}, o algoritmo gPb-owt-ucm de \citeonline{arbelaez:2011} possui um desempenho superior aos demais algoritmos avaliados, embora ainda seja inferior a segmentação manual feita por seres humanos. 
+
+Uma vez que o trabalho aqui apresentado se propõe a, em uma primeira etapa, não apenas segmentar, mas também classificar os diferentes tipos de terreno em uma imagem aérea, um levantamento bibliográfico foi feito sobre técnicas de segmentação e classificação de imagens aéreas que utilizem a disciplina de aprendizagem de máquina.
 
 \section{Classificação de imagens aéreas}\label{sec:trClassificacao}
 
@@ -66,18 +69,20 @@ A pesquisa realizada por \citeonline{ahmadi:2013} tem como objetivo fazer segmen
 O trabalho de \citeonline{ghiasi:2013} realiza segmentação e classificação de tipos de terreno em imagens aéreas através de dois passos: primeiramente a imagem é dividida em superpixels, utilizando a técnica de fluxos geométricos de \citeonline{levinshtein:2009}; posteriormente, cada superpixel tem suas características de textura e cor extraídas e é classificado através do algoritmo KNN. As características apontadas como mais úteis pelos autores são o Local Binary Pattern Histogram Fourier (LBP-HF) \cite{ahonen:2009} para informações de textura e histograma dos canais RGB para informações sobre cores. O artigo alega conseguir realizar o processo em tempo real, com precisão superior a 95\% em todas as classes utilizadas.
 
 \begin{table}[h]
-\begin{tabular}{|l|l|l|c|}
+\ABNTEXfontereduzida
+\centering
+\begin{tabular}{|l|l|l|l|c|}
 \hline
-\textbf{Trabalho} & \textbf{Características} & \textbf{Tipo de aprendizado} & \textbf{Precisão} \\ \hline
-Dubuisson-Jolly & Cor, textura & Máxima verosimilhança & 91,86\% \\ \hline
-Sadgal          & Cor, textura, morfologia & Probabilísticos, redes neurais & - \\ \hline
-Ahmadi          & Cor, textura & KNN & 82,23\% \\ \hline
-Ghiasi          & Cor, textura & KNN & 95\% \\ \hline
+\textbf{Trabalho} & \textbf{Características} & \textbf{Tipo de aprendizado} & \textbf{Amostra} & \textbf{Precisão} \\ \hline
+Dubuisson-Jolly & Cor, textura & Máxima verosimilhança & Pixel & 91,86\% \\ \hline
+Sadgal          & Cor, textura, morfologia & Probabilísticos, redes neurais & Pixel & Indisponível \\ \hline
+Ahmadi          & Cor, textura & KNN & Pixel & 82,23\% \\ \hline
+Ghiasi          & Cor, textura & KNN & Superpixel & 95\% \\ \hline
 \end{tabular}
 \caption{Comparação entre os trabalhos sobre classificação de imagens aéreas}
 \label{tab:sumarioClassificacao}
 \end{table}
 
-Este trabalho pretende adaptar ou enriquecer os métodos utilizados na literatura, aplicando-os especificamente à segmentação e classificação de imagens aéreas de floresta amazônica, que possui seus desafios característicos, visto que o tipo de terreno e vegetação apresentam padrões diferentes dos vários trabalhos realizados em áreas urbanas ou florestas temperadas.
+Este trabalho pretende adaptar ou enriquecer os métodos utilizados na literatura, aplicando-os especificamente à detecção de anomalias em imagens aéreas da floresta amazônica, que possui seus desafios característicos, visto que o tipo de terreno e vegetação apresentam padrões diferentes dos vários trabalhos realizados em áreas urbanas ou florestas temperadas.
 
-O diferencial deste trabalho em relação aos demais reside na organização e ordenação das etapas de aprendizado, realizando a classificação em dois níveis: primeiramente uma segmentação por tipo de terreno é realizada, e posteriormente métodos de classificação são usados para detecção de anomalias para cada tipo de terreno encontrado. Mais detalhes sobre o método proposto serão discutidos no capítulo \ref{cap:metodologia}.
+O diferencial deste trabalho em relação aos demais reside na organização e ordenação das etapas de aprendizado, realizando a classificação em dois níveis: primeiramente, cada tipo de terreno encontrado na imagem é segmentado e classificado; posteriormente, métodos de classificação específicos para cada tipo de terreno são empregados para a detecção de anomalias. Mais detalhes sobre o método proposto serão discutidos no capítulo \ref{cap:metodologia}.
