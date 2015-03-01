@@ -34,7 +34,7 @@ A tabela \ref{tab:sumarioSegmentacao} exibe uma comparação das característica
 \begin{table}[h]
 \ABNTEXfontereduzida
 \centering
-\begin{tabular}{|l|l|c|c|}
+\begin{tabulary}{\linewidth}{|L|L|C|C|}
 \hline
 \textbf{Técnica} & \textbf{Características} & \textbf{Prec. bordas} & \textbf{Prec. regiões } \\ \hline
 Manual      & Não aplicável    & 69\% & 84\% \\ \hline
@@ -44,7 +44,7 @@ SRM         & Cor, intensidade & 60\% & 60\% \\ \hline
 JSEG        & Cor, borda       & 56\% & 66\% \\ \hline
 MSEG        & Cor, morfologia  & 57\% & 50\% \\ \hline
 Mean-shift  & Cor, posição     & 58\% & 48\% \\ \hline
-\end{tabular}
+\end{tabulary}
 \caption{Comparação entre os trabalhos sobre segmentação de imagens, ordenados por desempenho decrescente}
 \label{tab:sumarioSegmentacao}
 \end{table}
@@ -68,17 +68,19 @@ A pesquisa realizada por \citeonline{ahmadi:2013} tem como objetivo fazer segmen
 
 O trabalho de \citeonline{ghiasi:2013} realiza segmentação e classificação de tipos de terreno em imagens aéreas através de dois passos: primeiramente a imagem é dividida em superpixels, utilizando a técnica de fluxos geométricos de \citeonline{levinshtein:2009}; posteriormente, cada superpixel tem suas características de textura e cor extraídas e é classificado através do algoritmo KNN. As características apontadas como mais úteis pelos autores são o Local Binary Pattern Histogram Fourier (LBP-HF) \cite{ahonen:2009} para informações de textura e histograma dos canais RGB para informações sobre cores. O artigo alega conseguir realizar o processo em tempo real, com precisão superior a 95\% em todas as classes utilizadas.
 
+A tabela \ref{tab:sumarioClassificacao} apresenta um sumário dos trabalhos levantados nesta seção, ordenados conforme aparição.
+
 \begin{table}[h]
 \ABNTEXfontereduzida
 \centering
-\begin{tabular}{|l|l|l|l|c|}
+\begin{tabulary}{\linewidth}{|L|L|L|L|C|}
 \hline
-\textbf{Trabalho} & \textbf{Características} & \textbf{Tipo de aprendizado} & \textbf{Amostra} & \textbf{Precisão} \\ \hline
-Dubuisson-Jolly & Cor, textura & Máxima verosimilhança & Pixel & 91,86\% \\ \hline
-Sadgal          & Cor, textura, morfologia & Probabilísticos, redes neurais & Pixel & Indisponível \\ \hline
-Ahmadi          & Cor, textura & KNN & Pixel & 82,23\% \\ \hline
-Ghiasi          & Cor, textura & KNN & Superpixel & 95\% \\ \hline
-\end{tabular}
+\textbf{Trabalho} &  \textbf{Aprendizado} & \textbf{Amostra} & \textbf{Problema investigado} &  \textbf{Precisão} \\ \hline
+Dub-Jolly & Máxima verosimilhança & Pixel      & Atualização de mapas           & 91,86\% \\ \hline
+Sadgal    & Redes neurais         & Blocos     & Classificação de terreno       & -       \\ \hline
+Ahmadi    & KNN                   & Pixel      & Classificação de terreno       & 82,23\% \\ \hline
+Ghiasi    & KNN                   & Superpixel & Busca por objetos de interesse & 95\%    \\ \hline
+\end{tabulary}
 \caption{Comparação entre os trabalhos sobre classificação de imagens aéreas}
 \label{tab:sumarioClassificacao}
 \end{table}
