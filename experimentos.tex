@@ -6,7 +6,7 @@ A base de dados (imagens) utilizada advém do projeto GEOMA \cite{geoma}, financ
 
 No momento do início dos experimentos deste trabalho, estas imagens tiradas de aviões tripulados eram as únicas disponíveis publicamente. Podemos considerá-las válidas por terem sido tiradas em altitude de vôo compatível com as missões de VANTs de vigilância, entre 900 e 1.100 metros do solo. Como este trabalho tem como objetivo utilizar apenas câmeras de espectro visível, são dispensáveis comparações de sensores com VANTs que eventualmente possuam sonar, câmeras infravermelho ou outros tipos de sensores.
 
-\begin{figure}
+\begin{figure}[h]
   \centering
   \begin{subfigure}[b]{0.3\textwidth}
     \includegraphics[width=\textwidth]{imgs/amostra1}
@@ -23,9 +23,18 @@ No momento do início dos experimentos deste trabalho, estas imagens tiradas de 
   \label{fig:amostra}
 \end{figure}
 
-A base possui um total de 3.044 imagens, com dimensão total de 1,02 Gigabytes de dados, e foi utilizada apenas parcialmente durante os experimentos, até o momento.
+A base possui um total de 3.044 imagens, com dimensão total de 1,02 Gigabytes de dados. Cerca de 150 imagens foram utilizadas nos experimentos até o momento, visto que um grande esforço precisa ser despendido na classificação manual das imagens em todas as etapas do experimento, consumindo um tempo considerável.
 
-\section{Segmentação e classificação de terreno}
+Para facilitar a classificação manual foi construída uma ferramenta gráfica que permite o usuário segmentar e classificar as regiões das imagens de acordo com as classes disponíveis (figura \ref{fig:visualClassifier}).
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.7\textwidth]{imgs/visualClassifier}
+  \caption{Ferramenta para segmentação e classificação manual das imagens em regiões}
+  \label{fig:visualClassifier}
+\end{figure}
+
+\section{Segmentação}
 
 TO-DO
 
