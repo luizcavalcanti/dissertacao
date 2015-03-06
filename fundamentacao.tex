@@ -107,12 +107,16 @@ Diversas formas de calcular a distância entre duas amostras $a$ e $b$ em um esp
 \label{eq:euclides}
 \end{equation}
 
-As máquinas de vetores de suporte, ou SVM (\textit{Support Vector Machine}) são classificadores baseados na teoria de aprendizagem estatística proposta por \cite{vapnik:1995}. A teoria é baseada em uma forte fundamentação matemática para estimação de dependências e previsão do aprendizado a partir de conjuntos de dados finitos. O objetivo do SVM é utilizar vetores de suporte para maximizar a distância das amostras aos hiperplano de separação entre as classes (figura \ref{fig:svm}), com isso simplificando o modelo e minimizando o erro de treinamento.
+As máquinas de vetores de suporte, ou SVM (\textit{Support Vector Machine}) são classificadores baseados na teoria de aprendizagem estatística proposta por \cite{vapnik:1995}. A teoria é baseada em uma forte fundamentação matemática para estimação de dependências e previsão do aprendizado a partir de conjuntos de dados finitos. 
+
+Um modelo SVM é a representação das amostras como pontos em um espaço n-dimensional (onde n é o tamanho do vetor de características) de tal forma que as amostras de diferentes classes sejam divididas por um plano de separação que maximiza a distância entre essas classes. Isso se deve ao fato de que o plano de separação possui a maior distância possível às amostras mais próximas entre as classes, o que ajuda a diminuir o erro de generalização (\textit{over-fitting}) do classificador.
+
+A principal vantagem do classificador SVM é seu bom desempenho em conjuntos de dados que possuem muitos atributos, mesmo quando há poucas amostras de treino. No entanto, suas desvantagens são a baixa velocidade e alto consumo de recursos durante as fases de treinamento, assim como a complexidade de parametrização de suas funções \textit{kernel}. As amostras de teste são classificadas ao serem posicionadas no espaço de características e avaliadas em que lado da superfície de separação elas se encontram, como mostrado na figura \ref{fig:svm}.
 
 \begin{figure}[h!]
   \centering
   \includegraphics[scale=0.5]{imgs/svm}
-  \caption{Amostras em um espaço bi-dimensional separadas por um hiperplano apoiado por vetores de suporte}
+  \caption[Máquina de vetores de suporte]{Amostras em um espaço bi-dimensional (pontos coloridos) separadas por um hiperplano apoiado por vetores de suporte (setas vermelhas), maximizando a distância entre as amostras mais próximas entre as classes (pontos circulados)}
   \label{fig:svm}
 \end{figure}
 
