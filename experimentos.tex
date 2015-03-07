@@ -4,7 +4,7 @@
 
 A base de dados (imagens) utilizada advém do projeto GEOMA \cite{geoma}, financiado pelo Instituto de Pesquisas Espaciais (INPE). Trata-se de imagens coloridas, codificadas em JPEG e com 640 pixels de largura por 480 pixels de altura. A base é composta por fotografias ortogonais ao relevo (como pode ser visto na figura \ref{fig:amostra}), de altitudes variadas e tiradas a partir de aeronaves tripuladas, durante o trajeto entre diversas cidades da região amazônica.
 
-No momento do início dos experimentos deste trabalho, estas imagens tiradas de aviões tripulados eram as únicas disponíveis publicamente. Podemos considerá-las válidas por terem sido tiradas em altitude de vôo compatível com as missões de VANTs de vigilância, entre 900 e 1.100 metros do solo. Como este trabalho tem como objetivo utilizar apenas câmeras de espectro visível, são dispensáveis comparações de sensores com VANTs que eventualmente possuam sonar, câmeras infravermelho ou outros tipos de sensores.
+No momento do início dos experimentos deste trabalho, estas imagens tiradas de aviões tripulados eram as únicas disponíveis publicamente. Podemos considerá-las válidas por terem sido tiradas em altitude de voo compatível com as missões de VANTs de vigilância, entre 900 e 1.100 metros do solo. Como este trabalho tem como objetivo utilizar apenas câmeras de espectro visível, são dispensáveis comparações de sensores com VANTs que eventualmente possuam sonar, câmeras infravermelho ou outros tipos de sensores.
 
 \begin{figure}[h]
   \centering
@@ -119,13 +119,13 @@ Decision tree  & 82,2\% & 14,49 s \\ \hline
 
 Para o primeiro nível de classificação, que se resume a definir os tipos de terrenos das regiões encontradas na segmentação, um experimento com métodos bastante difundidos de aprendizagem de máquina foi realizado.
 
-Utilizando as técnicas de K vizinhos mais próximos (KNN), máquinas de vetores de suporte (SVM) e árvores de decisão, um experimento foi conduzido em uma parte da base de dados. As mesmas 150 imagens do experimento de segmentação anteriormente apresentado foram utilizados.
+Utilizando as técnicas de K vizinhos mais próximos (KNN), máquinas de vetores de suporte (SVM) e árvores de decisão, um experimento foi conduzido em uma parte da base de dados. As mesmas 150 imagens do experimento de segmentação anteriormente apresentado foram utilizadas.
 
-Primeiramente, todas as imagens foram segmentadas utilizando o método Mean-shift, por ter obitido o melhor desempenho no experimento de segmentação anterior. Cada região encontrada nesta segmentação foi devidamente classificada manualmente, e suas características foram extraídas. A partir desse ponto bases de dados de treinamento e validação supervisionadas foram criadas, onde cada região segmentada representava uma amostra de treinamento ou validação.
+Primeiramente, todas as imagens foram segmentadas utilizando o método Mean-shift, por ter obtido o melhor desempenho no experimento de segmentação anterior. Cada região encontrada nesta segmentação foi devidamente classificada manualmente, e suas características foram extraídas. A partir desse ponto bases de dados de treinamento e validação supervisionadas foram criadas, onde cada região segmentada representava uma amostra de treinamento ou validação.
 
 As características extraídas para cada região foram:
 \begin{itemize}
-	\item Cor média para os canais vemelho, verde e azul;
+	\item Cor média para os canais vermelho, verde e azul;
 	\item Histograma dos canais vermelho, verde e azul;
 	\item Tom de cinza médio;
 	\item Histograma de tons de cinza.

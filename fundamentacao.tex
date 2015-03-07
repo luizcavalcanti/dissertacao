@@ -4,7 +4,7 @@ Neste capítulo são discutidos os conceitos básicos ao entendimento deste trab
 
 \section{Processamento Digital de Imagens}
 
-Uma imagem pode ser definida por uma função bi-dimensional, $f(x,y)$, onde $x$ e $y$ são coordenadas espaciais de um plano, e a amplitude de $f$ para um par de coordenadas $(x,y)$ é chamada de intensidade da imagem naquele ponto. Quando $x$, $y$ e a amplitude de valores de $f$ representam quantidades finitas e discretas, podemos chamar a imagem de imagem  digital. A linha de pesquisa de processamento digital de imagens se refere ao processamento digital dessas imagens através de um computador digital \cite{gonzalez:2002}.
+Uma imagem pode ser definida por uma função bidimensional, $f(x,y)$, onde $x$ e $y$ são coordenadas espaciais de um plano, e a amplitude de $f$ para um par de coordenadas $(x,y)$ é chamada de intensidade da imagem naquele ponto. Quando $x$, $y$ e a amplitude de valores de $f$ representam quantidades finitas e discretas, podemos chamar a imagem de imagem  digital. A linha de pesquisa de processamento digital de imagens se refere ao processamento digital dessas imagens através de um computador digital \cite{gonzalez:2002}.
 
 Uma imagem digital é composta por um número finito de elementos, cada um com um valor ($f$) e localização ($x$ e $y$) particulares. Estes elementos são chamados de elementos da imagem ou \textit{pixels}, do inglês \textit{picture elements}.
 
@@ -107,7 +107,7 @@ Diversas formas de calcular a distância entre duas amostras $a$ e $b$ em um esp
 \label{eq:euclides}
 \end{equation}
 
-As máquinas de vetores de suporte, ou SVM (\textit{Support Vector Machine}) são classificadores baseados na teoria de aprendizagem estatística proposta por \cite{vapnik:1995}. A teoria é baseada em uma forte fundamentação matemática para estimação de dependências e previsão do aprendizado a partir de conjuntos de dados finitos. 
+As máquinas de vetores de suporte, ou SVM (\textit{Support Vector Machines}) são classificadores baseados na teoria de aprendizagem estatística proposta por \cite{vapnik:1995}. A teoria é baseada em uma forte fundamentação matemática para estimação de dependências e previsão do aprendizado a partir de conjuntos de dados finitos. 
 
 Um modelo SVM é a representação das amostras como pontos em um espaço n-dimensional (onde n é o tamanho do vetor de características) de tal forma que as amostras de diferentes classes sejam divididas por um plano de separação que maximiza a distância entre essas classes. Isso se deve ao fato de que o plano de separação possui a maior distância possível às amostras mais próximas entre as classes, o que ajuda a diminuir o erro de generalização (\textit{over-fitting}) do classificador.
 
@@ -116,7 +116,7 @@ A principal vantagem do classificador SVM é seu bom desempenho em conjuntos de 
 \begin{figure}[h!]
   \centering
   \includegraphics[scale=0.5]{imgs/svm}
-  \caption[Máquina de vetores de suporte]{Amostras em um espaço bi-dimensional (pontos coloridos) separadas por um hiperplano apoiado por vetores de suporte (setas vermelhas), maximizando a distância entre as amostras mais próximas entre as classes (pontos circulados)}
+  \caption[Máquina de vetores de suporte]{Amostras em um espaço bidimensional (pontos coloridos) separadas por um hiperplano apoiado por vetores de suporte (setas vermelhas), maximizando a distância entre as amostras mais próximas entre as classes (pontos circulados)}
   \label{fig:svm}
 \end{figure}
 
