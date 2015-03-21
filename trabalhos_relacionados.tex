@@ -29,7 +29,7 @@ O trabalho de \citeonline{yuan:2013} apresenta um algoritmo chamado \textit{Fact
 
 O algoritmo gPb-owt-ucm introduzido por \citeonline{arbelaez:2011} realiza segmentação em várias etapas. Primeiramente a técnica combina informações de intensidade, textura e coloração para computar vetores que servirão como  detectores de contorno. Posteriormente, uma técnica de \textit{watershed} é aplicada à saída do detector de contornos para produzir uma segmentação hierárquica da imagem. Uma vantagem importante desta técnica é a possibilidade de ajustar a escala de segmentação, portanto o usuário pode escolher uma escala que mais se adequa ao tipo de imagem do problema, evitando segmentação excessiva da imagem.
 
-A tabela \ref{tab:sumarioSegmentacao} exibe uma comparação das características das diversas técnicas de segmentação de imagens relacionados levantadas neste trabalho.
+A tabela \ref{tab:sumarioSegmentacao} exibe os resultados encontrados por \citeonline{yuan2:2013}, justo com uma descrição das características das diversas técnicas de segmentação de imagens levantadas neste trabalho.
 
 \begin{table}[h]
 \ABNTEXfontereduzida
@@ -45,7 +45,7 @@ JSEG        & Cor, borda       & 56\% & 66\% \\ \hline
 MSEG        & Cor, morfologia  & 57\% & 50\% \\ \hline
 Mean-shift  & Cor, posição     & 58\% & 48\% \\ \hline
 \end{tabulary}
-\caption{Comparação entre os trabalhos sobre segmentação de imagens, ordenados por desempenho decrescente}
+\caption{Comparação entre as técnicas de segmentação de imagens, ordenados por desempenho decrescente, conforme resultados em \citeonline{yuan2:2013} }
 \label{tab:sumarioSegmentacao}
 \end{table}
 
