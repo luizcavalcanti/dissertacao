@@ -93,38 +93,22 @@
 
 \begin{frame}
 \frametitle{Introdução}
-Os órgãos de segurança e de patrulhamento ambiental lidam diariamente com missões de alto risco. Essas missões têm grande custo de operação e representam um perigo significativo para os agentes humanos envolvidos. 
 
-\vspace{0.5cm}
+	Amazônia legal:
+	\begin{itemize}
+		\item 11 mil km de fronteiras;
+		\item 22 mil km de vias fluviais;
+		\item 66\% do território nacional.
+	\end{itemize}
 
-Amazônia legal: 
+	\vspace{0.5cm}
 
-\begin{itemize}
-	\item 11 mil km de fronteiras;
-	\item 22 mil km de vias fluviais;
-	\item 66\% do território nacional.
-\end{itemize}
-
-\vspace{0.5cm}
-
-Veículos Aéreos Não-Tripulados (VANTs) podem ser utilizados para minimizar custos, aumentar eficiência e mitigar riscos.
-\end{frame}
-
-
-\begin{frame}
-\frametitle{Introdução}
-
-%Os VANTs têm sido utilizados em uma miríade de missões de diferentes naturezas, com destaque para o combate a crimes em áreas de fronteira.
-Na região da Floresta Amazônica, os veículos podem ser utilizados no combate ao tráfico de animais, à extração ilegal de madeira e outros crimes ambientais. %\cite{silva:2013}.
-
-\vspace{0.5cm}
-
-Vantagens:
-\begin{itemize}
-	\item Maior cobertura de área;
-	\item Aproximação discreta;
-	\item Variedade de sensores embarcados.
-\end{itemize}
+	Veículos Aéreos Não-Tripulados (VANTs) podem ser utilizados:
+	\begin{itemize}
+		\item Maior cobertura de área;
+		\item Aproximação discreta;
+		\item Variedade de sensores embarcados.
+	\end{itemize}
 
 \end{frame}
 
@@ -141,21 +125,7 @@ A quantidade maciça de dados gerados pelos VANTs leva à necessidade de desenvo
 	\item Necessidade de menos especialistas por missão.
 \end{itemize}
 
-\end{frame}
-
-\begin{frame}
-\frametitle{Motivação}
-
-É possível buscar padrões e reconhecer ameaças ou interesses que possam passar despercebidos por olhos humanos, especialmente em um material com extensão de horas. 
-
-\begin{itemize}
-	\item Acampamentos;
-	\item Pistas clandestinas;
-	\item Embarcações;
-	\item etc.
-\end{itemize}
-
-Técnicas de processamento digital de imagens (PDI) e aprendizagem de máquina (AM) podem ser muito úteis para detecção automática destes tipos de anomalias.
+%Técnicas de PDI e AM podem ajudar a encontrar:
 
 \end{frame}
 
@@ -222,126 +192,6 @@ Específicos:
 	
 	Revisão dos algoritmos mais bem sucedidos na BSD500, utilizando uma nova base de imagens, composta apenas de imagens aéreas.
 	
-	\vspace{.5cm}
-	\begin{multicols}{2}
-	\begin{itemize}
-		\item JSEG;
-		\item Mean-shift;
-		\item MSEG;
-		\item SRM;
-		\item FSEG;
-		\item gPb-owt-ucm.
-	\end{itemize}
-	\end{multicols}
-
-\end{frame}
-
-\begin{frame}
-	\frametitle{Trabalhos relacionados: Segmentação de imagens}
-
-	\textbf{Unsupervised segmentation of color-texture regions in images and video}	
-
-	\textit{Deng e Manjunath (2001)}
-
-	\vspace{.5cm}
-
-	Apresenta o algoritmo JSEG, que segmenta a imagem em duas etapas:
-	\begin{enumerate}
-		\item Quantização das cores em diversas classes;
-		\item Computação da intensidade das bordas ($J$) a partir das cores quantizadas. 
-	\end{enumerate}
-
-	\vspace{.5cm}	
-
-	As regiões são obtidas a partir de crescimento de região com base no valor de $J$.
-
-\end{frame}
-
-\begin{frame}
-	\frametitle{Trabalhos relacionados: Segmentação de imagens}
-	\textbf{Mean shift: a robust approach toward feature space analysis}
-	
-	\textit{Comaniciu e Meer (2002)}
-	
-	\vspace{0.5cm}
-	
-	O algoritmo computa vetores de mean-shift iterativamente para mapear pixels para o domínio espacial e de cores do centro de seus \textit{clusters}. Após a convergência, os \textit{clusters} são fundidos de acordo com parâmetros de similaridade. 
-	
-	\vspace{0.5cm}
-	
-	Parâmetros como largura de banda espacial, de cores e o tamanho do menor \textit{cluster} podem ser utilizados para adequar o algoritmo ao problema em questão.
-
-	
-\end{frame}
-
-\begin{frame}
-	\frametitle{Trabalhos relacionados: Segmentação de imagens}
-	
-	\textbf{Efficient graph-based image segmentation}
-	
-	\textit{Felzenszwalb e Huttenlocher (2004)}
-	
-	\vspace{0.5cm}
-	
-	O algoritmo MSEG é amplamente usado pela comunidade de sensoriamento remoto.
-	
-	\vspace{0.5cm}
-	
-	Sob a óptica de grafos, os pixels são tratados como nodos e os pesos de suas arestas representam a diferença entre características entre os pixels. Um segmento corresponde a um componente conectado.
-\end{frame}
-
-\begin{frame}
-	\frametitle{Trabalhos relacionados: Segmentação de imagens}
-
-	\textbf{Statistical region merging}
-
-	\textit{Nock e Nielsen (2004)}
-	
-	\vspace{0.5cm}
-
-	O algoritmo SRM utiliza um procedimento simples de junção acompanhado por uma operação de ordenação para segmentar imagens com eficiência. Duas regiões são unidas se a diferença entre os valores médios dos pixels das duas regiões estão abaixo de um limiar. 
-	
-	\vspace{0.5cm}
-	
-	A coesão da segmentação pode ser controlada por um parâmetro definido pelo usuário.
-
-\end{frame}
-
-\begin{frame}
-	\frametitle{Trabalhos relacionados: Segmentação de imagens}
-
-	\textbf{Contour Detection and Hierarchical Image Segmentation}
-
-	\textit{Arbelaez et al. (2011)}
-	
-	\vspace{0.5cm}
-
-	O algoritmo gPb-owt-ucm realiza segmentação em várias etapas. Primeiramente a técnica combina informações de intensidade, textura e coloração para computar vetores que servirão como detectores de contorno. Posteriormente, uma técnica de \textit{watershed} é aplicada à saída do detector de contornos para produzir uma segmentação hierárquica da imagem.
-
-\end{frame}
-
-\begin{frame}
-	\frametitle{Trabalhos relacionados: Segmentação de imagens}
-	
-	\textbf{Factorization-based texture segmentation}
-	
-	\textit{Yuan e Wang (2013)}
-	
-	\vspace{0.5cm}
-	
-	O FSEG primeiramente computa o histograma espectral para cada pixel da imagem. A proposta é que cada característica pode ser aproximada por uma combinação linear de diversas características representativas e suas combinações ponderadas. 
-	
-	\vspace{0.5cm}
-	
-	Por fim, um pixel é dito pertencente à região com maior peso. O algoritmo FSEG utiliza decomposição de valores singulares e fatoração de matrizes não-negativas para aumentar a eficiência computacional da segmentação.
-
-\end{frame}
-
-\begin{frame}
-	\frametitle{Trabalhos relacionados: Segmentação de imagens}
-	
-	Resultados em \textbf{Yuan, Gleason e Cheriyadat (2013)}:
-	
 	\small{
 	\begin{table}[h]
 	\centering
@@ -358,8 +208,133 @@ Específicos:
 	\end{tabulary}
 	\end{table}
 	}
-	
+
 \end{frame}
+
+%\begin{frame}
+%	\frametitle{Trabalhos relacionados: Segmentação de imagens}
+%
+%	\textbf{Unsupervised segmentation of color-texture regions in images and video}
+%
+%	\textit{Deng e Manjunath (2001)}
+%
+%	\vspace{.5cm}
+%
+%	Apresenta o algoritmo JSEG, que segmenta a imagem em duas etapas:
+%	\begin{enumerate}
+%		\item Quantização das cores em diversas classes;
+%		\item Computação da intensidade das bordas ($J$) a partir das cores quantizadas.
+%	\end{enumerate}
+%
+%	\vspace{.5cm}
+%
+%	As regiões são obtidas a partir de crescimento de região com base no valor de $J$.
+%
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Trabalhos relacionados: Segmentação de imagens}
+%	\textbf{Mean shift: a robust approach toward feature space analysis}
+%
+%	\textit{Comaniciu e Meer (2002)}
+%
+%	\vspace{0.5cm}
+%
+%	O algoritmo computa vetores de mean-shift iterativamente para mapear pixels para o domínio espacial e de cores do centro de seus \textit{clusters}. Após a convergência, os \textit{clusters} são fundidos de acordo com parâmetros de similaridade. 
+%
+%	\vspace{0.5cm}
+%
+%	Parâmetros como largura de banda espacial, de cores e o tamanho do menor \textit{cluster} podem ser utilizados para adequar o algoritmo ao problema em questão.
+%
+%
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Trabalhos relacionados: Segmentação de imagens}
+%
+%	\textbf{Efficient graph-based image segmentation}
+%
+%	\textit{Felzenszwalb e Huttenlocher (2004)}
+%
+%	\vspace{0.5cm}
+%
+%	O algoritmo MSEG é amplamente usado pela comunidade de sensoriamento remoto.
+%
+%	\vspace{0.5cm}
+%
+%	Sob a óptica de grafos, os pixels são tratados como nodos e os pesos de suas arestas representam a diferença entre características entre os pixels. Um segmento corresponde a um componente conectado.
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Trabalhos relacionados: Segmentação de imagens}
+%
+%	\textbf{Statistical region merging}
+%
+%	\textit{Nock e Nielsen (2004)}
+%
+%	\vspace{0.5cm}
+%
+%	O algoritmo SRM utiliza um procedimento simples de junção acompanhado por uma operação de ordenação para segmentar imagens com eficiência. Duas regiões são unidas se a diferença entre os valores médios dos pixels das duas regiões estão abaixo de um limiar. 
+%
+%	\vspace{0.5cm}
+%
+%	A coesão da segmentação pode ser controlada por um parâmetro definido pelo usuário.
+%
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Trabalhos relacionados: Segmentação de imagens}
+%
+%	\textbf{Contour Detection and Hierarchical Image Segmentation}
+%
+%	\textit{Arbelaez et al. (2011)}
+%
+%	\vspace{0.5cm}
+%
+%	O algoritmo gPb-owt-ucm realiza segmentação em várias etapas. Primeiramente a técnica combina informações de intensidade, textura e coloração para computar vetores que servirão como detectores de contorno. Posteriormente, uma técnica de \textit{watershed} é aplicada à saída do detector de contornos para produzir uma segmentação hierárquica da imagem.
+%
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Trabalhos relacionados: Segmentação de imagens}
+%
+%	\textbf{Factorization-based texture segmentation}
+%
+%	\textit{Yuan e Wang (2013)}
+%
+%	\vspace{0.5cm}
+%
+%	O FSEG primeiramente computa o histograma espectral para cada pixel da imagem. A proposta é que cada característica pode ser aproximada por uma combinação linear de diversas características representativas e suas combinações ponderadas. 
+%
+%	\vspace{0.5cm}
+%
+%	Por fim, um pixel é dito pertencente à região com maior peso. O algoritmo FSEG utiliza decomposição de valores singulares e fatoração de matrizes não-negativas para aumentar a eficiência computacional da segmentação.
+%
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Trabalhos relacionados: Segmentação de imagens}
+%
+%	Resultados em \textbf{Yuan, Gleason e Cheriyadat (2013)}:
+%
+%	\small{
+%	\begin{table}[h]
+%	\centering
+%	\begin{tabulary}{\linewidth}{|L|L|C|C|}
+%	\hline
+%	\textbf{Técnica} & \textbf{Características} & \textbf{Prec. bordas} & \textbf{Prec. regiões } \\ \hline
+%	Manual      & \hspace{1cm} -    & 69\% & 84\% \\ \hline
+%	gPb-owt-ucm & Cor, borda       & 65\% & 69\% \\ \hline
+%	FSEG        & Textura          & 61\% & 66\% \\ \hline
+%	SRM         & Cor, intensidade & 60\% & 60\% \\ \hline
+%	JSEG        & Cor, borda       & 56\% & 66\% \\ \hline
+%	MSEG        & Cor, morfologia  & 57\% & 50\% \\ \hline
+%	Mean-shift  & Cor, posição     & 58\% & 48\% \\ \hline
+%	\end{tabulary}
+%	\end{table}
+%	}
+%
+%\end{frame}
 
 \begin{frame}
 	\frametitle{Trabalhos relacionados: Classificação de imagens aéreas}
@@ -367,79 +342,79 @@ Específicos:
 	Os trabalhos levantados acerca desta seção tratam de classificação de imagens aéreas para fins de mapeamento ou detecção de características específicas. 
 	
 	\vspace{0.5cm}
-	
+
 	Os trabalhos foram selecionados por estar de acordo com as seguintes características das imagens utilizadas:
-	
+
 	\begin{itemize}
 		\item Altitude entre 1000 e 5000 metros;
 		\item Inclinação de aproximadamente 90\%;
 		\item Imagens com forte presença de vegetação.
 	\end{itemize}
-	
-\end{frame}
 
-\begin{frame}
-	\frametitle{Trabalhos relacionados: Classificação de imagens aéreas}
-	
-	\textbf{Color and texture fusion: application to aerial image segmentation and GIS updating}
-	
-	\textit{Dubuisson-Jolly e Gupta (2000)}
-	
-	\vspace{0.5cm}
-	
-	Apresenta uma técnica de segmentação focada em imagens aéreas coloridas que realiza a segmentações separadamente por cor e textura, para no final unir as duas e chegar a uma segmentação final utilizando um algoritmo de classificação por \textit{Maximum Likelihood}.
+%\end{frame}
 
-\end{frame}
+%\begin{frame}
+%	\frametitle{Trabalhos relacionados: Classificação de imagens aéreas}
+%
+%	\textbf{Color and texture fusion: application to aerial image segmentation and GIS updating}
+%
+%	\textit{Dubuisson-Jolly e Gupta (2000)}
+%
+%	\vspace{0.5cm}
+%
+%	Apresenta uma técnica de segmentação focada em imagens aéreas coloridas que realiza a segmentações separadamente por cor e textura, para no final unir as duas e chegar a uma segmentação final utilizando um algoritmo de classificação por \textit{Maximum Likelihood}.
+%
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Trabalhos relacionados: Classificação de imagens aéreas}
+%
+%	\textbf{Aerial image processing and object recognition}
+%
+%	\textit{Sadgal, Fazziki e Ouahman (2005)}
+%
+%	\vspace{0.5cm}
+%
+%	Sugere pré-processamento, segmentação e reconhecimento em uma única etapa. Combina métodos estocásticos (inferência Bayesiana, campos de Markov) e não-estocásticos (redes neurais).
+%
+%	\vspace{0.5cm}
+%
+%	Métodos são unidos no final do processo, permitindo parelelização de boa parte da solução.
+%
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Trabalhos relacionados: Classificação de imagens aéreas}
+%
+%	\textbf{A simple and efficient method for segmentation and classification of aerial images}
+%
+%	\textit{Ahmadi (2013)}
+%
+%	\vspace{0.5cm}
+%
+%	Utiliza características de cor (HSV) e textura (filtro de Gabor) e KNN para  realizar classificação de tipos de terreno em imagens aéreas.
+%
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Trabalhos relacionados: Classificação de imagens aéreas}
+%
+%	\textbf{Fast semantic segmentation of aerial images based on color and texture}
+%
+%	\textit{Ghiasi e Amirfattahi (2013)}
+%
+%	\vspace{0.5cm}
+%
+%	Realiza segmentação e classificação de tipos de terreno em imagens aéreas.
+%
+%	\vspace{0.5cm}
+%
+%	A imagem é dividida em superpixels (fluxos geométricos de Levishtein) e características de cor (RGB) e textura (LBP-HF) são extraídas. Cada superpixel é classificado com KNN.
+%
+%\end{frame}
 
-\begin{frame}
-	\frametitle{Trabalhos relacionados: Classificação de imagens aéreas}
-	
-	\textbf{Aerial image processing and object recognition}
-	
-	\textit{Sadgal, Fazziki e Ouahman (2005)}
-	
-	\vspace{0.5cm}
-	
-	Sugere pré-processamento, segmentação e reconhecimento em uma única etapa. Combina métodos estocásticos (inferência Bayesiana, campos de Markov) e não-estocásticos (redes neurais).
-
-	\vspace{0.5cm}
-	
-	Métodos são unidos no final do processo, permitindo parelelização de boa parte da solução.
-
-\end{frame}
-
-\begin{frame}
-	\frametitle{Trabalhos relacionados: Classificação de imagens aéreas}
-	
-	\textbf{A simple and efficient method for segmentation and classification of aerial images}
-	
-	\textit{Ahmadi (2013)}
-	
-	\vspace{0.5cm}
-	
-	Utiliza características de cor (HSV) e textura (filtro de Gabor) e KNN para  realizar classificação de tipos de terreno em imagens aéreas.
-
-\end{frame}
-
-\begin{frame}
-	\frametitle{Trabalhos relacionados: Classificação de imagens aéreas}
-
-	\textbf{Fast semantic segmentation of aerial images based on color and texture}
-
-	\textit{Ghiasi e Amirfattahi (2013)}
-
-	\vspace{0.5cm}
-
-	Realiza segmentação e classificação de tipos de terreno em imagens aéreas.
-
-	\vspace{0.5cm}
-
-	A imagem é dividida em superpixels (fluxos geométricos de Levishtein) e características de cor (RGB) e textura (LBP-HF) são extraídas. Cada superpixel é classificado com KNN.
-	
-\end{frame}
-
-\begin{frame}[c]
-	\frametitle{Trabalhos relacionados: Classificação de imagens aéreas}
+%\begin{frame}[c]
+%	\frametitle{Trabalhos relacionados: Classificação de imagens aéreas}
 	\tiny{
 		\begin{table}[h]
 		\centering
@@ -521,13 +496,13 @@ Específicos:
 	\frametitle{Metodologia: Segunda classificação}
 
 	A última etapa de classificação consiste em utilizar modelos de aprendizado específicos para cada tipo de terreno, para detectar objetos de interesse que não foram encontrados na etapa de segmentação, normalmente pequenos demais para serem definidos como uma região \textit{per se}, e que estão contidos em regiões maiores.
-	
+
 	\vspace{0.5cm} 
-	
+
 	Isso permite que cada tipo de terreno possa usar seus próprios métodos de aprendizado e características da imagem.
-	
+
 	\vspace{0.5cm}
-	
+
 	Nesta etapa serão explorados classificadores unários e multi-classe a fim de obter o melhor resultado na detecção dos objetos de interesse e um classificador, com seus parâmetros e vetor de características, será selecionado para cada tipo de terreno.
 \end{frame}
 
@@ -582,17 +557,17 @@ Específicos:
   		\centering
 		\includegraphics[scale=0.25]{imgs/visualClassifier}
 	\end{figure}
-	
+
 \end{frame}
 
 \begin{frame}
 	\frametitle{Segmentação}
-	
+
 	\begin{itemize}
 		\item 150 imagens;
 		\item Medição de resultados por sobreposição e orientação de \textit{edgels} (Martin et al., 2001)
 	\end{itemize}
-	
+
 	\small{
 	\begin{table}
 	\centering
@@ -623,7 +598,7 @@ Específicos:
 
 \begin{frame}
 	\frametitle{Segmentação}
-	
+
 	Um experimento para realizar segmentação e a primeira classificação em uma única etapa foi realizado, um artigo sobre o experimento foi publicado  na conferência VISAPP 2015. 
 
 	\small{
@@ -653,15 +628,15 @@ Específicos:
 		\item Histograma grayscale.
 	\end{itemize}
 
-	\vspace{0.5cm}
+%	\vspace{0.5cm}
 
-	Para o experimento, as mesmas 150 imagens usadas para segmentação foram utilizadas, resultando em 7.111 amostras (regiões segmentadas). Destas, 66\% serviram como amostras de treinamento e 33\% foram utilizadas como amostras de validação.
-	
-\end{frame}
+%	Para o experimento, as mesmas 150 imagens usadas para segmentação foram utilizadas, resultando em 7.111 amostras (regiões segmentadas). Destas, 66\% serviram como amostras de treinamento e 33\% foram utilizadas como amostras de validação.
 
-\begin{frame}[c]
-	\frametitle{Primeira classificação}
-	
+%\end{frame}
+
+%\begin{frame}[c]
+%	\frametitle{Primeira classificação}
+
 	\small{
 	\begin{table}[h]
 	\centering
@@ -674,6 +649,8 @@ Específicos:
 	\end{tabulary}
 	\end{table}
 	}
+	\centering
+	7.111 amostras (66\%/33\%).
 
 %Embora os resultados tenham sido promissores, ainda há bastante espaço para melhoria. Apenas características de cor e luminância foram exploradas, portanto, características de textura, morfologia e borda ainda precisam ser avaliadas.
 
@@ -681,7 +658,7 @@ Específicos:
 
 \begin{frame}
 	\frametitle{Próximos passos}
-	
+
 	\begin{itemize}
 		\item Experimentar com ensembles de classificadores para a primeira classificação;
 		\item Experimentar mais características para a primeira classificação: bordas, textura, morfologia, bag of visual words, vizinhança;
