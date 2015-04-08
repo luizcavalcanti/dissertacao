@@ -115,15 +115,21 @@
 \begin{frame}
 \frametitle{Motivação}
 
-A quantidade maciça de dados gerados pelos VANTs leva à necessidade de desenvolvimento de procedimentos capazes de avaliar essa grande quantidade de material e identificar os prováveis pontos de interesse. 
-
-\vspace{0.5cm}
+A quantidade maciça de dados gerados pelos VANTs leva à necessidade de desenvolvimento de procedimentos capazes de avaliar essa grande quantidade de material e identificar os prováveis objetos de interesse.
 
 \begin{itemize}
 	\item Maior rapidez na análise de dados;
 	\item Redução da quantidade de informação a analizar;
 	\item Necessidade de menos especialistas por missão.
 \end{itemize}
+
+Objetos de interesse:
+\begin{itemize}
+	\item Veículos terrestres e navais;
+	\item Acampamentos, construções;
+	\item Clareiras, pistas de pouso, estradas.
+\end{itemize}
+
 
 %Técnicas de PDI e AM podem ajudar a encontrar:
 
@@ -411,20 +417,20 @@ Específicos:
 %
 %	A imagem é dividida em superpixels (fluxos geométricos de Levishtein) e características de cor (RGB) e textura (LBP-HF) são extraídas. Cada superpixel é classificado com KNN.
 %
-%\end{frame}
+\end{frame}
 
-%\begin{frame}[c]
-%	\frametitle{Trabalhos relacionados: Classificação de imagens aéreas}
-	\tiny{
+\begin{frame}[c]
+	\frametitle{Trabalhos relacionados: Classificação de imagens aéreas}
+	\small{
 		\begin{table}[h]
 		\centering
 		\begin{tabulary}{\linewidth}{|L|L|L|L|C|}
 		\hline
-		\textbf{Trabalho} &  \textbf{Aprendizado} & \textbf{Amostra} & \textbf{Problema investigado} &  \textbf{Precisão} \\ \hline
-		Dub-Jolly & Máxima verossimilhança & Pixel      & Atualização de mapas           & 91,86\% \\ \hline
-		Sadgal    & Redes neurais         & Blocos     & Classificação de terreno       & -       \\ \hline
-		Ahmadi    & KNN                   & Pixel      & Classificação de terreno       & 82,23\% \\ \hline
-		Ghiasi    & KNN                   & Superpixel & Busca por objetos de interesse & 95\%    \\ \hline
+		\textbf{Trabalho} &  \textbf{Aprendizado} & \textbf{Problema investigado} &  \textbf{Precisão} \\ \hline
+		Dub-Jolly & Máxima veross. & Atualização de mapas           & 91,86\% \\ \hline
+		Sadgal    & Redes neurais          & Classificação de terreno       & -       \\ \hline
+		Ahmadi    & KNN                    & Classificação de terreno       & 82,23\% \\ \hline
+		Ghiasi    & KNN                    & Busca por objetos & 95\%    \\ \hline
 		\end{tabulary}
 		\end{table}
 	}
@@ -451,11 +457,16 @@ Específicos:
 \begin{frame}
 	\frametitle{Metodologia: Segmentação}
 
-	A primeira etapa do trabalho é a segmentação das imagens por tipo de terreno. Os métodos de segmentação de imagens considerados estado-da-arte serão aplicados à uma parte da base de imagens aéreas da floresta amazônica. 
-	
-	\vspace{0.5cm}
-	
-	Esta porção da base de imagens será manualmente segmentada por seres humanos e servirá de base de comparação para a segmentação realizada pelos métodos experimentados.
+	A primeira etapa do trabalho é a segmentação das imagens por tipo de terreno. Uma porção da base de imagens será manualmente segmentada por seres humanos e servirá de base de comparação para a segmentação realizada pelos métodos experimentados.
+
+	\begin{multicols}{2}
+		\begin{figure}
+			\includegraphics[scale=0.4]{imgs/exemplo_segmentacao}
+		\end{figure}
+		\begin{figure}
+			\includegraphics[scale=0.2]{imgs/exemplo_segmentacao2}
+		\end{figure}
+	\end{multicols}
 
 \end{frame}
 
@@ -478,8 +489,6 @@ Específicos:
 		\item Água;
 		\item Elementos anômalos.
 	\end{itemize}
-
-	\vspace{0.5cm}
 
 	Regiões rotuladas como "elementos anômalos" são consideradas regiões de interesse. As demais serão inspecionadas em uma segunda etapa de classificação. Os resultados de cada método serão comparados à uma classificação realizada por seres humanos.
 
@@ -596,6 +605,16 @@ Específicos:
 
 \end{frame}
 
+\begin{frame}[c]
+	\frametitle{Segmentação}
+
+	\begin{figure}[c]
+		\centering
+		\includegraphics[width=\textwidth]{imgs/gambi_apresentacao2}
+	\end{figure}
+
+\end{frame}
+
 \begin{frame}
 	\frametitle{Segmentação}
 
@@ -649,10 +668,29 @@ Específicos:
 	\end{tabulary}
 	\end{table}
 	}
+
+\end{frame}
+
+\begin{frame}
+	\frametitle{Primeira classificação}
+
 	\centering
 	7.111 amostras (66\%/33\%).
 
-%Embora os resultados tenham sido promissores, ainda há bastante espaço para melhoria. Apenas características de cor e luminância foram exploradas, portanto, características de textura, morfologia e borda ainda precisam ser avaliadas.
+	\small{
+	\begin{table}[h]
+	\centering
+	\begin{tabulary}{\linewidth}{|L|R|R|}
+		\hline
+		\textbf{Classe} & \textbf{Amostras} & \textbf{Percentual} \\ \hline
+		Floresta           & 4844 & 68,12\% \\ \hline
+		Vegetação rasteira & 893  & 12,56\% \\ \hline
+		Clareira           & 237  & 03,33\% \\ \hline
+		Água               & 1123 & 15,79\% \\ \hline
+		Elementos anômalos & 14   & 00,20\% \\ \hline
+	\end{tabulary}
+	\end{table}
+	}
 
 \end{frame}
 
