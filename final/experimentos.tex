@@ -1,4 +1,4 @@
-\chapter{Experimentos e Resultados Preliminares}\label{cap:experimentos}
+\chapter{Experimentos e Resultados}\label{cap:experimentos}
 
 \section{Base de dados}
 
@@ -25,16 +25,18 @@ No momento do início dos experimentos deste trabalho, estas imagens tiradas de 
 
 A base possui um total de 3.044 imagens, com dimensão total de 1,02 Gigabytes de dados. Cerca de 150 imagens foram utilizadas nos experimentos até o momento, visto que um grande esforço precisa ser despendido na classificação manual das imagens em todas as etapas do experimento, consumindo um tempo considerável.
 
-Para facilitar a classificação manual foi construída uma ferramenta gráfica que permite ao usuário segmentar e classificar as regiões das imagens de acordo com as classes disponíveis (figura \ref{fig:visualClassifier}). A saída deste aplicativo é uma coleção, para cada imagem, de informações sobre bordas das regiões e a classificação de cada pixel. Posteriormente essas informações serão confrontadas com o resultado da segmentação e primeiro nível de classificação da solução.
+Para criar uma referência (\textit{ground-truth}) para a segmentação das imagens da base de dados, uma ferramenta computacional executável em navegadores web foi construída (figura \ref{fig:manualseg}). A saída deste aplicativo é uma coleção, para cada imagem, de informações sobre bordas das regiões da imagem. Estas informações servirão de referência para avaliar o desempenho dos algoritmos de segmentação testados neste trabalho.
 
 \begin{figure}[h]
   \centering
-  \includegraphics[width=0.7\textwidth]{imgs/visualClassifier}
-  \caption{Ferramenta para segmentação e classificação manual das imagens em regiões}
-  \label{fig:visualClassifier}
+  \includegraphics[width=0.7\textwidth]{imgs/manualseg}
+  \caption{Ferramenta para segmentação manual das imagens}
+  \label{fig:manualseg}
 \end{figure}
 
 \section{Segmentação}
+
+Para criação da segmentação manual de referência (\textit{ground-truth}), \textbf{X} voluntários, todos alunos de pós-graduação em informática, foram convidados a realizar a segmentação manual das imagens da base de dados, através de uma ferramenta criada com esta finalidade \textbf{(colocar url?)}. Todos os voluntários foram orientados a segmentar as imagens utilizando critérios definidos nas instruções da própria ferramenta. O conteúdo integral das instruções pode ser encontrado no apêndice \ref{apendice:instrucoesManualSeg}.
 
 Para determinar qual dos algoritmos de segmentação levantados na pesquisa bibliográfica teria melhor desempenho na base de dados utilizada neste trabalho, todos foram implementados ou adaptados. Os algoritmos foram testados no conjunto inicial de 150 imagens e comparados com a segmentação manual realizada nas mesmas imagens.
 
