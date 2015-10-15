@@ -36,9 +36,30 @@ Para criar uma referência (\textit{ground-truth}) para a segmentação das imag
 
 \section{Segmentação}
 
-Para criação da segmentação manual de referência (\textit{ground-truth}), \textbf{X} voluntários, todos alunos de pós-graduação em informática, foram convidados a realizar a segmentação manual das imagens da base de dados, através de uma ferramenta criada com esta finalidade \textbf{(colocar url?)}. Todos os voluntários foram orientados a segmentar as imagens utilizando critérios definidos nas instruções da própria ferramenta. O conteúdo integral das instruções pode ser encontrado no apêndice \ref{apendice:instrucoesManualSeg}.
+Um experimento de comparação entre diversos algoritmos de segmentação de imagens foi planejado. Cada imagem da base de dados foi segmentada por seres humanos, segmentações estas que constituíram a base de referência para o experimento. Cada imagem tem sua segmentação de referência consolidada a partir da segmentação manual de pelo menos 5 seres humanos.
 
-Para determinar qual dos algoritmos de segmentação levantados na pesquisa bibliográfica teria melhor desempenho na base de dados utilizada neste trabalho, todos foram implementados ou adaptados. Os algoritmos foram testados no conjunto inicial de 150 imagens e comparados com a segmentação manual realizada nas mesmas imagens.
+\subsection{Protocolo experimental}
+
+Para criação da segmentação manual de referência (\textit{ground-truth}), 31 voluntários, todos alunos de pós-graduação em informática ou áreas relacionadas, foram convidados a realizar a segmentação manual das imagens da base de dados, através de uma ferramenta\footnote{http://amazonsegmentation.ddns.net/} criada com esta finalidade. A ferramenta de software web criada consiste de uma tela onde o usuário pode desenhar sobre uma imagem. A ideia é que nesta imagem sejam circunscritas as bordas das regiões definidas pelo usuário, de acordo com instruções fornecidas pela ferramenta e que foram lidas obrigatoriamente por cada voluntário antes do início do experimento.
+
+Em linhas gerais, as instruções orientam os voluntários a segmentar as imagens de acordo com a cobertura ou tipo de terreno, formação geológica ou vegetação, de acordo com os próprios critérios e granularidade que pareça mais adequada:
+
+\begin{citacao}[english]
+Your mission is to manually segment the given images as accurately as possible, according to your own judgment. The criteria here is terrain coverage. So, we would like to separate different vegetations, geological formations and human-made objects \cite{amazonsegmentation}
+\end{citacao}
+
+O conteúdo integral das instruções pode ser encontrado no apêndice \ref{apendice:instrucoesManualSeg}.
+
+%TODO O que se faz para unir e consolidar as segmentações?
+%TODO Este método foi proposto por quem?
+%TODO Qual a base estatística?
+
+\subsection{Métricas}
+
+
+\subsection{Estudo comparativo}
+
+Para determinar qual dos algoritmos de segmentação levantados na pesquisa bibliográfica teria melhor desempenho na base de dados utilizada neste trabalho, todos foram implementados ou adaptados. Os algoritmos foram testados em todas as imagens da base de dados do trabalho que possuíam segmentação manual consolidada pela ferramenta supracitada, usando estas como referência para avaliação das segmentações.
 
 Para avaliar as diferentes segmentações, o método introduzido por \citeonline{martin:2001} foi utilizado. Este método consiste na sobreposição de regiões e comparação de informações sobre localização e orientação dos elementos de borda (\textit{edgels}).
 
