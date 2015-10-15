@@ -56,8 +56,41 @@ O conteúdo integral das instruções pode ser encontrado no apêndice \ref{apen
 
 \subsection{Métricas}
 
+\textbf{Lugar certo? Talvez deva estar junto às métricas de avaliação de machine learning, na seção de fundamentação teórica, subseção de avaliação}
 
-\subsection{Estudo comparativo}
+Em primeiro lugar, é preciso aferir a validade da base de dados de segmentações manuais (\textit{ground-truth}), demonstrando que segmentações de uma mesma imagem feitas por diferentes indivíduos são consistentes. Em um segundo momento, é preciso avaliar os algoritmos de segmentação de forma objetiva.
+
+O problema em mensurar a consistência entre duas segmentações é que não há uma única segmentação possível para uma imagem. Duas pessoas podem segmentar uma imagem de forma significativamente diferente por terem uma percepção diferente da cena, ou ainda, por usar diferentes granularidades na segmentação.
+
+Quando a diferença entre duas segmentações advém de uma diferença de percepção da cena, é esperado que o erro seja grande e que as segmentações sejam consideradas inconsistentes. Quando a diferença é de granularidade, uma segmentação pode ser considerada apenas um refinamento da outra, portanto, o erro deve ser baixo ou até zero \cite{martin:2001}.
+
+\textbf{Adicionar uma imagem para demonstrar diferenças de granularidade?}
+
+Segmentação de imagens é simplesmente a divisão de pixels de uma imagem em conjuntos (segmentos). Uma possível medida de erro tem como entrada duas segmentações, $S_1$ e $S_2$, e tem como saída um valor real no intervalo $[0...1]$, onde $0$ significa ausência de erros de segmentação.
+
+Ainda de acordo com o trabalho de \citeonline{martin:2001}, é necessário utilizar medidas que sejam lenientes com o refinamento de granularidade entre duas segmentações de uma mesma imagem. Entende-se que se os pixels de um segmento podem ser considerados um subconjunto adequado de um outro segmento, trata-se de um refinamento e o erro deve ser zero. Se não existe relação de subconjunto entre os segmentos, as regiões devem ser consideradas inconsistentes e o erro deve ser significativo.
+
+Se $R(S,p_i)$ é o conjunto de pixels correspondentes a uma região na segmentação $S$ que contém o pixel $p_i$, onde $\setminus$ denota o conjunto complementar, o erro de refinamento local é definido por:
+
+\begin{equation}
+	E(S_1,S_2,p_i) = \frac{|R(S_1,p_i) \setminus R(S_2,p_i)|}{|R(S_1,p_i)|}
+\end{equation}
+
+
+A partir desta relação, \citeonline{martin:2001} define duas métricas de erro de segmentação: Erro de Consistência Global (Global Consistency Error, ou GCE) e Erro de Consistência Local (Local Consistency Error, ou LCE):
+
+\begin{equation}
+	GCE(S_1,S_2) = \frac{1}{n} min \biggl\{ \sum_{i} E(S_1,S_2,p_i), \sum_{i} E(S_2,S_1,p_i) \biggr\}
+\end{equation}
+
+\begin{equation}
+	LCE(S_1,S_2) = \frac{1}{n} \sum_{i} min \biggl\{ E(S_1,S_2,p_i), E(S_2,S_1,p_i) \biggr\}
+\end{equation}
+
+\subsection{Benchmark (???)}
+
+%TODO Começar conforme abaixo
+% os resultados deste experimento foram gerados a partir da comparação com X imagens de segmentação humana bla bla bla...
 
 Para determinar qual dos algoritmos de segmentação levantados na pesquisa bibliográfica teria melhor desempenho na base de dados utilizada neste trabalho, todos foram implementados ou adaptados. Os algoritmos foram testados em todas as imagens da base de dados do trabalho que possuíam segmentação manual consolidada pela ferramenta supracitada, usando estas como referência para avaliação das segmentações.
 
