@@ -87,6 +87,8 @@ A partir desta relação, \citeonline{martin:2001} define duas métricas de erro
 	LCE(S_1,S_2) = \frac{1}{n} \sum_{i} min \biggl\{ E(S_1,S_2,p_i), E(S_2,S_1,p_i) \biggr\}
 \end{equation}
 
+Uma vez que $LCE \geq GCE$ entre segmentações de uma mesma imagem, é correto afirmar que $GCE$ é uma medida mais rígida que $LCE$. Além dos casos em que uma segmentação é um refinamento de outra, há ainda dois casos em que o erro de segmentação pode ser zero: quando os segmentos são compostos por apenas um pixel cada ou quando toda a imagem é composta de apenas um segmento.
+
 \subsection{Resultados}
 
 %TODO Começar conforme abaixo
