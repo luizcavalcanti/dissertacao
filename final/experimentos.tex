@@ -40,9 +40,9 @@ Um experimento de comparação entre diversos algoritmos de segmentação de ima
 
 \subsection{Protocolo experimental}
 
-Para criação da segmentação manual de referência (\textit{ground-truth}), 31 voluntários, todos alunos de pós-graduação em informática ou áreas relacionadas, foram convidados a realizar a segmentação manual das imagens da base de dados, através de uma ferramenta\footnote{http://amazonsegmentation.ddns.net/} criada com esta finalidade. A ferramenta de software web criada consiste de uma tela onde o usuário pode desenhar sobre uma imagem. A ideia é que nesta imagem sejam circunscritas as bordas das regiões definidas pelo usuário, de acordo com instruções fornecidas pela ferramenta e que foram lidas obrigatoriamente por cada voluntário antes do início do experimento.
+Para criação da segmentação manual de referência (\textit{ground-truth}), 31 voluntários, todos alunos de pós-graduação em informática ou áreas relacionadas, foram convidados a realizar a segmentação manual das imagens da base de dados, através de uma ferramenta\footnote{http://amazonsegmentation.ddns.net/} criada com esta finalidade. A ferramenta de software web criada consiste de uma interface gráfica onde o usuário pode desenhar sobre uma imagem a ser segmentada. A ideia é que nesta imagem sejam circunscritas as bordas das regiões definidas pelo usuário, de acordo com instruções fornecidas pela ferramenta e que foram lidas obrigatoriamente por cada voluntário antes do início do experimento.
 
-Em linhas gerais, as instruções orientam os voluntários a segmentar as imagens de acordo com a cobertura ou tipo de terreno, formação geológica ou vegetação, de acordo com os próprios critérios e granularidade que pareça mais adequada:
+Em linhas gerais, as instruções orientam os participantes no experimento a segmentar as imagens de acordo com a cobertura ou tipo de terreno, formação geológica ou vegetação, utilizando os critérios e granularidade que lhes pareçam mais adequados:
 
 \begin{citacao}[english]
 Your mission is to manually segment the given images as accurately as possible, according to your own judgment. The criteria here is terrain coverage. So, we would like to separate different vegetations, geological formations and human-made objects \cite{amazonsegmentation}
@@ -56,6 +56,7 @@ O conteúdo integral das instruções pode ser encontrado no apêndice \ref{apen
 
 \subsection{Métricas}
 
+%TODO Lugar certo? Talvez deva estar junto às métricas de avaliação de machine learning, na seção de fundamentação teórica, subseção de avaliação
 \textbf{Lugar certo? Talvez deva estar junto às métricas de avaliação de machine learning, na seção de fundamentação teórica, subseção de avaliação}
 
 Em primeiro lugar, é preciso aferir a validade da base de dados de segmentações manuais (\textit{ground-truth}), demonstrando que segmentações de uma mesma imagem feitas por diferentes indivíduos são consistentes. Em um segundo momento, é preciso avaliar os algoritmos de segmentação de forma objetiva.
@@ -64,6 +65,7 @@ O problema em mensurar a consistência entre duas segmentações é que não há
 
 Quando a diferença entre duas segmentações advém de uma diferença de percepção da cena, é esperado que o erro seja grande e que as segmentações sejam consideradas inconsistentes. Quando a diferença é de granularidade, uma segmentação pode ser considerada apenas um refinamento da outra, portanto, o erro deve ser baixo ou até zero \cite{martin:2001}.
 
+%TODO Adicionar uma imagem para demonstrar diferenças de granularidade?
 \textbf{Adicionar uma imagem para demonstrar diferenças de granularidade?}
 
 Segmentação de imagens é simplesmente a divisão de pixels de uma imagem em conjuntos (segmentos). Uma possível medida de erro tem como entrada duas segmentações, $S_1$ e $S_2$, e tem como saída um valor real no intervalo $[0...1]$, onde $0$ significa ausência de erros de segmentação.
@@ -91,15 +93,43 @@ Uma vez que $LCE \geq GCE$ entre segmentações de uma mesma imagem, é correto 
 
 \subsection{Resultados}
 
-%TODO Começar conforme abaixo
-% os resultados deste experimento foram gerados a partir da comparação com X imagens de segmentação humana bla bla bla...
+Antes de analisar o desempenho de cada algoritmo de segmentação presente neste trabalho em relação à segmentação manual, é preciso aferir a validade da própria segmentação manual, visto que ela foi realizada por diferentes participantes. Segundo \citeonline{martin:2001}, uma forma de validar a consistência das segmentações manuais é medir o erro entre segmentações de uma mesma imagem feita por diferentes pessoas.
 
-%TODO mostrar que a segmentação humana é consistente
+Utilizando as métricas de erro de consistência local (LCE) e global (GCE) para medir a similaridade das segmentações manuais, temos resultados bastante positivos. Conforme pode ser visto nas figuras \ref{fig:manual_gce} e \ref{fig:manual_lce}, os coeficientes de erro global e local, respectivamente, ficam abaixo dos 20\% para todos os casos.
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{imgs/manual_gce}
+  \end{subfigure}%
+  ~
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{imgs/manual_dist_gce}
+  \end{subfigure}%
+  \caption{Coeficiente de erro global das diferentes segmentações de mesma imagem}
+  \label{fig:manual_gce}
+\end{figure}
+
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{imgs/manual_lce}
+  \end{subfigure}%
+  ~
+  \begin{subfigure}[b]{0.5\textwidth}
+    \includegraphics[width=\textwidth]{imgs/manual_dist_lce}
+  \end{subfigure}%
+  \caption{Coeficiente de erro local das diferentes segmentações de mesma imagem}
+  \label{fig:manual_lce}
+\end{figure}
+
+
 %TODO mostrar resultado de benchmark
 
-Para determinar qual dos algoritmos de segmentação levantados na pesquisa bibliográfica teria melhor desempenho na base de dados utilizada neste trabalho, todos foram implementados ou adaptados. Os algoritmos foram testados em todas as imagens da base de dados do trabalho que possuíam segmentação manual consolidada pela ferramenta supracitada, usando estas como referência para avaliação das segmentações.
+%Para determinar qual dos algoritmos de segmentação levantados na pesquisa bibliográfica teria melhor desempenho na base de dados utilizada neste trabalho, todos foram implementados ou adaptados. Os algoritmos foram testados em todas as imagens da base de dados do trabalho que possuíam segmentação manual consolidada pela ferramenta supracitada, usando estas como referência para avaliação das segmentações.
 
-Para avaliar as diferentes segmentações, o método introduzido por \citeonline{martin:2001} foi utilizado. Este método consiste na sobreposição de regiões e comparação de informações sobre localização e orientação dos elementos de borda (\textit{edgels}).
+%Para avaliar as diferentes segmentações, o método introduzido por \citeonline{martin:2001} foi utilizado. Este método consiste na sobreposição de regiões e comparação de informações sobre localização e orientação dos elementos de borda (\textit{edgels}).
 
 Os resultados do experimento são apresentados na tabela \ref{tab:experimentoSegmentacao}:
 
