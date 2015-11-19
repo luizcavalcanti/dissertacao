@@ -57,7 +57,6 @@ O conteúdo integral das instruções pode ser encontrado no apêndice \ref{apen
 \subsection{Métricas}
 
 %TODO Lugar certo? Talvez deva estar junto às métricas de avaliação de machine learning, na seção de fundamentação teórica, subseção de avaliação
-\textbf{Lugar certo? Talvez deva estar junto às métricas de avaliação de machine learning, na seção de fundamentação teórica, subseção de avaliação}
 
 Em primeiro lugar, é preciso aferir a validade da base de dados de segmentações manuais (\textit{ground-truth}), demonstrando que segmentações de uma mesma imagem feitas por diferentes indivíduos são consistentes. Em um segundo momento, é preciso avaliar os algoritmos de segmentação de forma objetiva.
 
@@ -66,7 +65,6 @@ O problema em mensurar a consistência entre duas segmentações é que não há
 Quando a diferença entre duas segmentações advém de uma diferença de percepção da cena, é esperado que o erro seja grande e que as segmentações sejam consideradas inconsistentes. Quando a diferença é de granularidade, uma segmentação pode ser considerada apenas um refinamento da outra, portanto, o erro deve ser baixo ou até zero \cite{martin:2001}.
 
 %TODO Adicionar uma imagem para demonstrar diferenças de granularidade?
-\textbf{Adicionar uma imagem para demonstrar diferenças de granularidade?}
 
 Segmentação de imagens é simplesmente a divisão de pixels de uma imagem em conjuntos (segmentos). Uma possível medida de erro tem como entrada duas segmentações, $S_1$ e $S_2$, e tem como saída um valor real no intervalo $[0...1]$, onde $0$ significa ausência de erros de segmentação.
 
