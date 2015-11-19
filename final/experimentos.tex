@@ -136,12 +136,14 @@ Mean-shift  & 0.02528          & 0.00278 & 6,39 \\ \hline
 JSEG        & 0.03209          & 0.00532 & 14,82 \\ \hline
 MSEG        & 0.00983          & \textbf{0.00070} & \textbf{0,33} \\ \hline
 SRM         & \textbf{0.00792} & 0.00421 & 4,66 \\ \hline
-%FSEG        &  & &  \\ \hline
 gPb-owt-ucm &  & &  \\ \hline
+FSEG        &  & &  \\ \hline
 \end{tabulary}
 \caption{Comparação de métodos de segmentação em parte da base de imagens deste trabalho, ordenados por acurácia}
 \label{tab:experimentoSegmentacao}
 \end{table}
+
+% TODO falar sobre o melhor algoritmo
 
 %O algoritmo Mean-shift, além de ter conseguido a melhor precisão na nossa base de dados, conseguiu um bom desempenho de tempo. Com isso, pudemos determinar que ele será o algoritmo utilizado no trabalho, para a segmentação inicial das imagens.
 %
@@ -149,29 +151,37 @@ gPb-owt-ucm &  & &  \\ \hline
 
 \begin{figure}[htb]
 	\centering
-	\begin{minipage}[l]{0.51\linewidth}
+	\begin{minipage}[l]{0.32\linewidth}
 		\begin{subfigure}[b]{\linewidth}
 			\includegraphics[width=\linewidth]{imgs/seg_original}
 			\caption{Imagem original}
 		\end{subfigure}%
 	\end{minipage}
-	\begin{minipage}[r]{0.48\linewidth}
-		\begin{subfigure}{.47\linewidth}
+	\begin{minipage}[r]{\linewidth}
+		\begin{subfigure}{.32\linewidth}
 			\includegraphics[width=\linewidth]{imgs/seg_meanshift}
 			\caption{Mean-shift}
 		\end{subfigure}
-		\begin{subfigure}{.47\linewidth}
+		\begin{subfigure}{.32\linewidth}
 			\includegraphics[width=\linewidth]{imgs/seg_mseg}
 			\caption{MSEG}
-		\end{subfigure}%
-		\\
-		\begin{subfigure}{.47\linewidth}
+		\end{subfigure}
+		\begin{subfigure}{.32\linewidth}
 			\includegraphics[width=\linewidth]{imgs/seg_jseg}
 			\caption{JSEG}
 		\end{subfigure}
-		\begin{subfigure}{.47\linewidth}
+		\begin{subfigure}{.32\linewidth}
 			\includegraphics[width=\linewidth]{imgs/seg_srm}
 			\caption{SRM}
+		\end{subfigure}
+		\begin{subfigure}{.32\linewidth}
+			\includegraphics[width=\linewidth]{imgs/seg_gpb}
+			\caption{gPb-owt-ucm}
+		\end{subfigure}
+		\begin{subfigure}{.32\linewidth}
+			% TODO colocar imagem do FSEG
+			\includegraphics[width=\linewidth]{imgs/seg_srm}
+			\caption{FSEG}
 		\end{subfigure}%
 	\end{minipage}
 	\caption{Comparação visual de métodos de segmentação}
@@ -179,25 +189,26 @@ gPb-owt-ucm &  & &  \\ \hline
 \end{figure}
 
 
-%Adicionalmente, experimentos foram realizados com técnicas de classificação. O objetivo era saber se poderíamos utilizar apenas uma etapa para realizar segmentação e o primeiro nível de classificação. Os resultados foram abaixo do que se consegue na etapa de segmentação isolada. Os resultados foram publicados no \textit{$10^th$ International Conference on Computer Vision Theory and Applications} e o artigo \cite{cavalcanti:2015} completo pode ser visto no apêndice \ref{cap:visapp2015}.
-%
-%Para fins de comparação, os resultados deste segundo experimento são apresentados na tabela \ref{tab:experimentoArtigo}. O tempo de execução da classificação para cada imagem no artigo publicado ignora o tempo de extração de características da imagem. Para uma comparação correta com os métodos de segmentação experimentados anteriormente, esse tempo gasto em extração de características foi acrescido na tabela desta seção.
-%
-%\begin{table}[h]
-%\ABNTEXfontereduzida
-%\centering
-%\begin{tabulary}{\linewidth}{|L|R|R|}
-%\hline
-%\textbf{Algoritmo} & \textbf{Acurácia} & \textbf{Tempo/imagem} \\ \hline
-%Random forest  & 96,0\% & 12,72 s \\ \hline
-%KNN            & 92,6\% & 22,89 s \\ \hline
-%Naive Bayes    & 92,8\% & 8,36 s \\ \hline
-%Decision tree  & 82,2\% & 14,49 s \\ \hline
-%\end{tabulary}
-%\caption{Comparação de métodos de classificação para segmentação das imagens em uma única etapa, ordenados por acurácia}
-%\label{tab:experimentoArtigo}
-%\end{table}
+Adicionalmente, experimentos foram realizados com técnicas de classificação. O objetivo era saber se poderíamos utilizar apenas uma etapa para realizar segmentação e o primeiro nível de classificação. Os resultados foram abaixo do que se consegue na etapa de segmentação isolada. Os resultados foram publicados no \textit{$10^th$ International Conference on Computer Vision Theory and Applications} e o artigo \cite{cavalcanti:2015} completo pode ser visto no apêndice \ref{cap:visapp2015}.
 
+Para fins de comparação, os resultados deste segundo experimento são apresentados na tabela \ref{tab:experimentoArtigo}. O tempo de execução da classificação para cada imagem no artigo publicado ignora o tempo de extração de características da imagem. Para uma comparação correta com os métodos de segmentação experimentados anteriormente, esse tempo gasto em extração de características foi acrescido na tabela desta seção.
+
+\begin{table}[h]
+\ABNTEXfontereduzida
+\centering
+\begin{tabulary}{\linewidth}{|L|R|R|}
+\hline
+\textbf{Algoritmo} & \textbf{Acurácia} & \textbf{Tempo/imagem} \\ \hline
+Random forest  & 96,0\% & 12,72 s \\ \hline
+KNN            & 92,6\% & 22,89 s \\ \hline
+Naive Bayes    & 92,8\% & 8,36 s \\ \hline
+Decision tree  & 82,2\% & 14,49 s \\ \hline
+\end{tabulary}
+\caption{Comparação de métodos de classificação para segmentação das imagens em uma única etapa, ordenados por acurácia}
+\label{tab:experimentoArtigo}
+\end{table}
+
+Os segmentos encontrados pelo algoritmo escolhido nesta etapa serviu de entrada para a próxima etapa da solução, responsável pela classificações destes mesmos segmentos.
 
 \section{Classificações de regiões}
 
