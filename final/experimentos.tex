@@ -121,7 +121,7 @@ Utilizando as métricas de erro de consistência local (LCE) e global (GCE) para
   \label{fig:manual_lce}
 \end{figure}
 
-Para determinar qual dos algoritmos de segmentação levantados na pesquisa bibliográfica teria melhor desempenho na base de dados utilizada neste trabalho, todos foram implementados ou adaptados. Os algoritmos foram testados em todas as imagens da base de dados do trabalho que possuíam segmentação manual por pelo menos 5 voluntários, utilizando as mesmas medidas de erro global (GCE) e erro local (LCE) apresentados no trabalho de \citeonline{martin:2001} e na validação da base de segmentação manual construída para este trabalho.
+Para determinar qual dos algoritmos de segmentação levantados na pesquisa bibliográfica teria melhor desempenho na base de dados utilizada neste trabalho, todos foram implementados ou adaptados. Os algoritmos foram testados em todas as imagens da base de dados do trabalho que possuíam segmentação manual por pelo menos 5 voluntários, um total de 203 imagens, utilizando as mesmas medidas de erro global (GCE) e erro local (LCE) apresentados no trabalho de \citeonline{martin:2001} e na validação da base de segmentação manual construída para este trabalho.
 
 Os resultados do experimento são apresentados na tabela \ref{tab:experimentoSegmentacao}:
 
@@ -136,18 +136,16 @@ Mean-shift  & 0.02528          & 0.00278 & 6,39 \\ \hline
 JSEG        & 0.03209          & 0.00532 & 14,82 \\ \hline
 MSEG        & 0.00983          & \textbf{0.00070} & \textbf{0,33} \\ \hline
 SRM         & \textbf{0.00792} & 0.00421 & 4,66 \\ \hline
-gPb-owt-ucm &  & &  \\ \hline
-FSEG        &  & &  \\ \hline
+gPb-owt-ucm & 0.00903 & 0.00397 & 237,32 \\ \hline
+FSEG        & 0.03385 & 0.00278 & 13,91 \\ \hline
 \end{tabulary}
 \caption{Comparação de métodos de segmentação em parte da base de imagens deste trabalho, ordenados por acurácia}
 \label{tab:experimentoSegmentacao}
 \end{table}
 
-% TODO falar sobre o melhor algoritmo
+Apesar de que o algoritmo MSEG tenha alcançado menor erro local (LCE) e tempo de execução uma ordem de magnitude mais rápido que os outros algoritmos, ficou aquém na média de erro global (GCE).
 
-%O algoritmo Mean-shift, além de ter conseguido a melhor precisão na nossa base de dados, conseguiu um bom desempenho de tempo. Com isso, pudemos determinar que ele será o algoritmo utilizado no trabalho, para a segmentação inicial das imagens.
-%
-%O método JSEG conseguiu uma precisão bastante próxima do Mean-shift e será considerado uma alternativa, embora o tempo de segmentação deste algoritmo seja consideravelmente maior. A imagem \ref{fig:comparacaoSegmentacao} mostra a saída de alguns dos métodos testados, para fins de comparação visual.
+O método SRM conseguiu uma média de erro global pouco menor que o algoritmo MSEG e será considerado uma alternativa, embora o tempo de segmentação deste algoritmo seja consideravelmente maior. A imagem \ref{fig:comparacaoSegmentacao} mostra a saída de alguns dos métodos testados, para fins de comparação visual.
 
 \begin{figure}[htb]
 	\centering
@@ -245,6 +243,7 @@ KNN               & 88,51\% & 0,912 & 0,863 \\ \hline
 \end{table}
 
 Embora os resultados tenham sido promissores, ainda há bastante espaço para melhoria. Apenas características de cor e luminância foram exploradas, portanto, características de textura, morfologia e borda ainda precisam ser avaliadas.
+
 
 \section{Próximos passos}
 
