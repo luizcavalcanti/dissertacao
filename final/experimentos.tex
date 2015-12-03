@@ -130,8 +130,8 @@ Os resultados do experimento são apresentados na tabela \ref{tab:experimentoSeg
 Manual      & 0.01762          & 0.00525 & 6,39 \\ \hline
 Mean-shift  & 0.02528          & 0.00278 & 6,39 \\ \hline
 JSEG        & 0.03209          & 0.00532 & 14,82 \\ \hline
-MSEG        & 0.00983          & \textbf{0.00070} & \textbf{0,33} \\ \hline
-SRM         & \textbf{0.00792} & 0.00421 & 4,66 \\ \hline
+MSEG        & 0.01021          & 0.00069 & \textbf{0,33} \\ \hline
+SRM         & \textbf{0.00651} & \textbf{0.0066} & 4,66 \\ \hline
 gPb-owt-ucm & 0.00903 & 0.00397 & 237,32 \\ \hline
 FSEG        & 0.03385 & 0.00278 & 13,91 \\ \hline
 \end{tabulary}
@@ -139,9 +139,7 @@ FSEG        & 0.03385 & 0.00278 & 13,91 \\ \hline
 \label{tab:experimentoSegmentacao}
 \end{table}
 
-Apesar de que o algoritmo MSEG tenha alcançado menor erro local (LCE) e tempo de execução uma ordem de magnitude mais rápido que os outros algoritmos, ficou aquém na média de erro global (GCE).
-
-O método SRM conseguiu uma média de erro global pouco menor que o algoritmo MSEG e será considerado uma alternativa, embora o tempo de segmentação deste algoritmo seja consideravelmente maior. A imagem \ref{fig:comparacaoSegmentacao} mostra a saída de alguns dos métodos testados, para fins de comparação visual.
+O método SRM conseguiu uma média de erros global e local substancialmente menor que os demais algoritmos e foi considerado o método com melhor desempenho do experimento na base de imagens deste trabalho, embora o tempo de segmentação deste algoritmo seja uma ordem de magnitude maior que o algoritmo MSEG, que obteve o melhor tempo de execução. A imagem \ref{fig:comparacaoSegmentacao} mostra a saída de alguns dos métodos testados, para fins de comparação visual.
 
 \begin{figure}[htb]
 	\centering
