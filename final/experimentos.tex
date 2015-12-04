@@ -236,19 +236,20 @@ Elementos antrópicos &    31 &  0,3 \% \\ \hline
 
 %O método SVM teve desempenho ligeiramente superior aos demais, como pode ser visto na tabela \ref{tab:experimentoClassificacao1}, que apresenta os resultados de acurácia, precisão, e revocação para os métodos analisados.
 
-%\begin{table}[h]
-%\ABNTEXfontereduzida
-%\centering
-%\begin{tabulary}{\linewidth}{|L|R|R|R|}
-%\hline
-%\textbf{Método} & \textbf{Acurácia} & \textbf{Precisão} & \textbf{Revocação} \\ \hline
-%SVM               & 89,19\% & 0,927 & 0,864 \\ \hline
-%KNN               & 88,51\% & 0,912 & 0,863 \\ \hline
-%Árvore de decisão & 87,09\% & 0,842 & 0,859 \\ \hline
-%\end{tabulary}
-%\caption{Comparação de métodos de classificação para regiões segmentadas das imagens, ordenados por acurácia}
-%\label{tab:experimentoClassificacao1}
-%\end{table}
+\begin{table}[h]
+\ABNTEXfontereduzida
+\centering
+	\begin{tabulary}{\linewidth}{|L|R|R|R|}
+		\hline
+		\textbf{Método} & \textbf{Acurácia} & \textbf{Precisão} & \textbf{Revocação} \\ \hline
+		Random Forest     & 92,70\% & 0.939 & 0.926 \\ \hline
+		KNN (3)           & 92,26\% & 0.920 & 0.922 \\ \hline
+		SVM               & 91,27\% & 0.899 & 0.913 \\ \hline
+		Árvore de decisão & 90,21\% & 0.907 & 0.902 \\ \hline
+	\end{tabulary}
+\caption{Comparação de métodos de classificação para regiões segmentadas das imagens, ordenados por acurácia}
+\label{tab:experimentoClassificacao1}
+\end{table}
 %
 %Embora os resultados tenham sido promissores, ainda há bastante espaço para melhoria. Apenas características de cor e luminância foram exploradas, portanto, características de textura, morfologia e borda ainda precisam ser avaliadas.
 %
