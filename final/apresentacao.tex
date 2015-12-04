@@ -60,7 +60,7 @@
 {Uma solução de aprendizagem de máquina para detecção de anomalias em imagens aéreas da floresta amazônica}
 %\subtitle{Evidence from India}
 \author %[Author, Anders] % (optional, for multiple authors)
-{Candidato: Luiz Carlos A. M. Cavalcanti
+{Aluno: Luiz Carlos A. M. Cavalcanti
 \\Orientadora: Dr$^a$ Eulanda Miranda dos Santos} %\inst{1}}
 %\institute[Universities Here and There] % (optional)
 %{
@@ -558,37 +558,49 @@ Específicos:
 \end{frame}
 
 \begin{frame}
-	\frametitle{Base de dados}
+	\frametitle{Segmentação}
 
-	Uma ferramenta foi construída para segmentação e classificação da base de dados para as duas primeiras etapas do trabalho.
+	Uma ferramenta foi construída para determinar o \textit{ground-truth} da segmentação das imagens, obedecendo o lastro estatístico apresentado por Martin et al., 2001.
 
 	\begin{figure}[h]
   		\centering
-		\includegraphics[scale=0.25]{imgs/visualClassifier}
+		\includegraphics[scale=0.25]{imgs/manualseg}
 	\end{figure}
 
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Segmentação}
+	Validação estatística da segmentação manual
+	\begin{figure}[h]
+		\centering
+		\includegraphics[scale=0.10]{imgs/manual_gce}
+		\includegraphics[scale=0.10]{imgs/manual_lce}
+	\end{figure}
 \end{frame}
 
 \begin{frame}
 	\frametitle{Segmentação}
 
 	\begin{itemize}
-		\item 150 imagens;
-		\item Medição de resultados por sobreposição e orientação de \textit{edgels} (Martin et al., 2001)
+		\item 302 imagens (até então);
+		\item Resultados do cálculo dos erros de consistência local e global (Martin et al., 2001)
 	\end{itemize}
 
 	\small{
 	\begin{table}
 	\centering
-	\begin{tabulary}{\linewidth}{|L|R|R|}
+	\begin{tabulary}{\linewidth}{|L|R|R|R|}
 		\hline
-		\textbf{Algoritmo} & \textbf{Acurácia} & \textbf{Tempo/imagem} \\ \hline
-		Mean-shift  & 97,2\% & 6,39 s \\ \hline
-		JSEG        & 96,3\% & 14,82 s \\ \hline
-		MSEG        & 94,1\% & 0,33 s \\ \hline
-		SRM         & 91,9\% & 4,66 s \\ \hline
-		FSEG        & 81,4\% & 13,91 s \\ \hline
-		gPb-owt-ucm & 72,2\% & 237,32 s \\ \hline
+		\textbf{Algoritmo} & \textbf{GCE médio} & \textbf{LCE médio} & \textbf{Tempo (s)} \\ \hline
+		Manual      & 0.01762          & 0.00525 & - \\ \hline
+		Mean-shift  & 0.02528          & 0.00278 & 6,39 \\ \hline
+		JSEG        & 0.03209          & 0.00532 & 14,82 \\ \hline
+		MSEG        & 0.01021          & 0.00069 & \textbf{0,33} \\ \hline
+		SRM         & \textbf{0.00651} & \textbf{0.0066} & 4,66 \\ \hline
+		gPb-owt-ucm & 0.00903 & 0.00397 & 237,32 \\ \hline
+		FSEG        & 0.03385 & 0.00278 & 13,91 \\ \hline
 	\end{tabulary}
 	\end{table}
 	}
@@ -600,7 +612,7 @@ Específicos:
 
 	\begin{figure}[c]
   		\centering
-		\includegraphics[width=\textwidth]{imgs/gambi_apresentacao}
+		\includegraphics[width=0.8\textwidth]{imgs/seg_original}
 	\end{figure}
 
 \end{frame}
@@ -610,72 +622,37 @@ Específicos:
 
 	\begin{figure}[c]
 		\centering
-		\includegraphics[width=\textwidth]{imgs/gambi_apresentacao2}
+		\includegraphics[width=\textwidth]{imgs/gambi_apresentacao}
 	\end{figure}
 
 \end{frame}
 
-\begin{frame}
-	\frametitle{Segmentação}
-
-	Um experimento para realizar segmentação e a primeira classificação em uma única etapa foi realizado, um artigo sobre o experimento foi publicado  na conferência VISAPP 2015. 
-
-	\small{
-	\begin{table}
-	\centering
-	\begin{tabulary}{\linewidth}{|L|R|R|}
-		\hline
-		\textbf{Algoritmo} & \textbf{Acurácia} & \textbf{Tempo/imagem} \\ \hline
-		Random forest  & 96,0\% & 12,72 s \\ \hline
-		KNN            & 92,6\% & 22,89 s \\ \hline
-		Naive Bayes    & 92,8\% & 8,36 s \\ \hline
-		Decision tree  & 82,2\% & 14,49 s \\ \hline
-	\end{tabulary}
-	\end{table}
-	}
-
-\end{frame}
-
-\begin{frame}
-	\frametitle{Primeira classificação}
-
-	Características utilizadas:
-	\begin{itemize}
-		\item Cor média dos canais R, G e B;
-		\item Histograma dos canais R, G e B;
-		\item Grayscale médio;
-		\item Histograma grayscale.
-	\end{itemize}
-
-%	\vspace{0.5cm}
-
-%	Para o experimento, as mesmas 150 imagens usadas para segmentação foram utilizadas, resultando em 7.111 amostras (regiões segmentadas). Destas, 66\% serviram como amostras de treinamento e 33\% foram utilizadas como amostras de validação.
-
+%\begin{frame}
+%	\frametitle{Segmentação}
+%
+%	Um experimento para realizar segmentação e a primeira classificação em uma única etapa foi realizado, um artigo sobre o experimento foi publicado  na conferência VISAPP 2015. 
+%
+%	\small{
+%	\begin{table}
+%	\centering
+%	\begin{tabulary}{\linewidth}{|L|R|R|}
+%		\hline
+%		\textbf{Algoritmo} & \textbf{Acurácia} & \textbf{Tempo/imagem} \\ \hline
+%		Random forest  & 96,0\% & 12,72 s \\ \hline
+%		KNN            & 92,6\% & 22,89 s \\ \hline
+%		Naive Bayes    & 92,8\% & 8,36 s \\ \hline
+%		Decision tree  & 82,2\% & 14,49 s \\ \hline
+%	\end{tabulary}
+%	\end{table}
+%	}
+%
 %\end{frame}
 
-%\begin{frame}[c]
-%	\frametitle{Primeira classificação}
-
-	\small{
-	\begin{table}[h]
-	\centering
-	\begin{tabulary}{\linewidth}{|L|R|R|R|}
-		\hline
-		\textbf{Método} & \textbf{Acurácia} & \textbf{Precisão} & \textbf{Revocação} \\ \hline
-		SVM               & 89,19\% & 0,927 & 0,864 \\ \hline
-		KNN               & 88,51\% & 0,912 & 0,863 \\ \hline
-		Árvore de decisão & 87,09\% & 0,842 & 0,859 \\ \hline
-	\end{tabulary}
-	\end{table}
-	}
-
-\end{frame}
-
 \begin{frame}
 	\frametitle{Primeira classificação}
 
 	\centering
-	7.111 amostras (66\%/33\%).
+	10.057 amostras
 
 	\small{
 	\begin{table}[h]
@@ -683,11 +660,40 @@ Específicos:
 	\begin{tabulary}{\linewidth}{|L|R|R|}
 		\hline
 		\textbf{Classe} & \textbf{Amostras} & \textbf{Percentual} \\ \hline
-		Floresta           & 4844 & 68,12\% \\ \hline
-		Vegetação rasteira & 893  & 12,56\% \\ \hline
-		Clareira           & 237  & 03,33\% \\ \hline
-		Água               & 1123 & 15,79\% \\ \hline
-		Elementos anômalos & 14   & 00,20\% \\ \hline
+		Floresta             & 8686 & 86,36\% \\ \hline
+		Vegetação rasteira   & 944  &  9,38\% \\ \hline
+		Água                 & 287  &  2,85\% \\ \hline
+		Clareira             & 136  &  1,35\% \\ \hline
+		Elementos antrópicos & 24   &  0,23\% \\ \hline
+	\end{tabulary}
+	\end{table}
+	}
+
+\end{frame}
+
+
+\begin{frame}
+	\frametitle{Primeira classificação}
+
+	Vetor de características do segmento:
+	\begin{itemize}
+		\item Cor média dos canais R, G e B;
+ 		\item Grayscale médio;
+		\item Histograma grayscale.
+		\item Histograma de Local Binary Patterns
+	\end{itemize}
+
+	Resultados: (66\%/33\%)
+	\small{
+	\begin{table}[h]
+	\centering
+	\begin{tabulary}{\linewidth}{|L|R|R|R|}
+		\hline
+		\textbf{Método} & \textbf{Acurácia} & \textbf{Precisão} & \textbf{Revocação} \\ \hline
+		Random Forest     & 92,70\% & 0.939 & 0.926 \\ \hline
+		KNN (3)           & 92,26\% & 0.920 & 0.922 \\ \hline
+		SVM               & 91,27\% & 0.899 & 0.913 \\ \hline
+		Árvore de decisão & 90,21\% & 0.907 & 0.902 \\ \hline
 	\end{tabulary}
 	\end{table}
 	}
@@ -698,9 +704,9 @@ Específicos:
 	\frametitle{Próximos passos}
 
 	\begin{itemize}
-		\item Experimentar com ensembles de classificadores para a primeira classificação;
-		\item Experimentar mais características para a primeira classificação: bordas, textura, morfologia, bag of visual words, vizinhança;
-		\item Fazer levantamento de características para a segunda classificação;
+		\item Melhorar precisão da classe de elementos antrópicos;
+		\item Incluir morfologia no vetor de características;
+		\item Produzir elementos antrópicos em amostrar para próxima fase de classificação;
 		\item Realizar experimentos com classificadores unitários.
 	\end{itemize}
 
@@ -728,9 +734,9 @@ Específicos:
 	\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|c|}
 		\hline
 		Atividade/Mês & 02/15 & 03/15 & 04/15 & 05/15 & 06/15 & 07/15 & 08/15 & 09/15 & 10/15 & 11/15 & 12/15 & 01/16 \\ \hline
-		Experimentos & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & & & & & \\ \hline
+		Experimentos & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} \\ \hline
 		Sub. de artigos & & & & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} &  &  &  &  &  \\ \hline
-		Dissertação &  &  &  & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & & \\ \hline
+		Dissertação &  &  &  & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} \\ \hline
 	\end{tabular}
 	}
 	\end{table}
