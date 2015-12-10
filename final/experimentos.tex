@@ -238,9 +238,31 @@ A Cor média para os canais vermelho, verde e azul de todo o segmento trazem inf
 
 Finalmente, para tentar representar características de morfologia do segmento, a transformada de Hough é utilizada. Neste último conjunto de características, a contagem de linhas retas e o comprimento da maior linha são utilizados.
 
-Com a discretização e normalização das variáveis que compõem o vetor de características, temos um total de 36 atributos numéricos, um espaço de características relativamente pequeno. Um total de 10.057 amostras foram classificadas, onde 6.638 (66\%) foram utilizadas como amostras de treinamento e 3.419 (34\%) foram utilizadas como amostras de validação.
+Com a discretização e normalização das variáveis que compõem o vetor de características, temos um total de 48 atributos numéricos. Um total de 10.057 amostras foram classificadas, onde 6.638 (66\%) foram utilizadas como amostras de treinamento e 3.419 (34\%) foram utilizadas como amostras de validação.
 
-Uma vez que todas as amostras da base de segmentos foram rotuladas, pode-se analisar a distribuição das classes (tabela \ref{tab:experimentoRegioesDistribuicao}).
+A lista de atributos, seus tipos, dimensões e unicidade (singularidade) podem ser vistos na tabela \ref{tab:experimentoClassificacao1Atributos}.
+
+\begin{table}[h]
+\ABNTEXfontereduzida
+\centering
+\begin{tabulary}{\linewidth}{|L|L|R|}
+\hline
+\textbf{Atributo} & \textbf{Tipo} & \textbf{Dimensão} \\ \hline
+Vermelho médio            & Decimal &  1 \\ \hline
+Verde médio               & Decimal &  1 \\ \hline
+Azul médio                & Decimal &  1 \\ \hline
+Intensidade média         & Decimal &  1 \\ \hline
+Intensidade - histograma  & Inteiro & 16 \\ \hline
+LBP - histograma          & Inteiro & 26 \\ \hline
+Hough - número de retas   & Inteiro & 1 \\ \hline
+Hough - maior reta        & Inteiro & 1 \\ \hline
+\end{tabulary}
+\caption{Atributos gerados a partir da base de segmentos}
+\label{tab:experimentoClassificacao1Atributos}
+\end{table}
+
+
+A distribuição das classes na base de segmentos, após a rotulação de todas as amostras, pode ser vista na tabela \ref{tab:experimentoRegioesDistribuicao}.
 
 \begin{table}[h]
 \ABNTEXfontereduzida
@@ -258,7 +280,7 @@ Elementos antrópicos &    31 &  0,3 \% \\ \hline
 \label{tab:experimentoRegioesDistribuicao}
 \end{table}
 
-%TODO falar dos problemas da base desbalanceada e do que foi feiro para resolver
+%TODO falar dos problemas da base desbalanceada e do que foi feito para resolver
 
 \begin{table}[h]
 \ABNTEXfontereduzida
@@ -274,6 +296,8 @@ Elementos antrópicos &    31 &  0,3 \% \\ \hline
 \caption{Comparação de métodos de classificação para regiões segmentadas das imagens, ordenados por acurácia}
 \label{tab:experimentoClassificacao1}
 \end{table}
+
+\section{Detecção de elementos antrópicos}
 
 %
 %Embora os resultados tenham sido promissores, ainda há bastante espaço para melhoria. Apenas características de cor e luminância foram exploradas, portanto, características de textura, morfologia e borda ainda precisam ser avaliadas.
