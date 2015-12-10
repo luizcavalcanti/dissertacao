@@ -23,7 +23,7 @@ No momento do início dos experimentos deste trabalho, estas imagens tiradas de 
   \label{fig:amostra}
 \end{figure}
 
-A base possui um total de 3.044 imagens, com dimensão total de 1,02 Gigabytes de dados. Todas as imagens foram utilizadas no presente trabalho e um grande esforço foi ser despendido na classificação manual das imagens em todas as etapas do experimento, consumindo um tempo considerável.
+A base possui um total de 3.044 imagens, com dimensão total de 1,02 Gigabytes de dados. Todas as imagens foram utilizadas no presente trabalho sem tratamento ou manipulação prévios.
 
 Para criar uma referência (\textit{ground-truth}) para a segmentação das imagens da base de dados, uma ferramenta computacional executável em navegadores web foi construída (figura \ref{fig:manualseg}). A saída deste aplicativo é uma coleção, para cada imagem, de informações sobre bordas das regiões da imagem. Estas informações servirão de referência para avaliar o desempenho dos algoritmos de segmentação testados neste trabalho.
 
@@ -250,6 +250,7 @@ Elementos antrópicos &    31 &  0,3 \% \\ \hline
 \caption{Comparação de métodos de classificação para regiões segmentadas das imagens, ordenados por acurácia}
 \label{tab:experimentoClassificacao1}
 \end{table}
+
 %
 %Embora os resultados tenham sido promissores, ainda há bastante espaço para melhoria. Apenas características de cor e luminância foram exploradas, portanto, características de textura, morfologia e borda ainda precisam ser avaliadas.
 %
