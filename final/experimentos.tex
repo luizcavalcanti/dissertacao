@@ -213,12 +213,26 @@ Os segmentos encontrados pelo algoritmo SRM, escolhido nesta etapa, serviram de 
 
 Para o primeiro nível de classificação, que se resume a definir os tipos de terrenos das regiões encontradas na segmentação, um experimento utilizando métodos bastante difundidos de aprendizagem de máquina foi realizado.
 
-%TODO revisar métodos utilizados
-Utilizando as técnicas de K vizinhos mais próximos (KNN), máquinas de vetores de suporte (SVM) e árvores de decisão, um experimento foi conduzido em uma parte da base de dados. Todas as 3.044 imagens da base de dados foram utilizadas no experimento.
+\subsection{Protocolo experimental}
 
-Primeiramente, todas as imagens foram segmentadas utilizando o algoritmo SRM, por conta de seu melhor desempenho no experimento de segmentação anterior. Cada região encontrada nesta segmentação foi devidamente classificada manualmente, e suas características foram extraídas. A partir desse ponto bases de dados de treinamento e validação supervisionadas foram criadas, onde cada região segmentada representava uma amostra de treinamento ou validação.
+Utilizando as técnicas de K vizinhos mais próximos (KNN), máquinas de vetores de suporte (SVM), árvores de decisão e \textit{Random Forest}, um experimento foi conduzido com o intuito de classificar os segmentos de imagem gerados na etapa anterior do trabalho e definir que método mais se adequa para a solução do problema proposto neste trabalho.
+
+Primeiramente, todas as imagens foram segmentadas utilizando o algoritmo SRM, por conta de seu melhor desempenho no experimento de segmentação anterior. Cada um dos 10.057 segmentos produzidos nesta segmentação foi devidamente classificada manualmente, e suas características foram extraídas. Cada segmento foi classificado como uma das possíveis classes para o problema: floresta, vegetação rasteira, água, terra ou elemento antrópico.
+
+Alguns segmentos não puderam ser classificados e foram descartados das bases de treinamento e validação, todos os elementos antrópicos encontrados foram validados por uma especialista do Sistema de Proteção da Amazônia (SIPAM), órgão governamental que é responsável pelo patrulhamento e sensoriamento remoto da Amazônia legal brasileira.
+
+A partir desse ponto o conjunto total de segmentos foi dividido entre um conjunto de treinamento e um conjunto de validação, com 66\% e 34\% das amostras respectivamente.
+
+Em seguida, uma análise da base de segmentos rotulada é feita, observando a estrutura e distribuição dos dados ao longo de toda a base, levando em consideração como os tipos de dados utilizados e sua representação podem influenciar os resultados dos algoritmos de aprendizado utilizados no experimento.
+
+Finalmente, todos os algoritmos processam os conjuntos de treinamento para criar um modelo de aprendizado e em seguida, utilizam a base de validação para medir o quanto o modelo pode ser generalizado para bases de imagens diferentes. Cada algoritmos testado será refinado e parametrizado para que consiga uma maior acurácia para todas as classes e que a revocação seja otimizada para a classe de "elementos antrópicos".
+
+\subsection{Resultados}
 
 O vetor de características escolhido para representar cada amostra compreende informações de cor, intensidade, morfologia e textura de cada segmento a ser classificado. Este conjunto de características foi escolhido pela alta representatividade de valores em determinadas classes, baixa dimensionalidade e simples depuração.
+
+%TODO tabela de detalhes dos atributos
+%http://machinelearningmastery.com/quick-and-dirty-data-analysis-for-your-machine-learning-problem
 
 A Cor média para os canais vermelho, verde e azul de todo o segmento trazem informação do tom de cor, enquanto a intensidade média e o histograma em tons de cinza ajudam a representar informações de intensidade. Para guardar informações sobre a textura e variância de intensidade do segmento, um histograma de \textit{Local Binary Pattern}, descrito por \citeonline{ahonen:2009}, foi extraído.
 
@@ -244,7 +258,7 @@ Elementos antrópicos &    31 &  0,3 \% \\ \hline
 \label{tab:experimentoRegioesDistribuicao}
 \end{table}
 
-%O método SVM teve desempenho ligeiramente superior aos demais, como pode ser visto na tabela \ref{tab:experimentoClassificacao1}, que apresenta os resultados de acurácia, precisão, e revocação para os métodos analisados.
+%TODO falar dos problemas da base desbalanceada e do que foi feiro para resolver
 
 \begin{table}[h]
 \ABNTEXfontereduzida
