@@ -218,7 +218,11 @@ Utilizando as técnicas de K vizinhos mais próximos (KNN), máquinas de vetores
 
 Primeiramente, todas as imagens foram segmentadas utilizando o algoritmo SRM, por conta de seu melhor desempenho no experimento de segmentação anterior. Cada região encontrada nesta segmentação foi devidamente classificada manualmente, e suas características foram extraídas. A partir desse ponto bases de dados de treinamento e validação supervisionadas foram criadas, onde cada região segmentada representava uma amostra de treinamento ou validação.
 
-O vetor de características escolhido para representar cada amostra compreende informações de cor, intensidade e textura do segmento a ser classificado. Cor média para os canais vermelho, verde e azul de todo o segmento trazem informação do tom de cor, enquanto a intensidade média e o histograma em tons de cinza ajudam a representar informações de intensidade. Para guardar informações sobre a textura e variância de intensidade do segmento, um histograma de \textit{Local Binary Pattern}, descrito por \citeonline{ahonen:2009}, foi extraído. Estas características foram escolhidas por serem de fácil extração, baixa dimensionalidade e simples depuração.
+O vetor de características escolhido para representar cada amostra compreende informações de cor, intensidade, morfologia e textura de cada segmento a ser classificado. Este conjunto de características foi escolhido pela alta representatividade de valores em determinadas classes, baixa dimensionalidade e simples depuração.
+
+A Cor média para os canais vermelho, verde e azul de todo o segmento trazem informação do tom de cor, enquanto a intensidade média e o histograma em tons de cinza ajudam a representar informações de intensidade. Para guardar informações sobre a textura e variância de intensidade do segmento, um histograma de \textit{Local Binary Pattern}, descrito por \citeonline{ahonen:2009}, foi extraído.
+
+Finalmente, para tentar representar características de morfologia do segmento, a transformada de Hough é utilizada. Neste último conjunto de características, a contagem de linhas retas e o comprimento da maior linha são utilizados.
 
 Com a discretização e normalização das variáveis que compõem o vetor de características, temos um total de 36 atributos numéricos, um espaço de características relativamente pequeno. Um total de 10.057 amostras foram classificadas, onde 6.638 (66\%) foram utilizadas como amostras de treinamento e 3.419 (34\%) foram utilizadas como amostras de validação.
 
