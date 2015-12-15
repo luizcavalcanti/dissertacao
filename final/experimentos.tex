@@ -231,9 +231,6 @@ Finalmente, todos os algoritmos processam os conjuntos de treinamento para criar
 
 O vetor de características escolhido para representar cada amostra compreende informações de cor, intensidade, morfologia e textura de cada segmento a ser classificado. Este conjunto de características foi escolhido pela alta representatividade de valores em determinadas classes, baixa dimensionalidade e simples depuração.
 
-%TODO tabela de detalhes dos atributos
-%http://machinelearningmastery.com/quick-and-dirty-data-analysis-for-your-machine-learning-problem
-
 A Cor média para os canais vermelho, verde e azul de todo o segmento trazem informação do tom de cor, enquanto a intensidade média e o histograma em tons de cinza ajudam a representar informações de intensidade. Para guardar informações sobre a textura e variância de intensidade do segmento, um histograma de \textit{Local Binary Pattern}, descrito por \citeonline{ahonen:2009}, foi extraído.
 
 Finalmente, para tentar representar características de morfologia do segmento, a transformada de Hough é utilizada. Neste último conjunto de características, a contagem de linhas retas e o comprimento da maior linha são utilizados.
