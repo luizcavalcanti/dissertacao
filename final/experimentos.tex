@@ -133,15 +133,15 @@ Os resultados do experimento são apresentados na tabela \ref{tab:experimentoSeg
 \begin{tabulary}{\linewidth}{|L|R|R|R|}
 \hline
 \textbf{Algoritmo} & \textbf{GCE médio} & \textbf{LCE médio} & \textbf{Tempo (s)} \\ \hline
-Manual      & 0.01762          & 0.00525 & - \\ \hline
-Mean-shift  & 0.02528          & 0.00278 & 6,39 \\ \hline
-JSEG        & 0.03209          & 0.00532 & 14,82 \\ \hline
-MSEG        & 0.01021          & 0.00069 & \textbf{0,33} \\ \hline
-SRM         & \textbf{0.00651} & \textbf{0.0066} & 4,66 \\ \hline
-gPb-owt-ucm & 0.00903 & 0.00397 & 237,32 \\ \hline
-FSEG        & 0.03385 & 0.00278 & 13,91 \\ \hline
+Manual      & 0.01822          & 0.00537         & - \\ \hline
+FSEG        & 0.03063          & 0.00273         & 13,91 \\ \hline
+gPb-owt-ucm & 0.00655          & 0.00297         & 237,32 \\ \hline
+JSEG        & 0.02990          & 0.00486         & 14,82 \\ \hline
+Mean-shift  & 0.02237          & 0.00271         & 6,39 \\ \hline
+MSEG        & 0.01005          & 0.00072         & \cellcolor{gray!25} 0,33 \\ \hline
+SRM         & \cellcolor{gray!25} 0.00622 & \cellcolor{gray!25} 0.0066 & 4,66 \\ \hline
 \end{tabulary}
-\caption{Comparação de métodos de segmentação em parte da base de imagens deste trabalho, ordenados por acurácia}
+\caption{Comparação de métodos de segmentação em parte da base de imagens deste trabalho, em ordem alfabética}
 \label{tab:experimentoSegmentacao}
 \end{table}
 
@@ -198,10 +198,10 @@ Para fins de comparação, os resultados deste segundo experimento são apresent
 \begin{tabulary}{\linewidth}{|L|R|R|}
 \hline
 \textbf{Algoritmo} & \textbf{Acurácia} & \textbf{Tempo/imagem} \\ \hline
-Random forest  & 96,0\% & 12,72 s \\ \hline
-KNN            & 92,6\% & 22,89 s \\ \hline
-Naive Bayes    & 92,8\% & 8,36 s \\ \hline
-Decision tree  & 82,2\% & 14,49 s \\ \hline
+Random forest  & \cellcolor{gray!25} 96,0\% & 12,72 s \\ \hline
+KNN            & 92,6\%                     & 22,89 s \\ \hline
+Naive Bayes    & 92,8\%                     & \cellcolor{gray!25} 8,36 s \\ \hline
+Decision tree  & 82,2\%                     & 14,49 s \\ \hline
 \end{tabulary}
 \caption{Comparação de métodos de classificação para segmentação das imagens em uma única etapa, ordenados por acurácia}
 \label{tab:experimentoArtigo}
@@ -245,14 +245,14 @@ A lista de atributos, seus tipos, dimensões e unicidade (singularidade) podem s
 \begin{tabulary}{\linewidth}{|L|L|R|}
 \hline
 \textbf{Atributo} & \textbf{Tipo} & \textbf{Dimensão} \\ \hline
-Vermelho médio            & Decimal &  1 \\ \hline
-Verde médio               & Decimal &  1 \\ \hline
-Azul médio                & Decimal &  1 \\ \hline
-Intensidade média         & Decimal &  1 \\ \hline
-Intensidade - histograma  & Inteiro & 16 \\ \hline
-LBP - histograma          & Inteiro & 26 \\ \hline
-Hough - número de retas   & Inteiro & 1 \\ \hline
-Hough - maior reta        & Inteiro & 1 \\ \hline
+Vermelho médio            & Real    &  1x1 \\ \hline
+Verde médio               & Real    &  1x1 \\ \hline
+Azul médio                & Real    &  1x1 \\ \hline
+Intensidade média         & Real    &  1x1 \\ \hline
+Intensidade - histograma  & Inteiro & 16x1 \\ \hline
+LBP - histograma          & Inteiro & 26x1 \\ \hline
+Hough - número de retas   & Inteiro &  1x1 \\ \hline
+Hough - maior reta        & Inteiro &  1x1 \\ \hline
 \end{tabulary}
 \caption{Atributos gerados a partir da base de segmentos}
 \label{tab:experimentoClassificacao1Atributos}
