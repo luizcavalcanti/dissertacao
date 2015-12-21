@@ -120,6 +120,46 @@ A principal vantagem do classificador SVM é seu bom desempenho em conjuntos de 
   \label{fig:svm}
 \end{figure}
 
+O algoritmo Random Forest, introduzido por \citeonline{breiman:2001} , é um \textit{ensemble} de classificadores de árvore de decisão. Na fase de treinamento, um número determinado de árvores é gerado utilizando um subconjunto pseudo-aleatório do vetor de característica completo utilizado no problema. Tanto o número de árvores quanto a quantidade de atributos utilizados por cada árvore pode ser determinado pelo usuário do algoritmo.
+
+Uma vez que a base de treinamento foi utilizada para gerar os modelos das árvores de decisão, estes mesmo modelos podem ser utilizados para classificar novas amostras do problema. Preferencialmente todas as árvores geradas são envolvidas na classificação, cada uma chegando à sua própria conclusão sobre a classe da amostra apresentada. Cada árvore tem um \"voto\", que é contabilizado para a definição da classe mais votada, que é então escolhida como a classe da amostra. Esta técnica de soma de votos é conhecida como \textit{polling}.
+
+A principal vantagem desta técnica é a eliminação do sobreajuste (do inglês \textit{overfitting}), problema bastante comum quando se utiliza árvores de decisão de forma tradicional. Uma exposição mais detalhada acerca do sobreajuste é feita na seção \ref{sec:overfitting}
+
+%TODO ajustar referência acima
+%TODO falar de overfitting
+
+%Each tree is grown as follows:
+%
+%    If the number of cases in the training set is N, sample N cases at random - but with replacement, from the original data. This sample will be the training set for growing the tree.
+%    If there are M input variables, a number m<<M is specified such that at each node, m variables are selected at random out of the M and the best split on these m is used to split the node. The value of m is held constant during the forest growing.
+%    Each tree is grown to the largest extent possible. There is no pruning.
+%
+%In the original paper on random forests, it was shown that the forest error rate depends on two things:
+%
+%    The correlation between any two trees in the forest. Increasing the correlation increases the forest error rate.
+%    The strength of each individual tree in the forest. A tree with a low error rate is a strong classifier. Increasing the strength of the individual trees decreases the forest error rate.
+%
+%Reducing m reduces both the correlation and the strength. Increasing it increases both. Somewhere in between is an "optimal" range of m - usually quite wide. Using the oob error rate (see below) a value of m in the range can quickly be found. This is the only adjustable parameter to which random forests is somewhat sensitive.
+%Features of Random Forests
+%
+%    It is unexcelled in accuracy among current algorithms.
+%    It runs efficiently on large data bases.
+%    It can handle thousands of input variables without variable deletion.
+%    It gives estimates of what variables are important in the classification.
+%    It generates an internal unbiased estimate of the generalization error as the forest building progresses.
+%    It has an effective method for estimating missing data and maintains accuracy when a large proportion of the data are missing.
+%    It has methods for balancing error in class population unbalanced data sets.
+%    Generated forests can be saved for future use on other data.
+%    Prototypes are computed that give information about the relation between the variables and the classification.
+%    It computes proximities between pairs of cases that can be used in clustering, locating outliers, or (by scaling) give interesting views of the data.
+%    The capabilities of the above can be extended to unlabeled data, leading to unsupervised clustering, data views and outlier detection.
+%    It offers an experimental method for detecting variable interactions.
+%
+%Remarks
+%
+%Random forests does not overfit. You can run as many trees as you want. It is fast. Running on a data set with 50,000 cases and 100 variables, it produced 100 trees in 11 minutes on a 800Mhz machine. For large data sets the major memory requirement is the storage of the data itself, and three integer arrays with the same dimensions as the data. If proximities are calculated, storage requirements grow as the number of cases times the number of trees.
+
 Tanto durante o desenvolvimento de uma solução, quanto após sua execução em ambiente de produção, é preciso aferir e quantificar o desempenho da técnica desenvolvida ou utilizada, conforme discutido na próxima seção.
 
 \section{Avaliação}\label{sec:avaliacao}
