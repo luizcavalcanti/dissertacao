@@ -92,7 +92,6 @@ A partir de uma árvore de decisão é possível derivar regras. As regras são 
 
 Uma árvore de decisão tem a função de particionar recursivamente um conjunto de treinamento, até que cada subconjunto obtido deste particionamento contenha casos de uma única classe. Para atingir esta meta, a técnica de árvores de decisão examina e compara a distribuição de classes durante a construção da árvore. O resultado obtido, após a construção de uma árvore de decisão, são dados organizados de maneira compacta, que são utilizados para classificar novos casos. A árvore de decisão não presume nenhum modelo estatístico a priori, sendo a divisão do espaço de atributos feita de acordo com as amostras provenientes do treinamento.
 
-
 O algoritmo KNN (K-Nearest Neighbours, ou K vizinhos mais próximos) \cite{cover:1967} é um método de classificação baseado na proximidade de amostras de treino no espaço de características. É considerado um dos mais simples algoritmos de aprendizagem de máquina.
 
 O processo de treinamento para esse algoritmo consiste em armazenar o vetor de característica e rótulos (classes) de cada amostra de treinamento em um espaço n-dimensional, onde n é o número de características de cada amostra. No processo de classificação de amostras não-rotuladas, a amostra é simplesmente projetada no espaço e é classificada de acordo com as k amostras mais próximas.
@@ -120,45 +119,15 @@ A principal vantagem do classificador SVM é seu bom desempenho em conjuntos de 
   \label{fig:svm}
 \end{figure}
 
-O algoritmo Random Forest, introduzido por \citeonline{breiman:2001} , é um \textit{ensemble} de classificadores de árvore de decisão. Na fase de treinamento, um número determinado de árvores é gerado utilizando um subconjunto pseudo-aleatório do vetor de característica completo utilizado no problema. Tanto o número de árvores quanto a quantidade de atributos utilizados por cada árvore pode ser determinado pelo usuário do algoritmo.
+O algoritmo \textit{Random Forest}, introduzido por \citeonline{breiman:2001} , é um \textit{ensemble} de classificadores de árvore de decisão. Na fase de treinamento, um número determinado de árvores é gerado utilizando um subconjunto pseudo-aleatório do vetor de característica completo utilizado no problema. Tanto o número de árvores quanto a quantidade de atributos utilizados por cada árvore pode ser determinado pelo usuário do algoritmo.
 
-Uma vez que a base de treinamento foi utilizada para gerar os modelos das árvores de decisão, estes mesmo modelos podem ser utilizados para classificar novas amostras do problema. Preferencialmente todas as árvores geradas são envolvidas na classificação, cada uma chegando à sua própria conclusão sobre a classe da amostra apresentada. Cada árvore tem um \"voto\", que é contabilizado para a definição da classe mais votada, que é então escolhida como a classe da amostra. Esta técnica de soma de votos é conhecida como \textit{polling}.
+Uma vez que a base de treinamento foi utilizada para gerar os modelos das árvores de decisão, estes mesmo modelos podem ser utilizados para classificar novas amostras do problema. Preferencialmente todas as árvores geradas são envolvidas na classificação, cada uma chegando à sua própria conclusão sobre a classe da amostra apresentada. Cada árvore tem um ``voto'', que é contabilizado para a definição da classe mais votada, que é então escolhida como a classe da amostra. Esta técnica de soma de votos é conhecida como \textit{polling}.
 
-A principal vantagem desta técnica é a eliminação do sobreajuste (do inglês \textit{overfitting}), problema bastante comum quando se utiliza árvores de decisão de forma tradicional. Uma exposição mais detalhada acerca do sobreajuste é feita na seção \ref{sec:overfitting}
+A principal vantagem deste algoritmo é a eliminação de \textit{overfitting}, problema bastante comum quando se utiliza árvores de decisão de forma tradicional. Uma exposição mais detalhada acerca de \textit{overfitting} é feita na seção \ref{sec:avaliacao}.
 
-%TODO ajustar referência acima
-%TODO falar de overfitting
+O trabalho de \citeonline{breiman:2001} ainda afirma que a taxa de erro de um modelo de aprendizado criado com \textit{Random Forest} está relacionada a dois fatores: a correlação entre quaisquer duas árvores geradas no modelo e a ``força'' de cada árvore gerada, ou seja, o quão precisa ela é em relação ao modelo geral. À medida que a correlação entre árvores cresce, também cresce a taxa de erro do modelo final. Quanto menor for a taxa de erro de uma árvore individual, mais ``forte'' é considerado o classificador, e por consequência, mais baixo é a taxa de erro do modelo.
 
-%Each tree is grown as follows:
-%
-%    If the number of cases in the training set is N, sample N cases at random - but with replacement, from the original data. This sample will be the training set for growing the tree.
-%    If there are M input variables, a number m<<M is specified such that at each node, m variables are selected at random out of the M and the best split on these m is used to split the node. The value of m is held constant during the forest growing.
-%    Each tree is grown to the largest extent possible. There is no pruning.
-%
-%In the original paper on random forests, it was shown that the forest error rate depends on two things:
-%
-%    The correlation between any two trees in the forest. Increasing the correlation increases the forest error rate.
-%    The strength of each individual tree in the forest. A tree with a low error rate is a strong classifier. Increasing the strength of the individual trees decreases the forest error rate.
-%
-%Reducing m reduces both the correlation and the strength. Increasing it increases both. Somewhere in between is an "optimal" range of m - usually quite wide. Using the oob error rate (see below) a value of m in the range can quickly be found. This is the only adjustable parameter to which random forests is somewhat sensitive.
-%Features of Random Forests
-%
-%    It is unexcelled in accuracy among current algorithms.
-%    It runs efficiently on large data bases.
-%    It can handle thousands of input variables without variable deletion.
-%    It gives estimates of what variables are important in the classification.
-%    It generates an internal unbiased estimate of the generalization error as the forest building progresses.
-%    It has an effective method for estimating missing data and maintains accuracy when a large proportion of the data are missing.
-%    It has methods for balancing error in class population unbalanced data sets.
-%    Generated forests can be saved for future use on other data.
-%    Prototypes are computed that give information about the relation between the variables and the classification.
-%    It computes proximities between pairs of cases that can be used in clustering, locating outliers, or (by scaling) give interesting views of the data.
-%    The capabilities of the above can be extended to unlabeled data, leading to unsupervised clustering, data views and outlier detection.
-%    It offers an experimental method for detecting variable interactions.
-%
-%Remarks
-%
-%Random forests does not overfit. You can run as many trees as you want. It is fast. Running on a data set with 50,000 cases and 100 variables, it produced 100 trees in 11 minutes on a 800Mhz machine. For large data sets the major memory requirement is the storage of the data itself, and three integer arrays with the same dimensions as the data. If proximities are calculated, storage requirements grow as the number of cases times the number of trees.
+Reduzir o número de variáveis do vetor de características a ser utilizado em cada árvore reduz a correlação entre árvores e também reduz a ``força''da árvore. Incrementar este número de variáveis incrementa a correlação e a ``força'' da árvore. A parametrização do algoritmo deve se preocupar em encontrar o número de variáveis do vetor de característica que melhor minimize a correlação e maximize a ``força'' das árvores do modelo.
 
 Tanto durante o desenvolvimento de uma solução, quanto após sua execução em ambiente de produção, é preciso aferir e quantificar o desempenho da técnica desenvolvida ou utilizada, conforme discutido na próxima seção.
 
@@ -201,5 +170,18 @@ Ainda é possível obter a precisão e a revocação. A precisão é o número d
   Revocação = \frac{TP}{TP+FN}
 \label{eq:revocacao}
 \end{equation}
+
+Apesar de que a maximização da acurácia seja desejável para o ajuste de um algoritmo de aprendizado, é importante haver cuidado com o o sobreajuste (\textit{overfitting}) que pode ser gerado a partir disto. O \textit{overfitting} é o termo utilizado quando o modelo criado se ajusta em excesso às amostras de treinamento, tendo altas taxas de acurácia para esta base, mas falhando em classificar com boa taxa de acurácia as demais amostras de teste ou amostras reais.
+
+Em resumo, o problema é ter um modelo que possui bom desempenho na etapa de treinamento mas não é uma boa representação das amostras reais. A figura \ref{fig:overfitting} exemplifica um modelo de classificação generalista (linha preta) e um modelo que sofre de \textit{overfitting} (linha verde).
+
+\begin{figure}[h!]
+  \centering
+  \includegraphics[scale=0.3]{imgs/overfitting}
+  \caption{Modelo de aprendizado em um problema de duas classes, a linha preta indica uma função mais generalista, enquanto a linha verde representa uma função mais adequada às amostras de treinamento, mas que provavelmente sofre de \textit{overfitting.}}
+  \label{fig:overfitting}
+\end{figure}
+
+Para detectar problemas de \textit{overfitting}, pode-se testar o modelo em diversas outras bases de amostra, medindo a variância da acurácia entre estas bases. Uma alta variância indica que o modelo não é genérico o suficiente, apontando para um provável caso de \textit{overfitting}.
 
 Uma vez que a fundamentação teórica necessária foi coberta, é necessário fazer um levantamento na literatura pelos trabalhos considerados estado da arte em suas respectivas áreas. O capítulo a seguir trata deste levantamento.
