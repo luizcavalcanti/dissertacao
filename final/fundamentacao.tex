@@ -173,12 +173,12 @@ Ainda é possível obter a precisão e a revocação. A precisão é o número d
 
 Apesar de que a maximização da acurácia seja desejável para o ajuste de um algoritmo de aprendizado, é importante haver cuidado com o o sobreajuste (\textit{overfitting}) que pode ser gerado a partir disto. O \textit{overfitting} é o termo utilizado quando o modelo criado se ajusta em excesso às amostras de treinamento, tendo altas taxas de acurácia para esta base, mas falhando em classificar com boa taxa de acurácia as demais amostras de teste ou amostras reais.
 
-Em resumo, o problema é ter um modelo que possui bom desempenho na etapa de treinamento mas não é uma boa representação das amostras reais. A figura \ref{fig:overfitting} exemplifica um modelo de classificação generalista (linha preta) e um modelo que sofre de \textit{overfitting} (linha verde).
+Em resumo, o problema é ter um modelo que possui bom desempenho na etapa de treinamento mas não é uma boa representação das amostras reais. A figura \ref{fig:overfitting} exemplifica um modelo de classificação generalista (linha preta) e um modelo que provavelmente sofre de \textit{overfitting} (linha verde).
 
 \begin{figure}[h!]
   \centering
   \includegraphics[scale=0.3]{imgs/overfitting}
-  \caption{Modelo de aprendizado em um problema de duas classes, a linha preta indica uma função mais generalista, enquanto a linha verde representa uma função mais adequada às amostras de treinamento, mas que provavelmente sofre de \textit{overfitting.}}
+  \caption{Modelo de aprendizado em um problema de duas classes, a linha preta indica uma função mais generalista, enquanto a linha verde representa uma função com acurácia maior em relação às amostras de treinamento, mas que provavelmente sofre de \textit{overfitting.}}
   \label{fig:overfitting}
 \end{figure}
 
