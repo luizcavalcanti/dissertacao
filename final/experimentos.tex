@@ -247,7 +247,7 @@ Elementos antrópicos &    31 &  0,3 \% \\ \hline
 \label{tab:experimentoRegioesDistribuicao}
 \end{table}
 
-O vetor de características escolhido para representar cada amostra compreende informações de cor, intensidade, morfologia e textura de cada segmento a ser classificado. Este conjunto de características foi escolhido pela alta representatividade de valores em determinadas classes, baixa dimensionalidade e simples depuração.
+O vetor de características escolhido inicialmente para representar cada amostra compreende informações de cor, intensidade, morfologia e textura de cada segmento a ser classificado. Este conjunto de características foi escolhido pela alta representatividade de valores em determinadas classes, baixa dimensionalidade e simples depuração.
 
 A Cor média para os canais vermelho, verde e azul de todo o segmento trazem informação do tom de cor, enquanto a intensidade média e o histograma em tons de cinza ajudam a representar informações de intensidade. Para guardar informações sobre a textura e variância de intensidade do segmento, um histograma de \textit{Local Binary Pattern}, descrito por \citeonline{ahonen:2009}, foi extraído.
 
@@ -278,8 +278,13 @@ Hough - maior reta        & Inteiro &  1x1 \\ \hline
 
 
 %TODO falar dos problemas da base desbalanceada e do que foi feito para resolver
+
 %TODO falar da seleção de atributos
-%TODO fazer bruteforce para encontar melhores métodos/parametros
+Para reduzir a dimensionalidade do vetor de atributos, seleção de subconjunto de atributos baseada em correlação (\textit{Correlation-based Feature Subset Selection}, ou CFS), introduzida por \citeonline{hall:1998}, foi utilizada. A hipótese central desta técnica é de que bons conjuntos de atributos contém atributos altamente correlacionados com as classes do problema, mas ao mesmo tempo pouco correlacionados entre si.
+
+%TODO fazer bruteforce para encontar melhores métodos
+
+Todas as amostras disponíveis foram classificadas com os classificadores propostos no experimento. A acurácia, precisão e revocação são apresentadas na tabela \ref{tab:experimentoClassificacao1}.
 
 \begin{table}[h]
 \ABNTEXfontereduzida
