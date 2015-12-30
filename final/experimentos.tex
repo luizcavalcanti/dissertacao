@@ -280,7 +280,23 @@ Hough - maior reta        & Inteiro &  1x1 \\ \hline
 %TODO falar dos problemas da base desbalanceada e do que foi feito para resolver
 
 %TODO falar da seleção de atributos
-Para reduzir a dimensionalidade do vetor de atributos, seleção de subconjunto de atributos baseada em correlação (\textit{Correlation-based Feature Subset Selection}, ou CFS), introduzida por \citeonline{hall:1998}, foi utilizada. A hipótese central desta técnica é de que bons conjuntos de atributos contém atributos altamente correlacionados com as classes do problema, mas ao mesmo tempo pouco correlacionados entre si.
+Para reduzir a dimensionalidade do vetor de características, a seleção de subconjunto de atributos baseada em correlação (\textit{Correlation-based Feature Subset Selection}, ou CFS), introduzida por \citeonline{hall:1998}, foi utilizada. A hipótese central desta técnica é de que bons conjuntos de características contém atributos altamente correlacionados com as classes do problema, mas ao mesmo tempo pouco correlacionados entre si.
+
+O vetor de características resultante possui apenas 7 atributos, conforme pode ser visto na tabela \ref{tab:experimentoClassificacao1AtributosFiltrados}. Esta redução foi importante para aumentar a generalização e simplificar os modelos gerados no experimento. A variância da acurácia entre a base de treinamento e as bases de validação foi reduzida em quase todos os algoritmos de classificação utilizados. A exceção foi o algoritmo de \textit{Random Forest}, que não apresentou mudança significativa na variância.
+
+\begin{table}[h]
+\ABNTEXfontereduzida
+\centering
+\begin{tabulary}{\linewidth}{|L|L|R|}
+\hline
+\textbf{Atributo} & \textbf{Tipo} & \textbf{Dimensão} \\ \hline
+Intensidade - histograma (5/15) & Inteiro & 5x1 \\ \hline
+LBP - histograma (1/26)         & Inteiro & 1x1 \\ \hline
+Hough - maior reta              & Inteiro & 1x1 \\ \hline
+\end{tabulary}
+\caption{Atributos selecionados pela técnica de CFS}
+\label{tab:experimentoClassificacao1AtributosFiltrados}
+\end{table}
 
 %TODO fazer bruteforce para encontar melhores métodos
 
