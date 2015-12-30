@@ -229,6 +229,24 @@ Finalmente, todos os algoritmos processam os conjuntos de treinamento para criar
 
 \subsection{Resultados}
 
+Após a rotulação de todas as amostras utilizadas no experimento, a distribuição das classes do problema em toda a base foi medida e pode ser vista na tabela \ref{tab:experimentoRegioesDistribuicao}.
+
+\begin{table}[h]
+\ABNTEXfontereduzida
+\centering
+\begin{tabulary}{\linewidth}{|L|R|R|}
+\hline
+\textbf{Classe} & \textbf{Amostras} & \textbf{Percentual} \\ \hline
+Floresta             & 8.684 & 86,3 \% \\ \hline
+Vegetação rasteira   &   939 &  9,3 \% \\ \hline
+Água                 &   287 &  2,8 \% \\ \hline
+Terra/areia/barro    &   136 &  1,3 \% \\ \hline
+Elementos antrópicos &    31 &  0,3 \% \\ \hline
+\end{tabulary}
+\caption{Distribuição de classes na base de segmentos}
+\label{tab:experimentoRegioesDistribuicao}
+\end{table}
+
 O vetor de características escolhido para representar cada amostra compreende informações de cor, intensidade, morfologia e textura de cada segmento a ser classificado. Este conjunto de características foi escolhido pela alta representatividade de valores em determinadas classes, baixa dimensionalidade e simples depuração.
 
 A Cor média para os canais vermelho, verde e azul de todo o segmento trazem informação do tom de cor, enquanto a intensidade média e o histograma em tons de cinza ajudam a representar informações de intensidade. Para guardar informações sobre a textura e variância de intensidade do segmento, um histograma de \textit{Local Binary Pattern}, descrito por \citeonline{ahonen:2009}, foi extraído.
@@ -258,24 +276,6 @@ Hough - maior reta        & Inteiro &  1x1 \\ \hline
 \label{tab:experimentoClassificacao1Atributos}
 \end{table}
 
-
-A distribuição das classes na base de segmentos, após a rotulação de todas as amostras, pode ser vista na tabela \ref{tab:experimentoRegioesDistribuicao}.
-
-\begin{table}[h]
-\ABNTEXfontereduzida
-\centering
-\begin{tabulary}{\linewidth}{|L|R|R|}
-\hline
-\textbf{Classe} & \textbf{Amostras} & \textbf{Percentual} \\ \hline
-Floresta             & 8.684 & 86,3 \% \\ \hline
-Vegetação rasteira   &   939 &  9,3 \% \\ \hline
-Água                 &   287 &  2,8 \% \\ \hline
-Terra/areia/barro    &   136 &  1,3 \% \\ \hline
-Elementos antrópicos &    31 &  0,3 \% \\ \hline
-\end{tabulary}
-\caption{Distribuição de classes na base de segmentos}
-\label{tab:experimentoRegioesDistribuicao}
-\end{table}
 
 %TODO falar dos problemas da base desbalanceada e do que foi feito para resolver
 %TODO falar da seleção de atributos
