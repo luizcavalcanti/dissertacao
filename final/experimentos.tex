@@ -247,6 +247,8 @@ Elementos antrópicos &    31 &  0,3 \% \\ \hline
 \label{tab:experimentoRegioesDistribuicao}
 \end{table}
 
+%TODO falar dos problemas da base desbalanceada e do que foi feito para resolver
+
 O vetor de características escolhido inicialmente para representar cada amostra compreende informações de cor, intensidade, morfologia e textura de cada segmento a ser classificado. Este conjunto de características foi escolhido pela alta representatividade de valores em determinadas classes, baixa dimensionalidade e simples depuração.
 
 A Cor média para os canais vermelho, verde e azul de todo o segmento trazem informação do tom de cor, enquanto a intensidade média e o histograma em tons de cinza ajudam a representar informações de intensidade. Para guardar informações sobre a textura e variância de intensidade do segmento, um histograma de \textit{Local Binary Pattern}, descrito por \citeonline{ahonen:2009}, foi extraído.
@@ -276,10 +278,6 @@ Hough - maior reta        & Inteiro &  1x1 \\ \hline
 \label{tab:experimentoClassificacao1Atributos}
 \end{table}
 
-
-%TODO falar dos problemas da base desbalanceada e do que foi feito para resolver
-
-%TODO falar da seleção de atributos
 Para reduzir a dimensionalidade do vetor de características, a seleção de subconjunto de atributos baseada em correlação (\textit{Correlation-based Feature Subset Selection}, ou CFS), introduzida por \citeonline{hall:1998}, foi utilizada. A hipótese central desta técnica é de que bons conjuntos de características contém atributos altamente correlacionados com as classes do problema, mas ao mesmo tempo pouco correlacionados entre si.
 
 O vetor de características resultante possui apenas 7 atributos, conforme pode ser visto na tabela \ref{tab:experimentoClassificacao1AtributosFiltrados}. Esta redução foi importante para aumentar a generalização e simplificar os modelos gerados no experimento. A variância da acurácia entre a base de treinamento e as bases de validação foi reduzida em quase todos os algoritmos de classificação utilizados. A exceção foi o algoritmo de \textit{Random Forest}, que não apresentou mudança significativa na variância.
@@ -312,6 +310,7 @@ Todas as amostras disponíveis foram classificadas com os classificadores propos
 		KNN (3)           & 92,26\% & 0.920 & 0.922 \\ \hline
 		SVM               & 91,27\% & 0.899 & 0.913 \\ \hline
 		Árvore de decisão & 90,21\% & 0.907 & 0.902 \\ \hline
+		Naive Bayes       & 82,30\% & 0.847 & 0.823 \\ \hline
 	\end{tabulary}
 \caption{Comparação de métodos de classificação para regiões segmentadas das imagens, ordenados por acurácia}
 \label{tab:experimentoClassificacao1}
