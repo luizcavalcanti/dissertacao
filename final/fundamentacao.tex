@@ -119,6 +119,28 @@ A principal vantagem do classificador SVM é seu bom desempenho em conjuntos de 
   \label{fig:svm}
 \end{figure}
 
+
+Há um grupo de algoritmos de aprendizado de máquina que se baseiam em raciocínio probabilístico, especialmente sob o viés bayseano. De acordo com \citeonline{mitchell:1997}, o raciocínio bayesiano é baseado na presunção de que as quantidades de interesse são governadas pela distribuição das probabilidade e que decisões ótimas podem ser tomadas a partir da análise destas probabilidades em conjunto com os dados observados.
+
+O teorema de Bayes estabelece a relação entre uma probabilidade condicional e sua probabilidade inversa. A equação \ref{eq:teoremaDeBayes}, conhecida como regra de Bayes, permite calcular a probabilidade de um evento (A) dado que outro evento aconteceu (B).
+
+\begin{equation}
+	\displaystyle P(A|B) = \frac{P(B|A) P(A)}{P(B)}
+\label{eq:teoremaDeBayes}
+\end{equation}
+
+A probabilidade \textit{a priori}, ou seja, a probabilidade isolada de que um evento $A$ aconteça é expressa por $P(A)$. A probabilidade \textit{a posteriori} de um evento $A$ dado que ocorreu também um evento $B$ é expressa por $P(A|B)$.
+
+Dentre as técnicas de inspiração probabilística, se destaca por sua simplicidade a \textit{Naive Bayes}. Esta família de algoritmos presume uma forte independência entre as variáveis do vetor de características, por isso é considerada uma técnica ingênua (do inglês \textit{Naive}).
+
+Segundo \citeonline{russell:2010}, os valores de máxima probabilidade de cada classe de acordo com as variáveis do vetor de características é encontrado. Uma vez que um modelo é gerado desta maneira, as futuras amostras podem ser classificadas de acordo com as mesmas probabilidades. Dado que o vetor de características das amostras é dado por $x_1, x_2,...,x_n$, a probabilidade de cada classe C é expressa pela equação \ref{eq:probabilidadeNaiveBayes}. A família de algoritmos \textit{Naive Bayes} tende a ser bastante robusta em face a dados ruidosos ou faltantes.
+
+\begin{equation}
+	\displaystyle P(C|x_1,x_2,...,x_n) = P(C) \prod_{i}{P(x_i|C)}
+\label{eq:probabilidadeNaiveBayes}
+\end{equation}
+
+
 O algoritmo \textit{Random Forest}, introduzido por \citeonline{breiman:2001} , é um \textit{ensemble} de classificadores de árvore de decisão. Na fase de treinamento, um número determinado de árvores é gerado utilizando um subconjunto pseudo-aleatório do vetor de característica completo utilizado no problema. Tanto o número de árvores quanto a quantidade de atributos utilizados por cada árvore pode ser determinado pelo usuário do algoritmo.
 
 Uma vez que a base de treinamento foi utilizada para gerar os modelos das árvores de decisão, estes mesmo modelos podem ser utilizados para classificar novas amostras do problema. Preferencialmente todas as árvores geradas são envolvidas na classificação, cada uma chegando à sua própria conclusão sobre a classe da amostra apresentada. Cada árvore tem um ``voto'', que é contabilizado para a definição da classe mais votada, que é então escolhida como a classe da amostra. Esta técnica de soma de votos é conhecida como \textit{polling}.
