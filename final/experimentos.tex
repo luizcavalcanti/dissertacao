@@ -316,6 +316,30 @@ Todas as amostras disponíveis foram classificadas com os classificadores propos
 \label{tab:experimentoClassificacao1}
 \end{table}
 
+\todo[inline]{Discutir sobre parametrização dos métodos?}
+
+Tanto por questões de balanceamento das classes como por questões contextuais do problema, falsos positivos para a classe de elementos antrópicos são toleráveis, enquanto falsos negativos devem ser minimizados, mesmo que em detrimento da precisão e revocação de outras classes do problema. A razão contextual para esta afirmação é de que é importante que o maior número de elementos antrópicos sejam detectados, mesmo que isso signifique um aumento do número de alarmes falsos para os agentes de segurança responsáveis pela patrulhamento das regiões de floresta.
+
+A avaliação dos resultados de revocação, bem como a análise da curva ROC da classe de elementos antrópicos para cada algoritmo testado podem ser vistas na tabela \ref{tab:experimentoClassificacao1Revocacao}.
+
+\begin{table}[h]
+\ABNTEXfontereduzida
+\centering
+	\begin{tabulary}{\linewidth}{|L|R|R|R|}
+		\hline
+		\textbf{Método} & \textbf{Revocação} & \textbf{Precisão} & \textbf{Área ROC} \\ \hline
+		Naive Bayes       & \cellcolor{gray!25}0.840 & 0.026 & \cellcolor{gray!25}0.975 \\ \hline
+		KNN (3)           & 0.600 & 0.750 & 0.824 \\ \hline
+		SVM               & 0.560 & 0.778 & 0.780 \\ \hline
+		Árvore de decisão & 0.480 & 0.706 & 0.737 \\ \hline
+		Random Forest     & 0.440 & \cellcolor{gray!25}0.846 & 0.914 \\ \hline
+	\end{tabulary}
+\caption{Comparação de métodos de classificação em relação à classe de elementos antrópicos, ordenados pela revocação}
+\label{tab:experimentoClassificacao1Revocacao}
+\end{table}
+
+\todo[inline]{Falar sobre algoritmo com melhor revocação e área ROC}
+
 \section{Detecção de elementos antrópicos}
 
 \subsection{Protocolo experimental}
