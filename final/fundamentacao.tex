@@ -176,24 +176,31 @@ De grande importância também é a composição da matriz de confusão (tabela 
 Alguns valores podem ser obtidos através desta matriz. A própria acurácia do modelo pode ser obtida com a equação \ref{eq:acuracia}, onde TP representa o número de verdadeiros positivos, FP representa os falsos positivos, FN representa os falsos negativos e TN representa os verdadeiros negativos.
 
 \begin{equation}
-  Acurácia = \frac{TP+TN}{TP+FP+TN+FN}
+  \displaystyle Acurácia = \frac{TP+TN}{TP+FP+TN+FN}
 \label{eq:acuracia}
 \end{equation}
 
 Ainda é possível obter a precisão e a revocação. A precisão é o número de elementos relevantes recuperados dividido pelo número total de elementos recuperados (equação \ref{eq:precisao}) enquanto a revocação é definida como o número de elementos relevantes recuperados dividido pelo número total de elementos relevantes existentes, que deveriam ter sido recuperados (equação \ref{eq:revocacao}).
 
 \begin{equation}
-  Precisão = \frac{TP}{TP+FP}
+  \displaystyle Precisão = \frac{TP}{TP+FP}
 \label{eq:precisao}
 \end{equation}
 
 
 \begin{equation}
-  Revocação = \frac{TP}{TP+FN}
+  \displaystyle Revocação = \frac{TP}{TP+FN}
 \label{eq:revocacao}
 \end{equation}
 
-Apesar de que a maximização da acurácia seja desejável para o ajuste de um algoritmo de aprendizado, é importante haver cuidado com o o sobreajuste (\textit{overfitting}) que pode ser gerado a partir disto. O \textit{overfitting} é o termo utilizado quando o modelo criado se ajusta em excesso às amostras de treinamento, tendo altas taxas de acurácia para esta base, mas falhando em classificar com boa taxa de acurácia as demais amostras de teste ou amostras reais.
+Como forma de medir o equilíbrio entre precisão e revocação, a média harmônica entre estas duas medidas é calculada. Esta medida é chamada de $F_1$ ($F_1$ \textit{score}, em inglês), e é obtida a partir da equação \ref{eq:f1}.
+
+\begin{equation}
+  \displaystyle F_1 = 2 \cdot \frac{precisão \cdot revocação}{precisão + revocação}
+\label{eq:f1}
+\end{equation}
+
+Apesar de que a maximização das métricas apresentadas seja desejável para o ajuste de um algoritmo de aprendizado, é necessário evitar o sobreajuste (\textit{overfitting}) que pode ser gerado a partir disto. O \textit{overfitting} é o termo utilizado quando o modelo criado se ajusta em excesso às amostras de treinamento, tendo altas taxas de acurácia para esta base, mas falhando em classificar com boa taxa de acurácia as demais amostras de teste ou amostras reais.
 
 Em resumo, o problema é ter um modelo que possui bom desempenho na etapa de treinamento mas não é uma boa representação das amostras reais. A figura \ref{fig:overfitting} exemplifica um modelo de classificação generalista (linha preta) e um modelo que provavelmente sofre de \textit{overfitting} (linha verde).
 
