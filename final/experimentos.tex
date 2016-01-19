@@ -295,7 +295,7 @@ Hough - maior reta        & Inteiro &  1x1 \\ \hline
 
 Para reduzir a dimensionalidade do vetor de características, a seleção de subconjunto de atributos baseada em correlação (\textit{Correlation-based Feature Subset Selection}, ou CFS), introduzida por \citeonline{hall:1998}, foi utilizada. A hipótese central desta técnica é de que bons conjuntos de características contém atributos altamente correlacionados com as classes do problema, mas ao mesmo tempo pouco correlacionados entre si.
 
-O vetor de características resultante possui apenas 7 atributos, conforme pode ser visto na tabela \ref{tab:experimentoClassificacao1AtributosFiltrados}. Esta redução foi importante para aumentar a generalização e simplificar os modelos gerados no experimento. A variância da acurácia entre a base de treinamento e as bases de validação foi reduzida em quase todos os algoritmos de classificação utilizados. A exceção foi o algoritmo de \textit{Random Forest}, que não apresentou mudança significativa na variância.
+O vetor de características resultante possui apenas 7 atributos, conforme pode ser visto na tabela \ref{tab:experimentoClassificacao1AtributosFiltrados}. Esta redução pode ser importante para aumentar a generalização e simplificar os modelos gerados no experimento, bem como diminuir problemas de dimensionalidade enfrentados por alguns dos algoritmos testados.
 
 \begin{table}[h]
 \ABNTEXfontereduzida
@@ -311,7 +311,7 @@ Hough - maior reta              & Inteiro & 1x1 \\ \hline
 \label{tab:experimentoClassificacao1AtributosFiltrados}
 \end{table}
 
-%TODO fazer bruteforce para encontar melhores métodos
+Para efeitos de comparação, todos os algoritmos foram testados com os atributos originais e com o subconjunto de atributos selecionados pela técnica CFS.
 
 Todas as amostras disponíveis foram classificadas com os classificadores propostos no experimento. A acurácia, precisão e revocação são apresentadas na tabela \ref{tab:experimentoClassificacao1}.
 
@@ -321,17 +321,20 @@ Todas as amostras disponíveis foram classificadas com os classificadores propos
 	\begin{tabulary}{\linewidth}{|L|R|R|R|R|}
 		\hline
 		\textbf{Método} & \textbf{Acurácia} & \textbf{Precisão} & \textbf{Revocação} & \textbf{F1} \\ \hline
-		Random Forest     & 92,70\% & 0.939 & 0.926 & 0.932 \\ \hline
-		KNN (3)           & 92,26\% & 0.920 & 0.922 & 0.920 \\ \hline
-		SVM               & 91,27\% & 0.899 & 0.913 & 0.905 \\ \hline
-		Árvore de decisão & 90,21\% & 0.907 & 0.902 & 0.904 \\ \hline
-		Naive Bayes       & 82,30\% & 0.847 & 0.823 & 0.834 \\ \hline
+		Random Forest           & \cellcolor{gray!25}0.930 & \cellcolor{gray!25}0.917 & \cellcolor{gray!25}0.930 & \cellcolor{gray!25}0.921 \\ \hline
+		KNN                     & 0.919 & 0.907 & 0.920 & 0.909 \\ \hline
+		SVM                     & 0.915 & 0.899 & 0.915 & 0.900 \\ \hline
+		Random Forest (CFS)     & 0.909 & 0.893 & 0.910 & 0.899 \\ \hline
+		Árvore de decisão       & 0.904 & 0.898 & 0.904 & 0.901 \\ \hline
+		KNN (CFS)               & 0.898 & 0.880 & 0.898 & 0.887 \\ \hline
+		Árvore de decisão (CFS) & 0.893 & 0.880 & 0.894 & 0.886 \\ \hline
+		SVM (CFS)               & 0.865 & 0.798 & 0.866 & 0.808 \\ \hline
+		Naive Bayes (CFS)       & 0.816 & 0.845 & 0.816 & 0.824 \\ \hline
+		Naive Bayes             & 0.563 & 0.857 & 0.563 & 0.101 \\ \hline
 	\end{tabulary}
 \caption{Comparação de métodos de classificação para regiões segmentadas das imagens, ordenados por acurácia}
 \label{tab:experimentoClassificacao1}
 \end{table}
-
-\todo[inline]{Discutir sobre parametrização dos métodos?}
 
 Tanto por questões de balanceamento das classes como por questões contextuais do problema, falsos positivos para a classe de elementos antrópicos são toleráveis, enquanto falsos negativos devem ser minimizados, mesmo que em detrimento da precisão e revocação de outras classes do problema. A razão contextual para esta afirmação é de que é importante que o maior número de elementos antrópicos sejam detectados, mesmo que isso signifique um aumento do número de alarmes falsos para os agentes de segurança responsáveis pela patrulhamento das regiões de floresta.
 
@@ -340,20 +343,25 @@ A avaliação dos resultados de revocação, bem como a análise da curva ROC da
 \begin{table}[h]
 \ABNTEXfontereduzida
 \centering
-	\begin{tabulary}{\linewidth}{|L|R|R|R|}
+	\begin{tabulary}{\linewidth}{|L|R|R|R|R|}
 		\hline
-		\textbf{Método} & \textbf{Revocação} & \textbf{Precisão} & \textbf{Área ROC} \\ \hline
-		Naive Bayes       & \cellcolor{gray!25}0.840 & 0.026 & \cellcolor{gray!25}0.975 \\ \hline
-		KNN (3)           & 0.600 & 0.750 & 0.824 \\ \hline
-		Random Forest     & 0.500 & \cellcolor{gray!25}0.846 & 0.949 \\ \hline
-		SVM               & 0.560 & 0.778 & 0.780 \\ \hline
-		Árvore de decisão & 0.480 & 0.706 & 0.737 \\ \hline
+		\textbf{Método} & \textbf{Revocação} & \textbf{Precisão} & \textbf{F1} & \textbf{Área ROC} \\ \hline
+		Random Forest           & 0.500 & \cellcolor{gray!25}0.917 & 0.647 & \cellcolor{gray!25}0.999 \\ \hline
+		Naive Bayes             & \cellcolor{gray!25}0.955 & 0.054 & 0.101 & 0.984 \\ \hline
+		Naive Bayes (CFS)       & 0.909 & 0.030 & 0.057 & 0.978 \\ \hline
+		Random Forest (CFS)     & 0.500 & 0.846 & 0.629 & 0.926 \\ \hline
+		KNN                     & 0.727 & 0.889 & \cellcolor{gray!25}0.800 & 0.907 \\ \hline
+		Árvore de decisão       & 0.636 & 0.700 & 0.667 & 0.839 \\ \hline
+		KNN (CFS)               & 0.591 & 0.722 & 0.650 & 0.806 \\ \hline
+		SVM (CFS)               & 0.591 & 0.813 & 0.684 & 0.795 \\ \hline
+		Árvore de decisão (CFS) & 0.455 & 0.588 & 0.513 & 0.724 \\ \hline
+		SVM                     & 0.000 & 0.000 & 0.000 & 0.500 \\ \hline
 	\end{tabulary}
-\caption{Comparação de métodos de classificação em relação à classe de elementos antrópicos, ordenados pela revocação}
+\caption{Comparação de métodos de classificação em relação à classe de elementos antrópicos, ordenados pela área ROC}
 \label{tab:experimentoClassificacao1Revocacao}
 \end{table}
 
-\todo[inline]{Falar sobre algoritmo com melhor revocação e área ROC}
+Tanto no aprendizado geral quanto especificamente no aprendizado da classe de elementos antrópicos, o algoritmo \textit{Random Forest} obteve um desempenho médio promissor. É seguro afirmar, também, que a seleção de atributos utilizando o método CFS não teve impacto positivo na generalização e precisão do aprendizado, já que em virtualmente todos os métodos obtiveram melhor desempenho com o conjunto completo de atributos.
 
 \section{Detecção de elementos antrópicos}
 
