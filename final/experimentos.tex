@@ -2,9 +2,9 @@
 
 \section{Base de dados}
 
-A base de dados (imagens) utilizada advém do projeto GEOMA \cite{geoma}, financiado pelo Instituto de Pesquisas Espaciais (INPE). Trata-se de imagens coloridas, codificadas em JPEG e com 640 pixels de largura por 480 pixels de altura. A base é composta por fotografias ortogonais ao relevo (como pode ser visto na figura \ref{fig:amostra}), de altitudes variadas e tiradas a partir de aeronaves tripuladas, durante o trajeto entre diversas cidades da região amazônica.
+A base de dados (imagens) utilizada advém do projeto GEOMA \cite{geoma}, financiado pelo Instituto Nacional de Pesquisas Espaciais (INPE). Trata-se de imagens coloridas, codificadas em JPEG e com 640 pixels de largura por 480 pixels de altura. A base é composta por fotografias ortogonais ao relevo (como pode ser visto na figura \ref{fig:amostra}), de altitudes variadas e tiradas a partir de aeronaves tripuladas, durante o trajeto entre diversas cidades da região amazônica.
 
-No momento do início dos experimentos deste trabalho, estas imagens tiradas de aviões tripulados eram as únicas disponíveis publicamente. Podemos considerá-las válidas por terem sido tiradas em altitude de voo compatível com as missões de VANTs de vigilância, entre 900 e 1.100 metros do solo. Como este trabalho tem como objetivo utilizar apenas câmeras de espectro visível, são dispensáveis comparações de sensores com VANTs que eventualmente possuam sonar, câmeras infravermelho ou outros tipos de sensores.
+No momento do início dos experimentos deste trabalho, estas imagens tiradas de aviões tripulados eram as únicas da região da Amazônia legal disponíveis publicamente. Podemos considerá-las válidas por terem sido tiradas em altitude de voo compatível com as missões de VANTs de vigilância, entre 900 e 1.100 metros do solo. Como este trabalho tem como objetivo utilizar apenas câmeras de espectro visível, são dispensáveis comparações de sensores com VANTs que eventualmente possuam sonar, câmeras infravermelho ou outros tipos de sensores.
 
 \begin{figure}[h]
   \centering
@@ -25,7 +25,7 @@ No momento do início dos experimentos deste trabalho, estas imagens tiradas de 
 
 A base possui um total de 3.044 imagens, com dimensão total de 1,02 Gigabytes de dados. Todas as imagens foram utilizadas no presente trabalho sem tratamento ou manipulação prévios.
 
-Para criar uma referência (\textit{ground-truth}) para a segmentação das imagens da base de dados, uma ferramenta computacional executável em navegadores web foi construída (figura \ref{fig:manualseg}). A saída deste aplicativo é uma coleção, para cada imagem, de informações sobre bordas das regiões da imagem. Estas informações servirão de referência para avaliar o desempenho dos algoritmos de segmentação testados neste trabalho.
+Para criar uma referência (\textit{ground-truth}) para a segmentação das imagens da base de dados, uma ferramenta computacional executável em navegadores web foi construída (figura \ref{fig:manualseg}). A saída deste aplicativo é uma coleção, para cada imagem, de informações sobre bordas das regiões da imagem. Estas informações serviram de referência para avaliar o desempenho dos algoritmos de segmentação testados neste trabalho.
 
 \begin{figure}[h]
   \centering
@@ -36,13 +36,15 @@ Para criar uma referência (\textit{ground-truth}) para a segmentação das imag
 
 \section{Segmentação}
 
-Um experimento de comparação entre diversos algoritmos de segmentação de imagens foi planejado. Cada imagem da base de dados foi segmentada por seres humanos, segmentações estas que constituíram a base de referência para o experimento. Cada imagem tem sua segmentação de referência consolidada a partir da segmentação manual de pelo menos 5 seres humanos.
+Um experimento de comparação entre diversos algoritmos de segmentação de imagens foi planejado. Cada imagem da base de dados foi segmentada por seres humanos, segmentações estas que constituíram a base de referência para o experimento. Cada imagem tem sua segmentação de referência consolidada a partir da segmentação manual de pelo menos 5 indivíduos.
 
 \subsection{Protocolo experimental}
 
-Para criação da segmentação manual de referência (\textit{ground-truth}), 31 voluntários, todos alunos de pós-graduação em informática ou áreas relacionadas, foram convidados a realizar a segmentação manual das imagens da base de dados, através de uma ferramenta\footnote{http://amazonsegmentation.ddns.net/} criada com esta finalidade. A ferramenta de software web criada consiste de uma interface gráfica onde o usuário pode desenhar sobre uma imagem a ser segmentada. A ideia é que nesta imagem sejam circunscritas as bordas das regiões definidas pelo usuário, de acordo com instruções fornecidas pela ferramenta e que foram lidas obrigatoriamente por cada voluntário antes do início do experimento.
+Para criação da segmentação manual de referência (\textit{ground-truth}), 31 voluntários, todos alunos de pós-graduação em informática ou áreas relacionadas, foram convidados a realizar a segmentação manual das imagens da base de dados, através de uma ferramenta\footnote{http://amazonsegmentation.ddns.net/} criada com esta finalidade.
 
-Em linhas gerais, as instruções orientam os participantes no experimento a segmentar as imagens de acordo com a cobertura ou tipo de terreno, formação geológica ou vegetação, utilizando os critérios e granularidade que lhes pareçam mais adequados:
+A ferramenta de software web criada consiste de uma interface gráfica onde o usuário pode desenhar sobre uma imagem a ser segmentada. A ideia é que nesta imagem sejam circunscritas as bordas das regiões definidas pelo usuário, de acordo com instruções fornecidas pela ferramenta e que foram lidas obrigatoriamente por cada voluntário antes do início do experimento.
+
+Em linhas gerais, as instruções orientaram os participantes do experimento a segmentar as imagens de acordo com a cobertura ou tipo de terreno, formação geológica ou vegetação, utilizando os critérios e granularidade que lhes pareçam mais adequados:
 
 \begin{citacao}[english]
 Your mission is to manually segment the given images as accurately as possible, according to your own judgment. The criteria here is terrain coverage. So, we would like to separate different vegetations, geological formations and human-made objects. \cite{amazonsegmentation}
@@ -58,7 +60,7 @@ O conteúdo integral das instruções pode ser encontrado no apêndice \ref{apen
 
 \subsection{Resultados}
 
-Antes de analisar o desempenho de cada algoritmo de segmentação presente neste trabalho em relação à segmentação manual, é preciso aferir a validade da própria segmentação manual, visto que ela foi realizada por diferentes participantes. Segundo \citeonline{martin:2001}, uma forma de validar a consistência das segmentações manuais é medir o erro entre segmentações de uma mesma imagem feita por diferentes pessoas.
+Antes de analisar o desempenho de cada algoritmo de segmentação presente neste trabalho em relação à segmentação manual, foi preciso aferir a validade da própria segmentação manual, visto que ela foi realizada por diferentes participantes com diferentes interpretações das instruções fornecidas. Segundo \citeonline{martin:2001}, uma forma de validar a consistência das segmentações manuais é medir a consistência entre segmentações de uma mesma imagem feita por diferentes pessoas.
 
 Utilizando as métricas de erro de consistência local (LCE) e global (GCE) para medir a similaridade das segmentações manuais, os resultados confirmam a consisência da segmentação manual feira pelos participantes do experimento. Conforme pode ser visto nas figuras \ref{fig:manual_gce} e \ref{fig:manual_lce}, os coeficientes de erro global e local, respectivamente, ficam abaixo dos 20\% e 10\% para todos os casos.
 
@@ -153,7 +155,7 @@ O método SRM conseguiu uma média de erros global e local substancialmente meno
 \end{figure}
 
 
-Adicionalmente, experimentos foram realizados com técnicas de classificação. O objetivo era saber se poderíamos utilizar apenas uma etapa para realizar segmentação e o primeiro nível de classificação. Os resultados foram abaixo do que se consegue na etapa de segmentação isolada. Os resultados foram publicados no \textit{$10^th$ International Conference on Computer Vision Theory and Applications} e o artigo \cite{cavalcanti:2015} completo pode ser visto no apêndice \ref{cap:visapp2015}.
+Adicionalmente, experimentos foram realizados com técnicas de classificação. O objetivo era saber se poderíamos utilizar apenas uma etapa para realizar segmentação e o primeiro nível de classificação. Todos os algoritmos obtiveram precisão inferior ao que foi conseguido na etapa de segmentação isoladamente. Os resultados foram publicados no \textit{$10^{th}$ International Conference on Computer Vision Theory and Applications} e o artigo \cite{cavalcanti:2015} completo pode ser visto no apêndice \ref{cap:visapp2015}.
 
 Para fins de comparação, os resultados deste segundo experimento são apresentados na tabela \ref{tab:experimentoArtigo}. O tempo de execução da classificação para cada imagem no artigo publicado ignora o tempo de extração de características da imagem. Para uma comparação correta com os métodos de segmentação experimentados anteriormente, esse tempo gasto em extração de características foi acrescido na tabela desta seção.
 
@@ -184,13 +186,15 @@ Utilizando as técnicas de K vizinhos mais próximos (KNN), máquinas de vetores
 
 Primeiramente, todas as imagens foram segmentadas utilizando o algoritmo SRM, por conta de seu melhor desempenho no experimento de segmentação anterior. Cada um dos 10.057 segmentos produzidos nesta segmentação foi devidamente classificada manualmente, e suas características foram extraídas. Cada segmento foi classificado como uma das possíveis classes para o problema: floresta, vegetação rasteira, água, terra ou elemento antrópico.
 
-Alguns segmentos não puderam ser classificados e foram descartados das bases de treinamento e validação. Todos os elementos antrópicos encontrados foram validados pela Dra. Solange Costa, especialista do Centro Gestor e Operacional do Sistema de Proteção da Amazônia (CENSIPAM), órgão governamental federal responsável pelo patrulhamento e sensoriamento remoto da Amazônia legal brasileira.
+Alguns segmentos não puderam ser classificados e foram descartados das base utilizada no treinamento e validação dos modelos de aprendizado. Todos os elementos antrópicos encontrados foram validados pela Dra. Solange Costa, especialista do Centro Gestor e Operacional do Sistema de Proteção da Amazônia (CENSIPAM), órgão governamental federal responsável pelo patrulhamento e sensoriamento remoto da Amazônia legal brasileira.
 
-A partir desse ponto o conjunto total de segmentos foi dividido entre um conjunto de treinamento e um conjunto de validação, com 66\% e 34\% das amostras respectivamente.
+Em seguida, uma análise da base de segmentos rotulada foi feita, observando a estrutura e distribuição dos dados ao longo de toda a base, levando em consideração como os tipos de dados utilizados e sua representação podem influenciar os resultados dos algoritmos de aprendizado utilizados no experimento.
 
-Em seguida, uma análise da base de segmentos rotulada é feita, observando a estrutura e distribuição dos dados ao longo de toda a base, levando em consideração como os tipos de dados utilizados e sua representação podem influenciar os resultados dos algoritmos de aprendizado utilizados no experimento.
+Finalmente, todos os algoritmos processaram os conjuntos de treinamento para criar um modelo de aprendizado e em seguida, utilizam a base de validação para medir o quanto o modelo pode ser generalizado para bases de imagens diferentes.
 
-Finalmente, todos os algoritmos processam os conjuntos de treinamento para criar um modelo de aprendizado e em seguida, utilizam a base de validação para medir o quanto o modelo pode ser generalizado para bases de imagens diferentes. Cada algoritmos testado será refinado e parametrizado para que consiga uma maior acurácia para todas as classes e que a revocação seja otimizada para a classe de "elementos antrópicos".
+Para todos os algoritmos testados, o método de validação cruzada foi utilizado para avaliar a variância na taxa de aprendizado e inferir a generalização dos modelos criados. Mais especificamente o método k-fold foi utilizado, com um valor de $k=10$.
+
+Cada algoritmos testado foi refinado e parametrizado para que consiga uma maior acurácia para todas as classes e que a revocação seja otimizada para a classe de "elementos antrópicos".
 
 \subsection{Resultados}
 
@@ -212,15 +216,15 @@ Elementos antrópicos &    31 &  0,3 \% \\ \hline
 \label{tab:experimentoRegioesDistribuicao}
 \end{table}
 
-Com um conjunto de dados altamente desbalanceado, algumas precauções na avaliação de desempenho dos algoritmos precisam ser tomadas. A avaliação do aprendizado precisa considerar os cálculos de precisão e revocação das classes menos representadas no conjunto de dados.
+Com um conjunto de dados altamente desbalanceado, algumas precauções na avaliação de desempenho dos algoritmos precisaram ser tomadas. A avaliação do aprendizado precisou considerar os cálculos de precisão e revocação das classes menos representadas no conjunto de dados, especialmente a classe de elementos antrópicos.
 
 O vetor de características escolhido inicialmente para representar cada amostra compreende informações de cor, intensidade, morfologia e textura de cada segmento a ser classificado. Este conjunto de características foi escolhido pela alta representatividade de valores em determinadas classes, baixa dimensionalidade e simples depuração.
 
 A Cor média para os canais vermelho, verde e azul de todo o segmento trazem informação do tom de cor, enquanto a intensidade média e o histograma em tons de cinza ajudam a representar informações de intensidade. Para guardar informações sobre a textura e variância de intensidade do segmento, um histograma de \textit{Local Binary Pattern}, descrito por \citeonline{ahonen:2009}, foi extraído.
 
-Finalmente, para tentar representar características de morfologia do segmento, a transformada de Hough é utilizada. Neste último conjunto de características, a contagem de linhas retas e o comprimento da maior linha são utilizados.
+Finalmente, para tentar representar características de morfologia do segmento, a transformada de Hough foi utilizada. Neste último conjunto de características, a contagem de linhas retas e o comprimento da maior linha foram extraídos e passaram a compor o vetor de características das amostras.
 
-Com a discretização e normalização das variáveis que compõem o vetor de características, temos um total de 48 atributos numéricos. Um total de 10.057 amostras foram classificadas, onde 6.638 (66\%) foram utilizadas como amostras de treinamento e 3.419 (34\%) foram utilizadas como amostras de validação.
+Com a discretização e normalização das variáveis que compõem o vetor de características, obtivemos um total de 48 atributos numéricos. Um total de 10.057 amostras foram classificadas e o método de validação cruzada k-fold foi utilizado, com a finalidade de aferir não só a precisão, mas também a baixa variância e generalização dos modelos criados.
 
 A lista de atributos, seus tipos, dimensões e unicidade (singularidade) podem ser vistos na tabela \ref{tab:experimentoClassificacao1Atributos}.
 
