@@ -235,7 +235,6 @@ Ainda é possível obter a precisão e a revocação. A precisão é o número d
 \label{eq:precisao}
 \end{equation}
 
-
 \begin{equation}
   \displaystyle Revocação = \frac{TP}{TP+FN}
 \label{eq:revocacao}
@@ -254,12 +253,23 @@ Em resumo, o problema é ter um modelo que possui bom desempenho na etapa de tre
 
 \begin{figure}[h!]
   \centering
-  \includegraphics[scale=0.3]{imgs/overfitting}
+  \includegraphics[scale=0.4]{imgs/overfitting}
   \caption{Modelo de aprendizado em um problema de duas classes, a linha preta indica uma função mais generalista, enquanto a linha verde representa uma função com acurácia maior em relação às amostras de treinamento, mas que provavelmente sofre de \textit{overfitting.}}
   \label{fig:overfitting}
 \end{figure}
 
-Para detectar problemas de \textit{overfitting}, pode-se testar o modelo em diversas outras bases de amostra, medindo a variância da acurácia entre estas bases. Uma alta variância indica que o modelo não é genérico o suficiente, apontando para um provável caso de \textit{overfitting}.
+Para detectar problemas de \textit{overfitting}, pode-se testar o modelo em diversas outras bases de amostras, medindo a variância da acurácia entre estas bases. Uma alta variância indica que o modelo não é genérico o suficiente, apontando para um provável caso de \textit{overfitting}.
+
+Um método bastante utilizado para medir a generalização de um modelo de aprendizado é a validação cruzada. O conceito principal deste método é o particionamento do conjunto de amostras em um número de subconjuntos mutuamente exclusivos, utilizando um dos subconjuntos como base de treinamento e as demais como bases de validação do modelo treinado.
+
+A técnica de validação cruzada conhecida como \textit{k-fold} divide a base em $k$ subconjuntos de mesmo tamanho, escolhe um dos subconjuntos como base de treinamento e utiliza os demais subconjuntos como bases de testes deste primeiro subconjunto. O procedimento é repetido $k$ vezes, de forma que todos os subconjuntos possam ser utilizados para construir uma versão de modelo de aprendizado e ser validados pelos demais subconjuntos. A precisão do modelo é obtida pela equação \ref{eq:kfold}, onde $k$ é o número de subconjuntos e $y_i - y'_i$ é a diferença entre o valor esperado e o valor predito pelo modelo.
+
+\begin{equation}
+  \displaystyle Ac_f = \frac{1}{k} \sum_{i=1}^k{(y_i - y'_i)}
+\label{eq:kfold}
+\end{equation}
+
+Uma outra avaliação importante a ser feita é a da relação entre a taxa de acerto (verdadeiros positivos) e  a taxa de falsos positivos. Para tal análise, pode ser feito o estudo da curva ROC (do inglês \textit{Receiver Operating Characteristic}), um gráfico bidimensional que exibe no eixo y o percentual de verdadeiros positivos na amostra e, no eixo x, o percentual de falsos positivos da mesma amostra (figura \ref{fig:roc}).
 
 \begin{figure}[h]
   \centering
@@ -267,8 +277,6 @@ Para detectar problemas de \textit{overfitting}, pode-se testar o modelo em dive
   \caption{Exemplo de gráfico para análise de curva ROC}
   \label{fig:roc}
 \end{figure}
-
-Uma outra avaliação importante a ser feita é a da relação entre a taxa de acerto (verdadeiros positivos) e  a taxa de falsos positivos. Para tal análise, pode ser feito o estudo da curva ROC (do inglês \textit{Receiver Operating Characteristic}), um gráfico bidimensional que exibe no eixo y o percentual de verdadeiros positivos na amostra e, no eixo x, o percentual de falsos positivos da mesma amostra (figura \ref{fig:roc}).
 
 Originalmente utilizada em detecção de sinais para mostrar a relação entre sensibilidade (taxa de acerto) e o inverso da especificidade (alarme falso) em canais com ruído, pode-se utilizar este gráfico na avaliação de modelos de aprendizagem de máquina. Em geral, o cálculo da área abaixo da linha do gráfico é calculado para determinar a relação entre verdadeiros positivos e falsos negativos para um conjunto de amostras. Quanto maior a área abaixo da curva, melhor é considerado o aprendizado sob esta avaliação.
 
