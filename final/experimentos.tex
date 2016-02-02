@@ -395,7 +395,43 @@ Neste experimento a seleção de atributos através do método CFS obteve bons r
 
 \subsection{Classificadores unários}
 
-\subsection{Protocolo experimental}
+De forma muito semelhante ao experimento de classificadores binários, a base de dados para o experimento de classificadores unários foi criada a partir da base original com cinco classes rotuladas, mapeadas para apenas duas: elementos naturais (\textit{target}) e elementos antrópicos (\textit{outlier}).
+
+Os dois algoritmos testados neste experimento foram a variação uniclasse do SVM (OC-SVM) e uma versão unária da árvore de decisão chamada REPTree. Ambos os algoritmos foram executados tendo como entrada o vetor de características das amostras completo e posteriormente o vetor reduzido, selecionado através do método CFS de seleção de características.
+
+A tabela \ref{tab:experimentoUniclasse} mostra uma evidente diferença na taxa de aprendizado entre os métodos OC-SVM e REPTree, onde o último obteve resultados gerais visivelmente inferiores. O mesmo resultado se mantém apenas parcialmente quando analisadas a precisão e a revocação para a classe de elementos antrópicos (tabela \ref{tab:experimentoUniclasseAntropico}).
+
+\begin{table}[h]
+\ABNTEXfontereduzida
+\centering
+	\begin{tabulary}{\linewidth}{|L|R|R|R|R|}
+		\hline
+		\textbf{Método} & \textbf{Acurácia} & \textbf{Precisão} & \textbf{Revocação} & \textbf{F1} \\ \hline
+		OC-SVM (CFS)  & 0.998 & 0.999 & 0.999 & 0.999 \\ \hline
+		OC-SVM        & 0.997 & 0.995 & 0.997 & 0.996 \\ \hline
+		REPTree       & 0.464 & 0.996 & 0.465 & 0.632 \\ \hline
+		REPTree (CFS) & 0.383 & 0.997 & 0.384 & 0.552 \\ \hline
+	\end{tabulary}
+\caption{Comparação de métodos de classificação unária para regiões segmentadas das imagens, ordenados por acurácia}
+\label{tab:experimentoUniclasse}
+\end{table}
+
+\begin{table}[h]
+\ABNTEXfontereduzida
+\centering
+\begin{tabulary}{\linewidth}{|L|R|R|R|R|}
+\hline
+\textbf{Método} & \textbf{Precisão} & \textbf{Revocação} & \textbf{F1} & \textbf{Área ROC} \\ \hline
+OC-SVM (CFS)  & 0.842 & 0.615 & 0.711 & 0.808 \\ \hline
+REPTree (CFS) & 0.004 & 0.962 & 0.008 & 0.727 \\ \hline
+REPTree       & 0.003 & 0.692 & 0.007 & 0.520 \\ \hline
+OC-SVM        & 0.000 & 0.000 & 0.000 & 0.000 \\ \hline
+\end{tabulary}
+\caption{Comparação de métodos de classificação unária em relação à classe de elementos antrópicos, ordenados pela medida F1}
+\label{tab:experimentoUniclasseAntropico}
+\end{table}
+
+Assim como no experimento de classificação binária, a seleção de atributos com o método CFS foi responsável por visível melhora no resultado do método OC-SVM, o único que pode ser considerado satisfatório neste experimento.
 
 \subsection{Ensemble de classificadores unários}
 
