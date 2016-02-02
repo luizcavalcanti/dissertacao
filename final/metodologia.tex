@@ -1,5 +1,7 @@
 \chapter{Metodologia}\label{cap:metodologia}
 
+\todo[inline]{Revisar após conclusão dos experimentos}
+
 Neste capítulo é descrita a sequência de etapas que serão realizadas neste trabalho para que os objetivos de pesquisa sejam alcançados.
 
 Em imagens aéreas como as utilizadas neste trabalho, é comum que os elementos que indicam presença humana sejam relativamente grandes (pista de pouso, estradas, clareiras, etc.), podendo ser definidas como uma região durante a segmentação da imagem. Mas muitas vezes, por outro lado, os objetos ou sinais são pequenos demais para serem encontrados no processo de segmentação (carros, barcos, cabanas, etc.), o que torna interessante um nível adicional de classificação da imagem: uma que possa inspecionar o interior das regiões encontradas durante a segmentação e possa procurar por elementos antrópicos mais sutis na imagem.
@@ -21,7 +23,5 @@ A última etapa de classificação consiste em utilizar modelos de aprendizado e
 Por fim, unindo a saída do primeiro nível de classificação, onde regiões de "elementos antrópicos" podem ser encontradas, com a saída do segundo nível, onde os objetos de interesse serão procurados no interior das demais regiões, teremos uma saída única, apontando as regiões de uma imagem que possuam objetos de interesse na problemática em questão.
 
 As sucessivas validações e comparações com a segmentação e classificação manual feita por seres humanos é importante para diminuir o erro em cada etapa, visto que imprecisões em um dos passos tendem a propagar o erro nos passos seguintes. Se tomarmos como exemplo o princípio da solução, uma segmentação inadequada de uma imagem pode dificultar o primeiro nível de classificação, responsável pela classificação do tipo de região encontrada.
-
-%Durante o desenvolvimento do trabalho, artigos serão submetidos com os resultados intermediários, para divulgação e validação junto à comunidade científica. Por fim, a dissertação final do programa de mestrado será redigida, contendo o resultado dos experimentos, seus êxitos e problemas encontrados.
 
 O próximo capítulo descreve os experimentos realizados e discute os resultados encontrados.
