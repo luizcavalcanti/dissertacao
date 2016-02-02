@@ -97,7 +97,6 @@ Para determinar qual dos algoritmos de segmentação levantados na pesquisa bibl
 Os resultados do experimento são apresentados na tabela \ref{tab:experimentoSegmentacao}:
 
 \begin{table}[h]
-\ABNTEXfontereduzida
 \centering
 \begin{tabulary}{\linewidth}{|L|R|R|R|}
 \hline
@@ -162,7 +161,6 @@ Adicionalmente, experimentos foram realizados com técnicas de classificação. 
 Para fins de comparação, os resultados deste segundo experimento são apresentados na tabela \ref{tab:experimentoArtigo}. O tempo de execução da classificação para cada imagem no artigo publicado ignora o tempo de extração de características da imagem. Para uma comparação correta com os métodos de segmentação experimentados anteriormente, esse tempo gasto em extração de características foi acrescido na tabela desta seção.
 
 \begin{table}[h]
-\ABNTEXfontereduzida
 \centering
 \begin{tabulary}{\linewidth}{|L|R|R|}
 \hline
@@ -198,7 +196,6 @@ Em seguida, uma análise da base de segmentos rotulada foi feita, observando a e
 Após a rotulação de todas as amostras utilizadas no experimento, a distribuição das classes do problema em toda a base foi medida e pode ser vista na tabela \ref{tab:experimentoRegioesDistribuicao}.
 
 \begin{table}[h]
-\ABNTEXfontereduzida
 \centering
 \begin{tabulary}{\linewidth}{|L|R|R|}
 \hline
@@ -226,7 +223,6 @@ Com a discretização e normalização das variáveis que compõem o vetor de ca
 A lista de atributos, seus tipos e dimensões podem ser vistos na tabela \ref{tab:experimentoClassificacaoAtributos}.
 
 \begin{table}[h]
-\ABNTEXfontereduzida
 \centering
 \begin{tabulary}{\linewidth}{|L|L|R|}
 \hline
@@ -249,7 +245,6 @@ Para reduzir a dimensionalidade do vetor de características, a seleção de sub
 O vetor de características resultante possui apenas 7 atributos, conforme pode ser visto na tabela \ref{tab:experimentoClassificacao1AtributosFiltrados}. Esta redução pode ser importante para aumentar a generalização e simplificar os modelos gerados no experimento, bem como diminuir problemas de dimensionalidade enfrentados por alguns dos algoritmos testados.
 
 \begin{table}[h]
-\ABNTEXfontereduzida
 \centering
 \begin{tabulary}{\linewidth}{|L|L|R|}
 \hline
@@ -279,7 +274,6 @@ Utilizando as técnicas de K vizinhos mais próximos (KNN), máquinas de vetores
 Todas as amostras disponíveis foram classificadas com os classificadores propostos no experimento. A acurácia, precisão e revocação são apresentadas na tabela \ref{tab:experimentoClassificacao1}.
 
 \begin{table}[h]
-\ABNTEXfontereduzida
 \centering
 	\begin{tabulary}{\linewidth}{|L|R|R|R|R|}
 		\hline
@@ -304,7 +298,6 @@ Tanto por questões de balanceamento das classes como por questões contextuais 
 A avaliação dos resultados de revocação, bem como a análise da curva ROC da classe de elementos antrópicos para cada algoritmo testado podem ser vistas na tabela \ref{tab:experimentoClassificacaoRevocacao}.
 
 \begin{table}[h]
-\ABNTEXfontereduzida
 \centering
 \begin{tabulary}{\linewidth}{|L|R|R|R|R|}
 \hline
@@ -333,7 +326,6 @@ O experimento com classificação binária utilizou-se dos mesmos algoritmos tes
 Para a preparação da base de dados, as amostras previamente rotuladas entre as cinco classes originais do problema foram mapeadas para apenas duas: elementos naturais e elementos antrópicos. A distribuição das classes nesta versão da base de dados de segmentos é apresentada na tabela \ref{tab:experimentoBiclasseDistribuicao}.
 
 \begin{table}[h]
-\ABNTEXfontereduzida
 \centering
 \begin{tabulary}{\linewidth}{|L|R|R|}
 \hline
@@ -348,7 +340,6 @@ Elementos antrópicos &     31 &  0,3 \% \\ \hline
 Com uma distribuição de classes ainda mais irregular que a base original, resultados gerais de precisão na base inteira se tornam irrelevantes, uma vez que um simples método de aprendizado que sempre escolha a classe majoritária teria taxa de acurácia superior a 99\%, como pode ser visto na tabela \ref{tab:experimentoBiclasse}.
 
 \begin{table}[h]
-\ABNTEXfontereduzida
 \centering
 	\begin{tabulary}{\linewidth}{|L|R|R|R|R|}
 		\hline
@@ -371,7 +362,6 @@ Com uma distribuição de classes ainda mais irregular que a base original, resu
 Em um caso como este, foi ainda mais importante considerar os resultados de precisão e revocação da classe de interesse (elementos antrópicos). A tabela \ref{tab:experimentoBiclasseAntropico} exibe os resultados da medida F1, calculada a partir da média harmônica entre precisão e revocação da classe de elementos antrópicos, medida escolhida para selecionar os melhores resultados para este experimento.
 
 \begin{table}[h]
-\ABNTEXfontereduzida
 \centering
 \begin{tabulary}{\linewidth}{|L|R|R|R|R|}
 \hline
@@ -402,7 +392,6 @@ Os dois algoritmos testados neste experimento foram a variação uniclasse do SV
 A tabela \ref{tab:experimentoUniclasse} mostra uma evidente diferença na taxa de aprendizado entre os métodos OC-SVM e REPTree, onde o último obteve resultados gerais visivelmente inferiores. O mesmo resultado se mantém apenas parcialmente quando analisadas a precisão e a revocação para a classe de elementos antrópicos (tabela \ref{tab:experimentoUniclasseAntropico}).
 
 \begin{table}[h]
-\ABNTEXfontereduzida
 \centering
 	\begin{tabulary}{\linewidth}{|L|R|R|R|R|}
 		\hline
@@ -417,7 +406,6 @@ A tabela \ref{tab:experimentoUniclasse} mostra uma evidente diferença na taxa d
 \end{table}
 
 \begin{table}[h]
-\ABNTEXfontereduzida
 \centering
 \begin{tabulary}{\linewidth}{|L|R|R|R|R|}
 \hline
@@ -431,14 +419,65 @@ OC-SVM        & 0.000 & 0.000 & 0.000 & 0.000 \\ \hline
 \label{tab:experimentoUniclasseAntropico}
 \end{table}
 
-Assim como no experimento de classificação binária, a seleção de atributos com o método CFS foi responsável por visível melhora no resultado do método OC-SVM, o único que pode ser considerado satisfatório neste experimento.
+Assim como no experimento de classificação binária, a seleção de atributos com o método CFS foi responsável por visível melhora no resultado do método OC-SVM, o algoritmo de melhor resultado neste experimento.
 
-\subsection{Ensemble de classificadores unários}
+\subsection{Conjunto de classificadores unários}
 
-\todo[inline]{falar do tamanho da base gerada}
-\todo[inline]{falar da inserção artificial de elementos antrópicos}
-\todo[inline]{falar do atributos extraídos para cada tipo de terreno}
+Para este experimento, a base de dados rotulada originalmente foi dividida. As amostras foram separadas de acordo com sua classe e quatro classificadores unários foram treinados exclusivamente com exemplos de cada classe, deixando de fora a classe de elementos antrópicos, que neste experimento assume o papel de classe anômala (\textit{outlier}).
 
-\subsection{Resultados}
+Como forma de utilizar um conjunto de classificadores unários para resolver um problema de classificação multi-classe, o método desenvolvido por \citeonline{hadjadji:2014} foi utilizado. Este método permite não só que diferentes classificadores unários sejam utilizados para alcançar uma classificação final, mas também possibilita que o peso de cada classificador mude de acordo com a amostra, com o objetivo de reduzir o viés para determinadas classes.
 
-\todo[inline]{expor resultados para cada tipo de terreno}
+O conjunto de classificadores unários com melhor desempenho na base de dados deste trabalho foi composto por classificadores REPTree e OC-SVM, conforme descrito na tabela \ref{tab:experimentoConjunto}.
+
+\begin{table}[h]
+\centering
+	\begin{tabulary}{\linewidth}{|L|L|}
+		\hline
+		\textbf{Classe} & \textbf{Algoritmo} \\ \hline
+		Floresta           & REPTree  \\ \hline
+		Água               & OC-SVM   \\ \hline
+		Vegetação rasteira & OC-SVM   \\ \hline
+		Terra              & REPTree  \\ \hline
+	\end{tabulary}
+\caption{Lista de algoritmos utilizados como classificadores unários para cada classe do experimento}
+\label{tab:experimentoConjunto}
+\end{table}
+
+O conjunto de classificadores foi escolhido, em primeiro lugar, de acordo com a precisão de cada modelo treinado para uma classe específica. A tabela \ref{tab:experimentoConjuntoDados} exibe os valores de acurácia, precisão e revocação para cada classe do problema em cada um dos algoritmos de classificação unária testados neste experimento.
+
+\begin{table}[h]
+\centering
+\begin{tabulary}{\linewidth}{|L|R|R|R|R|}
+\hline
+ & \textbf{Acurácia} & \textbf{Precisão} & \textbf{Revocação} & \textbf{F1} & \textbf{F1} \\ \hline
+Floresta (OC-SVM)   & 0.942 & 0.941 & 0.943 & 0.939 \\ \hline
+Floresta (REPTree)  & 0.856 & 0.847 & 0.856 & 0.792 \\ \hline
+Água (OC-SVM)       & 0.975 & 0.971 & 0.976 & 0.969 \\ \hline
+Água (REPTree)      & 0.538 & 0.954 & 0.538 & 0.675 \\ \hline
+Vegetação (OC-SVM)  & 0.929 & 0.920 & 0.930 & 0.919 \\ \hline
+Vegetação (REPTree) & 0.538 & 0.837 & 0.539 & 0.633 \\ \hline
+Terra (OC-SVM)      & 0.986 & 0.983 & 0.987 & 0.981 \\ \hline
+Terra (REPTree)     & 0.305 & 0.980 & 0.305 & 0.452 \\ \hline
+\end{tabulary}
+\caption{Acurácia, precisão, revocação e medida F1 para as classes e métodos do experimento de conjunto de classificadores unários}
+\label{tab:experimentoConjuntoDados}
+\end{table}
+
+Os valores de precisão, revocação e medida F1 para a classe de elementos antrópicos, \textit{outlier} em todos os classificadores deste experimento, estão apresentados na tabela \ref{tab:experimentoConjuntoAntropico}, onde SVM denota o uso do algoritmo OC-SVM, enquanto REP indica o uso do algoritmo REPTree.
+
+\begin{table}[h]
+\centering
+\begin{tabulary}{\linewidth}{|L|R|R|R|}
+\hline
+\textbf{Conj. de classif.} & \textbf{Precisão} & \textbf{Revocação} & \textbf{F1} \\ \hline
+REP-SVM-SVM-REP & \cellcolor{gray!25}0.666 & 0.769 & \cellcolor{gray!25}0.714 \\ \hline
+SVM-SVM-SVM-REP & 0.096 & \cellcolor{gray!25}0.923 & 0.175 \\ \hline
+SVM-REP-REP-SVM & 0.153 & 0.653 & 0.248 \\ \hline
+SVM-REP-SVM-SVM & 0.239 & 0.653 & 0.350 \\ \hline
+SVM-SVM-REP-SVM & 0.156 & 0.769 & 0.259 \\ \hline
+\end{tabulary}
+\caption{Comparação de conjuntos de classificadores unários em relação à classe de elementos antrópicos, ordenados pela medida F1. Classes na ordem: floresta, agua, vegetação rasteira, terra}
+\label{tab:experimentoConjuntoAntropico}
+\end{table}
+
+Uma vez que todos os experimentos foram concluídos e os seus dados colhidos, a próxima seção se ocupa em tecer conclusões sobre os resultados encontrados, bem como sugerir possíveis caminhos para futuras pesquisas sobre o tema.
