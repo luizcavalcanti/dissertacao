@@ -1,27 +1,79 @@
 \chapter{Metodologia}\label{cap:metodologia}
 
-\todo[inline]{Revisar após conclusão dos experimentos}
-
 Neste capítulo é descrita a sequência de etapas que serão realizadas neste trabalho para que os objetivos de pesquisa sejam alcançados.
 
-Em imagens aéreas como as utilizadas neste trabalho, é comum que os elementos que indicam presença humana sejam relativamente grandes (pista de pouso, estradas, clareiras, etc.), podendo ser definidas como uma região durante a segmentação da imagem. Mas muitas vezes, por outro lado, os objetos ou sinais são pequenos demais para serem encontrados no processo de segmentação (carros, barcos, cabanas, etc.), o que torna interessante um nível adicional de classificação da imagem: uma que possa inspecionar o interior das regiões encontradas durante a segmentação e possa procurar por elementos antrópicos mais sutis na imagem.
+Em imagens aéreas como as utilizadas neste trabalho, é comum que os elementos que indicam presença humana sejam relativamente grandes (pista de pouso, estradas, clareiras, etc.), podendo ser definidas como uma região durante a segmentação da imagem.
 
-Por este motivo, a arquitetura para a solução proposta prevê uma etapa de segmentação das imagens, seguida por dois níveis de classificação: um responsável pela determinação do tipo de cada região encontrada na segmentação; e um outro responsável pela busca de elementos antrópicos no interior destas mesmas regiões. A arquitetura geral da solução pode ser vista na figura \ref{fig:metDiagrama}.
+Classificar pixels tende a ser custoso, visto que mesmo uma pequena imagem provê dezenas de milhares deles, que devem ter suas características extraídas e providas ao modelo de aprendizado, para que possam ser classificados. Portanto, utilizar técnicas de segmentação de imagem para agrupar os pixels espacialmente e caracteristicamente relacionados em uma única amostra não só possibilita uma execução mais rápida da solução computacional, como também torna o resultado final menos ruidoso.
+
+Por este motivo, a arquitetura para a solução proposta prevê uma etapa de segmentação das imagens, seguida de uma etapa de classificação, responsável pela determinação do tipo de cada região encontrada na segmentação. A arquitetura geral da solução pode ser vista na figura \ref{fig:metDiagramaGeral}.
 
 \begin{figure}[h]
-    \includegraphics[width=\textwidth]{imgs/arquitetura}
-    \caption{Arquitetura da solução a ser desenvolvida para detecção de elementos antrópicos em imagens aéreas da floresta amazônica}
-    \label{fig:metDiagrama}
+    \includegraphics[width=\textwidth]{imgs/arquitetura_geral}
+    \caption{Arquitetura geral da solução a ser desenvolvida para detecção de elementos antrópicos em imagens aéreas da floresta amazônica}
+    \label{fig:metDiagramaGeral}
 \end{figure}
 
-A primeira etapa do trabalho é a segmentação das imagens por tipo de terreno. Os métodos de segmentação de imagens considerados estado-da-arte serão aplicados à uma parte da base de imagens aéreas da floresta amazônica. Esta porção da base de imagens será manualmente segmentada por seres humanos e servirá de base de comparação para a segmentação realizada pelos métodos experimentados. Esta etapa deve determinar o método de segmentação com melhores resultados, a ser utilizado na solução descrita pelo trabalho.
+A ideia geral é que imagens aéreas de regiões florestais da Amazônia legal sirvam de entrada para o problema. Estas mesmas imagens serão particionadas em regiões por um segmentador. Em seguida, um extrator será utilizado para criar o vetor de características de cada segmento provido pela etapa anterior. Por fim um classificador, composto por um ou mais algoritmos de classificação,  será utilizado para rotular as regiões com a finalidade de encontrar as regiões de elementos antrópicos. A saída do sistema pode, então, ser composta pelas regiões segmentadas e suas classificações finais.
 
-Posteriormente, as regiões encontradas na segmentação das imagens devem ter suas características extraídas para serem classificadas dentre diversas classes: floresta, vegetação rasteira, clareira, corpos d'água e elementos antrópicos. É nesta etapa que se dará o primeiro nível de classificação. Serão utilizados os métodos descritos na seção \ref{sec:trClassificacao}. O resultado da classificação dos segmentos por cada método será comparado à uma classificação realizada por seres humanos, permitindo que os métodos de aprendizagem supervisionados sejam utilizados. As regiões classificadas como "elementos antrópicos" serão prontamente consideradas objetos de interesse. As demais regiões serão classificadas de acordo com seu tipo de terreno pertinente e serão investigadas com mais detalhes na próxima etapa.
+Embora esta seja uma arquitetura simples, bastante difundida na literatura, nuances para o problema apresentado neste trabalho devem ser levadas em conta. Para chegarmos à conclusão de quais segmentadores, extratores e classificadores devem ser utilizados, são necessárias várias etapas de experimentação, validação de resultados e análises.
 
-A última etapa de classificação consiste em utilizar modelos de aprendizado específicos para cada tipo de terreno, para detectar elementos antrópicos que não foram encontrados na etapa de segmentação, normalmente pequenos demais para serem definidos como uma região \textit{per se}, e que estão contidos em regiões maiores. Cada tipo de terreno possuirá um modelo de classificação específico, podendo se utilizar de um vetor de características diferente dos demais terrenos, a fim de otimizar a precisão na detecção dos objetos de interesse. Nesta etapa, diversos classificadores serão treinados e testados para cada tipo de terreno e seus resultados serão comparados com uma classificação manual feita por um especialista. Nesta etapa serão explorados classificadores unários e multi-classe a fim de obter o melhor resultado na detecção dos elementos antrópicos do segmento de imagem e um classificador, com seus parâmetros e vetor de características, será selecionado para cada tipo de terreno.
+\section{Entrada}
 
-Por fim, unindo a saída do primeiro nível de classificação, onde regiões de "elementos antrópicos" podem ser encontradas, com a saída do segundo nível, onde os objetos de interesse serão procurados no interior das demais regiões, teremos uma saída única, apontando as regiões de uma imagem que possuam objetos de interesse na problemática em questão.
+Uma base de dados com imagens aéreas de floresta tropical precisa ser formada. Todas as imagens precisam ter as mesmas dimensões, condições visuais semelhantes e preferencialmente pertencerem à região de floresta amazônica, excluindo imagens de cidades e povoados da região.
 
-As sucessivas validações e comparações com a segmentação e classificação manual feita por seres humanos é importante para diminuir o erro em cada etapa, visto que imprecisões em um dos passos tendem a propagar o erro nos passos seguintes. Se tomarmos como exemplo o princípio da solução, uma segmentação inadequada de uma imagem pode dificultar o primeiro nível de classificação, responsável pela classificação do tipo de região encontrada.
+Como serão processada por uma etapa de segmentação, as imagens não sofrerão nenhum tipo de filtragem, ficando estas a cargo dos segmentadores a serem avaliados. A base de imagens gerada nesta etapa é um dos objetivos específicos deste trabalho.
 
-O próximo capítulo descreve os experimentos realizados e discute os resultados encontrados.
+\section{Segmentador}\label{sec:metSegmentador}
+
+Para encontrarmos o segmentador ideal, os métodos de segmentação de imagens considerados estado-da-arte serão aplicados à uma parte da base de imagens aéreas da floresta amazônica. Esta porção da base de imagens também será manualmente segmentada por seres humanos e servirá de base de comparação para a segmentação realizada pelos métodos experimentados. Ainda é preciso aferir a consistência da segmentação manual realizada por seres humanos. Métricas de erros de consistência como o \textit{Local Consistency Error} (LCE) e \textit{Global Consistency Error} (GCE) devem ser aplicados.
+
+Esta etapa deve determinar o método de segmentação com melhores resultados, a ser utilizado na solução descrita pelo trabalho. A precisão e o tempo de execução devem ser utilizados para a avaliação do desempenho dos algoritmos testados. Em seguida, é preciso extrair as características dos segmentos gerados.
+
+\section{Extrator}\label{sec:metExtrator}
+
+Os algoritmos de classificação lidam com variáveis numéricas inteiras, de ponto flutuante e em alguns casos, dados textuais. No entanto, para classificar imagens, ou no caso deste trabalho, segmentos de imagens, é preciso que um conjunto de características seja extraído dos pixels destas imagens ou regiões e disponibilizados para o modelo de classificação.
+
+Nesta etapa serão testadas diversas características disponíveis na literatura de processamento digital de imagens, especialmente informações sobre cor, intensidade, textura e morfologia destas amostras. Também deverão ser testadas técnicas para redução da dimensionalidade do vetor de amostras, tais quais técnicas que se utilizam de correlação e ganho de informação.
+
+Como requisito da composição da base de dados de segmentos, bem como para avaliação e otimização do vetor de características, todas as amostras geradas pela etapa de segmentação devem ser rotuladas manualmente e contar com a avaliação de especialistas na inspeção deste tipo de imagem. Com a base devidamente criada e rotulada, experimentos para determinar os classificadores mais adequados podem ser feitos.
+
+\section{Classificador}\label{sec:metClassificador}
+
+Nesta etapa, quatro estratégias de classificação presentes na literatura serão abordadas. Elas não demandam alterações na arquitetura geral da solução, mas mudam a forma como a base é rotulada e organizada. As métricas de avaliação do aprendizado precisam ser ponderadas para cada estratégia.
+
+É importante destacar que a classe de interesse, elementos antrópicos, permanece a mesma em todas as abordagens, e sua inspeção mais cuidadosa é vital na avaliação de todos os métodos utilizados.
+
+\subsection{Classificador multi-classe}
+
+Nesta estratégia, a base de segmentos gerada será rotulada entre cinco classes possíveis: floresta, vegetação rasteira, água, terra e elemento antrópico. Diversos algoritmos que possibilitam clasificação multi-classe serão utilizados, tendo em mente que é importante testar métodos simbólicos, bayesianos, não-paramétricos, máquina de vetores de suporte, entre outros.
+
+Todos os métodos devem ser testados com a base completa de segmentos, mas também com a base pré-processada por um seletor de características, que será responsável pela redução do vetor de características do problema. Este detalhe do experimento servirá para determinar se a seleção de atributos nesta abordagem reduz a complexidade dos modelos gerados e o ruído na base de dados, possibilitando melhor taxa de aprendizagem.
+
+Cada algoritmo deve ser responsável pela classificação de toda a base. Ao fim, métricas de aprendizado como acurácia, precisão e revocação serão utilizadas para comparar os métodos entre si.
+
+\subsection{Classificador binário}
+
+Neste experimento, a base de segmentos gerada será rotulada entre duas classes: elementos naturais e elementos antrópicos. A classe de elementos naturais agrupa o que originalmente seriam as classes de floresta, vegetação rasteira, água e terra.
+
+Os classificadores utilizados serão os mesmos do experimento com classificadores multi-classe, visto que não há grande diferença metodológica nas duas abordagens. Todos os métodos também serão testados com seletores de características, e o impacto desta seleção também será avaliado.
+
+Ao fim do experimento, as métricas propostas para o problema de aprendizado serão colhidas para cada método testado e utilizados para comparar os métodos entre si, bem como o impacto geral da seleção de atributos para esta abordagem.
+
+\subsection{Classificador unário}
+
+Assim como no experimento de classificadores binários, a base de dados de segmentos será dividida entre elementos naturais e elementos antrópicos, utilizando os mesmos critérios. À primeira vista, esta estratégia de aprendizado parece muito similar aos classificadores binários, mas a diferença está inicialmente nos algoritmos utilizados.
+
+Como o aprendizado unário utiliza o conceito de classe majoritária e classe anômala (\textit{outlier}), é preciso definir quem é o quê no problema proposto. Por uma simples questão de frequência estatística, fica definido que a classe de elementos naturais é a classe majoritária, enquanto a classe de elementos antrópicos é considerada a classe anômala.
+
+\todo[inline]{concluir seção}
+
+\subsection{Ensemble de classificadores unários}
+
+\todo[inline]{concluir seção}
+
+Elemento natural (floresta, vegetação rasteira, água, terra) e elemento antrópico
+
+\section{Saída}
+
+O resultado dos experimentos deve sustentar a conclusão sobre quais métodos de segmentação e classificação são mais indicados para a solução do problema. O próximo capítulo descreve os experimentos realizados e discute os resultados encontrados.
