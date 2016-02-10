@@ -189,7 +189,9 @@ A segunda etapa da solução consiste em classificar os segmentos de imagens pro
 
 Primeiramente, todas as imagens foram segmentadas utilizando o algoritmo SRM, por conta de seu melhor desempenho no experimento de segmentação anterior. Cada um dos 10.057 segmentos produzidos nesta segmentação foi devidamente classificado manualmente, e suas características foram extraídas. Cada segmento foi classificado como uma das possíveis classes para o problema: floresta, vegetação rasteira, água, terra ou elemento antrópico.
 
-Alguns segmentos não puderam ser classificados e foram descartados das base utilizada no treinamento e validação dos modelos de aprendizado. Todos os elementos antrópicos encontrados foram validados pela Dra. Solange Costa, especialista do Centro Gestor e Operacional do Sistema de Proteção da Amazônia (CENSIPAM), órgão governamental federal responsável pelo patrulhamento e sensoriamento remoto da Amazônia legal brasileira.
+Cerca de 70 segmentos não puderam ser classificados, pois continham mais de um tipo de terreno dentro de seus limites, tornando a rotulação dúbia. É importante destacar que nenhum destes segmentos continham elementos antrópicos, portanto, foram descartados da base utilizada no treinamento e validação dos modelos de aprendizado.
+
+Todos os elementos antrópicos encontrados foram validados pela Dra. Solange Costa, especialista do Centro Gestor e Operacional do Sistema de Proteção da Amazônia (CENSIPAM), órgão governamental federal responsável pelo patrulhamento e sensoriamento remoto da Amazônia legal brasileira.
 
 Em seguida, uma análise da base de segmentos rotulada foi feita, observando a estrutura e distribuição dos dados ao longo de toda a base, levando em consideração como os tipos de dados utilizados e sua representação podem influenciar os resultados dos algoritmos de aprendizado utilizados no experimento.
 
