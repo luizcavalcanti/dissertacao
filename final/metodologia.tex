@@ -64,16 +64,22 @@ Ao fim do experimento, as métricas propostas para o problema de aprendizado ser
 
 Assim como no experimento de classificadores binários, a base de dados de segmentos será dividida entre elementos naturais e elementos antrópicos, utilizando os mesmos critérios. À primeira vista, esta estratégia de aprendizado parece muito similar aos classificadores binários, mas a diferença está inicialmente nos algoritmos utilizados.
 
-Como o aprendizado unário utiliza o conceito de classe majoritária e classe anômala (\textit{outlier}), é preciso definir quem é o quê no problema proposto. Por uma simples questão de frequência estatística, fica definido que a classe de elementos naturais é a classe majoritária, enquanto a classe de elementos antrópicos é considerada a classe anômala.
+Como o aprendizado unário utiliza o conceito de classe majoritária e classe anômala (\textit{outlier}), é preciso definir que classes do problema exercerão estes papéis. Por uma simples questão de frequência estatística, fica definido que a classe de elementos naturais é a classe majoritária, enquanto a classe de elementos antrópicos é considerada a classe anômala.
 
-\todo[inline]{concluir seção}
+Aqui também deve ser avaliado o impacto de um seletor de atributos aplicado ao vetor de características da base de dados, a fim de entender se há mudança significativa na taxa de aprendizado da classe anômala.
 
-\subsection{Ensemble de classificadores unários}
+\subsection{Conjunto de classificadores unários}
 
-\todo[inline]{concluir seção}
+Esta abordagem consiste na criação de modelos de aprendizado unários para cada classe do problema, exceto para a classe anômala. Sendo assim, um ou mais classificadores unários serão treinados para cada uma das classes de floresta, vegetação rasteira, água e terra.
 
-Elemento natural (floresta, vegetação rasteira, água, terra) e elemento antrópico
+A preparação da base de dados é um importante passo nesta estratégia de aprendizado, visto que diversas versões da base de segmentos terão de ser geradas, cada uma representando a classe não-anômala em questão como a classe majoritária e todas as demais como outliers.
+
+O conjunto de classificadores criados serão agrupados em um \textit{ensemble} de classificadores e cada um dos modelos será utilizado na composição do veredito final, para a classificação da amostra. Diversas combinações de modelos e algoritmos deverão ser testadas, bem como diversas formas de combinar os resultados dos classificadores individuais.
+
+Assim como todas as outras estratégias de classificação presentes neste trabalho, as métricas mais relevantes serão a acurácia, precisão e revocação da classe de interesse, de elementos antrópicos, que aqui é a classe anômala. As abordagens de classificação com melhor desempenho nestes quesitos ou mais promissoras devem ser apontadas ao fim destes experimentos.
 
 \section{Saída}
 
-O resultado dos experimentos deve sustentar a conclusão sobre quais métodos de segmentação e classificação são mais indicados para a solução do problema. O próximo capítulo descreve os experimentos realizados e discute os resultados encontrados.
+ Os resultados dos experimentos anteriores devem sustentar a conclusão sobre quais métodos de segmentação e classificação são mais indicados para a solução. A saída da solução deve indicar quais segmentos da coleção de imagens original possuem elementos antrópicos. A avaliação do desempenho na detecção destes elementos é a métrica definitiva da adequação da solução para o problema proposto.
+
+O próximo capítulo descreve os experimentos realizados e discute os resultados encontrados.
