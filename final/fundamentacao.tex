@@ -40,11 +40,11 @@ O problema em mensurar a consistência entre duas segmentações é que não há
   \begin{subfigure}[b]{0.3\textwidth}
     \includegraphics[width=\textwidth]{imgs/granularidade_3}
   \end{subfigure}%
-  \caption{A mesma imagem segmentada de forma consistente, mas com diferentes granularidades de segmentação}
+  \caption{Exemplos de uma mesma imagem segmentada de forma consistente, mas com diferentes granularidades de segmentação}
   \label{fig:granularidade}
 \end{figure}
 
-Quando a diferença entre duas segmentações advém de uma diferença de percepção da cena, é esperado que o erro seja grande e que as segmentações sejam consideradas inconsistentes. Quando a diferença é de granularidade, uma segmentação pode ser considerada apenas um refinamento da outra, portanto, o erro deve ser baixo ou até zero \cite{martin:2001}.
+Quando a diferença entre duas segmentações advém de uma diferença de percepção da cena, é esperado que o erro seja elevado e que as segmentações sejam consideradas inconsistentes. Quando a diferença é de granularidade, uma segmentação pode ser considerada apenas um refinamento da outra, portanto, o erro deve ser baixo ou até zero \cite{martin:2001}.
 
 Segmentação de imagens é simplesmente a divisão de pixels de uma imagem em conjuntos (segmentos). Uma possível medida de erro tem como entrada duas segmentações, $S_1$ e $S_2$, e tem como saída um valor real no intervalo $[0...1]$, onde $0$ significa ausência de erros de segmentação.
 
@@ -57,7 +57,7 @@ Se $R(S,p_i)$ é o conjunto de pixels correspondentes a uma região na segmenta�
 \end{equation}
 
 
-A partir desta relação, \citeonline{martin:2001} define duas métricas de erro de segmentação: Erro de Consistência Global (Global Consistency Error, ou GCE) e Erro de Consistência Local (Local Consistency Error, ou LCE):
+A partir desta relação, \citeonline{martin:2001} definem duas métricas de erro de segmentação: Erro de Consistência Global (Global Consistency Error, ou GCE) e Erro de Consistência Local (Local Consistency Error, ou LCE):
 
 \begin{equation}
 	\displaystyle GCE(S_1,S_2) = \frac{1}{n} min \biggl\{ \sum_{i} E(S_1,S_2,p_i), \sum_{i} E(S_2,S_1,p_i) \biggr\}
@@ -99,7 +99,7 @@ Um problema de classificação, ou seja, um problema em que o objetivo é atribu
 
 Os tipos de classificadores utilizados neste trabalho serão discutidos com mais detalhes na seção \ref{sec:classificacao}.
 
-Para composição do modelo de aprendizagem, uma base de dados de treinamento é utilizada. Esta base deve possuir uma quantidade significativa e com boa representatividade das classes envolvidas no problema. Normalmente se usa uma parte da base de dados de treinamento para validação do modelo de aprendizado (validação cruzada) ou mesmo uma base de dados diferente (base de testes ou validação), para que indicadores de qualidade do modelo possam ser avaliados. A seção \ref{sec:avaliacao} discorre sobre os métodos de avaliação utilizados neste trabalho.
+Para a composição do modelo de aprendizagem, uma base de dados de treinamento é utilizada. Esta base deve possuir uma quantidade significativa e com boa representatividade das classes envolvidas no problema. Normalmente se usa uma parte da base de dados de treinamento para validação do modelo de aprendizado (validação cruzada) ou mesmo uma base de dados diferente (base de testes ou validação), para que indicadores de qualidade do modelo possam ser avaliados. A seção \ref{sec:avaliacao} discorre sobre os métodos de avaliação utilizados neste trabalho.
 
 Técnicas de aprendizagem de máquina podem ser utilizadas para encontrar padrões em diversos domínios, inclusive em imagens. É neste ponto que a linha de pesquisa de aprendizagem de máquina, advinda da área de inteligência artificial, se encontra com a linha de pesquisa de reconhecimento de padrões, advinda da área de processamento de sinais. Segundo \citeonline{jain:1989}, o fluxo padrão para soluções de reconhecimento de padrões consiste em três etapas:
 
@@ -146,7 +146,7 @@ O algoritmo KNN (K-Nearest Neighbours, ou K vizinhos mais próximos) \cite{cover
 
 O processo de treinamento para esse algoritmo consiste em armazenar o vetor de característica e rótulos (classes) de cada amostra de treinamento em um espaço n-dimensional, onde n é o número de características de cada amostra. No processo de classificação de amostras não-rotuladas, a amostra é simplesmente projetada no espaço e é classificada de acordo com as k amostras mais próximas.
 
-Quando k = 1, a amostra é simplesmente classificada de acordo com o rótulo de seu vizinho mais próximo no espaço de características. Quando k é maior que 1, a classificação se dá por um esquema de votação, onde a classe com as amostras vizinhas mais numerosas é considerada como a classe da amostra. Por essa razão, em problemas bi-classe como o apresentado neste artigo devem possuir um k ímpar, para evitar empates. Em problemas multi-classe, ou seja, com mais de duas classes possíveis, empates podem acontecer mesmo considerando um número ímpar de vizinhos, de maneira que uma forma de desempate deve ser definida na implementação do algoritmo.
+Quando k = 1, a amostra é simplesmente classificada de acordo com o rótulo de seu vizinho mais próximo no espaço de características. Quando k é maior que 1, a classificação se dá por um esquema de votação, onde a classe com as amostras vizinhas mais numerosas é considerada como a classe da amostra. Por essa razão, em problemas bi-classe como o apresentado nesta dissertação, deve ser utilizado um valor ímpar para $k$, com a finalidade de evitar empates. Em problemas multi-classe, ou seja, com mais de duas classes possíveis, empates podem acontecer mesmo considerando um número ímpar de vizinhos, de maneira que uma forma de desempate deve ser definida na implementação do algoritmo.
 
 Diversas formas de calcular a distância entre duas amostras $a$ e $b$ em um espaço n-dimensional podem ser utilizadas no kNN, dentre elas a distância Euclidiana, representada pela fórmula \ref{eq:euclides}, onde $n$ é o número de dimensões.
 
@@ -158,18 +158,18 @@ Diversas formas de calcular a distância entre duas amostras $a$ e $b$ em um esp
 
 As máquinas de vetores de suporte, ou SVM (\textit{Support Vector Machines}) são classificadores baseados na teoria de aprendizagem estatística proposta por \cite{vapnik:1995}. A teoria é baseada em uma forte fundamentação matemática para estimação de dependências e previsão do aprendizado a partir de conjuntos de dados finitos. 
 
-Um modelo SVM é a representação das amostras como pontos em um espaço n-dimensional (onde n é o tamanho do vetor de características) de tal forma que as amostras de diferentes classes sejam divididas por um plano de separação que maximiza a distância entre essas classes. Isso se deve ao fato de que o plano de separação possui a maior distância possível às amostras mais próximas entre as classes, o que ajuda a diminuir o erro de generalização (\textit{over-fitting}) do classificador.
+Um modelo SVM é a representação das amostras como pontos em um espaço n-dimensional (onde n é o tamanho do vetor de características) de tal forma que as amostras de diferentes classes sejam divididas por um hiperplano de separação que maximiza a distância entre essas classes. Isso se deve ao fato de que o hiperplano de separação possui a maior distância possível às amostras mais próximas entre as classes, o que ajuda a diminuir o erro de generalização do classificador.
 
 A principal vantagem do classificador SVM é seu bom desempenho em conjuntos de dados que possuem muitos atributos, mesmo quando há poucas amostras de treino. No entanto, suas desvantagens são a baixa velocidade e alto consumo de recursos durante as fases de treinamento, assim como a complexidade de parametrização de suas funções \textit{kernel}. As amostras de teste são classificadas ao serem posicionadas no espaço de características e avaliadas em que lado da superfície de separação elas se encontram, como mostrado na figura \ref{fig:svm}.
 
 \begin{figure}[h!]
   \centering
   \includegraphics[scale=0.5]{imgs/svm}
-  \caption[Máquina de vetores de suporte]{Amostras em um espaço bidimensional (pontos coloridos) separadas por um hiperplano apoiado por vetores de suporte (setas vermelhas), maximizando a distância entre as amostras mais próximas entre as classes (pontos circulados)}
+  \caption[Máquina de vetores de suporte]{Amostras em um espaço bidimensional (pontos coloridos) separadas por um hiperplano apoiado por vetores de suporte (pontos circulados), maximizando a distância entre as amostras mais próximas do limiar das classes}
   \label{fig:svm}
 \end{figure}
 
-Há um grupo de algoritmos de aprendizado de máquina que se baseiam em raciocínio probabilístico, especialmente sob o viés bayseano. De acordo com \citeonline{mitchell:1997}, o raciocínio bayesiano é baseado na presunção de que as quantidades de interesse são governadas pela distribuição das probabilidade e que decisões ótimas podem ser tomadas a partir da análise destas probabilidades em conjunto com os dados observados.
+Há um grupo de algoritmos de aprendizado de máquina que se baseiam em raciocínio probabilístico, especialmente sob o viés bayseano. De acordo com \citeonline{mitchell:1997}, o raciocínio bayesiano é baseado no pressuposto de que as quantidades de interesse são governadas pela distribuição das probabilidade e que decisões ótimas podem ser tomadas a partir da análise destas probabilidades em conjunto com os dados observados.
 
 O teorema de Bayes estabelece a relação entre uma probabilidade condicional e sua probabilidade inversa. A equação \ref{eq:teoremaDeBayes}, conhecida como regra de Bayes, permite calcular a probabilidade de um evento (A) dado que outro evento aconteceu (B).
 
@@ -180,9 +180,9 @@ O teorema de Bayes estabelece a relação entre uma probabilidade condicional e 
 
 A probabilidade \textit{a priori}, ou seja, a probabilidade isolada de que um evento $A$ aconteça é expressa por $P(A)$. A probabilidade \textit{a posteriori} de um evento $A$ dado que ocorreu também um evento $B$ é expressa por $P(A|B)$.
 
-Dentre as técnicas de inspiração probabilística, se destaca por sua simplicidade a \textit{Naive Bayes}. Apresentada por \citeonline{john:1995}, esta família de algoritmos presume uma forte independência entre as variáveis do vetor de características, por isso é ganhou a alcunha de Bayes Ingênuo (do inglês \textit{Naive Bayes}).
+Dentre as técnicas de inspiração probabilística, \textit{Naive Bayes} se destaca por sua simplicidade. Apresentada por \citeonline{john:1995}, esta família de algoritmos presume uma forte independência entre as variáveis do vetor de características, por isso é chamado de Bayes Ingênuo (do inglês \textit{Naive Bayes}).
 
-Segundo \citeonline{russell:2010}, os valores de máxima probabilidade de cada classe de acordo com as variáveis do vetor de características é encontrado. Uma vez que um modelo é gerado desta maneira, as futuras amostras podem ser classificadas de acordo com as mesmas probabilidades. Dado que o vetor de características das amostras é dado por $x_1, x_2,...,x_n$, a probabilidade de cada classe C é expressa pela equação \ref{eq:probabilidadeNaiveBayes}. A família de algoritmos \textit{Naive Bayes} tende a ser bastante robusta em face a dados ruidosos ou faltantes.
+Segundo \citeonline{russell:2010}, os valores de máxima probabilidade de cada classe de acordo com as variáveis do vetor de características são encontrados. Uma vez que um modelo é gerado desta maneira, as futuras amostras podem ser classificadas de acordo com as mesmas probabilidades. Dado que o vetor de características das amostras é denotado por $x_1, x_2,...,x_n$, a probabilidade de cada classe C é expressa pela equação \ref{eq:probabilidadeNaiveBayes}. A família de algoritmos \textit{Naive Bayes} tende a ser bastante robusta em face a dados ruidosos ou ausentes.
 
 \begin{equation}
 	\displaystyle P(C|x_1,x_2,...,x_n) = P(C) \prod_{i}{P(x_i|C)}
@@ -190,27 +190,27 @@ Segundo \citeonline{russell:2010}, os valores de máxima probabilidade de cada c
 \end{equation}
 
 
-O algoritmo \textit{Random Forest}, introduzido por \citeonline{breiman:2001} , é um \textit{ensemble} de classificadores de árvore de decisão. Na fase de treinamento, um número determinado de árvores é gerado utilizando um subconjunto pseudo-aleatório do vetor de característica completo utilizado no problema. Tanto o número de árvores quanto a quantidade de atributos utilizados por cada árvore pode ser determinado pelo usuário do algoritmo.
+O algoritmo \textit{Random Forest}, introduzido por \citeonline{breiman:2001} , é um \textit{ensemble} de classificadores de árvore de decisão. Na fase de treinamento, um número determinado de árvores é gerado utilizando um subconjunto pseudo-aleatório do vetor de características completo utilizado no problema. Tanto o número de árvores quanto a quantidade de atributos utilizados por cada árvore pode ser determinado pelo usuário do algoritmo.
 
-Uma vez que a base de treinamento foi utilizada para gerar os modelos das árvores de decisão, estes mesmo modelos podem ser utilizados para classificar novas amostras do problema. Preferencialmente todas as árvores geradas são envolvidas na classificação, cada uma chegando à sua própria conclusão sobre a classe da amostra apresentada. Cada árvore tem um ``voto'', que é contabilizado para a definição da classe mais votada, que é então escolhida como a classe da amostra. Esta técnica de soma de votos é conhecida como \textit{polling}.
+Uma vez que a base de treinamento foi utilizada para gerar os modelos das árvores de decisão, estes modelos podem ser utilizados para classificar novas amostras do problema. Preferencialmente, todas as árvores geradas são envolvidas na classificação, cada uma chegando à sua própria conclusão sobre a classe da amostra apresentada. Cada árvore tem um ``voto'', que é contabilizado para a definição da classe mais votada, que é então escolhida como a classe da amostra. Esta técnica de soma de votos é conhecida como \textit{polling}.
 
 A principal vantagem deste algoritmo é a eliminação de \textit{overfitting}, problema bastante comum quando se utiliza árvores de decisão de forma tradicional. Uma exposição mais detalhada acerca de \textit{overfitting} é feita na seção \ref{sec:avaliacao}.
 
-O trabalho de \citeonline{breiman:2001} ainda afirma que a taxa de erro de um modelo de aprendizado criado com \textit{Random Forest} está relacionada a dois fatores: a correlação entre quaisquer duas árvores geradas no modelo e a ``força'' de cada árvore gerada, ou seja, o quão precisa ela é em relação ao modelo geral. À medida que a correlação entre árvores cresce, também cresce a taxa de erro do modelo final. Quanto menor for a taxa de erro de uma árvore individual, mais ``forte'' é considerado o classificador, e por consequência, mais baixo é a taxa de erro do modelo.
+O trabalho de \citeonline{breiman:2001} ainda afirma que a taxa de erro de um modelo de aprendizado criado com \textit{Random Forest} está relacionada a dois fatores: a correlação entre quaisquer duas árvores geradas no modelo e a ``força'' de cada árvore gerada, ou seja, o quão precisa ela é em relação ao modelo geral. À medida que a correlação entre árvores cresce, também cresce a taxa de erro do modelo final. Quanto menor for a taxa de erro de uma árvore individual, mais ``forte'' é considerado o classificador, e por consequência, menor é a taxa de erro do modelo.
 
-Reduzir o número de variáveis do vetor de características a ser utilizado em cada árvore reduz a correlação entre árvores e também reduz a ``força''da árvore. Incrementar este número de variáveis incrementa a correlação e a ``força'' da árvore. A parametrização do algoritmo deve se preocupar em encontrar o número de variáveis do vetor de característica que melhor minimize a correlação e maximize a ``força'' das árvores do modelo.
+Reduzir o número de variáveis do vetor de características a ser utilizado em cada árvore reduz a correlação entre árvores e também reduz a ``força'' da árvore. Incrementar este número de variáveis incrementa a correlação e a ``força'' da árvore. A parametrização do algoritmo deve se preocupar em encontrar o número de variáveis do vetor de características que melhor minimize a correlação e maximize a ``força'' das árvores do modelo.
 
-Há um grupo de algoritmos em aprendizagem de máquina que tem como objetivo a detecção de anomalias a partir de um modelo formado por apenas uma classe. Neste tipo de problema, a base é normalmente composta por uma única classe (conhecida como classe alvo, ou \textit{target}) e o modelo gerado é supostamente capaz de determinar se novas amostras do problema pertencem à classe alvo ou se tratam de anomalias ou novidades (\textit{outliers}). Estes algoritmos são comumente chamados de detectores de anomalias ou novidades (\textit{novelty detection} ou \textit{outlier detection}).
+Há um grupo de algoritmos em aprendizagem de máquina que tem como objetivo a detecção de anomalias a partir de um modelo formado por apenas uma classe. Neste tipo de problema, a base é normalmente composta por uma única classe (conhecida como classe alvo, ou \textit{target}) e o modelo gerado é supostamente capaz de determinar se novas amostras do problema pertencem à classe alvo ou se são anomalias ou novidades (\textit{outliers}). Estes algoritmos são comumente chamados de detectores de anomalias ou novidades (\textit{novelty detection} ou \textit{outlier detection}).
 
 Em geral, algoritmos de detecção de anomalias podem ser utilizados para resolução de problemas com múltiplas classes. A estratégia consiste em treinar um classificador deste tipo para cada classe do problema. Diversas técnicas para apuração dos resultados podem ser utilizadas, tais como votação (\textit{voting} ou \textit{polling}), onde cada classificador tem um voto que é computado com um peso e levado em consideração na classificação final; ou bagging (abreviação do termo inglês \textit{Bootstrap aggregating}), que se utiliza da combinação do resultado de classificação de conjuntos de dados de treinamento selecionados aleatoriamente, com o objetivo de reduzir a variância e o \textit{overfitting}, discutidos com mais detalhes na seção \ref{sec:avaliacao}.
 
 Uma variante do SVM denominada OC-SVM (acrônimo em inglês para \textit{One Class Support Vector Machines}) foi introduzida por \citeonline{scholkopf:1999} com a finalidade de adaptar o robusto algoritmo de \citeonline{vapnik:1995} para problemas de detecção de anomalias. Este é, na verdade, uma expansão da aplicação da técnica de SVM para dados não-rotulados.
 
-A ideia central é que uma função \textit{kernel} de base radial é utilizado para comportar as amostras da classe alvo, de forma a medir a possibilidade de anomalias futuras de acordo com a distância destas mesmas amostras em relação à hiperesfera de separação descrita pela função \textit{kernel}. Em uma problema com múltiplas classes e classificadores OC-SVM, costuma-se usar uma estratégia de votação com pesos para determinação da classe da amostra.
+A ideia central é que uma função \textit{kernel} de base radial é utilizada para comportar as amostras da classe alvo, de forma a medir a possibilidade de anomalias futuras de acordo com a distância destas mesmas amostras em relação à hiperesfera de separação descrita pela função \textit{kernel}. Em uma problema com múltiplas classes e classificadores OC-SVM, costuma-se usar uma estratégia de votação com pesos para determinação da classe da amostra.
 
 Outros métodos tradicionais em problemas multi-classe também podem ser usados como classificadores para detecção de anomalias. Variações de KNN como o OCNN (\textit{One-Class Nearest Neighbour}) ou de árvores de decisão como o REPTree são comumente utilizados nesta abordagem, utilizando diversas estratégias para determinação final das classes das novas amostras.
 
-O trabalho de \citeonline{hadjadji:2014}, por exemplo, apresenta uma modelo para conjuntos de classificadores de anomalias em que diversos algoritmos e estratégias diferentes podem ser utilizados em conjunto para um mesmo problema de aprendizagem. Isto possibilita um grau de liberdade elevado na escolha desses algoritmos e estratégias para problemas multi-classe.
+O trabalho de \citeonline{hadjadji:2014}, por exemplo, apresenta um modelo para conjuntos de classificadores de anomalias em que diversos algoritmos e estratégias diferentes podem ser utilizados em conjunto para solucionar um mesmo problema de aprendizagem. Isto possibilita um grau de liberdade elevado na escolha desses algoritmos e estratégias para problemas multi-classe.
 
 Tanto durante o desenvolvimento de uma solução, quanto após sua execução em ambiente de produção, é preciso aferir e quantificar o desempenho da técnica desenvolvida ou utilizada, conforme discutido na próxima seção.
 
@@ -260,7 +260,7 @@ Como forma de medir o equilíbrio entre precisão e revocação, a média harmô
 \label{eq:f1}
 \end{equation}
 
-Apesar de que a maximização das métricas apresentadas seja desejável para o ajuste de um algoritmo de aprendizado, é necessário evitar o sobreajuste (\textit{overfitting}) que pode ser gerado a partir disto. O \textit{overfitting} é o termo utilizado quando o modelo criado se ajusta em excesso às amostras de treinamento, tendo altas taxas de acurácia para esta base, mas falhando em classificar com boa taxa de acurácia as demais amostras de teste ou amostras reais.
+Embora a maximização das métricas apresentadas seja desejável para o ajuste de um algoritmo de aprendizado, é necessário evitar o sobreajuste (\textit{overfitting}) que pode ser gerado a partir disto. O \textit{overfitting} é o termo utilizado quando o modelo criado se ajusta em excesso às amostras de treinamento, tendo altas taxas de acurácia para esta base, mas falhando em classificar com boa taxa de acurácia as demais amostras de teste ou amostras reais.
 
 Em resumo, o problema é ter um modelo que possui bom desempenho na etapa de treinamento mas não é uma boa representação das amostras reais. A figura \ref{fig:overfitting} exemplifica um modelo de classificação generalista (linha preta) e um modelo que provavelmente sofre de \textit{overfitting} (linha verde).
 
@@ -275,7 +275,7 @@ Para detectar problemas de \textit{overfitting}, pode-se testar o modelo em dive
 
 Um método bastante utilizado para medir a generalização de um modelo de aprendizado é a validação cruzada. O conceito principal deste método é o particionamento do conjunto de amostras em um número de subconjuntos mutuamente exclusivos, utilizando um dos subconjuntos como base de treinamento e as demais como bases de validação do modelo treinado.
 
-A técnica de validação cruzada conhecida como \textit{k-fold} divide a base em $k$ subconjuntos de mesmo tamanho, escolhe um dos subconjuntos como base de treinamento e utiliza os demais subconjuntos como bases de testes deste primeiro subconjunto. O procedimento é repetido $k$ vezes, de forma que todos os subconjuntos possam ser utilizados para construir uma versão de modelo de aprendizado e ser validados pelos demais subconjuntos. A precisão do modelo é obtida pela equação \ref{eq:kfold}, onde $k$ é o número de subconjuntos e $y_i - y'_i$ é a diferença entre o valor esperado e o valor predito pelo modelo.
+A técnica de validação cruzada conhecida como \textit{k-fold} divide a base em $k$ subconjuntos de mesmo tamanho, escolhe um dos subconjuntos como base de treinamento e utiliza os demais subconjuntos como bases de testes deste primeiro subconjunto. O procedimento é repetido $k$ vezes, de forma que todos os subconjuntos possam ser utilizados para construir uma versão de modelo de aprendizado e ser validado pelos demais subconjuntos. A precisão do modelo é obtida pela equação \ref{eq:kfold}, onde $k$ é o número de subconjuntos e $y_i - y'_i$ é a diferença entre o valor esperado e o valor predito pelo modelo.
 
 \begin{equation}
   \displaystyle Ac_f = \frac{1}{k} \sum_{i=1}^k{(y_i - y'_i)}
