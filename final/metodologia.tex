@@ -14,7 +14,7 @@ Por este motivo, a arquitetura para a solução proposta prevê uma etapa de seg
     \label{fig:metDiagramaGeral}
 \end{figure}
 
-A ideia geral é que imagens aéreas de regiões florestais da Amazônia legal sirvam de entrada para o problema. Estas mesmas imagens serão particionadas em regiões por um segmentador. Em seguida, um extrator será utilizado para criar o vetor de características de cada segmento provido pela etapa anterior. Por fim um classificador, composto por um ou mais algoritmos de classificação,  será utilizado para rotular as regiões com a finalidade de encontrar as regiões de elementos antrópicos. A saída do sistema pode, então, ser composta pelas regiões segmentadas e suas classificações finais.
+A ideia geral é que imagens aéreas de regiões florestais da Amazônia legal sirvam de entrada para o problema. Estas mesmas imagens serão particionadas em regiões por um segmentador. Em seguida, um extrator será utilizado para criar o vetor de características de cada segmento provido pela etapa anterior. Por fim, um classificador composto por um ou mais algoritmos de classificação será utilizado para rotular as regiões, com a finalidade de encontrar as regiões de elementos antrópicos. A saída do sistema pode, então, ser composta pelas regiões segmentadas e suas classificações finais.
 
 Embora esta seja uma arquitetura simples, bastante difundida na literatura, nuances para o problema apresentado neste trabalho devem ser levadas em conta. Para chegarmos à conclusão de quais segmentadores, extratores e classificadores devem ser utilizados, são necessárias várias etapas de experimentação, validação de resultados e análises.
 
@@ -22,11 +22,11 @@ Embora esta seja uma arquitetura simples, bastante difundida na literatura, nuan
 
 Uma base de dados com imagens aéreas de floresta tropical precisa ser formada. Todas as imagens precisam ter as mesmas dimensões, condições visuais semelhantes e preferencialmente pertencerem à região de floresta amazônica, excluindo imagens de cidades e povoados da região.
 
-Como serão processada por uma etapa de segmentação, as imagens não sofrerão nenhum tipo de filtragem, ficando estas a cargo dos segmentadores a serem avaliados. A base de imagens gerada nesta etapa é um dos objetivos específicos deste trabalho.
+Como serão processadas por uma etapa de segmentação, as imagens não sofrerão nenhum tipo de filtragem, ficando estas a cargo dos segmentadores a serem avaliados. A base de imagens gerada nesta etapa é um dos objetivos específicos deste trabalho.
 
 \section{Segmentador}\label{sec:metSegmentador}
 
-Para encontrarmos o segmentador ideal, os métodos de segmentação de imagens considerados estado-da-arte serão aplicados à uma parte da base de imagens aéreas da floresta amazônica. Esta porção da base de imagens também será manualmente segmentada por seres humanos e servirá de base de comparação para a segmentação realizada pelos métodos experimentados. Ainda é preciso aferir a consistência da segmentação manual realizada por seres humanos. Métricas de erros de consistência como o \textit{Local Consistency Error} (LCE) e \textit{Global Consistency Error} (GCE) devem ser aplicados.
+Para encontrarmos o segmentador ideal, os métodos de segmentação de imagens considerados estado-da-arte serão aplicados à uma parte da base de imagens aéreas da floresta amazônica. Esta porção da base de imagens também será manualmente segmentada por seres humanos e servirá de base de comparação para a segmentação realizada pelos métodos experimentados. Ainda é preciso aferir a consistência da segmentação manual realizada por seres humanos. Métricas de erros de consistência como o \textit{Local Consistency Error} (LCE) e \textit{Global Consistency Error} (GCE), descritos na seção \ref{sec:avaliacaopdi}, devem ser aplicados.
 
 Esta etapa deve determinar o método de segmentação com melhores resultados, a ser utilizado na solução descrita pelo trabalho. A precisão e o tempo de execução devem ser utilizados para a avaliação do desempenho dos algoritmos testados. Em seguida, é preciso extrair as características dos segmentos gerados.
 
@@ -54,7 +54,7 @@ Cada algoritmo deve ser responsável pela classificação de toda a base. Ao fim
 
 \subsection{Classificador binário}
 
-Neste experimento, a base de segmentos gerada será rotulada entre duas classes: elementos naturais e elementos antrópicos. A classe de elementos naturais agrupa o que originalmente seriam as classes de floresta, vegetação rasteira, água e terra.
+Neste cenário, a base de segmentos gerada será rotulada entre duas classes: elementos naturais e elementos antrópicos. A classe de elementos naturais agrupa o que originalmente seriam as classes de floresta, vegetação rasteira, água e terra.
 
 Os classificadores utilizados serão os mesmos do experimento com classificadores multi-classe, visto que não há grande diferença metodológica nas duas abordagens. Todos os métodos também serão testados com seletores de características, e o impacto desta seleção também será avaliado.
 
