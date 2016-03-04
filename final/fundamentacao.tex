@@ -134,13 +134,17 @@ Nesta etapa, todas as amostras de treinamento são classificadas e um modelo de 
 
 Pode-se também usar múltiplos classificadores, ao invés de apenas um. Esta abordagem é chamada de sistemas com múltiplos classificadores (do inglês \textit{multiple classifier systems}), também chamados de \textit{ensemble} de classificadores, os quais podem ser compostos por classificadores do mesmo tipo ou de diferentes algoritmos de classificação. 
 
-Existe uma grande variedade de algoritmos de aprendizagem de máquina propostos na literatura. Alguns dos mais utilizados são: classificadores estatísticos, redes neurais artificiais, árvores de decisão, máquinas de vetores de suporte (SVM), k vizinhos mais próximos (KNN), etc \cite{jain:1989}.
+Existe uma grande variedade de algoritmos de aprendizagem de máquina propostos na literatura. Alguns dos mais utilizados são: classificadores estatísticos, redes neurais artificiais, árvores de decisão, máquinas de vetores de suporte (SVM), k vizinhos mais próximos (KNN), etc \cite{jain:1989}. A seguir, descrevemos sucintamente os algoritmos de aprendizagem de máquina utilizados neste trabalho.
+
+\subsubsection*{Árvores de decisão}
 
 Amplamente utilizadas em algoritmos de classificação, as árvores de decisão são representações simples do conhecimento e um meio eficiente de construir classificadores que predizem classes baseadas nos valores de atributos de um conjunto de dados. As árvores de decisão consistem de nodos que representam os atributos; de arcos, provenientes destes nodos e que recebem os valores possíveis para estes atributos; e de nodos folha, que representam as diferentes classes de um conjunto de treinamento. Classificação, neste caso, é a construção de uma estrutura de árvore, que pode ser usada para classificar corretamente todos os objetos do conjunto de dados da entrada.
 
 A partir de uma árvore de decisão é possível derivar regras. As regras são escritas considerando o trajeto do nodo raiz até uma folha da árvore. Estes dois métodos são geralmente utilizados em conjunto. Devido ao fato das árvores de decisão tenderem a crescer muito, de acordo com algumas aplicações, elas são muitas vezes substituídas pelas regras. Isto acontece em virtude das regras poderem ser facilmente modularizadas. Uma regra pode ser compreendida sem que haja a necessidade de se referenciar outras regras.
 
 Uma árvore de decisão tem a função de particionar recursivamente um conjunto de treinamento, até que cada subconjunto obtido deste particionamento contenha casos de uma única classe. Para atingir esta meta, a técnica de árvores de decisão examina e compara a distribuição de classes durante a construção da árvore. O resultado obtido, após a construção de uma árvore de decisão, são dados organizados de maneira compacta, que são utilizados para classificar novos casos. A árvore de decisão não presume nenhum modelo estatístico a priori, sendo a divisão do espaço de atributos feita de acordo com as amostras provenientes do treinamento.
+
+\subsubsection*{KNN}
 
 O algoritmo KNN (K-Nearest Neighbours, ou K vizinhos mais próximos) \cite{cover:1967} é um método de classificação baseado na proximidade de amostras de treino no espaço de características. É considerado um dos mais simples algoritmos de aprendizagem de máquina.
 
@@ -156,6 +160,8 @@ Diversas formas de calcular a distância entre duas amostras $a$ e $b$ em um esp
 \label{eq:euclides}
 \end{equation}
 
+\subsubsection*{Support Vector Machines}
+
 As máquinas de vetores de suporte, ou SVM (\textit{Support Vector Machines}) são classificadores baseados na teoria de aprendizagem estatística proposta por \cite{vapnik:1995}. A teoria é baseada em uma forte fundamentação matemática para estimação de dependências e previsão do aprendizado a partir de conjuntos de dados finitos. 
 
 Um modelo SVM é a representação das amostras como pontos em um espaço n-dimensional (onde n é o tamanho do vetor de características) de tal forma que as amostras de diferentes classes sejam divididas por um hiperplano de separação que maximiza a distância entre essas classes. Isso se deve ao fato de que o hiperplano de separação possui a maior distância possível às amostras mais próximas entre as classes, o que ajuda a diminuir o erro de generalização do classificador.
@@ -168,6 +174,8 @@ A principal vantagem do classificador SVM é seu bom desempenho em conjuntos de 
   \caption[Máquina de vetores de suporte]{Amostras em um espaço bidimensional (pontos coloridos) separadas por um hiperplano apoiado por vetores de suporte (pontos circulados), maximizando a distância entre as amostras mais próximas do limiar das classes}
   \label{fig:svm}
 \end{figure}
+
+\subsubsection*{Naive Bayes}
 
 Há um grupo de algoritmos de aprendizado de máquina que se baseiam em raciocínio probabilístico, especialmente sob o viés bayseano. De acordo com \citeonline{mitchell:1997}, o raciocínio bayesiano é baseado no pressuposto de que as quantidades de interesse são governadas pela distribuição das probabilidade e que decisões ótimas podem ser tomadas a partir da análise destas probabilidades em conjunto com os dados observados.
 
@@ -189,6 +197,7 @@ Segundo \citeonline{russell:2010}, os valores de máxima probabilidade de cada c
 \label{eq:probabilidadeNaiveBayes}
 \end{equation}
 
+\subsubsection*{Random Forest}
 
 O algoritmo \textit{Random Forest}, introduzido por \citeonline{breiman:2001} , é um \textit{ensemble} de classificadores de árvore de decisão. Na fase de treinamento, um número determinado de árvores é gerado utilizando um subconjunto pseudo-aleatório do vetor de características completo utilizado no problema. Tanto o número de árvores quanto a quantidade de atributos utilizados por cada árvore pode ser determinado pelo usuário do algoritmo.
 
@@ -200,9 +209,15 @@ O trabalho de \citeonline{breiman:2001} ainda afirma que a taxa de erro de um mo
 
 Reduzir o número de variáveis do vetor de características a ser utilizado em cada árvore reduz a correlação entre árvores e também reduz a ``força'' da árvore. Incrementar este número de variáveis incrementa a correlação e a ``força'' da árvore. A parametrização do algoritmo deve se preocupar em encontrar o número de variáveis do vetor de características que melhor minimize a correlação e maximize a ``força'' das árvores do modelo.
 
-Há um grupo de algoritmos em aprendizagem de máquina que tem como objetivo a detecção de anomalias a partir de um modelo formado por apenas uma classe. Neste tipo de problema, a base é normalmente composta por uma única classe (conhecida como classe alvo, ou \textit{target}) e o modelo gerado é supostamente capaz de determinar se novas amostras do problema pertencem à classe alvo ou se são anomalias ou novidades (\textit{outliers}). Estes algoritmos são comumente chamados de detectores de anomalias ou novidades (\textit{novelty detection} ou \textit{outlier detection}).
+Os algoritmos descrito até então podem ser utilizados em qualquer problema de classificação binária ou multi-classe. Entretanto, há um grupo de algoritmos em aprendizagem de máquina que tem como objetivo a detecção de anomalias a partir de um modelo formado por apenas uma classe. A próxima seção trata desta classe de algoritmos.
 
-Em geral, algoritmos de detecção de anomalias podem ser utilizados para resolução de problemas com múltiplas classes. A estratégia consiste em treinar um classificador deste tipo para cada classe do problema. Diversas técnicas para apuração dos resultados podem ser utilizadas, tais como votação (\textit{voting} ou \textit{polling}), onde cada classificador tem um voto que é computado com um peso e levado em consideração na classificação final; ou bagging (abreviação do termo inglês \textit{Bootstrap aggregating}), que se utiliza da combinação do resultado de classificação de conjuntos de dados de treinamento selecionados aleatoriamente, com o objetivo de reduzir a variância e o \textit{overfitting}, discutidos com mais detalhes na seção \ref{sec:avaliacao}.
+\subsubsection*{Classificadores unários}
+
+Algoritmos conhecidos como classificadores unários são utilizados, normalmente, em problemas onde há apenas uma classe conhecida, e há interesse em se encontrar anomalias ou novidades, ou seja, amostras que não pertencem à classe conhecida.
+
+ Neste tipo de problema, a base é normalmente composta por uma única classe (conhecida como classe alvo, ou \textit{target}) e o modelo gerado é supostamente capaz de determinar se novas amostras do problema pertencem à classe alvo ou se são anomalias ou novidades (\textit{outliers}). Estes algoritmos também são chamados de detectores de novidades (\textit{novelty detection}) ou detectores de anomalias (\textit{outlier detection}).
+
+Apesar de serem concebidos para problemas de classificação de apenas uma classe, algoritmos de detecção de anomalias podem ser utilizados para resolução de problemas com múltiplas classes. A estratégia consiste em treinar um classificador deste tipo para cada classe do problema. Diversas técnicas para apuração dos resultados podem ser utilizadas, tais como votação (\textit{voting} ou \textit{polling}), onde cada classificador tem um voto que é computado com um peso e levado em consideração na classificação final; ou bagging (abreviação do termo inglês \textit{Bootstrap aggregating}), que se utiliza da combinação do resultado de classificação de conjuntos de dados de treinamento selecionados aleatoriamente, com o objetivo de reduzir a variância e o \textit{overfitting}, discutidos com mais detalhes na seção \ref{sec:avaliacao}.
 
 Uma variante do SVM denominada OC-SVM (acrônimo em inglês para \textit{One Class Support Vector Machines}) foi introduzida por \citeonline{scholkopf:1999} com a finalidade de adaptar o robusto algoritmo de \citeonline{vapnik:1995} para problemas de detecção de anomalias. Este é, na verdade, uma expansão da aplicação da técnica de SVM para dados não-rotulados.
 
@@ -210,7 +225,7 @@ A ideia central é que uma função \textit{kernel} de base radial é utilizada 
 
 Outros métodos tradicionais em problemas multi-classe também podem ser usados como classificadores para detecção de anomalias. Variações de KNN como o OCNN (\textit{One-Class Nearest Neighbour}) ou de árvores de decisão como o REPTree são comumente utilizados nesta abordagem, utilizando diversas estratégias para determinação final das classes das novas amostras.
 
-O trabalho de \citeonline{hadjadji:2014}, por exemplo, apresenta um modelo para conjuntos de classificadores de anomalias em que diversos algoritmos e estratégias diferentes podem ser utilizados em conjunto para solucionar um mesmo problema de aprendizagem. Isto possibilita um grau de liberdade elevado na escolha desses algoritmos e estratégias para problemas multi-classe.
+Há ainda na literatura trabalhos que descrevem modelos para utilização de diversos algoritmos unários diferentes em um mesmo problema, definindo também estratégias para a determinação da classificação resultante da miríade de classificadores. Isto possibilita um grau de liberdade elevado na escolha desses algoritmos e estratégias para problemas multi-classe.
 
 Tanto durante o desenvolvimento de uma solução, quanto após sua execução em ambiente de produção, é preciso aferir e quantificar o desempenho da técnica desenvolvida ou utilizada, conforme discutido na próxima seção.
 
