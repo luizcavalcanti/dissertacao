@@ -288,14 +288,16 @@ Em resumo, o problema é ter um modelo que possui bom desempenho na etapa de tre
 
 Para detectar problemas de \textit{overfitting}, pode-se testar o modelo em diversas outras bases de amostras, medindo a variância da acurácia entre estas bases. Uma alta variância indica que o modelo não é genérico o suficiente, apontando para um provável caso de \textit{overfitting}.
 
-Um método bastante utilizado para medir a generalização de um modelo de aprendizado é a validação cruzada. O conceito principal deste método é o particionamento do conjunto de amostras em um número de subconjuntos mutuamente exclusivos, utilizando um dos subconjuntos como base de treinamento e as demais como bases de validação do modelo treinado.
+Um método bastante utilizado para medir a generalização de um modelo de aprendizado é a validação cruzada. O conceito principal deste método é o particionamento do conjunto de amostras em um número de subconjuntos mutuamente exclusivos, divindindo estes subconjuntos entre base de treinamento e teste.
 
-A técnica de validação cruzada conhecida como \textit{k-fold} divide a base em $k$ subconjuntos de mesmo tamanho, escolhe um dos subconjuntos como base de treinamento e utiliza os demais subconjuntos como bases de testes deste primeiro subconjunto. O procedimento é repetido $k$ vezes, de forma que todos os subconjuntos possam ser utilizados para construir uma versão de modelo de aprendizado e ser validado pelos demais subconjuntos. A precisão do modelo é obtida pela equação \ref{eq:kfold}, onde $k$ é o número de subconjuntos e $y_i - y'_i$ é a diferença entre o valor esperado e o valor predito pelo modelo.
+A técnica de validação cruzada conhecida como \textit{k-fold} divide a base em $k$ subconjuntos de mesmo tamanho, escolhe um dos subconjuntos como base de testes e utiliza os demais subconjuntos como bases de treinamento do modelo. A razão para estar distribuição é a premissa de que é preciso de mais amostras para treinamento que para testes, a fim de criar um modelo robusto. O procedimento é repetido $k$ vezes, de forma que todos os subconjuntos possam ser utilizados para construir uma versão de modelo de aprendizado e ser validado pelos demais subconjuntos. A precisão do modelo é obtida através de uma média aritmética simples das $k$ execuções da validação cruzada. Em problemas de regressão, a precisão do modelo é obtida pela equação \ref{eq:kfold}, onde $k$ é o número de subconjuntos e $y_i - y'_i$ é a diferença entre o valor esperado e o valor predito pelo modelo.
 
 \begin{equation}
   \displaystyle Ac_f = \frac{1}{k} \sum_{i=1}^k{(y_i - y'_i)}
 \label{eq:kfold}
 \end{equation}
+
+Segundo \citeonline{witten:2011}, é prática comum repetir a execução da validação \textit{k-fold}, por $k$ vezes. A razão disto é o efeito provocado pela variação na escolha dos subconjuntos de treinamento e teste, que ocasiona pequenas variações nas taxas de erro e precisão entre diferentes execuções de um mesmo modelo no mesmo conjunto geral de dados. A execução de $k^2$ validações tende a diminuir esta variação, ao custo de um esforço computacional mais intenso.
 
 Uma outra avaliação importante a ser feita é a da relação entre a taxa de acerto (verdadeiros positivos) e  a taxa de falsos positivos. Para tal análise, pode ser feito o estudo da curva ROC (do inglês \textit{Receiver Operating Characteristic}), um gráfico bidimensional que exibe no eixo y o percentual de verdadeiros positivos na amostra e, no eixo x, o percentual de falsos positivos da mesma amostra (figura \ref{fig:roc}).
 
