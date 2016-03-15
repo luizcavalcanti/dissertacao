@@ -1,17 +1,22 @@
 \chapter{Trabalhos Relacionados}\label{cap:trabalhos}
 
-% aerial image classification
-% aerial image segmentation
+A floresta amazônica é tema recorrente em diversas áreas de pesquisa, incluindo a área de sensoriamento remoto. Trabalhos vindos desta área costumam utilizar técnicas computacionais que pertencem ao estado da arte para analisar imagens que cobrem grandes áreas, sejam essas de espectro visível ou mesmo de RADAR ou LIDAR, e inferir as mais diversas informações sobre as regiões estudadas.
+
+Trabalhos como os de \citeonline{almeidafilho:1998}, \citeonline{vasconcelos:2001}, \citeonline{lu:2012} e \citeonline{ferreira:2012} se utilizam de imagens com 6 bandas multiespectrais e 1 banda termal do satélite LANDSAT da região amazônica para determinar a cobertura de terreno das áreas inspecionadas. Estes trabalhos têm foco nos tipos de vegetação que cobrem o terreno, classes tais como floresta, capoeira, vegetação secundária, ou até mesmo espécies e grupos de plantas. Há trabalhos mais elaborados, como o de \citeonline{espiritosanto:2005}, que se utiliza das mesmas imagens do satélite LANDSAT, mas analisa amostras multitemporais, ou seja, imagens da mesma região em diversos sobrevoos do satélite, com o objetivo conseguir informações sobre mudanças na cobertura vegetal do terreno.
+
+Há ainda trabalhos como o de \cite{azevedo:2014}, que utiliza como fonte de dados o satélite COSMO-SkyMed,  que disponibiliza imagens duais multitemporais da região amazônica. Estudos como o de \citeonline{latorre:2007} vão além e mesclam os dados de diversas fontes diferentes, utilizando técnicas de fusão de imagens.
+
+Apesar dos resultados alcançados, os trabalhos sobre a classificação de imagens da floresta amazônica geralmente avaliam a cobertura vegetal da região, sem qualquer menção a elementos antrópicos, utilizando para isso imagens termais ou multiespectrais de diversos satélites. Dada a natureza relativamente lenta das mudanças de cobertura vegetal de terreno e o tamanho das áreas estudadas, é compreensível que satélites sejam utilizados.
+
+Para o trabalho aqui apresentado, no entanto, os objetos de interesse mudam rapidamente, e a grande cobertura de área proporcionada por imagens de satélite deve dar lugar a imagens feitas por veículos aéreos, com maior proximidade e disponibilizadas com mais rapidez em uma missão real de patrulhamento ambiental. A base de imagens disponível para o trabalho é composta exclusivamente por imagens de espectro visível, por isso, muitas das técnicas e conclusões dos trabalhos citados acima não são prontamente transferíveis para este trabalho.
 
 Os trabalhos relacionados apresentados nesta seção foram divididos primeiramente por assunto: de início, nos concentramos nos trabalhos publicados em segmentação de imagens que são considerados estado da arte, uma vez que esta é o primeiro desafio técnico a ser enfrentado pelo trabalho proposto. Depois, fazemos o levantamento de trabalhos relevantes sobre classificação de imagens aéreas.
 
-Ambas as seções a seguir apresentam os trabalhos relacionados em ordem própria. A seção \ref{sec:trSegmentacao} apresenta os trabalhos sobre segmentação de imagens de acordo com a ordem apresentada no trabalho de comparação realizado por \citeonline{arbelaez:2011}, explanado com mais detalhes em seguida. A seção \ref{sec:trClassificacao} apresenta os trabalhos relacionados sobre classificação de imagens aéreas em ordem cronológica de publicação.
+As seções a seguir apresentam os trabalhos relacionados em ordem própria.  A seção \ref{sec:trSegmentacao} apresenta os trabalhos sobre segmentação de imagens de acordo com a ordem apresentada no trabalho de comparação realizado por \citeonline{arbelaez:2011}, explanado com mais detalhes em seguida. A seção \ref{sec:trClassificacao} apresenta os trabalhos relacionados sobre classificação de imagens aéreas em ordem cronológica de publicação.
 
-Cada artigo é descrito com suas características, vantagens e desvantagens. No fim de cada seção, é apresentada uma tabela de comparação entre os métodos utilizados na literatura.
+Cada artigo é descrito com suas características, vantagens e desvantagens. No fim de cada seção, é apresentada uma tabela de comparação entre os trabalhos levantados.
 
 \section{Segmentação de imagens}\label{sec:trSegmentacao}
-
-%\textbf{palavras-chave}: aerial image segmentation, terrain classification, terrain segmentation
 
 Os trabalhos relacionados nesta seção foram escolhidos por terem obtido os maiores índices de precisão e revocação em uma base de dados de imagens naturais bastante conhecida pela comunidade de processamento de imagens, \textit{Berkeley Segmentation Data Set and Benchmarks 500}, também conhecida como BSDS500. Uma comparação entre os mais promissores algoritmos de segmentação de imagens foi realizada por \citeonline{arbelaez:2011}, consistindo na segmentação das imagens presentes no BSDS500 manualmente por seres humanos, e depois segmentadas pelos diversos algoritmos testados. A precisão e revocação de cada algoritmo são obtidas através de comparação com a segmentação manual.
 
@@ -49,13 +54,12 @@ Mean-shift  & Cor, posição     & 58\% & 48\% \\ \hline
 \label{tab:sumarioSegmentacao}
 \end{table}
 
-Tanto na revisão feita por \citeonline{arbelaez:2011} com a base de imagens naturais BSD500, quanto na comparação feita por \citeonline{yuan2:2013} em uma base de imagens aéreas, o algoritmo gPb-owt-ucm de \citeonline{arbelaez:2011} possui um desempenho superior aos demais algoritmos avaliados. Vale notar que em ambos os trabalhos, todos os algoritmos têm desempenho sensivelmente inferior à segmentação manual feita por seres humanos. 
+Tanto na revisão feita por \citeonline{arbelaez:2011} com a base de imagens naturais BSD500, quanto na comparação feita por \citeonline{yuan2:2013} em uma base de imagens aéreas, o algoritmo gPb-owt-ucm de \citeonline{arbelaez:2011} possui um desempenho superior aos demais algoritmos avaliados. Nenhum dos trabalhos faz qualquer avaliação sobre o custo computacional dos algoritmos, nem sobre o tempo de execução durante os experimentos.
 
-Uma vez que o trabalho aqui apresentado se propõe a não apenas segmentar, mas também classificar os diferentes tipos de terreno em uma imagem aérea, um levantamento bibliográfico também foi feito sobre classificação de imagens aéreas.
+Conforme descrito em detalhes no capítulo \ref{cap:metodologia}, a abordagem escolhida neste trabalho para encontrar elementos antrópicos em imagens aéreas da floresta amazônica passa pela classificação das regiões de imagens produzidas por um algoritmo de segmentação. Por este motivo, um levantamento bibliográfico também foi feito sobre classificação de imagens aéreas.
 
 \section{Classificação de imagens aéreas}\label{sec:trClassificacao}
 
-%\textbf{palavras-chave}: aerial image classification
 Os trabalhos relacionados sobre classificação de imagens aéreas foram selecionados de acordo com suas semelhanças com o trabalho proposto neste documento. Todos tratam de imagens aéreas ortogonais, ou seja, com inclinação de aproximadamente 90\degree em relação ao solo, em cenas naturais e com bases de dados com forte presença de vegetação. Os trabalhos relacionados expressam diferentes formas de classificação das imagens: classificação de pixels individuais, blocos, segmentos ou superpixels.
 
 É importante também destacar que todos os trabalhos descritos a seguir possuem imagens em escala similar às imagens de VANTs, baseando-se na altitude regular de operação desses equipamentos. O fato de terem sido coletadas com VANTs ou não, é de pouca importância para efeitos de comparação, já que os aspectos técnicos das imagens são similares.
