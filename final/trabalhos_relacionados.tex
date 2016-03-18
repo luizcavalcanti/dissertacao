@@ -10,9 +10,9 @@ Apesar dos resultados alcançados, os trabalhos sobre a classificação de image
 
 Para o trabalho aqui apresentado, no entanto, os objetos de interesse mudam rapidamente, e a grande cobertura de área proporcionada por imagens de satélite deve dar lugar a imagens feitas por veículos aéreos, com maior proximidade e disponibilizadas com mais rapidez em uma missão real de patrulhamento ambiental. A base de imagens disponível para o trabalho é composta exclusivamente por imagens de espectro visível, por isso, muitas das técnicas e conclusões dos trabalhos citados acima não são prontamente transferíveis para este trabalho.
 
-Os trabalhos relacionados apresentados nesta seção foram divididos primeiramente por assunto: de início, nos concentramos nos trabalhos publicados em segmentação de imagens que são considerados estado da arte, uma vez que esta é o primeiro desafio técnico a ser enfrentado pelo trabalho proposto. Depois, fazemos o levantamento de trabalhos relevantes sobre classificação de imagens aéreas.
+Os trabalhos relacionados apresentados nesta seção foram divididos primeiramente por assunto: de início, nos concentramos nos trabalhos publicados em segmentação de imagens que são considerados estado da arte, uma vez que esta é o primeiro desafio técnico a ser enfrentado pelo trabalho proposto. Depois, fazemos o levantamento de trabalhos relevantes sobre classificação de imagens aéreas. Em uma etapa posterior, investigamos trabalhos relacionados na área de detecção de anomalias.
 
-As seções a seguir apresentam os trabalhos relacionados em ordem própria.  A seção \ref{sec:trSegmentacao} apresenta os trabalhos sobre segmentação de imagens de acordo com a ordem apresentada no trabalho de comparação realizado por \citeonline{arbelaez:2011}, explanado com mais detalhes em seguida. A seção \ref{sec:trClassificacao} apresenta os trabalhos relacionados sobre classificação de imagens aéreas em ordem cronológica de publicação.
+As seções a seguir apresentam os trabalhos relacionados em ordem própria.  A seção \ref{sec:trSegmentacao} apresenta os trabalhos sobre segmentação de imagens de acordo com a ordem apresentada no trabalho de comparação realizado por \citeonline{arbelaez:2011}, explanado com mais detalhes em seguida. As seções \ref{sec:trClassificacao} e \ref{sec:trAnomalias} apresenta os trabalhos relacionados sobre classificação de imagens aéreas e detecção de anomalias, ambas em ordem cronológica de publicação.
 
 Cada artigo é descrito com suas características, vantagens e desvantagens. No fim de cada seção, é apresentada uma tabela de comparação entre os trabalhos levantados.
 
@@ -74,8 +74,6 @@ A dissertação de mestrado de \citeonline{fernandes:2008} descreve uma soluçã
 
 O trabalho de \citeonline{ghiasi:2013} realiza segmentação e classificação de tipos de terreno em imagens aéreas através de dois passos: primeiramente a imagem é dividida em superpixels, utilizando a técnica de fluxos geométricos de \citeonline{levinshtein:2009}; posteriormente, cada superpixel tem suas características de textura e cor extraídas e é classificado através do algoritmo KNN. As características apontadas como mais úteis pelos autores são o Local Binary Pattern Histogram Fourier (LBP-HF) \cite{ahonen:2009} para informações de textura e histograma dos canais RGB para informações sobre cores. Os autores do artigo alegam realizar o processo em tempo real, com precisão superior a 95\% em todas as classes utilizadas. Apesar do cenário e região apresentados pelo trabalho de \citeonline{ghiasi:2013} serem diversos dos nossos, o tipo de imagem, as condições de aquisição e a diferenciação de elementos antrópicos (edificações, neste caso) estabelecem uma forte relação entre os dois trabalhos.
 
-\todo[inline]{Não há trabalhos que busquem detectar anomalias? Como você estuda a detecção de anomalias, eu creio que você precisa descrever trabalhos que investiguem esse tópico, mesmo que não envolvam imagens. Por exemplo, o trabalho de Hadjadji, Chibani e Guerbai (2014) precisa ser descrito aqui, assim como outros trabalhos nessa linha. Esses trabalhos são importantes para justificar a escolha dos quatro cenários que você investigou no seu trabalho.}
-
 A tabela \ref{tab:sumarioClassificacao} apresenta um sumário dos trabalhos levantados nesta seção, ordenados conforme aparição.
 
 \begin{table}[h]
@@ -93,6 +91,24 @@ Ghiasi    & KNN                    & Superpixel & Busca por objetos de interesse
 \caption{Comparação entre os trabalhos sobre classificação de imagens aéreas}
 \label{tab:sumarioClassificacao}
 \end{table}
+
+Os trabalhos relacionados à classificação de imagens aéreas exploram pouco a problemática de detecção de anomalias. O trabalho aqui apresentado tem como objetivo final a classificação e detecção de regiões anômalas à paisagem natural, portanto definidas como antrópicas. Tais regiões em um ambiente natural vasto como o da floresta amazônica, tendem a ter ocorrência muito baixa, portanto podem ser consideradas anomalias.
+
+Com a preocupação de que modelos de aprendizado supervisionados convencionais tenham dificuldade em reconhecer classes tão pouco representadas em uma base de treinamento, um levantamento foi feito por trabalhos na área de detecção de anomalias utilizando aprendizagem de máquina.
+
+\section{Detecção de anomalias}\label{sec:trAnomalias}
+
+
+\todo[inline]{Não há trabalhos que busquem detectar anomalias? Como você estuda a detecção de anomalias, eu creio que você precisa descrever trabalhos que investiguem esse tópico, mesmo que não envolvam imagens. Por exemplo, o trabalho de Hadjadji, Chibani e Guerbai (2014) precisa ser descrito aqui, assim como outros trabalhos nessa linha. Esses trabalhos são importantes para justificar a escolha dos quatro cenários que você investigou no seu trabalho.}
+
+\todo[inline]{
+	Trabalho
+		caracteristicas
+		vantagens
+		desvantagens
+		relação com meu trabalho
+	Tabela comparativa
+}
 
 Este trabalho pretende adaptar ou enriquecer os métodos utilizados na literatura, aplicando-os especificamente à detecção de elementos antrópicos em imagens aéreas da floresta amazônica, que possui seus desafios característicos, visto que o tipo de terreno e vegetação apresentam padrões diferentes dos vários trabalhos realizados em áreas urbanas ou florestas temperadas. Os trabalhos encontrados relacionados à floresta amazônica comumente se utilizam de outros tipos de sensores como RADAR e LIDAR, além de câmera de espectro visível, como pode ser visto nos trabalhos de \citeonline{linhares:2014} e \citeonline{santos:2005} e \citeonline{fernandes:2008}. Estes trabalhos também tendem a se preocupar com dados temporais, como avanço do desmatamento e levantamento de grandes áreas.
 
