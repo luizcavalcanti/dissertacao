@@ -110,6 +110,22 @@ Com a preocupação de que modelos de aprendizado supervisionados convencionais 
 	Tabela comparativa
 }
 
+O trabalho de \citeonline{pla:2013} consiste em um breve resumo do estado da arte de classificação unária para reconhecimento de imagens, seguido de uma aplicação real de classificação de pixels. Os autores apresentam os resultados da detecção de vegetação (classe majoritária) \textit{versus} solo nu (classe minoritária) em uma base de imagens hiperespectrais de satélite com 207 bandas, formado da fusão de diversas fontes. Com 100\% de verdadeiros positivos e 9\% de falsos positivos para a classe majoritário, o trabalho não dá detalhes sobre a distribuição das classes na base de dados nem apresenta resultados para a classe minoritária, portanto, não é possível saber se os resultados são satisfatórios. A utilidade e relação do trabalho de \citeonline{pla:2013} com este aqui apresentado residem no uso do algoritmo One-class Support Vector Machines (OC-SVM), considerado estado da arte em diversas aplicações de aprendizado unário e na temática do problema apresentado, que se utiliza de imagens aéreas de regiões com intensa cobertura vegetal.
+
+\todo[inline]{falar sobre a tabela de resultados}
+
+\begin{table}[h]
+\ABNTEXfontereduzida
+\centering
+\begin{tabulary}{\linewidth}{|L|L|L|L|C|}
+\hline
+\textbf{Trabalho} &  \textbf{Algoritmo} & \textbf{Amostra} & \textbf{Problema investigado} &  \textbf{Precisão} \\ \hline
+Pla (2013) & OC-SVM & Pixel & Detecção de vegetação & 91,86\% \\ \hline
+\end{tabulary}
+\caption{Comparação entre os trabalhos sobre detecção de anomalias}
+\label{tab:sumarioAnomalias}
+\end{table}
+
 Este trabalho pretende adaptar ou enriquecer os métodos utilizados na literatura, aplicando-os especificamente à detecção de elementos antrópicos em imagens aéreas da floresta amazônica, que possui seus desafios característicos, visto que o tipo de terreno e vegetação apresentam padrões diferentes dos vários trabalhos realizados em áreas urbanas ou florestas temperadas. Os trabalhos encontrados relacionados à floresta amazônica comumente se utilizam de outros tipos de sensores como RADAR e LIDAR, além de câmera de espectro visível, como pode ser visto nos trabalhos de \citeonline{linhares:2014} e \citeonline{santos:2005} e \citeonline{fernandes:2008}. Estes trabalhos também tendem a se preocupar com dados temporais, como avanço do desmatamento e levantamento de grandes áreas.
 
-O diferencial deste trabalho está na aplicação ao tema de vigilância ambiental através de VANTS e a preocupação com disponibilização dos conjuntos de dados rotulados para trabalhos futuros na mesma problemática. Mais detalhes sobre o método proposto serão discutidos no capítulo \ref{cap:metodologia}.
+O diferencial deste trabalho está na aplicação ao tema de vigilância ambiental através de VANTs e a preocupação com disponibilização dos conjuntos de dados rotulados para trabalhos futuros na mesma problemática. Mais detalhes sobre o método proposto serão discutidos no capítulo \ref{cap:metodologia}.
