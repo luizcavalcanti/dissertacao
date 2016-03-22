@@ -6,7 +6,7 @@ Em imagens aéreas como as utilizadas neste trabalho, é comum que os elementos 
 
 Classificar pixels tende a ser custoso, visto que mesmo uma pequena imagem provê dezenas de milhares deles, que devem ter suas características extraídas e providas ao modelo de aprendizado, para que possam ser classificados. Portanto, utilizar técnicas de segmentação de imagem para agrupar os pixels espacialmente e caracteristicamente relacionados em uma única amostra não só possibilita uma execução mais rápida da solução computacional, como também torna o resultado final menos ruidoso.
 
-Por este motivo, a arquitetura para a solução proposta prevê uma etapa de segmentação das imagens, seguida de uma etapa de classificação, responsável pela determinação do tipo de cada região encontrada na segmentação. A arquitetura geral da solução pode ser vista na figura \ref{fig:metDiagramaGeral}.
+Por este motivo, a arquitetura para a solução proposta prevê uma etapa de segmentação das imagens, seguida de uma etapa de classificação, responsável pela determinação do tipo de cada região encontrada na segmentação. Desta forma, elementos antrópicos podem ser separados como mais uma das regiões das imagens e classificados como tal. A arquitetura geral da solução pode ser vista na figura \ref{fig:metDiagramaGeral}.
 
 \begin{figure}[h]
     \includegraphics[width=\textwidth]{imgs/arquitetura_geral}
@@ -16,7 +16,7 @@ Por este motivo, a arquitetura para a solução proposta prevê uma etapa de seg
 
 A ideia geral é que imagens aéreas de regiões florestais da Amazônia legal sirvam de entrada para o problema. Estas mesmas imagens serão particionadas em regiões por um segmentador. Em seguida, um extrator será utilizado para criar o vetor de características de cada segmento provido pela etapa anterior. Por fim, um classificador composto por um ou mais algoritmos de classificação será utilizado para rotular as regiões, com a finalidade de encontrar as regiões de elementos antrópicos. A saída do sistema pode, então, ser composta pelas regiões segmentadas e suas classificações finais.
 
-Embora esta seja uma arquitetura simples, bastante difundida na literatura, nuances para o problema apresentado neste trabalho devem ser levadas em conta. Para chegarmos à conclusão de quais segmentadores, extratores e classificadores devem ser utilizados, são necessárias várias etapas de experimentação, validação de resultados e análises.
+Embora esta seja uma arquitetura simples, bastante difundida na literatura, nuances para o problema apresentado neste trabalho devem ser levadas em conta. Para chegarmos à conclusão de quais segmentadores, extratores e classificadores devem ser utilizados, são necessárias várias etapas de experimentação, validação e análise de resultados.
 
 \section{Entrada}
 
@@ -26,7 +26,22 @@ Como serão processadas por uma etapa de segmentação, as imagens não sofrerã
 
 \section{Segmentador}\label{sec:metSegmentador}
 
-Para encontrarmos o segmentador ideal, os métodos de segmentação de imagens considerados estado-da-arte serão aplicados à uma parte da base de imagens aéreas da floresta amazônica. Esta porção da base de imagens também será manualmente segmentada por seres humanos e servirá de base de comparação para a segmentação realizada pelos métodos experimentados. Ainda é preciso aferir a consistência da segmentação manual realizada por seres humanos. Métricas de erros de consistência como o \textit{Local Consistency Error} (LCE) e \textit{Global Consistency Error} (GCE), descritos na seção \ref{sec:avaliacaopdi}, devem ser aplicados.
+\todo[inline]{Dizer quais métodos foram escolhidos para a comparação, e o porquê da escolha (incluir a segmentação por classificação).
+Tem alguma definição matemática dos métodos? Eu acho a definição apresentada nos trabalhos relacionados muito vaga.
+Esse é o momento para você informar como os métodos funcionam.}
+
+Para encontrarmos o segmentador ideal, os métodos de segmentação de imagens considerados estado-da-arte serão aplicados à uma parte da base de imagens aéreas da floresta amazônica. Conforme levantado no capítulo \ref{cap:trabalhos}, os seguintes métodos serão avaliados:
+
+\begin{itemize}
+	\item FSEG
+	\item gPb-owt-ucm
+	\item JSEG
+	\item Mean-shift
+	\item MSEG
+	\item SRM
+\end{itemize}
+
+A base de dados também precisa ser segmentada manualmente por seres humanos, pois este será o \textit{ground-truth} usado para aferir o desempenho dos algoritmos de segmentação avaliados. Ainda é preciso aferir a consistência da segmentação manual realizada por seres humanos. Métricas de erros de consistência como o \textit{Local Consistency Error} (LCE) e \textit{Global Consistency Error} (GCE), descritos na seção \ref{sec:avaliacaopdi}, devem ser aplicados para a medição de desempenho de todos os algoritmos, bem como para validação da consistência interna da segmentação manual.
 
 Esta etapa deve determinar o método de segmentação com melhores resultados, a ser utilizado na solução descrita pelo trabalho. A precisão e o tempo de execução devem ser utilizados para a avaliação do desempenho dos algoritmos testados. Em seguida, é preciso extrair as características dos segmentos gerados.
 
