@@ -6,7 +6,7 @@ Em imagens aéreas como as utilizadas neste trabalho, é comum que os elementos 
 
 Classificar pixels tende a ser custoso, visto que mesmo uma pequena imagem provê dezenas de milhares deles, que devem ter suas características extraídas e providas ao modelo de aprendizado, para que possam ser classificados. Portanto, utilizar técnicas de segmentação de imagem para agrupar os pixels espacialmente e caracteristicamente relacionados em uma única amostra não só possibilita uma execução mais rápida da solução computacional, como também torna o resultado final menos ruidoso.
 
-Por este motivo, a arquitetura para a solução proposta prevê uma etapa de segmentação das imagens, seguida de uma etapa de classificação, responsável pela determinação do tipo de cada região encontrada na segmentação. Desta forma, elementos antrópicos podem ser separados como mais uma das regiões das imagens e classificados como tal. A arquitetura geral da solução pode ser vista na figura \ref{fig:metDiagramaGeral}.
+Por este motivo, a arquitetura para a solução proposta prevê uma etapa de segmentação das imagens, seguida de uma etapa de classificação, responsável pela determinação do tipo de cada região encontrada na segmentação. Desta forma, elementos antrópicos podem ser separados como mais uma das regiões das imagens e classificados como tal. O diagrama da arquitetura geral da solução pode ser visto na figura \ref{fig:metDiagramaGeral}.
 
 \begin{figure}[h]
     \includegraphics[width=\textwidth]{imgs/arquitetura_geral}
@@ -55,7 +55,7 @@ Como requisito da composição da base de dados de segmentos, bem como para aval
 
 \section{Classificador}\label{sec:metClassificador}
 
-Nesta etapa, quatro estratégias de classificação presentes na literatura serão abordadas. Elas não demandam alterações na arquitetura geral da solução, mas mudam a forma como a base é rotulada e organizada. As métricas de avaliação do aprendizado precisam ser ponderadas para cada estratégia.
+Nesta etapa, quatro estratégias de classificação presentes na literatura serão abordadas: classificadores multi-classe, binários, unários e conjuntos de classificadores unários. Elas não demandam alterações na arquitetura geral da solução, mas mudam a forma como a base é rotulada e organizada. As métricas de avaliação do aprendizado precisam ser ponderadas para cada estratégia.
 
 É importante destacar que a classe de interesse, elementos antrópicos, permanece a mesma em todas as abordagens, e sua inspeção mais cuidadosa é vital na avaliação de todos os métodos utilizados.
 
