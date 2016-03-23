@@ -22,7 +22,48 @@ Os trabalhos relacionados nesta seção foram escolhidos por terem obtido os mai
 
 Para reduzir ainda mais o número de algoritmos a serem inspecionados para este trabalho, a revisão de \citeonline{yuan2:2013} compara os mesmos algoritmos que \citeonline{arbelaez:2011} investigaram, mas dessa vez em uma base de imagens aéreas. A metodologia é a mesma usada no BSDS500, mas com uma base especializada. Os algoritmos com os melhores resultados foram selecionados para serem utilizados na construção deste trabalho de pesquisa, e coincidem com os resultados do trabalho de \citeonline{arbelaez:2011}. Os seis algoritmos selecionados serão discutidos a seguir.
 
-O trabalho de \citeonline{deng:2001} trata de um algoritmo chamado JSEG, que obtém a segmentação da imagem em duas etapas. A primeira é a  quantização das cores da imagem em diversas classes. Baseada nessas cores quantizadas, a segunda etapa computa o valor de uma variável \textit{J} indicando a intensidade das bordas e utiliza um método de crescimento de região para segmentar a imagem com base no valor \textit{J}. O algoritmo ainda permite que o utilizador especifique o tamanho da janela para computar o valor de \textit{J}, o que torna o método bastante flexível para imagens de naturezas diferentes. Em imagens aéreas de escala considerável, como as utilizadas neste trabalho, pode-se usar uma janela diminuta, já que os detalhes importantes podem ser bem pequenos. Para diminuir super-segmentação, os segmentos encontrados na segunda etapa são fundidos de acordo com seus histogramas coloridos.
+O trabalho de \citeonline{deng:2001} trata de um algoritmo chamado JSEG (acrônimo para \textit{J Segmentation}), que obtém a segmentação da imagem em duas etapas. A primeira é a quantização das cores da imagem em um número bem menor que o número original, cerca de 16 milhões, em uma imagem de 24 bits, para um número entre 10 e 20 cores na imagem resultante. Esta etapa é responsável por criar uma espécie de mapa de classes, baseada nas cores quantizadas e ignorando a distribuição espacial destas mesmas cores (figura \ref{fig:jseg_classmap}).
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=1]{imgs/jseg_classmap}
+  \caption{Exemplos de mapas de classes do algoritmo JSEG, criado a partir da quantização de cores}
+  \label{fig:jseg_classmap}
+\end{figure}
+
+A segunda etapa consiste na segmentação espacial do mapa de classes sem considerar a similaridade cromática dos pixels. Para que isto seja possível, primeiramente é encontrado o valor para uma variável $J$. Seja $Z$ o conjunto de todos os $N$ pontos do mapa de classes, temos que $z = (x,y), z \in Z$ e $m$ seja a média, dada por
+
+\begin{equation}
+	\displaystyle m = \frac{1}{N} \sum_{z \in Z} z
+\end{equation}
+
+Supondo que $Z$ é dividido entre $C$ classes, $Z_i$, $i = 1,...,C$. A média $m_i$ dos $N_i$ pontos da classe $Z_i$ pode ser definida por
+
+\begin{equation}
+	\displaystyle m_i = \frac{1}{N_i} \sum_{z \in Z_i} z
+\end{equation}
+
+Podemos definir $S_T$ como:
+
+\begin{equation}
+	\displaystyle S_T = \sum_{z \in Z} || z - m ||^2
+\end{equation}
+
+e $S_W$, a variância total de pontos pertencentes à mesma classe, como:
+
+\begin{equation}
+	\displaystyle S_W = \sum_{i=1}^C \sum_{z \in Z} || z - m ||^2
+\end{equation}
+
+Podemos, então, calcular $J$ por
+
+\begin{equation}
+	\displaystyle J = \frac{S_T - S_W}{S_W}
+\end{equation}
+
+Com isso, temos valores de $J$ maiores para imagens com regiões de cores mais homogêneas. Quando a distribuição de classes é mais homogeneamente distribuída pela imagem, $J$ assume um valor baixo. POsteriormente, um método de crescimento de região para segmentar a imagem com base no valor \textit{J} é aplicado, determinando as regiões finais da imagem.
+
+O algoritmo ainda permite que o utilizador especifique o tamanho da janela para computar o valor de \textit{J}, o que torna o método bastante flexível para imagens de naturezas diferentes. Em imagens aéreas de escala considerável, como as utilizadas neste trabalho, pode-se usar uma janela diminuta, já que os detalhes importantes podem ser bem pequenos. Para diminuir super-segmentação, os segmentos encontrados na segunda etapa são fundidos de acordo com seus histogramas coloridos.
 
 A abordagem utilizando mean-shift desenvolvida por \citeonline{comaniciu:2002} oferece uma ferramenta interessante para resolver o problema de segmentação de imagens. O algoritmo computa vetores de mean-shift iterativamente para mapear pixels para o domínio espacial e de cores do centro de seus agrupamentos (\textit{clusters}). Após a convergência, os \textit{clusters} são fundidos de acordo com parâmetros de similaridade. Parâmetros como largura de banda espacial, de cores e o tamanho do menor \textit{cluster} podem ser utilizados para adequar o algoritmo ao problema em questão.
 
