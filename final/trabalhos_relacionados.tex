@@ -67,7 +67,18 @@ Com isso, temos valores de $J$ maiores para imagens com regiões de cores mais h
 
 O algoritmo ainda permite que o utilizador especifique o tamanho da janela para computar o valor de \textit{J}, o que torna o método bastante flexível para imagens de naturezas diferentes. Em imagens aéreas de escala considerável, como as utilizadas neste trabalho, pode-se usar uma janela diminuta, já que os detalhes importantes podem ser bem pequenos. Para diminuir super-segmentação, os segmentos encontrados na segunda etapa são fundidos de acordo com seus histogramas coloridos.
 
-A abordagem utilizando mean-shift desenvolvida por \citeonline{comaniciu:2002} oferece uma ferramenta interessante para resolver o problema de segmentação de imagens. O algoritmo computa vetores de mean-shift iterativamente para mapear pixels para o domínio espacial e de cores do centro de seus agrupamentos (\textit{clusters}). Após a convergência, os \textit{clusters} são fundidos de acordo com parâmetros de similaridade. Parâmetros como largura de banda espacial, de cores e o tamanho do menor \textit{cluster} podem ser utilizados para adequar o algoritmo ao problema em questão.
+%%%% Meanshift %%%%
+
+A abordagem utilizando mean-shift (ou mudança de média, numa tradução literal) desenvolvida por \citeonline{comaniciu:2002} oferece uma ferramenta interessante para resolver o problema de segmentação de imagens. Em um primeiro momento, uma filtragem por mean-shift para suavização da imagem é aplicada e os dados desta imagem pós-filtrada são projetados em um domínio $d$-dimensional que considera informações espaciais e cromáticas. Estas informações são agrupadas utilizando um critério de proximidade. Nesta etapa, as amostras cuja distância no domínio espacial estão abaixo de $h_s$, e no domínio de cores estão abaixo de $h_r$, serão agrupados em um mesmo \textit{cluster}.
+
+Após a convergência do processo de agrupamento, os \textit{clusters} menores que um tamanho mínimo estipulado são absorvidos pelo \textit{cluster} adjacente com maior similaridade, seguindos os mesmos critérios do processo de agrupamento original. Por fim, os segmentos são delimitados utilizando as bordas dos \textit{clusters} encontrados. Parâmetros como distancia espacial, distancia de cores e o tamanho mínimo dos \textit{clusters} podem ser determinados pelo usuario, para adequar o algoritmo ao problema em questão. A figura \ref{fig:meanshift_exemplo} exemplifica o processo de segmentação utilizando o algoritmo de mean-shift para uma imagem hipotética em tons de cinza.
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[scale=0.5]{imgs/meanshift_exemplo}
+  \caption[Exemplo de segmentação mean-shift em uma imagem em tons de cinza]{Exemplo de segmentação mean-shift em uma imagem em tons de cinza. (a) Imagem de entrada. (b) Filtragem mean-shift para suavização. (c) Resultado do agrupamento sob parâmetros $h_s$ e $h_r$. (d) Resultado da segmentação. Fonte: \cite{comaniciu:2002}}
+  \label{fig:meanshift_exemplo}
+\end{figure}
 
 O algoritmo \textit{Multi-resolution Region Merging Segmentation} (MSEG), descrito por \citeonline{felzenszwalb:2004}, é amplamente usado pela comunidade de sensoriamento remoto. No MSEG, o aumento na heterogeneidade no momento da junção de um par de segmentos é computado como uma soma ponderada de medidas de coloração e morfologia. O procedimento de junção é realizado iterativamente, e  junta os pares de segmento que resultam no menor aumento de heterogeneidade possível, até que a soma exceda um limiar, que pode ser parametrizado pelo utilizador. Sob a óptica de grafos, os pixels são tratados como nodos e os pesos de suas arestas representam a diferença entre características entre os pixels. Um segmento corresponde a um componente conectado nesse grafo. Um parâmetro é utilizado para definir a escala observada na segmentação, o que influi no tamanho e no número dos segmentos resultantes.
 
