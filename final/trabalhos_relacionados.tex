@@ -22,12 +22,14 @@ Os trabalhos relacionados nesta seção foram escolhidos por terem obtido os mai
 
 Para reduzir ainda mais o número de algoritmos a serem inspecionados para este trabalho, a revisão de \citeonline{yuan2:2013} compara os mesmos algoritmos que \citeonline{arbelaez:2011} investigaram, mas dessa vez em uma base de imagens aéreas. A metodologia é a mesma usada no BSDS500, mas com uma base especializada. Os algoritmos com os melhores resultados foram selecionados para serem utilizados na construção deste trabalho de pesquisa, e coincidem com os resultados do trabalho de \citeonline{arbelaez:2011}. Os seis algoritmos selecionados serão discutidos a seguir.
 
+%%%% JSEG %%%%
+
 O trabalho de \citeonline{deng:2001} trata de um algoritmo chamado JSEG (acrônimo para \textit{J Segmentation}), que obtém a segmentação da imagem em duas etapas. A primeira é a quantização das cores da imagem em um número bem menor que o número original, cerca de 16 milhões, em uma imagem de 24 bits, para um número entre 10 e 20 cores na imagem resultante. Esta etapa é responsável por criar uma espécie de mapa de classes, baseada nas cores quantizadas e ignorando a distribuição espacial destas mesmas cores (figura \ref{fig:jseg_classmap}).
 
 \begin{figure}[h]
   \centering
   \includegraphics[scale=1]{imgs/jseg_classmap}
-  \caption{Exemplos de mapas de classes do algoritmo JSEG, criado a partir da quantização de cores}
+  \caption[Exemplos de mapas de classes do algoritmo JSEG]{Exemplos de mapas de classes do algoritmo JSEG, criado a partir da quantização de cores. Fonte: \cite{deng:2001}}
   \label{fig:jseg_classmap}
 \end{figure}
 
