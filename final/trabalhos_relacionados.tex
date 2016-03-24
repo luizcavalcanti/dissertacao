@@ -80,9 +80,22 @@ Após a convergência do processo de agrupamento, os \textit{clusters} menores q
   \label{fig:meanshift_exemplo}
 \end{figure}
 
-O algoritmo \textit{Multi-resolution Region Merging Segmentation} (MSEG), descrito por \citeonline{felzenszwalb:2004}, é amplamente usado pela comunidade de sensoriamento remoto. No MSEG, o aumento na heterogeneidade no momento da junção de um par de segmentos é computado como uma soma ponderada de medidas de coloração e morfologia. O procedimento de junção é realizado iterativamente, e  junta os pares de segmento que resultam no menor aumento de heterogeneidade possível, até que a soma exceda um limiar, que pode ser parametrizado pelo utilizador. Sob a óptica de grafos, os pixels são tratados como nodos e os pesos de suas arestas representam a diferença entre características entre os pixels. Um segmento corresponde a um componente conectado nesse grafo. Um parâmetro é utilizado para definir a escala observada na segmentação, o que influi no tamanho e no número dos segmentos resultantes.
+%%%% MSEG %%%%
+
+O algoritmo \textit{Multi-resolution Region Merging Segmentation} (MSEG), descrito por \citeonline{felzenszwalb:2004}, é amplamente usado pela comunidade de sensoriamento remoto. Baseado em grafos, este algoritmo tem preocupação com a previsibilidade da segmentação e com o seu custo computacional, da ordem de O(n log n).
+
+O MSEG representa o problema de segmentação como um grafo $G = (V,E)$ não direcionado, onde cada vértice $v \in V$ corresponde a um pixel da imagem a ser segmentada, e cada aresta $(v_i, v_j) \in E$ conecta dois vértices $v_i$ e $v_j$. As arestas possuem um peso $w(v_i, v_j)$, um valor não-negativo que representa a diferença entre os vértices $v_i$ e $v_j$. Nesta abordagem, uma segmentação $S$ é a partição de $V$ em regiões de tal forma que cada região $C \in S$ corresponde a um componente conectado no grafo $G' = (V, E')$, onde $E' \subseteq E$. O conceito principal gira em torno dos pesos entre os vértices de uma mesma região, que devem ser baixos, enquanto os pesos altos devem ser utilizados para encontrar bordas entre as regiões.
+
+O aumento na heterogeneidade no momento da junção de um par de segmentos é computado como uma soma ponderada de medidas de coloração e morfologia. O procedimento de junção é realizado iterativamente, e  junta os pares de segmento que resultam no menor aumento de heterogeneidade possível, até que a soma exceda um limiar, que pode ser parametrizado pelo utilizador. Um parâmetro é utilizado para definir a escala observada na segmentação, o que influi no tamanho e no número dos segmentos resultantes.
+
+A principal vantagem deste método reside no desempenho computacional, com custo próximo ao linear em função do número de pixels da imagem. Os autores do algoritmo sugerem que ele seja perfeitamente adequado para o processamento de imagens de grandes dimensões, ou mesmo segmentação de vídeo em tempo real.
+
+%%%% SRM %%%%
 
 O algoritmo de \textit{Statistical Region Merging} (SRM) publicado por \citeonline{nock:2004} utiliza um procedimento simples de junção acompanhado por uma operação de ordenação para segmentar imagens com eficiência. Duas regiões são unidas se os valores médios dos pixels das duas regiões estão mais próximos que um limiar previamente definido. A coesão da segmentação pode ser controlada por um parâmetro definido pelo usuário.
+
+
+
 
 O trabalho de \citeonline{yuan:2013} apresenta um algoritmo chamado \textit{Factorisation-based segmentation} (FSEG). O FSEG primeiramente computa o histograma espectral para cada pixel da imagem, que é um amalgama de diversas respostas aos filtros em uma janela local. Esse algoritmo é baseado na proposta de que cada característica pode ser aproximada por uma combinação linear de diversas características representativas e suas combinações ponderadas. Por fim, um pixel é dito pertencente à região com maior peso. O algoritmo FSEG utiliza decomposição de valores singulares e fatoração de matrizes não-negativas para aumentar a eficiência computacional da segmentação, o que é atrativo quando o tempo de processamento é um fator importante.
 
