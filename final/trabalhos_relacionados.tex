@@ -92,12 +92,24 @@ A principal vantagem deste método reside no desempenho computacional, com custo
 
 %%%% SRM %%%%
 
-O algoritmo de \textit{Statistical Region Merging} (SRM) publicado por \citeonline{nock:2004} utiliza um procedimento simples de junção acompanhado por uma operação de ordenação para segmentar imagens com eficiência. Duas regiões são unidas se os valores médios dos pixels das duas regiões estão mais próximos que um limiar previamente definido. A coesão da segmentação pode ser controlada por um parâmetro definido pelo usuário.
+O algoritmo de segementação baseada em crescimento/junção de regiões \textit{Statistical Region Merging} (SRM), publicado por \citeonline{nock:2004}, utiliza um procedimento simples de junção acompanhado por uma operação de ordenação para segmentar imagens com eficiência. A ordenação da junção de regiões é realizada através de um algoritmo guloso, que percorre sempre o menor custo de caminhamento entre pixels de 4-vizinhança (pixels vizinhos ao norte, sul, leste e oeste, ignorando as diagonais). O custo do caminhamento é obtido através de uma função objetiva, definida por
 
+\begin{equation}
+	\displaystyle f_a(p, p') = |p_a - p'_a|
+\end{equation}
 
+onde $f_a(p, p')$ é a distância máxima entre os canais de cores dos pixels $p$ e $p'$. Esta simples função, segundo o artigo de \citeonline{nock:2004}, não representa um problema, pois evidências experimentais mostram que o ganho ao usar uma função mais objetiva, como o kernels de convolução, não melhoram significativamente os resultados.
 
+Duas regiões da imagem são unidas se os valores médios dos pixels das duas regiões estão mais próximos que um limiar previamente definido. A coesão da segmentação pode ser controlada por um parâmetro $Q$ definido pelo usuário, que também interfere na muito embora.
+
+Segundo os autores, este algoritmo sofre de um problema descrito como sobrejunção (do inglês \textit{overmerging}), ou seja, ele tende a juntar duas regiões que deveriam ser separadas. O algoritmo, em compensação, parece não sofrer de subjunção, quando uma região é desnecessariamente dividida em diversos segmentos.
+
+%%%% FSEG %%%%
 
 O trabalho de \citeonline{yuan:2013} apresenta um algoritmo chamado \textit{Factorisation-based segmentation} (FSEG). O FSEG primeiramente computa o histograma espectral para cada pixel da imagem, que é um amalgama de diversas respostas aos filtros em uma janela local. Esse algoritmo é baseado na proposta de que cada característica pode ser aproximada por uma combinação linear de diversas características representativas e suas combinações ponderadas. Por fim, um pixel é dito pertencente à região com maior peso. O algoritmo FSEG utiliza decomposição de valores singulares e fatoração de matrizes não-negativas para aumentar a eficiência computacional da segmentação, o que é atrativo quando o tempo de processamento é um fator importante.
+
+
+
 
 O algoritmo gPb-owt-ucm introduzido por \citeonline{arbelaez:2011} realiza segmentação em várias etapas. Primeiramente a técnica combina informações de intensidade, textura e coloração para computar vetores que servirão como  detectores de contorno. Posteriormente, uma técnica de \textit{watershed} é aplicada à saída do detector de contornos para produzir uma segmentação hierárquica da imagem. Uma vantagem importante desta técnica é a possibilidade de ajustar a escala de segmentação, portanto o usuário pode escolher uma escala que mais se adequa ao tipo de imagem do problema, evitando segmentação excessiva da imagem.
 
