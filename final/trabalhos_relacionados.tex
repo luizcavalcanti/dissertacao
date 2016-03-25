@@ -106,10 +106,25 @@ Segundo os autores, este algoritmo sofre de um problema descrito como sobrejunç
 
 %%%% FSEG %%%%
 
-O trabalho de \citeonline{yuan:2013} apresenta um algoritmo chamado \textit{Factorisation-based segmentation} (FSEG). O FSEG primeiramente computa o histograma espectral para cada pixel da imagem, que é um amalgama de diversas respostas aos filtros em uma janela local. Esse algoritmo é baseado na proposta de que cada característica pode ser aproximada por uma combinação linear de diversas características representativas e suas combinações ponderadas. Por fim, um pixel é dito pertencente à região com maior peso. O algoritmo FSEG utiliza decomposição de valores singulares e fatoração de matrizes não-negativas para aumentar a eficiência computacional da segmentação, o que é atrativo quando o tempo de processamento é um fator importante.
+O trabalho de \citeonline{yuan:2013} apresenta um algoritmo chamado \textit{Factorisation-based segmentation} (FSEG). O FSEG primeiramente computa o histograma espectral para cada pixel da imagem, que é um amalgama de diversas respostas aos filtros em uma janela local. A saída deste procedimento é uma matriz $M \times N$, onde $M$ é o tamanho do vetor de características extraído de cada pixel e $N$ é o número de pixels na imagem.
 
+Cada vetor de características em cada pixel é tratado como uma combinação linear de características, e que possuem a capacidade de identificar bordas entre os segmentos da imagem. Digamos que $Y$, a representação $M \times N$ de uma imagem e $L$ é o número de características representativas, podemos expressar a imagem $Y$ por:
 
+\begin{equation}
+	\displaystyle Y = Z\beta + \varepsilon
+\end{equation}
 
+onde $Z$ é uma matriz $M \times L$ cujas colunas são características representativas, $\beta$ é uma matriz $L \times N$ cujas colunas são vetores de peso e $\varepsilon$ é um fator de erro. A matriz $\beta$ pode ser encontrada através da estimativa de quadrados mínimos:
+
+\begin{equation}
+	\displaystyle \beta = (Z^T Z)^{-1} Z^T Y
+\end{equation}
+
+A segmentação é obtida ao examinar o vetor normalizado de $\beta$ ($\hat{\beta}$), quando cada pixel é dito pertencente à região com maior respectivo peso. Para uma segmentação completamente automática, $Z$ e $\beta$ são desconhecidas, e o objetivo do algoritmo é fatorizar a matriz $Y$ para estimar essas duas matrizes desconhecidas.
+
+O algoritmo FSEG utiliza decomposição de valores singulares e fatoração de matrizes não-negativas para aumentar a eficiência computacional da segmentação, o que é atrativo quando o tempo de processamento é um fator importante.
+
+%%%% gPb-owt-ucm %%%%
 
 O algoritmo gPb-owt-ucm (\textit{Oriented Watershed Transform Ultrametric Contour Maps with globalPb}) introduzido por \citeonline{arbelaez:2011} realiza segmentação em várias etapas. Primeiramente a técnica combina informações de intensidade, textura e coloração para computar vetores que servirão como  detectores de contorno. Posteriormente, uma técnica de \textit{watershed} é aplicada à saída do detector de contornos para produzir uma segmentação hierárquica da imagem. Uma vantagem importante desta técnica é a possibilidade de ajustar a escala de segmentação, portanto o usuário pode escolher uma escala que mais se adequa ao tipo de imagem do problema, evitando segmentação excessiva da imagem.
 
