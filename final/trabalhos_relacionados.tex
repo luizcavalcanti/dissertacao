@@ -126,23 +126,30 @@ O algoritmo FSEG utiliza decomposição de valores singulares e fatoração de m
 
 %%%% gPb-owt-ucm %%%%
 
-O algoritmo gPb-owt-ucm (\textit{Oriented Watershed Transform Ultrametric Contour Maps with globalPb}) introduzido por \citeonline{arbelaez:2011} realiza segmentação em várias etapas. Primeiramente a técnica combina informações de intensidade, textura e coloração para computar vetores que servirão como  detectores de contorno. Posteriormente, uma técnica de \textit{watershed} é aplicada à saída do detector de contornos para produzir uma segmentação hierárquica da imagem. Uma vantagem importante desta técnica é a possibilidade de ajustar a escala de segmentação, portanto o usuário pode escolher uma escala que mais se adequa ao tipo de imagem do problema, evitando segmentação excessiva da imagem.
+O algoritmo gPb-owt-ucm (\textit{Oriented Watershed Transform Ultrametric Contour Maps with globalPb}) introduzido por \citeonline{arbelaez:2011} realiza segmentação em várias etapas. Primeiramente, uma versão multi-escala de um detector $Pb$ é utilizado para identificar as prováveis bordas dos segmentos da imagem. O detector $Pb$, originalmente introduzido por \citeonline{martin:2004}, define a função $Pb(x,y,\theta)$, responsável por predizer a probabilidade a posteriori de uma borda de orientação $\theta$ para um pixel $(x,y)$, através da medição de diferença local de brilho, coloração e textura.
+
+A adaptação da função $Pb$ para um contexto multi-escalar ($mPb$), realizada por \citeonline{arbelaez:2011}, consiste na execução de $Pb$ em três escalas diferentes, $\sigma/2$, $\sigma$ e $2\sigma$, para cada canal de brilho, cor e textura. Os autores utilizam $\sigma = 5$ pixels para o canal de brilho e $\sigma = 10$ pixels para os canais de cor e textura, considerando os resultados satisfatórios.
+
+Uma sucessão de filtros gaussianos aplicados à imagem resultante do $mPb$ e o posterior cálculo dos autovetores das informações de orientação dos segmentos é responsável por normalizar e globalizar ($gPb$) a segmentação inicial da imagem. Após este ponto, o algoritmo já é capaz de determinar contornos abertos na imagem em questão.
+
+Um processo de fechamento de contornos é realizado. Para tal, uma transformada de \textit{watershed} orientada (do inglês \textit{oriented watershed transform}, ou OWT) é utilizada. Esta etapa é responsável pela produção de uma segmentação hierárquica da imagem em nível primário, o que possivelmente gera uma supersegmentação, com vários segmentos apontados pelo algoritmo pertencendo ao mesmo segmento real.
+
+Por último, um mapa ultramétrico de contornos (do inglês \textit{Ultrametric Contour Map}, ou UCM) é utilizado para prover a segmentação final da imagem. Construído por um algoritmo guloso baseado em grafos, a técnica ordena as arestas por similaridade e mescla as regiões mais similares. O resultado desta etapa é uma árvore onde a raiz é a imagem completa e cada nó é uma região. Isto é conveniente, pois cada nível $k$ da árvore representa uma escala $k$ de segmentação, o que facilita a recuperação da segmentação em qualquer um dos valores de $k$ presentes. Esta é uma das principais vantagens do algoritmo gPB-owt-ucm, a possibilidade de ajustar a escala de segmentação, portanto o usuário pode escolher uma escala que mais se adequa ao tipo de imagem do problema, evitando segmentação excessiva em imagens com muitos detalhes, por exemplo.
 
 A tabela \ref{tab:sumarioSegmentacao} exibe os resultados encontrados por \citeonline{yuan2:2013}, juntamente com uma descrição das características das diversas técnicas de segmentação de imagens levantadas neste trabalho.
 
 \begin{table}[h]
-\ABNTEXfontereduzida
 \centering
 \begin{tabulary}{\linewidth}{|L|L|R|R|}
 \hline
 \textbf{Técnica} & \textbf{Características} & \textbf{Prec. bordas} & \textbf{Prec. regiões } \\ \hline
-Manual      & Não aplicável    & 69\% & 84\% \\ \hline
-gPb-owt-ucm & Cor, borda       & 65\% & 69\% \\ \hline
-FSEG        & Textura          & 61\% & 66\% \\ \hline
-SRM         & Cor, intensidade & 60\% & 60\% \\ \hline
-JSEG        & Cor, borda       & 56\% & 66\% \\ \hline
-MSEG        & Cor, morfologia  & 57\% & 50\% \\ \hline
-Mean-shift  & Cor, posição     & 58\% & 48\% \\ \hline
+Manual      & Não aplicável        & 69\% & 84\% \\ \hline
+gPb-owt-ucm & Brilho, cor, textura & 65\% & 69\% \\ \hline
+FSEG        & Textura              & 61\% & 66\% \\ \hline
+SRM         & Cor, intensidade     & 60\% & 60\% \\ \hline
+JSEG        & Cor, borda           & 56\% & 66\% \\ \hline
+MSEG        & Cor, morfologia      & 57\% & 50\% \\ \hline
+Mean-shift  & Cor, posição         & 58\% & 48\% \\ \hline
 \end{tabulary}
 \caption{Comparação entre as técnicas de segmentação de imagens, ordenados por desempenho decrescente, conforme resultados em \citeonline{yuan2:2013} }
 \label{tab:sumarioSegmentacao}
