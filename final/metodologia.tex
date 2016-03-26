@@ -26,20 +26,9 @@ Como serão processadas por uma etapa de segmentação, as imagens não sofrerã
 
 \section{Segmentador}\label{sec:metSegmentador}
 
-\todo[inline]{Dizer quais métodos foram escolhidos para a comparação, e o porquê da escolha (incluir a segmentação por classificação).
-Tem alguma definição matemática dos métodos? Eu acho a definição apresentada nos trabalhos relacionados muito vaga.
-Esse é o momento para você informar como os métodos funcionam.}
+Para encontrarmos o segmentador ideal, os métodos de segmentação de imagens considerados estado-da-arte serão aplicados à uma parte da base de imagens aéreas da floresta amazônica. Conforme levantado no capítulo \ref{cap:trabalhos}, os seguintes métodos serão avaliados: Mean-shift, JSEG, MSEG, SRM, FSEG e gPb-owt-ucm. Estes métodos foram escolhidos por terem os melhores desempenhos em dois trabalhos comparativos de segmentação: o \textit{benchmark} de segmentação da base de imagens naturais BSD500, de \citeonline{arbelaez:2011}, e o \textit{benchmark} de segmentação de uma base de imagens aéreas de \citeonline{yuan2:2013}.
 
-Para encontrarmos o segmentador ideal, os métodos de segmentação de imagens considerados estado-da-arte serão aplicados à uma parte da base de imagens aéreas da floresta amazônica. Conforme levantado no capítulo \ref{cap:trabalhos}, os seguintes métodos serão avaliados:
-
-\begin{itemize}
-	\item FSEG
-	\item gPb-owt-ucm
-	\item JSEG
-	\item Mean-shift
-	\item MSEG
-	\item SRM
-\end{itemize}
+Também será realizado um experimento que funde as etapas de segmentação e classificação em uma só, utilizando algoritmos de aprendizado de máquina supervisionados para segmentar as imagens diretamente para suas classes (floresta, água, etc) pixel a pixel. Isto é importante para determinar se há ganhos reais na separação entre segmentação e classificação das imagens, ou se realizar todo o procedimento em um único passo produz melhores resultados de acurácia e custo computacional.
 
 A base de dados também precisa ser segmentada manualmente por seres humanos, pois este será o \textit{ground-truth} usado para aferir o desempenho dos algoritmos de segmentação avaliados. Ainda é preciso aferir a consistência da segmentação manual realizada por seres humanos. Métricas de erros de consistência como o \textit{Local Consistency Error} (LCE) e \textit{Global Consistency Error} (GCE), descritos na seção \ref{sec:avaliacaopdi}, devem ser aplicados para a medição de desempenho de todos os algoritmos, bem como para validação da consistência interna da segmentação manual.
 
