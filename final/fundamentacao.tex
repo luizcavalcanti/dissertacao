@@ -42,14 +42,17 @@ Com esta finalidade, outros espaços de cores podem ser menos intuitivos a seres
   \label{fig:hsi_cone}
 \end{figure}
 
-Muitas vezes, é preciso extrair a intensidade dos pixels de uma imagem. Quando se está no espaço de cores HSI, basta que o canal de intensidade seja coletado. Quando se está trabalhando no espaço de cores RGB, uma aproximação precisa ser feita:
+\subsubsection*{Intensidade}
+
+É comum que se precise extrair a intensidade dos pixels de uma imagem, seja para análise de textura, para composição de histograma ou qualquer outro propósito. Quando a imagem está no espaço de cores HSI, basta que o canal de intensidade (I) seja coletado. Quando se está trabalhando no espaço de cores RGB, uma conversão precisa ser feita:
 
 \begin{equation}
 	\displaystyle I = \frac{R + G + B}{3}
 	\label{for:rgb_intensidade}
 \end{equation}
 
-Esta fórmula também pode ser utilizada para converter imagens coloridas RGB em imagens em tons de cinza, embora, por características intrínseca ao sistema de visão humano, normalmente alguns pesos diferentes são atribuídos ao canais quando o objetivo é a visualização humana da imagem, ao invés da média aritmética simples da equação \ref{for:rgb_intensidade}, que é considerada pela literatura uma aproximação suficientemente adequada para sistemas de visão computacional.
+onde I é a intensidade do pixel e R, G e B são, respectivamente, os canais vermelho, verde e azul do pixel. Esta fórmula também pode ser utilizada para converter imagens coloridas RGB em imagens em tons de cinza, embora, por características intrínseca ao sistema de visão humano, normalmente alguns pesos diferentes são atribuídos ao canais quando o objetivo é a visualização humana da imagem, ao invés da média aritmética simples da equação \ref{for:rgb_intensidade}, que é considerada pela literatura uma aproximação suficientemente adequada para sistemas de visão computacional.
+
 
 
 Em muitos problemas, como o de interpretação de imagens por uma máquina, é comum que algum processo de segmentação seja realizado, e as imagens sejam divididas em regiões para processamento posterior.
