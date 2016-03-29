@@ -8,9 +8,52 @@ Uma imagem pode ser definida por uma função bidimensional, $f(x,y)$, onde $x$ 
 
 Uma imagem digital é composta por um número finito de elementos, cada um com um valor ($f$) e localização ($x$ e $y$) particulares. Estes elementos são chamados de elementos da imagem ou \textit{pixels}, do inglês \textit{picture elements}.
 
-Ainda de acordo com \citeonline{gonzalez:2002}, o interesse em processamento digital de imagens advém de duas principais áreas de aplicação: melhoramento de informações pictóricas para interpretação humana; e processamento de imagens para armazenamento e transmissão de dados, e representação para percepção de máquinas autônomas. 
+Ainda de acordo com \citeonline{gonzalez:2002}, o interesse em processamento digital de imagens advém de duas principais áreas de aplicação: melhoramento de informações pictóricas para interpretação humana; e processamento de imagens para armazenamento e transmissão de dados, e representação para percepção de máquinas autônomas.
+
+Para praticamente qualquer aplicação de processamento de imagens, características destas mesmas imagens precisam ser extraídas. Segundo \citeonline{yadav:2009}, as características de imagens digitais podem ser classificadas em baixo e alto nível. Categorias de baixo nível são extraídas diretamente das imagens e seus pixels. As características de alto nível são extraídas a partir de características de baixo nível, e compreendem informações sobre regiões maiores da imagem, ou mesmo da imagem completa.
+
+\subsection{Características de baixo nível}
+
+As características de baixo nível de uma imagem compreendem aspectos técnicos da composição desta imagem. Informações sobre cores, intensidade e bordas de uma imagem são fundamentais para a extração de características de alto nível, mas também são úteis diretamente em diversas tarefas de processamento digital de imagens, tais como segmentação e filtragem.
+
+\subsubsection*{Espaços de cores}
+
+O uso de cores em processamento de imagem é motivado por dois principais fatores. Primeiramente, cor é um poderoso descritor que frequentemente simplifica a identificação e extração de objetos de uma cena. Em segundo lugar, humanos podem discernir milhares de tons e intensidades de cores, comparado com apenas duas dúzias de tons de cinza \cite{gonzalez:2002}.
+
+Os espaços de cores, também conhecidos como modelos de cores ou sistemas de cores, são maneiras padronizadas de representar a cor de pixels em uma imagem digital. A definição do modelo de cores persegue, geralmente, dois propósitos: o hardware ou meio pelo qual a cor será reproduzida (RGB para representação em telas, CMYK para impressão, por exemplo), ou a manipulação de certos elementos da cor, como tom, saturação, etc.
+
+O espaço de cores RGB (\textit{Reg, Green, Blue}) é baseado numa representação de coordenadas cartesianas de três canais de cores: vermelho (R), verde (G) e azul (B). Os 3 canais possuem a mesma amplitude, portanto, em uma imagem RGB de 24 bits, cada canal é representado por 8 bits, que pode ter seu valor de 0 a 255. Por conta destas características, o espaço de cores RGB é geralmente representado por um cubo (Figura \ref{fig:rgb_cubo}), onde as arestas alinhadas aos eixos X, Y e Z são respectivamente os valores primários de vermelho $(255,0,0)$, verde $(0,255,0)$ e azul $(0,0,255)$. Neste espaço de cores, os tons de cinza partem do ponto preto $(0,0,0)$ e acompanham a diagonal do cubo até o ponto branco (255,255,255).
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.4\textwidth]{imgs/rgb_cubo}
+  \caption[Cubo do espaço de cores RGB]{Cubo representando o espaço de cores RGB. Em uma imagem RGB de 24 bits, o cubo possui 16.777.216 cores, $(2^8)^3$. Fonte: \cite{gonzalez:2002}}
+  \label{fig:rgb_cubo}
+\end{figure}
+
+O espaço de cores RGB é ideal para a representação de hardware que combine cores através da mistura de luzes, tais como monitores e projetores. Seus canais são cores, e a combinação deles é intuitiva a composição ou geração de cores, mas é muito pouco intuitiva para seres humanos.
+
+Com esta finalidade, outros espaços de cores podem ser menos intuitivos a seres humanos, mas são definidos de forma que outras características das cores sejam facilmente extraídas. O HSI (\textit{Hue, Saturation, Intensity}), também conhecido como HSV (\textit{Hue, Saturation, Value}) representa uma cor através de seu tom, saturação e intensidade. Este espaço de cores facilita a extração de algumas características como saturação ou intensidade. Seus canais também se parecem mais com a forma como seres humanos descrevem cores, já que um dos canais representa a informação de cor pura, enquanto os outros canais tratam da saturação (força) e itensidade (brilho) da cor. Todos os canais têm seus valores representados por percentuais, com valores decimais de $0$ a $1$. O espaço de cores HSI pode ser representado por um cone, onde a altura é definida pela intensidade, o raio é definido pela saturação e a posição na circunferência é definida pelo tom da cor (Figura \ref{fig:hsi_cone}).
+
+\begin{figure}[h]
+  \centering
+  \includegraphics[width=0.8\textwidth]{imgs/hsi_cone}
+  \caption[Cone do espaço de cores HSI]{Cone representando o espaço de cores HSI.}
+  \label{fig:hsi_cone}
+\end{figure}
+
+Muitas vezes, é preciso extrair a intensidade dos pixels de uma imagem. Quando se está no espaço de cores HSI, basta que o canal de intensidade seja coletado. Quando se está trabalhando no espaço de cores RGB, uma aproximação precisa ser feita:
+
+\begin{equation}
+	\displaystyle I = \frac{R + G + B}{3}
+	\label{for:rgb_intensidade}
+\end{equation}
+
+Esta fórmula também pode ser utilizada para converter imagens coloridas RGB em imagens em tons de cinza, embora, por características intrínseca ao sistema de visão humano, normalmente alguns pesos diferentes são atribuídos ao canais quando o objetivo é a visualização humana da imagem, ao invés da média aritmética simples da equação \ref{for:rgb_intensidade}, que é considerada pela literatura uma aproximação suficientemente adequada para sistemas de visão computacional.
+
 
 Em muitos problemas, como o de interpretação de imagens por uma máquina, é comum que algum processo de segmentação seja realizado, e as imagens sejam divididas em regiões para processamento posterior.
+
 
 \subsection{Segmentação de Imagens}
 
