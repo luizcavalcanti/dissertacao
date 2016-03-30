@@ -10,7 +10,7 @@ Uma imagem digital é composta por um número finito de elementos, cada um com u
 
 Ainda de acordo com \citeonline{gonzalez:2002}, o interesse em processamento digital de imagens advém de duas principais áreas de aplicação: melhoramento de informações pictóricas para interpretação humana; e processamento de imagens para armazenamento e transmissão de dados, e representação para percepção de máquinas autônomas.
 
-Para praticamente qualquer aplicação de processamento de imagens, características destas mesmas imagens precisam ser extraídas. Segundo \citeonline{yadav:2009}, as características de imagens digitais podem ser classificadas em baixo e alto nível. Categorias de baixo nível são extraídas diretamente das imagens e seus pixels. As características de alto nível são extraídas a partir de características de baixo nível, e compreendem informações sobre regiões maiores da imagem, ou mesmo da imagem completa.
+Para praticamente qualquer aplicação de processamento de imagens, características destas mesmas imagens precisam ser extraídas. Segundo \citeonline{yadav:2009}, as características de imagens digitais podem ser classificadas em baixo e alto nível. As características de baixo nível são extraídas diretamente das imagens, geralmente descrevendo atributos locais ou de pequenos agrupamentos de pixels. As características de alto nível são extraídas a partir de características de baixo nível, e compreendem informações sobre regiões maiores da imagem, ou mesmo da imagem completa.
 
 \subsection{Características de baixo nível}
 
@@ -48,15 +48,123 @@ Com esta finalidade, outros espaços de cores podem ser menos intuitivos a seres
 
 \begin{equation}
 	\displaystyle I = \frac{R + G + B}{3}
-	\label{for:rgb_intensidade}
+	\label{eq:rgb_intensidade}
 \end{equation}
 
-onde I é a intensidade do pixel e R, G e B são, respectivamente, os canais vermelho, verde e azul do pixel. Esta fórmula também pode ser utilizada para converter imagens coloridas RGB em imagens em tons de cinza, embora, por características intrínseca ao sistema de visão humano, normalmente alguns pesos diferentes são atribuídos ao canais quando o objetivo é a visualização humana da imagem, ao invés da média aritmética simples da equação \ref{for:rgb_intensidade}, que é considerada pela literatura uma aproximação suficientemente adequada para sistemas de visão computacional.
+onde I é a intensidade do pixel e R, G e B são, respectivamente, os canais vermelho, verde e azul do pixel. Esta fórmula também pode ser utilizada para converter imagens coloridas RGB em imagens em tons de cinza, embora, por características intrínseca ao sistema de visão humano, normalmente alguns pesos diferentes são atribuídos ao canais quando o objetivo é a visualização humana da imagem, ao invés da média aritmética simples da equação \ref{eq:rgb_intensidade}, que é considerada pela literatura uma aproximação suficientemente adequada para sistemas de visão computacional.
+
+\subsection{Características de alto nível}
+
+Muitas vezes, características de baixo nível não são suficientes para descrever aspectos da imagem a ser processada. Especialmente em tarefas de visão computacional, é muito comum que seja necessário extrair características ou conceitos a partir de características de baixo nível. Informações de textura, morfologia e pontos de interesse são algumas destas características.
+
+\subsubsection*{Textura}
+
+De acordo com \citeonline{nixon:2008}, não há uma definição formal de textura. \citeonline{gonzalez:2002}, por sua vez, define textura como uma medida de propriedades sensoriais como maciez, coesão e regularidade. Um campo de pesquisa que constantemente apresenta novidades substanciais, as soluções para descrição e extração de texturas em imagens digitais parte de duas principais abordagens: estatística e  espectral.
+
+A abordagem estatística consiste no uso de modelos estatísticos do histograma de intensidade de uma imagem ou de uma porção dela. Seja $z$ o uma variável que representa uma intensidade e $p(z_i), i = 0, 1, 2,..., L$, onde $L$ é o número de intensidades distintas na região investigada, o n-ésimo momento de $z$ pode ser definido por:
+
+\begin{equation}
+	\displaystyle \mu_n(z) = \sum_{i=0}^{L-1} (z_i - m)^n p(z_i)
+\end{equation}
+
+onde $m$ é o valor médio de $z$:
+
+\begin{equation}
+	\displaystyle m = \sum_{i=0}^{L-1} z_i p(z_i)
+\end{equation}
+
+A partir disto, medidas de maciez relativa podem ser extraídas, medindo a variância entre diferentes momentos estatísticos do histograma ($z, z+1, z+2...$). A literatura está repleta de exemplos desta abordagem, se utilizando de atributos como a entropia média (equação \ref{eq:textura_entropia}) ou uniformidade (equação \ref{eq:textura_uniformidade}).
+
+\begin{equation}
+	\displaystyle e(z) = - \sum_{i=0}^{L-1} p(z_i) \log_2 p(z_i)
+	\label{eq:textura_entropia}
+\end{equation}
+
+\begin{equation}
+	\displaystyle U(z) = \sum_{i=0}^{L-1} p^2(z_i)
+	\label{eq:textura_uniformidade}
+\end{equation}
+
+A descrição e extração de texturas seguindo uma abordagem espectral consiste na transformação da imagem para o domínio de frequência, através da transformada de Fourier, e o posterior agrupamento das informações de frequência a fim de obter algumas métricas ou descritores das texturas. A principal desta abordagem é sua invariância à aspectos espaciais. Desta forma, padrões de variação de intensidade nas imagens podem ser visualizados e extraídos (figura \ref{fig:textura_fourier}).
+
+\begin{figure}[h]
+  \centering
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{imgs/stab_1}
+  \end{subfigure}%
+  ~
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{imgs/stab_2}
+  \end{subfigure}%
+  \\
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{imgs/stab_1_spectra}
+  \end{subfigure}%
+  ~
+  \begin{subfigure}[b]{0.45\textwidth}
+    \includegraphics[width=\textwidth]{imgs/stab_2_spectra}
+  \end{subfigure}%
+  \caption[Exemplo de extração de texturas utilizando transformada de Fourier]{Exemplo de extração de texturas utilizando transformada de Fourier. As imagens inferiores são representações gráficas do espectro de frequência de intensidade das imagens acima}
+  \label{fig:textura_fourier}
+\end{figure}
+
+Um dos modelos mais populares e descritivos de características de textura com abordagem espectral é o Local Binary Pattern (LBP), introduzido por \citeonline{ojala:1994}. Em primeiro lugar, este modelo divide a região examinada em células, normalmente cada célula corresponde a um pixel. Em seguida, cada célula é comparada com suas oito células vizinhas, e a diferença de intensidade (um valor binário que simboliza "maior" ou "menor") é utilizada para construir uma máscara de 8 bits, que serve como uma espécie de impressão digital daquela célula na região examinada. A junção da máscara de todas as células compõe o que é chamado de Padrão Binário Local (LBP) da região, uma característica de alta dimensionalidade, mas bastante descritiva.
+
+Diversas variações de LBP existem na literatura, algumas visando melhorar a descrição de certos aspectos da imagem, outras almejando a invariância de rotação ou escala da imagem. Como será visto no capítulo \ref{cap:trabalhos}, este tipo de descritor é comumente usado em trabalhos de classificação de imagens.
+
+\subsubsection*{Morfologia}
+
+Segundo \citeonline{nixon:2008}, parte importante da extração de características de alto nível em imagens é a busca por formas e padrões. As abordagens para extrair formas de imagens vão desde as mais simples, como a limiarização, que faz análise pixel a pixel da imagem para tentar separar o componente principal do fundo da imagem (todo o resto que não interessa à análise), passando pelo casamento de padrões, que se utiliza de uma amostra da forma desejada para realizar a busca pelo mesmo padrão na imagem, até poderosos extratores de formas geométricas como a transformada de Hough.
+
+A transformada de Hough, introduzida por \citeonline{hough:1962} é uma técnica criada para extrair formas geométricas de imagens. O objetivo desta técnica está na descrição da imagem ou região através de retas, círculos e elipses presentes na mesma. Inicialmente concebida para detectar apenas linhas em diversos ângulos, atualmente todas as implementações e variações da transformada Hough derivam do trabalho de \citeonline{duda:1972}, responsável pela criação da transformada de Hough generalizada, capaz de detectar os demais círculos e elipses. Desde então, diversas melhorias têm sido feitas para acelerar o algoritmo, bem como suportar a detecção de formas geométricas arbitrárias.
+
+Para detectar linhas em imagens utilizando a transformada Hough, é preciso, primeiramente, compreender que em uma abordagem cartesiana, pontos colineares em uma imagem estão relacionados pela inclinação $m$ e um ponto de interceptação $c$, de forma que:
+
+\begin{equation}
+	\displaystyle y = mx + c
+\end{equation}
+
+ou, reescrevendo a equação de forma linear homogênea:
+
+\begin{equation}
+	\displaystyle Ay + Bx + 1 = 0
+\end{equation}
+
+onde $A = -1/c$ e $B = m/c$.
+
+Dado que um par de coordenadas $(x,y)$ define uma reta no espaço com parâmetros $(A,B)$, podemos dizer que a equação é simétrica. Se ${(x_i,y_i)}$ é um conjunto de pontos lineares que definem a reta $(A,B)$, temos que:
+
+\begin{equation}
+	\displaystyle Ay_i + Bx_i + 1 = 0
+\end{equation}
+
+Esta equação pode ser vista como um sistema de equações e pode ser reescrita em termos de parametrização cartesiana:
+
+\begin{equation}
+	\displaystyle c = -x_im + y_i
+\end{equation}
+
+Com a finalidade de encontrar linhas retas na imagem, a transformada de Hough busca satisfazer as incógnitas desta equação, se utilizando também de parâmetros externos para determinar tolerância de inclinação e comprimento mínimo das retas.
+
+De forma similar, a transformada de Hough busca por círculos que satisfaçam:
+
+\begin{equation}
+	\displaystyle (x-x_0)^2 + (y-y_0)^2 = r^2
+\end{equation}
+
+que, convertida para forma paramétrica, temos:
 
 
+\begin{equation}
+	\displaystyle x = x_0 +r \cos(\theta)
+\end{equation}
 
-Em muitos problemas, como o de interpretação de imagens por uma máquina, é comum que algum processo de segmentação seja realizado, e as imagens sejam divididas em regiões para processamento posterior.
+\begin{equation}
+	\displaystyle y = y_0 +r \sin(\theta)
+\end{equation}
 
+
+Diversas características de baixo e alto nível são aplicadas em regiões da imagem, ao invés da imagem completa. Isto acontece por conta da necessidade de reconhecer porções da imagem, e separá-las umas das outras. Em muitos problemas, como o de interpretação de imagens por uma máquina, é comum que algum processo de segmentação seja realizado, e as imagens sejam divididas em regiões para processamento posterior.
 
 \subsection{Segmentação de Imagens}
 
@@ -169,7 +277,7 @@ A extração de características é feita selecionando os atributos oriundos dos
 
 Em projetos que envolvem classificação de imagens, uma gama de atributos pode ser extraída, e podem ser descritos pelo nível da informação que representam. Nesta etapa há uma forte contribuição da linha de pesquisa de processamento digital de imagens \cite{gonzalez:2002}, que descreve filtragens, transformações e outras técnicas capazes de extrair informações sobre uma imagem ou pedaços dela.
 
-Segundo \citeonline{nixon:2008}, informações de baixo-nível como bordas, histogramas de intensidade e coloração, são úteis para o reconhecimento de padrões em imagens, assim como características de níveis mais altos, como texturas, transformadas de Hough e extração de regiões conectadas.
+Segundo \citeonline{nixon:2008}, características de baixo nível como bordas, histogramas de intensidade e coloração, são úteis para o reconhecimento de padrões em imagens, assim como características de níveis mais altos, como texturas, transformadas de Hough e extração de regiões conectadas.
 
 O produto desta etapa é a representação de cada exemplo da base de dados em um vetor de características, de forma que possa ser usado por um ou mais classificadores em uma etapa posterior.
 
