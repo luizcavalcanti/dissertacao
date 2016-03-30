@@ -271,13 +271,23 @@ A etapa de filtragem e pré-processamento é responsável pela escolha e montage
 Em aprendizado relacionado a imagens, essa etapa é comumente a responsável por normalizar e salientar as características desejadas nas amostras (realce de imagens, filtragem, etc). Exemplos irrelevantes, distorcidos ou repetidos também são eliminados durante a filtragem. O objetivo principal desta etapa é preparar a base de dados para as etapas seguintes.
 
 
-\subsection{Extração de Características}
+\subsection{Extração e Seleção de Características}
 
 A extração de características é feita selecionando os atributos oriundos dos dados (imagens, no trabalho em questão), a fim de encontrar as características úteis para o processo de reconhecimento. Essa etapa é crítica ao sucesso do aprendizado, uma vez que bons algoritmos de aprendizado só obtêm êxito com um bom conjunto de características relevantes ao problema.
 
 Em projetos que envolvem classificação de imagens, uma gama de atributos pode ser extraída, e podem ser descritos pelo nível da informação que representam. Nesta etapa há uma forte contribuição da linha de pesquisa de processamento digital de imagens \cite{gonzalez:2002}, que descreve filtragens, transformações e outras técnicas capazes de extrair informações sobre uma imagem ou pedaços dela.
 
 Segundo \citeonline{nixon:2008}, características de baixo nível como bordas, histogramas de intensidade e coloração, são úteis para o reconhecimento de padrões em imagens, assim como características de níveis mais altos, como texturas, transformadas de Hough e extração de regiões conectadas.
+
+Em um estágio inicial de uma solução de aprendizagem de máquina, é natural que sejam utilizadas grandes quantidades de características para descrever as amostras. Com o avanço da pesquisa e análise de resultados parciais, é esperado que a dimensionalidade deste vetor diminua. Isto é desejado por dois motivos: a alta dimensionalidade do vetor de características tem impacto significativo no desempenho computacional de vários algoritmos de aprendizagem de máquina e a presença de atributos que possuam pequena contribuição para a classificação podem causar ruído no aprendizado, dificultando sua generalização. Estes dois problemas serão abordados com mais detalhes nas seções \ref{sec:classificacao} e \ref{sec:avaliacao}.
+
+Uma técnica bastante difundida para a seleção de características em problemas de aprendizagem de máquina supervisionada é a \textit{Correlation-based Feature Selection} (CFS), introduzida por \citeonline{hall:1998}. A idéia geral desta técnica é a avaliação de quais atributos são bons ou ruins para um determinado conjunto de dados supervisionados. Bons atributos possuem alta correlação com a classe da amostra, e ao mesmo tempo, baixa correlação com os demais atributos da mesma amostra. Formalmente, um atributo $V_i$ é considerado relevante se, e somente se, existe um $v_i$ e $c$ para os quais $p(V_i = v_i) > 0$ de tal maneira que:
+
+\begin{equation}
+	\displaystyle p(C=c|V_i=v_i) \neq p(C=c)
+\end{equation}
+
+onde $p(C=c|V_i=v_i)$ é a probabilidade condicional de que a classe $C$ de uma amostra é $c$ dado que o valor do atributo $V_i$ é $v_i$.
 
 O produto desta etapa é a representação de cada exemplo da base de dados em um vetor de características, de forma que possa ser usado por um ou mais classificadores em uma etapa posterior.
 
