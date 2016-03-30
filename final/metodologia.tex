@@ -38,7 +38,9 @@ Esta etapa deve determinar o método de segmentação com melhores resultados, a
 
 Os algoritmos de classificação lidam com variáveis numéricas inteiras, de ponto flutuante e em alguns casos, dados textuais. No entanto, para classificar imagens, ou no caso deste trabalho, segmentos de imagens, é preciso que um conjunto de características seja extraído dos pixels destas imagens ou regiões e disponibilizados para o modelo de classificação.
 
-Nesta etapa serão testadas diversas características disponíveis na literatura de processamento digital de imagens, especialmente informações sobre cor, intensidade, textura e morfologia destas amostras. Também deverão ser testadas técnicas para redução da dimensionalidade do vetor de amostras, tais quais técnicas que se utilizam de correlação e ganho de informação.
+Nesta etapa serão testadas diversas características disponíveis na literatura de processamento digital de imagens, especialmente informações sobre cor, intensidade, textura e morfologia destas amostras. A escolha das características foi baseada, inicialmente, nas características utilizadas em trabalhos relacionados de classificação de imagens aéreas: canais RGB para descrição de cores, histogramas de intensidade, \textit{Local Binary Patterns} para descrição de texturas e transformada de Hough para detecção e descrição de formas geométricas, em especial linhas retas.
+
+Os atributos também deverão passar por um processo de seleção baseada em correlação, o CFS. O objetivo é diminuir a dimensionalidade do vetor de características e avaliar se há ganho no desempenho e generalização dos algoritmos de aprendizado, utilizando este subconjunto do vetor de características original.
 
 Como requisito da composição da base de dados de segmentos, bem como para avaliação e otimização do vetor de características, todas as amostras geradas pela etapa de segmentação devem ser rotuladas manualmente e contar com a avaliação de especialistas na inspeção deste tipo de imagem. Com a base devidamente criada e rotulada, experimentos para determinar os classificadores mais adequados podem ser feitos.
 
