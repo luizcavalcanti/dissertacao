@@ -52,7 +52,9 @@ A motivação para explorar estas quatro abordagens é a diversidade de estraté
 
 \subsection{Classificador multi-classe}
 
-Nesta estratégia, a base de segmentos gerada será rotulada entre cinco classes possíveis: floresta, vegetação rasteira, água, terra e elemento antrópico. Diversos algoritmos que possibilitam clasificação multi-classe serão utilizados, tendo em mente que é importante testar métodos simbólicos, bayesianos, não-paramétricos, máquina de vetores de suporte, entre outros.
+Nesta estratégia, a base de segmentos gerada será rotulada entre cinco classes possíveis: floresta, vegetação rasteira, água, terra e elemento antrópico. A escolha das classes foi feita através de uma observação das classes de trabalhos relacionados.
+
+Também observando os algoritmos utilizados em trabalhos relacionados que modelam o problema como uma questão multi-classe, diversos métodos de classificação multi-classe serão testados: \textit{Random Forest}, KNN, SVM, árvore de decisão e \textit{Naive Bayes}. Esta gama de métodos também serve para cobrir os testes com abordagens de aprendizado simbólico, bayesiano, aprendizagem preguiçosa e ensemble de classificadores multi-classe.
 
 Todos os métodos devem ser testados com a base completa de segmentos, mas também com a base pré-processada por um seletor de características, que será responsável pela redução do vetor de características do problema. Este detalhe do experimento servirá para determinar se a seleção de atributos nesta abordagem reduz a complexidade dos modelos gerados e o ruído na base de dados, possibilitando melhor taxa de aprendizagem.
 
@@ -60,27 +62,29 @@ Cada algoritmo deve ser responsável pela classificação de toda a base. Ao fim
 
 \subsection{Classificador binário}
 
-Neste cenário, a base de segmentos gerada será rotulada entre duas classes: elementos naturais e elementos antrópicos. A classe de elementos naturais agrupa o que originalmente seriam as classes de floresta, vegetação rasteira, água e terra.
+Neste cenário, a base de segmentos gerada será rotulada entre duas classes: elementos naturais e elementos antrópicos. A classe de elementos naturais agrupa o que originalmente seriam as classes de floresta, vegetação rasteira, água e terra. A motivação desta modelagem é realizar experimentos com algoritmos que permitam o aprendizado bi-classe, abordagem pouco usada nos trabalhos encontrados na literatura, bem como avaliar se o agrupamento das classes secundárias (as classes que não são de elementos antrópicos), podem ser descritas de forma eficaz pelos algoritmos testados.
 
 Os classificadores utilizados serão os mesmos do experimento com classificadores multi-classe, visto que não há grande diferença metodológica nas duas abordagens. Todos os métodos também serão testados com seletores de características, e o impacto desta seleção também será avaliado.
 
-Ao fim do experimento, as métricas propostas para o problema de aprendizado serão colhidas para cada método testado e utilizados para comparar os métodos entre si, bem como o impacto geral da seleção de atributos para esta abordagem.
+Ao fim do experimento, as métricas propostas para o problema de aprendizado serão colhidas para cada método testado, e utilizadas para comparar os métodos entre si.
 
 \subsection{Classificador unário}
 
 Assim como no experimento de classificadores binários, a base de dados de segmentos será dividida entre elementos naturais e elementos antrópicos, utilizando os mesmos critérios. À primeira vista, esta estratégia de aprendizado parece muito similar aos classificadores binários, mas a diferença está inicialmente nos algoritmos utilizados.
 
+Os métodos de classificação unária tendem a lidar melhor com bases de dados cujas classes estão fortemente desbalanceadas, provável caso da base de imagens utilizada neste trabalho, especialmente depois do rearranjo entre elementos antrópicos e demais classes de elementos naturais. Por esta razão, a abordagem que utiliza classificadores unários precisa ser avaliada.
+
 Como o aprendizado unário utiliza o conceito de classe majoritária e classe anômala (\textit{outlier}), é preciso definir que classes do problema exercerão estes papéis. Por uma simples questão de frequência estatística, fica definido que a classe de elementos naturais é a classe majoritária, enquanto a classe de elementos antrópicos é considerada a classe anômala.
 
-Aqui também deve ser avaliado o impacto de um seletor de atributos aplicado ao vetor de características da base de dados, a fim de entender se há mudança significativa na taxa de aprendizado da classe anômala.
+Apoiando-se nos casos apresentados pela literatura, em especial nos trabalhos relacionados que se propõem a realizar detecção de anomalias, os algoritmos utilizados neste experimento serão os \textit{One-Class Support Vector Machines} (OC-SVM) e o REPTree. Aqui também deve ser avaliado o impacto de um seletor de atributos aplicado ao vetor de características da base de dados, a fim de entender se há mudança significativa na taxa de aprendizado da classe anômala.
 
 \subsection{Conjunto de classificadores unários}
 
-Esta abordagem consiste na criação de modelos de aprendizado unários para cada classe do problema, exceto para a classe anômala. Sendo assim, um ou mais classificadores unários serão treinados para cada uma das classes de floresta, vegetação rasteira, água e terra.
+Esta abordagem consiste na criação de modelos de aprendizado unários para cada classe do problema, exceto para a classe anômala, e posteriormente na combinação dos resultados destes classificadores unários para um resultado multi-classe. Sendo assim, um ou mais classificadores unários serão treinados para cada uma das classes de floresta, vegetação rasteira, água e terra. A motivação por trás do uso desta abordagem é o crescente número de trabalhos na literatura de classificação de imagens que utiliza este grupo de técnicas, em especial trabalhos que discorrem sobre descrição de objetos em grandes coleções de imagens.
 
-A preparação da base de dados é um importante passo nesta estratégia de aprendizado, visto que diversas versões da base de segmentos terão de ser geradas, cada uma representando a classe não-anômala em questão como a classe majoritária e todas as demais como outliers.
+A preparação da base de dados é um importante passo nesta estratégia de aprendizado, visto que diversas versões da base de segmentos terão de ser geradas, cada uma representando a classe não-anômala em questão como a classe majoritária e todas as demais como anomalias.
 
-O conjunto de classificadores criados serão agrupados em um \textit{ensemble} de classificadores e cada um dos modelos será utilizado na composição do veredito final, para a classificação da amostra. Diversas combinações de modelos e algoritmos deverão ser testadas, bem como diversas formas de combinar os resultados dos classificadores individuais.
+O conjunto de classificadores criados serão agrupados em um \textit{ensemble} de classificadores e cada um dos modelos será utilizado na composição do veredito final, para a classificação da amostra. Por uma limitação de escopo do trabalho, uma abordagem simples de votação com pesos deve ser utilizada. Os pesos utilizados, bem como as implicações desta abordagem devem ser discutidas nos resultados do experimento.
 
 Assim como todas as outras estratégias de classificação presentes neste trabalho, as métricas mais relevantes serão a acurácia, precisão e revocação da classe de interesse, de elementos antrópicos, que aqui é a classe anômala. As abordagens de classificação com melhor desempenho nestes quesitos ou mais promissoras devem ser apontadas ao fim destes experimentos.
 
