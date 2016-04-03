@@ -271,7 +271,7 @@ Cada algoritmo testado foi refinado e parametrizado para que consiga produzir um
 
 Utilizando as técnicas de K vizinhos mais próximos (KNN), máquinas de vetores de suporte (SVM), árvores de decisão, \textit{Naive Bayes} e \textit{Random Forest}, um experimento foi conduzido com o intuito de classificar os segmentos de imagem gerados na etapa anterior do trabalho e definir que método mais se adequa para a solução do problema proposto neste trabalho.
 
-Todas as amostras disponíveis foram classificadas com os classificadores propostos no experimento. A acurácia, precisão e revocação são apresentadas na tabela \ref{tab:experimentoClassificacao1}.
+Todas as amostras disponíveis foram classificadas com os classificadores propostos no experimento. Todos os classificadores foram treinados e avaliados com o conjunto integral de atributos, e também com o conjunto reduzido, utilizando a técnica de seleção de atributos CFS. A acurácia, precisão e revocação são apresentadas na tabela \ref{tab:experimentoClassificacao1}.
 
 \begin{table}[h]
 \centering
@@ -321,7 +321,7 @@ Tanto no aprendizado geral quanto especificamente no aprendizado da classe de el
 
 \subsection{Classificadores binários}
 
-O experimento com classificação binária utilizou-se dos mesmos algoritmos testados no experimento de classificação multi-classe.
+O experimento com classificação binária utilizou-se dos mesmos algoritmos testados no experimento de classificação multi-classe. Assim como nesse experimento, os métodos de aprendizado utilizados nesta abordagem foram treinados e avaliados com o conjunto completo de atributos, bem como com o vetor de atributos com sua dimensionalidade reduzida pela técnica de seleção CFS.
 
 Para a preparação da base de dados, as amostras previamente rotuladas entre as cinco classes originais do problema foram mapeadas para apenas duas: elementos naturais e elementos antrópicos. A distribuição das classes nesta versão da base de dados de segmentos é apresentada na tabela \ref{tab:experimentoBiclasseDistribuicao}.
 
@@ -386,6 +386,8 @@ Neste experimento a seleção de atributos através do método CFS obteve bons r
 \subsection{Classificadores unários}
 
 De forma muito semelhante ao experimento de classificadores binários, a base de dados para o experimento de classificadores unários foi criada a partir da base original com cinco classes rotuladas, mapeadas para apenas duas: elementos naturais (\textit{target}) e elementos antrópicos (\textit{outlier}). A distribuição de amostras da base de dados entre as classes também é a mesma do experimento de classificadores binários, e pode ser vista na tabela \ref{tab:experimentoBiclasseDistribuicao}.
+
+Assim como nas duas abordagens de classificação supervisionada anteriores, este experimento utilizou a base completa de segmentos. Os algoritmos de classificação unária foram treinados e avaliados utilizando o conjunto integral de atributos, e também um subconjunto de atributos selecionados pela técnica CFS.
 
 Os dois algoritmos testados neste experimento foram a variação uniclasse do SVM (OC-SVM) e uma versão unária da árvore de decisão chamada REPTree. Ambos os algoritmos foram executados tendo como entrada o vetor de características das amostras completo e posteriormente o vetor reduzido, selecionado através do método CFS de seleção de características.
 
