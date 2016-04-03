@@ -96,7 +96,7 @@ Utilizando as métricas de erro de consistência local (LCE) e global (GCE) para
 
 Para determinar qual dos algoritmos de segmentação levantados na pesquisa bibliográfica teria melhor desempenho na base de dados utilizada neste trabalho, todos foram implementados ou adaptados. Os algoritmos foram testados em todas as imagens da base de dados do trabalho que possuíam segmentação manual por pelo menos 5 voluntários, um total de 203 imagens, utilizando as mesmas medidas de erro global (GCE) e erro local (LCE) apresentados no trabalho de \citeonline{martin:2001} e na validação da base de segmentação manual construída para este trabalho.
 
-Os resultados do experimento são apresentados na tabela \ref{tab:experimentoSegmentacao}:
+Os resultados do experimento são apresentados na tabela \ref{tab:experimentoSegmentacao}, com o melhor resultado para cada critério destacado em coloração cinza.
 
 \begin{table}[h]
 \centering
@@ -271,7 +271,7 @@ Cada algoritmo testado foi refinado e parametrizado para que consiga produzir um
 
 Utilizando as técnicas de K vizinhos mais próximos (KNN), máquinas de vetores de suporte (SVM), árvores de decisão, \textit{Naive Bayes} e \textit{Random Forest}, um experimento foi conduzido com o intuito de classificar os segmentos de imagem gerados na etapa anterior do trabalho e definir que método mais se adequa para a solução do problema proposto neste trabalho.
 
-Todas as amostras disponíveis foram classificadas com os classificadores propostos no experimento. Todos os classificadores foram treinados e avaliados com o conjunto integral de atributos, e também com o conjunto reduzido, utilizando a técnica de seleção de atributos CFS. A acurácia, precisão e revocação são apresentadas na tabela \ref{tab:experimentoClassificacao1}.
+Todas as amostras disponíveis foram classificadas com os classificadores propostos no experimento. Todos os classificadores foram treinados e avaliados com o conjunto integral de atributos, e também com o conjunto reduzido, utilizando a técnica de seleção de atributos CFS. A acurácia, precisão e revocação são apresentadas na tabela \ref{tab:experimentoClassificacao1}, com o melhor resultado para cada critério destacado em coloração cinza.
 
 \begin{table}[h]
 \centering
@@ -295,7 +295,7 @@ Todas as amostras disponíveis foram classificadas com os classificadores propos
 
 Tanto por questões de balanceamento das classes como por questões contextuais do problema, falsos positivos para a classe de elementos antrópicos são toleráveis, enquanto falsos negativos devem ser minimizados, mesmo que em detrimento da precisão e revocação de outras classes do problema. A razão contextual para esta afirmação é de que é importante que o maior número de elementos antrópicos sejam detectados, mesmo que isso signifique um aumento do número de alarmes falsos para os agentes de segurança responsáveis pela patrulhamento das regiões de floresta.
 
-A avaliação dos resultados de revocação, bem como a análise da curva ROC da classe de elementos antrópicos para cada algoritmo testado podem ser vistas na tabela \ref{tab:experimentoClassificacaoRevocacao}.
+A avaliação dos resultados de revocação, bem como a análise da curva ROC da classe de elementos antrópicos para cada algoritmo testado podem ser vistas na tabela \ref{tab:experimentoClassificacaoRevocacao}, com o melhor resultado para cada critério destacado em coloração cinza.
 
 \begin{table}[h]
 \centering
@@ -337,7 +337,7 @@ Elementos antrópicos &     31 &  0,3 \% \\ \hline
 \label{tab:experimentoBiclasseDistribuicao}
 \end{table}
 
-Com uma distribuição de classes ainda mais irregular que a base original, resultados gerais de precisão na base inteira se tornam irrelevantes, uma vez que um simples método de aprendizado que sempre escolha a classe majoritária teria taxa de acurácia superior a 99\%, como pode ser visto na tabela \ref{tab:experimentoBiclasse}.
+Com uma distribuição de classes ainda mais irregular que a base original, resultados gerais de precisão na base inteira se tornam irrelevantes, uma vez que um simples método de aprendizado que sempre escolha a classe majoritária teria taxa de acurácia superior a 99\%, como pode ser visto na tabela \ref{tab:experimentoBiclasse}, com o melhor resultado para cada critério destacado em coloração cinza.
 
 \begin{table}[h]
 \centering
@@ -359,7 +359,7 @@ Com uma distribuição de classes ainda mais irregular que a base original, resu
 \label{tab:experimentoBiclasse}
 \end{table}
 
-Em um caso como este, foi ainda mais importante considerar os resultados de precisão e revocação da classe de interesse (elementos antrópicos). A tabela \ref{tab:experimentoBiclasseAntropico} exibe os resultados da medida F1, calculada a partir da média harmônica entre precisão e revocação da classe de elementos antrópicos, medida escolhida para selecionar os melhores resultados para este experimento.
+Em um caso como este, foi ainda mais importante considerar os resultados de precisão e revocação da classe de interesse (elementos antrópicos). A tabela \ref{tab:experimentoBiclasseAntropico} exibe os resultados da medida F1, calculada a partir da média harmônica entre precisão e revocação da classe de elementos antrópicos, medida escolhida para selecionar os melhores resultados para este experimento. O melhor resultado para cada critério se encontra destacado em coloração cinza
 
 \begin{table}[h]
 \centering
@@ -391,7 +391,7 @@ Assim como nas duas abordagens de classificação supervisionada anteriores, est
 
 Os dois algoritmos testados neste experimento foram a variação uniclasse do SVM (OC-SVM) e uma versão unária da árvore de decisão chamada REPTree. Ambos os algoritmos foram executados tendo como entrada o vetor de características das amostras completo e posteriormente o vetor reduzido, selecionado através do método CFS de seleção de características.
 
-A tabela \ref{tab:experimentoUniclasse} mostra uma evidente diferença na taxa de aprendizado entre os métodos OC-SVM e REPTree, onde o último obteve resultados gerais visivelmente inferiores. O mesmo resultado se mantém apenas parcialmente quando analisadas a precisão e a revocação para a classe de elementos antrópicos (tabela \ref{tab:experimentoUniclasseAntropico}).
+A tabela \ref{tab:experimentoUniclasse} mostra uma evidente diferença na taxa de aprendizado entre os métodos OC-SVM e REPTree, onde o último obteve resultados gerais visivelmente inferiores. O mesmo resultado se mantém apenas parcialmente quando analisadas a precisão e a revocação para a classe de elementos antrópicos (tabela \ref{tab:experimentoUniclasseAntropico}). Ambas as tabelas apresentam o melhor resultado para cada critério destacado em coloração cinza.
 
 \begin{table}[h]
 \centering
@@ -467,7 +467,7 @@ Terra/REPTree     & 0.305 & 0.980 & 0.305 & 0.452 \\ \hline
 
 Como pode ser visto ao se comparar as tabelas \ref{tab:experimentoConjunto} e \ref{tab:experimentoConjuntoDados}, o melhor conjunto de classificadores não é determinado pelos melhores classificadores individuais. Este fenômeno é considerado uma característica de métodos \textit{ensemble} e é amplamente documentado na literatura de aprendizagem de máquina.
 
-Os valores de precisão, revocação e medida F1 para a classe de elementos antrópicos, \textit{outlier} em todos os classificadores deste experimento, estão apresentados na tabela \ref{tab:experimentoConjuntoAntropico}, onde SVM denota o uso do algoritmo OC-SVM, enquanto REP indica o uso do algoritmo REPTree.
+Os valores de precisão, revocação e medida F1 para a classe de elementos antrópicos, \textit{outlier} em todos os classificadores deste experimento, estão apresentados na tabela \ref{tab:experimentoConjuntoAntropico}, com o melhor resultado para cada critério destacado em coloração cinza.
 
 \begin{table}[h]
 \centering
