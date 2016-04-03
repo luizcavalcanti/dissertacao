@@ -36,6 +36,8 @@ Para criar uma referência (\textit{ground-truth}) para a segmentação das imag
   \label{fig:manualseg}
 \end{figure}
 
+Um dos objetivos específicos deste trabalho é a criação e disponibilização de uma base de imagens aéreas da floresta amazônica, com seus segmentos definidos, devidamente rotulados e elementos antrópicos assinalados. Esta base de imagens está publicamente disponível\footnote{http://github.com/luizcavalcanti/geoma-database}, e pode ser utilizada em diversos trabalhos futuros com temas relacionados.
+
 \section{Segmentação}\label{sec:expSegmentacao}
 
 Um experimento de comparação entre diversos algoritmos de segmentação de imagens foi planejado. Cada imagem da base de dados foi segmentada por seres humanos, segmentações estas que constituíram a base de referência para o experimento. Cada imagem tem sua segmentação de referência consolidada a partir da segmentação manual de pelo menos 5 indivíduos.
@@ -178,7 +180,7 @@ Os segmentos encontrados pelo algoritmo SRM, escolhido nesta etapa, serviram de 
 
 \section{Classificação}\label{sec:expClassificacao}
 
-A segunda etapa da solução consiste em classificar os segmentos de imagens produzidos na etapa de segmentação. Uma série de experimentos foram realizados com 4 abordagens para classificação supervisionada:
+A segunda etapa da solução consiste em classificar os segmentos de imagens produzidos na etapa de segmentação. Uma conjunto de experimentos foi realizado com base nas quatro abordagens para classificação supervisionada, descritas no capítulo \ref{cap:metodologia}:
 
 \begin{itemize}
 	\item Classificadores multi-classe
@@ -187,13 +189,15 @@ A segunda etapa da solução consiste em classificar os segmentos de imagens pro
 	\item Conjunto de classificadores unários
 \end{itemize}
 
+\subsection{Protocolo experimental}
+
 Primeiramente, todas as imagens foram segmentadas utilizando o algoritmo SRM, por conta de seu melhor desempenho no experimento de segmentação anterior. Cada um dos 10.057 segmentos produzidos nesta segmentação foi devidamente classificado manualmente, e suas características foram extraídas. Cada segmento foi classificado como uma das possíveis classes para o problema: floresta, vegetação rasteira, água, terra ou elemento antrópico.
 
-Cerca de 70 segmentos não puderam ser classificados, pois continham mais de um tipo de terreno dentro de seus limites, tornando a rotulação dúbia. É importante destacar que nenhum destes segmentos continham elementos antrópicos, portanto, foram descartados da base utilizada no treinamento e validação dos modelos de aprendizado.
+Cerca de 70 segmentos não puderam ser classificados, pois continham mais de um tipo de terreno dentro de seus limites, tornando a rotulação dúbia. É importante destacar que nenhum destes segmentos continha elementos antrópicos, portanto, foram descartados da base utilizada no treinamento e validação dos modelos de aprendizado.
 
 Todos os elementos antrópicos encontrados foram validados pela Dra. Solange Costa, especialista do Centro Gestor e Operacional do Sistema de Proteção da Amazônia (CENSIPAM), órgão governamental federal responsável pelo patrulhamento e sensoriamento remoto da Amazônia legal brasileira.
 
-Em seguida, uma análise da base de segmentos rotulada foi feita, observando a estrutura e distribuição dos dados ao longo de toda a base, levando em consideração como os tipos de dados utilizados e sua representação podem influenciar os resultados dos algoritmos de aprendizado utilizados no experimento.
+Em seguida, uma análise da base de segmentos rotulada foi feita, observando a estrutura e a distribuição dos dados ao longo de toda a base, levando em consideração como os tipos de dados utilizados e sua representação podem influenciar os resultados dos algoritmos de aprendizado utilizados no experimento.
 
 Após a rotulação de todas as amostras utilizadas no experimento, a distribuição das classes do problema em toda a base foi medida e pode ser vista na tabela \ref{tab:experimentoRegioesDistribuicao}.
 
@@ -220,9 +224,7 @@ A Cor média para os canais vermelho, verde e azul de todo o segmento trazem inf
 
 Finalmente, para tentar representar características de morfologia do segmento, a transformada de Hough foi utilizada. Neste último conjunto de características, a contagem de linhas retas e o comprimento da maior linha foram extraídos e passaram a compor o vetor de características das amostras.
 
-Com a discretização e normalização das variáveis que compõem o vetor de características, obtivemos um total de 48 atributos numéricos. Um total de 10.057 amostras foram classificadas e o método de validação cruzada k-fold foi utilizado, com a finalidade de aferir não só a precisão, mas também a baixa variância e generalização dos modelos criados.
-
-A lista de atributos, seus tipos e dimensões podem ser vistos na tabela \ref{tab:experimentoClassificacaoAtributos}.
+Com a discretização e normalização das variáveis que compõem o vetor de características, obtivemos um total de 48 atributos numéricos. Um total de 10.057 amostras foram classificadas e o método de validação cruzada k-fold foi utilizado, com a finalidade de aferir não só a precisão, mas também a baixa variância e generalização dos modelos criados. A lista de atributos, seus tipos e dimensões podem ser vistos na tabela \ref{tab:experimentoClassificacaoAtributos}.
 
 \begin{table}[h]
 \centering
@@ -242,7 +244,7 @@ Hough - maior reta        & Inteiro &  1x1 \\ \hline
 \label{tab:experimentoClassificacaoAtributos}
 \end{table}
 
-Para reduzir a dimensionalidade do vetor de características, a seleção de subconjunto de atributos baseada em correlação (\textit{Correlation-based Feature Subset Selection}, ou CFS), introduzida por \citeonline{hall:1998}, foi utilizada. A hipótese central desta técnica é de que bons conjuntos de características contém atributos altamente correlacionados com as classes do problema, mas ao mesmo tempo pouco correlacionados entre si.
+Para reduzir a dimensionalidade do vetor de características, a seleção de subconjunto de atributos baseada em correlação (\textit{Correlation-based Feature Subset Selection}, ou CFS), introduzida por \citeonline{hall:1998}, foi utilizada.
 
 O vetor de características resultante possui apenas 7 atributos, conforme pode ser visto na tabela \ref{tab:experimentoClassificacao1AtributosFiltrados}. Esta redução pode ser importante para aumentar a generalização e simplificar os modelos gerados no experimento, bem como diminuir problemas de dimensionalidade enfrentados por alguns dos algoritmos testados. Para efeitos de comparação, todos os algoritmos foram testados com os atributos originais e com o subconjunto de atributos selecionados pela técnica CFS.
 
@@ -259,11 +261,11 @@ Hough - maior reta              & Inteiro & 1x1 \\ \hline
 \label{tab:experimentoClassificacao1AtributosFiltrados}
 \end{table}
 
-Finalmente, todos os algoritmos processaram os conjuntos de treinamento para criar um modelo de aprendizado e em seguida, utilizam a base de validação para medir o quanto o modelo pode ser generalizado para bases de imagens diferentes.
+Finalmente, todos os algoritmos processaram os conjuntos de treinamento para criar um modelo de aprendizado e em seguida, utilizaram a base de testes para medir o quanto o modelo pode ser generalizado para bases de imagens diferentes.
 
-Para todos os algoritmos testados, o método de validação cruzada foi utilizado para avaliar a variância na taxa de aprendizado e inferir a generalização dos modelos criados. Mais especificamente o método k-fold foi utilizado, com um valor de $k=10$.
+Para todos os algoritmos testados, o método de validação cruzada foi utilizado para avaliar a variância na taxa de aprendizado e inferir a generalização dos modelos criados. Mais especificamente, o método k-fold foi utilizado, com um valor de $k=10$.
 
-Cada algoritmos testado foi refinado e parametrizado para que consiga uma maior acurácia para todas as classes e que a revocação seja otimizada para a classe de elementos antrópicos. As seções à seguir detalham o protocolo e os resultados da experimentação com cada tipo de classificador.
+Cada algoritmo testado foi refinado e parametrizado para que consiga produzir uma maior acurácia para todas as classes e que para otimizar a revocação da classe de elementos antrópicos. As seções a seguir detalham o protocolo e os resultados da experimentação para cada abordagem de classificação supervisionada testada no trabalho.
 
 \subsection{Classificadores multiclasse}
 
