@@ -218,7 +218,7 @@ Elementos antrópicos &    31 &  0,3 \% \\ \hline
 
 Com um conjunto de dados altamente desbalanceado, algumas precauções na avaliação de desempenho dos algoritmos precisaram ser tomadas. A avaliação do aprendizado precisou considerar os cálculos de precisão e revocação das classes menos representadas no conjunto de dados, especialmente a classe de elementos antrópicos.
 
-O vetor de características escolhido inicialmente para representar cada amostra compreende informações de cor, intensidade, morfologia e textura de cada segmento a ser classificado. Este conjunto de características foi escolhido pela alta representatividade de valores em determinadas classes, baixa dimensionalidade e simples depuração.
+O vetor de características escolhido inicialmente para representar cada amostra compreende informações de cor, intensidade, morfologia e textura de cada segmento a ser classificado. Este conjunto de características foi escolhido pela alta representatividade de valores em determinadas classes, baixa dimensionalidade e simples depuração, bem como a presença em trabalhos relacionados de classificação de imagens aéreas.
 
 A Cor média para os canais vermelho, verde e azul de todo o segmento trazem informação do tom de cor, enquanto a intensidade média e o histograma em tons de cinza ajudam a representar informações de intensidade. Para guardar informações sobre a textura e variância de intensidade do segmento, um histograma de \textit{Local Binary Pattern}, descrito por \citeonline{ahonen:2009}, foi extraído.
 
@@ -271,6 +271,8 @@ Cada algoritmo testado foi refinado e parametrizado para que consiga produzir um
 
 Utilizando as técnicas de K vizinhos mais próximos (KNN), máquinas de vetores de suporte (SVM), árvores de decisão, \textit{Naive Bayes} e \textit{Random Forest}, um experimento foi conduzido com o intuito de classificar os segmentos de imagem gerados na etapa anterior do trabalho e definir que método mais se adequa para a solução do problema proposto neste trabalho.
 
+Cada algoritmo teve seus parâmetros ajustados de forma a maximizar os índices de precisão e revocação gerais, refletidos pela média da medida F1 de todas as classes do problema. Para o algoritmo KNN, um valor de $k=3$ e a utilização de distância euclidiana obtiveram os melhores resultados. Na árvore de decisão, um fator de confiança para poda de 0,3 foi utilizado. Para o \textit{ensemble} de classificadores \textit{Random Forest}, um número máximo de 200 árvores, com agrupamentos de 10 características obtiveram os melhores resultados. Para o SVM, um kernel de base radial com $\gamma = 0.1$ obteve a melhor medida F1 geral. Naive Bayes, por sua vez, não precisa ser parametrizado.
+
 Todas as amostras disponíveis foram classificadas com os classificadores propostos no experimento. Todos os classificadores foram treinados e avaliados com o conjunto integral de atributos, e também com o conjunto reduzido, utilizando a técnica de seleção de atributos CFS. A acurácia, precisão e revocação são apresentadas na tabela \ref{tab:experimentoClassificacao1}, com o melhor resultado para cada critério destacado em coloração cinza.
 
 \begin{table}[h]
@@ -293,7 +295,7 @@ Todas as amostras disponíveis foram classificadas com os classificadores propos
 \label{tab:experimentoClassificacao1}
 \end{table}
 
-Tanto por questões de balanceamento das classes como por questões contextuais do problema, falsos positivos para a classe de elementos antrópicos são toleráveis, enquanto falsos negativos devem ser minimizados, mesmo que em detrimento da precisão e revocação de outras classes do problema. A razão contextual para esta afirmação é de que é importante que o maior número de elementos antrópicos sejam detectados, mesmo que isso signifique um aumento do número de alarmes falsos para os agentes de segurança responsáveis pela patrulhamento das regiões de floresta.
+Tanto por questões de balanceamento das classes como por questões contextuais do problema, falsos positivos para a classe de elementos antrópicos são toleráveis, enquanto falsos negativos devem ser minimizados, mesmo que em detrimento da precisão e revocação de outras classes do problema. A razão contextual para esta afirmação é de que é importante que o maior número de elementos antrópicos seja detectado, mesmo que isso signifique um aumento do número de alarmes falsos para os agentes de segurança responsáveis pela patrulhamento das regiões de floresta. Esta é uma linha de raciocínio intuitiva, não houve consulta a agentes de segurança sobre a questão.
 
 A avaliação dos resultados de revocação, bem como a análise da curva ROC da classe de elementos antrópicos para cada algoritmo testado podem ser vistas na tabela \ref{tab:experimentoClassificacaoRevocacao}, com o melhor resultado para cada critério destacado em coloração cinza.
 
@@ -310,14 +312,18 @@ Random Forest (CFS)     & 0.846 & 0.500 & 0.629 & 0.926 \\ \hline
 KNN (CFS)               & 0.722 & 0.591 & 0.650 & 0.806 \\ \hline
 Árvore de decisão (CFS) & 0.588 & 0.455 & 0.513 & 0.724 \\ \hline
 Naive Bayes             & 0.054 & \cellcolor{gray!25}0.955 & 0.101 & 0.984 \\ \hline
-Naive Bayes (CFS)       & 0.030 & 0.909 & 0.057 & 0.978 \\ \hline
-SVM                     & 0.000 & 0.000 & 0.000 & 0.500 \\ \hline
+Naive Bayes (CFS)       & 0.030 & 0.909 & 0.058 & 0.978 \\ \hline
+SVM                     & 0.030 & 0.591 & 0.057 & 0.806 \\ \hline
 \end{tabulary}
 \caption{Comparação de métodos de classificação multi-classe em relação à classe de elementos antrópicos, ordenados pela medida F1}
 \label{tab:experimentoClassificacaoRevocacao}
 \end{table}
 
-Tanto no aprendizado geral quanto especificamente no aprendizado da classe de elementos antrópicos, o algoritmo KNN obteve bom desempenho, apresentando melhor balanço entre precisão e revocação para a classe de maior interesse no problema. É seguro afirmar, também, que a seleção de atributos utilizando o método CFS não teve impacto positivo na generalização e precisão do aprendizado deste experimento, uma vez que em praticamente todos os métodos obtiveram melhor desempenho com o conjunto completo de atributos.
+Embora tenha tido os melhores resultados em todos os quesitos em uma análise geral da base de dados, o algoritmo \textit{Random Forest} obteve baixa revocação para a classe de elementos antrópicos, indicando que houve bom aprendizado apenas para as classes mais abundantes na base. Apesar do bom desempenho na análise geral, o SVM obteve resultados abaixo do esperado na classe de elementos antrópicos, só apresentando melhora quando a seleção de atributos com o método CFS foi realizada. O método \textit{Naive Bayes} obteve desempenho ruim em todas as análises, indicando que a abordagem bayesiana não é suficiente para distinguir as classes deste problema com os atributos escolhidos.
+
+Tanto no aprendizado geral quanto especificamente no aprendizado da classe de elementos antrópicos, o algoritmo KNN obteve bom desempenho, apresentando melhor balanço entre precisão e revocação para a classe de maior interesse no problema. É seguro afirmar, também, que a seleção de atributos utilizando o método CFS não teve impacto positivo na generalização e precisão do aprendizado deste experimento, uma vez que praticamente todos os métodos obtiveram melhor desempenho com o conjunto completo de atributos.
+
+Embora os resultados da classificação multi-classe tenham sido satisfatórias, é importante averiguar outras estratégias de aprendizado. Com o foco na classe de elementos antrópicos, é preciso averiguar se a modelagem do problema para duas classes, onde uma apenas é a classe de interesse, pode melhorar significativamente os resultados. É especialmente importante entender se as demais classes de menos interesse podem ser agrupadas em uma única classe, mantendo a generalização do aprendizado.
 
 \subsection{Classificadores binários}
 
