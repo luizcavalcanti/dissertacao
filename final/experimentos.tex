@@ -158,9 +158,14 @@ O método SRM conseguiu uma média de erros global e local substancialmente meno
 \end{figure}
 
 
-Adicionalmente, experimentos foram realizados com técnicas de classificação. O objetivo era saber se poderíamos utilizar apenas uma etapa para realizar segmentação e o primeiro nível de classificação. Todos os algoritmos obtiveram precisão inferior ao que foi conseguido na etapa de segmentação isoladamente. Os resultados foram publicados no \textit{$10^{th}$ International Conference on Computer Vision Theory and Applications} e o artigo de \citeonline{cavalcanti:2015} completo pode ser visto no apêndice \ref{cap:visapp2015}.
+Adicionalmente, experimentos foram realizados com técnicas de classificação. O objetivo era saber se poderíamos utilizar apenas uma etapa para realizar segmentação e a classificação dos segmentos. 
 
-Para fins de comparação, os resultados deste segundo experimento são apresentados na tabela \ref{tab:experimentoArtigo}. O tempo de execução da classificação para cada imagem no artigo publicado ignora o tempo de extração de características da imagem. Para uma comparação correta com os métodos de segmentação experimentados anteriormente, esse tempo gasto em extração de características foi acrescido na tabela desta seção.
+\todo[inline]{falar de como foi feito o experimento}
+\todo[inline]{falar por que o método foi descartado (muito ruido, complexidade em fechar regiões para calcular o erro de segmentação, etc (como comparar esta etapa com duas etapas diferentes? Talvez fazendo LCE e GCE para as regiões conectadas e precisão/revocação para a classificação dos pixels}
+
+Todos os algoritmos obtiveram precisão inferior ao que foi conseguido na etapa de segmentação isoladamente. Os resultados foram publicados no \textit{$10^{th}$ International Conference on Computer Vision Theory and Applications} e o artigo de \citeonline{cavalcanti:2015} completo pode ser visto no apêndice \ref{cap:visapp2015}.
+
+Para fins de comparação, os resultados deste segundo experimento são apresentados na tabela \ref{tab:experimentoArtigo}, com o melhor resultado para cada critério destacado em coloração cinza. O tempo de execução da classificação para cada imagem no artigo publicado ignora o tempo de extração de características da imagem. Para uma comparação correta com os métodos de segmentação experimentados anteriormente, esse tempo gasto em extração de características foi acrescido na tabela desta seção.
 
 \begin{table}[h]
 \centering
@@ -345,6 +350,8 @@ Elementos antrópicos &     31 &  0,3 \% \\ \hline
 
 Com uma distribuição de classes ainda mais irregular que a base original, resultados gerais de precisão na base inteira se tornam irrelevantes, uma vez que um simples método de aprendizado que sempre escolha a classe majoritária teria taxa de acurácia superior a 99\%, como pode ser visto na tabela \ref{tab:experimentoBiclasse}, com o melhor resultado para cada critério destacado em coloração cinza.
 
+A causa para estes resultados reside em dois fatores: a desigualdade na distribuição das classes do conjunto de dados e a baixa tolerância dos métodos convencionais de aprendizagem supervisionada à bases de dados fortemente desbalanceadas. Os métodos utilizaram os mesmos parâmetros do experimento anterior, de classificadores multi-classe.
+
 \begin{table}[h]
 \centering
 	\begin{tabulary}{\linewidth}{|L|R|R|R|R|}
@@ -381,13 +388,16 @@ KNN                     & 0.733 & 0.654 & 0.708 & 0.892 \\ \hline
 Random Forest (CFS)     & 0.727 & 0.615 & 0.667 & 0.903 \\ \hline
 Naive Bayes (CFS)       & 0.075 & 0.846 & 0.137 & 0.933 \\ \hline
 Naive Bayes             & 0.039 & \cellcolor{gray!25}0.962 & 0.076 & 0.974 \\ \hline
-SVM                     & 0.000 & 0.000 & 0.000 & 0.500 \\ \hline
+SVM                     & 0.030 & 0.591 & 0.057 & 0.806 \\ \hline
 \end{tabulary}
 \caption{Comparação de métodos de classificação binária em relação à classe de elementos antrópicos, ordenados pela medida F1}
 \label{tab:experimentoBiclasseAntropico}
 \end{table}
 
-Neste experimento a seleção de atributos através do método CFS obteve bons resultados, reduzindo a dimensionalidade e melhorando a revocação e precisão em quase todos os casos, com exceção do algoritmo \textit{Random Forest}.
+\todo[inline]{Discutir os resultados método a método}
+\todo[inline]{Porque 100\% de precisão no KNN para a classe é ruim? entendo que isso pode ser ruim para o aprendizado geral, mas a classe é tão minoritária que não consigo ver como um problema (não achei literatura apoiando nenhum dos dois vereditos)}
+
+Neste experimento, a seleção de atributos através do método CFS obteve bons resultados, reduzindo a dimensionalidade e melhorando a revocação e precisão em quase todos os casos, com exceção do algoritmo \textit{Random Forest}. Os melhores métodos deste experimento não obtiveram desempenho significativamente inferior ao experimento de classificadores multi-classe. Ainda assim, o uso de métodos de aprendizado que não foram concebidos para lidar com uma base de dados com distribuição de classes tão desigual não é o cenário ideal. Por este motivo, experimentos utilizando algoritmos que levem em consideração a detecção de classes extremamente minoritárias devem ser realizados.
 
 \subsection{Classificadores unários}
 
@@ -397,7 +407,9 @@ Assim como nas duas abordagens de classificação supervisionada anteriores, est
 
 Os dois algoritmos testados neste experimento foram a variação uniclasse do SVM (OC-SVM) e uma versão unária da árvore de decisão chamada REPTree. Ambos os algoritmos foram executados tendo como entrada o vetor de características das amostras completo e posteriormente o vetor reduzido, selecionado através do método CFS de seleção de características.
 
-A tabela \ref{tab:experimentoUniclasse} mostra uma evidente diferença na taxa de aprendizado entre os métodos OC-SVM e REPTree, onde o último obteve resultados gerais visivelmente inferiores. O mesmo resultado se mantém apenas parcialmente quando analisadas a precisão e a revocação para a classe de elementos antrópicos (tabela \ref{tab:experimentoUniclasseAntropico}). Ambas as tabelas apresentam o melhor resultado para cada critério destacado em coloração cinza.
+O algoritmo OC-SVM obteve melhores resultados utilizando um kernel de base radial com $\gamma = 0.18$, enquanto o algoritmo REPTree obteve as melhores taxas de medida F1 utilizando um mínimo de 2 instâncias por folha e redução de erro de poda com 3 passadas.
+
+A tabela \ref{tab:experimentoUniclasse} mostra uma evidente diferença na taxa de aprendizado entre os métodos OC-SVM e REPTree, onde o último obteve resultados gerais visivelmente inferiores. O bom desempenho do OC-SVM se mantém quando analisadas a precisão e a revocação para a classe de elementos antrópicos, na tabela \ref{tab:experimentoUniclasseAntropico}. Ambas as tabelas apresentam o melhor resultado para cada critério destacado em coloração cinza.
 
 \begin{table}[h]
 \centering
@@ -427,29 +439,18 @@ OC-SVM        & 0.000 & 0.000 & 0.000 & 0.000 \\ \hline
 \label{tab:experimentoUniclasseAntropico}
 \end{table}
 
-Assim como no experimento de classificação binária, a seleção de atributos com o método CFS foi responsável por visível melhora no resultado do método OC-SVM, o algoritmo de melhor resultado neste experimento.
+\todo[inline]{Discutir os resultados método a método}
+\todo[inline]{É correto afirmar que apenas OC-SVM aprendeu? Tentei parametrizar o REPTree exaustivamente, sem resultados melhores que este. O que fazer neste caso? }
+
+Assim como no experimento de classificação binária, a seleção de atributos com o método CFS foi responsável por visível melhora no resultado do método OC-SVM, o algoritmo de melhor resultado neste experimento. Apesar dos bons resultados, os resultados deste experimento foram inferiores aos experimentos anteriores. A hipótese é de que as classes de menor interesse (floresta, vegetação rasteira, água e terra) são diversas demais para que um único modelo de aprendizagem possa distinguí-las das amostras anômalas (elementos antrópicos). Com a intenção de separar o modelo de aprendizagem para estas classes e ainda assim obter robustez na detecção de amostras anômalas, experimentos foram conduzidos com conjuntos de classificadores unários.
 
 \subsection{Conjunto de classificadores unários}
 
-Para este experimento, a base de dados rotulada originalmente foi dividida e as amostras foram separadas de acordo com sua classe. Dois algoritmos classificadores unários foram treinados exclusivamente com exemplos de cada classe, excluindo as amostras das demais classes. Um total de oito classificadores unários foram avaliados neste experimento.
+Para este experimento, a base de dados rotulada originalmente foi dividida e as amostras foram separadas de acordo com sua classe. Dois algoritmos classificadores unários foram treinados exclusivamente com exemplos de cada uma das quatro classes majoritárias, excluindo as amostras das demais classes, totalizando oito modelos de classificação unárias a serem combinados entre si e avaliados neste experimento.
 
-Como forma de utilizar um conjunto de classificadores unários para resolver um problema de classificação multi-classe, um método de votação com pesos foi utilizado. O peso de cada classificador foi estimado através de um método força-bruta. À medida que os pesos iam mudando, as taxas de aprendizado eram comparadas.
+Como forma de utilizar um conjunto de classificadores unários para resolver um problema de classificação multi-classe, um método de votação com pesos foi utilizado. O peso de cada classificador foi estimado através de um método força-bruta. Os pesos variam de $0$ a $1$, com intervalos de $0,1$, com todos os pesos somando um total de $1$. À medida que os pesos foram alterados, as taxas de aprendizado foram comparadas. Ao final deste processo, um vetor de pesos foi determinado de forma a otimizar as taxas de aprendizado e a medida F1 da classe de elementos antrópicos.
 
-Ao final deste processo, um vetor de pesos foi determinado de forma a otimizar as taxas de aprendizado e a medida F1 da classe de elementos antrópicos. O conjunto de classificadores unários com melhor desempenho na base de dados deste trabalho foi composto por classificadores REPTree e OC-SVM, conforme descrito na tabela \ref{tab:experimentoConjunto}.
-
-\begin{table}[h]
-\centering
-	\begin{tabulary}{\linewidth}{|L|L|}
-		\hline
-		\textbf{Classe} & \textbf{Algoritmo} \\ \hline
-		Floresta           & REPTree  \\ \hline
-		Água               & OC-SVM   \\ \hline
-		Vegetação rasteira & OC-SVM   \\ \hline
-		Terra              & REPTree  \\ \hline
-	\end{tabulary}
-\caption{Lista de algoritmos utilizados como classificadores unários para cada classe do experimento}
-\label{tab:experimentoConjunto}
-\end{table}
+\todo[inline]{falar sobre parametrização dos métodos}
 
 O conjunto de classificadores foi escolhido, em um primeiro momento, de acordo com a precisão de cada modelo treinado para uma classe específica. A tabela \ref{tab:experimentoConjuntoDados} exibe os valores de acurácia, precisão e revocação para cada classe do problema em cada um dos algoritmos de classificação unária testados neste experimento.
 
@@ -471,9 +472,9 @@ Terra/REPTree     & 0.305 & 0.980 & 0.305 & 0.452 \\ \hline
 \label{tab:experimentoConjuntoDados}
 \end{table}
 
-Como pode ser visto ao se comparar as tabelas \ref{tab:experimentoConjunto} e \ref{tab:experimentoConjuntoDados}, o melhor conjunto de classificadores não é determinado pelos melhores classificadores individuais. Este fenômeno é considerado uma característica de métodos \textit{ensemble} e é amplamente documentado na literatura de aprendizagem de máquina.
-
 Os valores de precisão, revocação e medida F1 para a classe de elementos antrópicos, \textit{outlier} em todos os classificadores deste experimento, estão apresentados na tabela \ref{tab:experimentoConjuntoAntropico}, com o melhor resultado para cada critério destacado em coloração cinza.
+
+Como pode ser visto, ao se comparar as tabelas \ref{tab:experimentoConjuntoDados} e \ref{tab:experimentoConjuntoAntropico}, o melhor conjunto de classificadores não é determinado pelos melhores classificadores individuais. Este fenômeno é considerado uma característica de métodos \textit{ensemble} e é amplamente documentado na literatura de aprendizagem de máquina.
 
 \begin{table}[h]
 \centering
@@ -491,5 +492,8 @@ OC-SVM  & OC-SVM  & OC-SVM  & REPTree & 0.096 & \cellcolor{gray!25}0.923 & 0.175
 \caption{Comparação de conjuntos de classificadores unários em relação à classe de elementos antrópicos, ordenados pela medida F1}
 \label{tab:experimentoConjuntoAntropico}
 \end{table}
+
+\todo[inline]{Discutir os resultados método a método}
+\todo[inline]{fazer link com próximo capítulo}
 
 Uma vez que todos os experimentos foram concluídos e os seus dados colhidos, a próxima seção se ocupa em tecer conclusões sobre os resultados encontrados, bem como sugerir possíveis caminhos para futuras pesquisas sobre o tema.
