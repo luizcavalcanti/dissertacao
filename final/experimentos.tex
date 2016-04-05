@@ -251,7 +251,23 @@ Hough - maior reta        & Inteiro &  1x1 \\ \hline
 
 Para reduzir a dimensionalidade do vetor de características, a seleção de subconjunto de atributos baseada em correlação (\textit{Correlation-based Feature Subset Selection}, ou CFS), introduzida por \citeonline{hall:1998}, foi utilizada.
 
-O vetor de características resultante possui apenas 7 atributos, conforme pode ser visto na tabela \ref{tab:experimentoClassificacao1AtributosFiltrados}. Esta redução pode ser importante para aumentar a generalização e simplificar os modelos gerados no experimento, bem como diminuir problemas de dimensionalidade enfrentados por alguns dos algoritmos testados. Para efeitos de comparação, todos os algoritmos foram testados com os atributos originais e com o subconjunto de atributos selecionados pela técnica CFS.
+O vetor de características resultante varia de acordo com a abordagem de aprendizado utilizada, visto que o agrupamento de classes altera a distribuição da base de dados, e por consequência, modifica a correlação entre atributos e a classe da amostra.
+
+Esta redução da dimensionalidade do vetor de atributos pode ser importante para aumentar a generalização e simplificar os modelos gerados no experimento, bem como diminuir problemas de dimensionalidade enfrentados por alguns dos algoritmos testados. Para efeitos de comparação, todos os algoritmos foram testados com os atributos originais e com o subconjunto de atributos selecionados pela técnica CFS.
+
+Finalmente, todos os algoritmos processaram os conjuntos de treinamento para criar um modelo de aprendizado e em seguida, utilizaram a base de testes para medir o quanto o modelo pode ser generalizado para bases de imagens diferentes.
+
+Para todos os algoritmos testados, o método de validação cruzada foi utilizado para avaliar a variância na taxa de aprendizado e inferir a generalização dos modelos criados. Mais especificamente, o método k-fold foi utilizado, com um valor de $k=10$.
+
+Cada algoritmo testado foi refinado e parametrizado para que consiga produzir uma maior acurácia para todas as classes e que para otimizar a revocação da classe de elementos antrópicos. As seções a seguir detalham o protocolo e os resultados da experimentação para cada abordagem de classificação supervisionada testada no trabalho.
+
+\subsection{Classificadores multi-classe}
+
+Utilizando as técnicas de K vizinhos mais próximos (KNN), máquinas de vetores de suporte (SVM), árvores de decisão, \textit{Naive Bayes} e \textit{Random Forest}, um experimento foi conduzido com o intuito de classificar os segmentos de imagem gerados na etapa anterior do trabalho e definir que método mais se adequa para a solução do problema proposto neste trabalho.
+
+Cada algoritmo teve seus parâmetros ajustados de forma a maximizar os índices de precisão e revocação gerais, refletidos pela média da medida F1 de todas as classes do problema. Para o algoritmo KNN, um valor de $k=3$ e a utilização de distância euclidiana obtiveram os melhores resultados. Na árvore de decisão, um fator de confiança para poda de 0,3 foi utilizado. Para o \textit{ensemble} de classificadores \textit{Random Forest}, um número máximo de 200 árvores, com agrupamentos de 10 características obtiveram os melhores resultados. Para o SVM, um kernel de base radial com $\gamma = 0.1$ obteve a melhor medida F1 geral. Naive Bayes, por sua vez, não precisa ser parametrizado.
+
+Todas as amostras disponíveis foram classificadas com os classificadores propostos no experimento. Todos os classificadores foram treinados e avaliados com o conjunto integral de atributos, e também com o conjunto reduzido, utilizando a técnica de seleção de atributos CFS. O conjunto de atributos selecionados para as classes deste experimentos é apresentado na tabela \ref{tab:experimentoMulticlasseAtributosFiltrados}. A acurácia, precisão e revocação são apresentadas na tabela \ref{tab:experimentoClassificacao1}, com o melhor resultado para cada critério destacado em coloração cinza.
 
 \begin{table}[h]
 \centering
@@ -262,23 +278,10 @@ Intensidade - histograma (5/15) & Inteiro & 5x1 \\ \hline
 LBP - histograma (1/26)         & Inteiro & 1x1 \\ \hline
 Hough - maior reta              & Inteiro & 1x1 \\ \hline
 \end{tabulary}
-\caption{Atributos selecionados pela técnica de CFS}
-\label{tab:experimentoClassificacao1AtributosFiltrados}
+\caption{Atributos selecionados pela técnica de CFS para a abordagem de classificação multi-classe}
+\label{tab:experimentoMulticlasseAtributosFiltrados}
 \end{table}
 
-Finalmente, todos os algoritmos processaram os conjuntos de treinamento para criar um modelo de aprendizado e em seguida, utilizaram a base de testes para medir o quanto o modelo pode ser generalizado para bases de imagens diferentes.
-
-Para todos os algoritmos testados, o método de validação cruzada foi utilizado para avaliar a variância na taxa de aprendizado e inferir a generalização dos modelos criados. Mais especificamente, o método k-fold foi utilizado, com um valor de $k=10$.
-
-Cada algoritmo testado foi refinado e parametrizado para que consiga produzir uma maior acurácia para todas as classes e que para otimizar a revocação da classe de elementos antrópicos. As seções a seguir detalham o protocolo e os resultados da experimentação para cada abordagem de classificação supervisionada testada no trabalho.
-
-\subsection{Classificadores multiclasse}
-
-Utilizando as técnicas de K vizinhos mais próximos (KNN), máquinas de vetores de suporte (SVM), árvores de decisão, \textit{Naive Bayes} e \textit{Random Forest}, um experimento foi conduzido com o intuito de classificar os segmentos de imagem gerados na etapa anterior do trabalho e definir que método mais se adequa para a solução do problema proposto neste trabalho.
-
-Cada algoritmo teve seus parâmetros ajustados de forma a maximizar os índices de precisão e revocação gerais, refletidos pela média da medida F1 de todas as classes do problema. Para o algoritmo KNN, um valor de $k=3$ e a utilização de distância euclidiana obtiveram os melhores resultados. Na árvore de decisão, um fator de confiança para poda de 0,3 foi utilizado. Para o \textit{ensemble} de classificadores \textit{Random Forest}, um número máximo de 200 árvores, com agrupamentos de 10 características obtiveram os melhores resultados. Para o SVM, um kernel de base radial com $\gamma = 0.1$ obteve a melhor medida F1 geral. Naive Bayes, por sua vez, não precisa ser parametrizado.
-
-Todas as amostras disponíveis foram classificadas com os classificadores propostos no experimento. Todos os classificadores foram treinados e avaliados com o conjunto integral de atributos, e também com o conjunto reduzido, utilizando a técnica de seleção de atributos CFS. A acurácia, precisão e revocação são apresentadas na tabela \ref{tab:experimentoClassificacao1}, com o melhor resultado para cada critério destacado em coloração cinza.
 
 \begin{table}[h]
 \centering
@@ -332,7 +335,19 @@ Embora os resultados da classificação multi-classe tenham sido satisfatórias,
 
 \subsection{Classificadores binários}
 
-O experimento com classificação binária utilizou-se dos mesmos algoritmos testados no experimento de classificação multi-classe. Assim como nesse experimento, os métodos de aprendizado utilizados nesta abordagem foram treinados e avaliados com o conjunto completo de atributos, bem como com o vetor de atributos com sua dimensionalidade reduzida pela técnica de seleção CFS.
+O experimento com classificação binária utilizou-se dos mesmos algoritmos testados no experimento de classificação multi-classe. Assim como nesse experimento, os métodos de aprendizado utilizados nesta abordagem foram treinados e avaliados com o conjunto completo de atributos, bem como com o vetor de atributos com sua dimensionalidade reduzida pela técnica de seleção CFS. O conjunto reduzido de atributos para a abordagem binária pode ser visto na tabela \ref{tab:experimentoBiclasseAtributosFiltrados}.
+
+\begin{table}[h]
+\centering
+\begin{tabulary}{\linewidth}{|L|L|R|}
+\hline
+\textbf{Atributo} & \textbf{Tipo} & \textbf{Dimensão} \\ \hline
+Intensidade - histograma (1/15) & Inteiro & 1x1 \\ \hline
+Hough - maior reta              & Inteiro & 1x1 \\ \hline
+\end{tabulary}
+\caption{Atributos selecionados pela técnica de CFS para a abordagem de classificação binária}
+\label{tab:experimentoBiclasseAtributosFiltrados}
+\end{table}
 
 Para a preparação da base de dados, as amostras previamente rotuladas entre as cinco classes originais do problema foram mapeadas para apenas duas: elementos naturais e elementos antrópicos. A distribuição das classes nesta versão da base de dados de segmentos é apresentada na tabela \ref{tab:experimentoBiclasseDistribuicao}.
 
@@ -401,9 +416,33 @@ Neste experimento, a seleção de atributos através do método CFS obteve bons 
 
 \subsection{Classificadores unários}
 
-De forma muito semelhante ao experimento de classificadores binários, a base de dados para o experimento de classificadores unários foi criada a partir da base original com cinco classes rotuladas, mapeadas para apenas duas: elementos naturais (\textit{target}) e elementos antrópicos (\textit{outlier}). A distribuição de amostras da base de dados entre as classes também é a mesma do experimento de classificadores binários, e pode ser vista na tabela \ref{tab:experimentoBiclasseDistribuicao}.
+De forma muito semelhante ao experimento de classificadores binários, a base de dados para o experimento de classificadores unários foi criada a partir da base original com cinco classes rotuladas, mapeadas para apenas duas: elementos naturais (\textit{target}) e elementos antrópicos (\textit{outlier}). A distribuição de amostras da base de dados entre as classes também é a mesma do experimento de classificadores binários, e pode ser vista na tabela \ref{tab:experimentoUniclasseDistribuicao}.
 
-Assim como nas duas abordagens de classificação supervisionada anteriores, este experimento utilizou a base completa de segmentos. Os algoritmos de classificação unária foram treinados e avaliados utilizando o conjunto integral de atributos, e também um subconjunto de atributos selecionados pela técnica CFS.
+\begin{table}[h]
+\centering
+\begin{tabulary}{\linewidth}{|L|R|R|}
+\hline
+\textbf{Classe} & \textbf{Amostras} & \textbf{Percentual} \\ \hline
+Elementos naturais   & 10.026 & 99,7 \% \\ \hline
+Elementos antrópicos &     31 &  0,3 \% \\ \hline
+\end{tabulary}
+\caption{Distribuição de classes na base de segmentos para classificação unária}
+\label{tab:experimentoUniclasseDistribuicao}
+\end{table}
+
+Assim como nas duas abordagens de classificação supervisionada anteriores, este experimento utilizou a base completa de segmentos. Os algoritmos de classificação unária foram treinados e avaliados utilizando o conjunto integral de atributos, e também um subconjunto de atributos selecionados pela técnica CFS. O conjunto de atributos selecionados para este experimento pode ser visto na tabela \ref{tab:experimentoUniclasseAtributosFiltrados}.
+
+\begin{table}[h]
+\centering
+\begin{tabulary}{\linewidth}{|L|L|R|}
+\hline
+\textbf{Atributo} & \textbf{Tipo} & \textbf{Dimensão} \\ \hline
+Intensidade - histograma (1/15) & Inteiro & 1x1 \\ \hline
+Hough - maior reta              & Inteiro & 1x1 \\ \hline
+\end{tabulary}
+\caption{Atributos selecionados pela técnica de CFS para a abordagem de classificação unária}
+\label{tab:experimentoUniclasseAtributosFiltrados}
+\end{table}
 
 Os dois algoritmos testados neste experimento foram a variação uniclasse do SVM (OC-SVM) e uma versão unária da árvore de decisão chamada REPTree. Ambos os algoritmos foram executados tendo como entrada o vetor de características das amostras completo e posteriormente o vetor reduzido, selecionado através do método CFS de seleção de características.
 
@@ -450,6 +489,7 @@ Para este experimento, a base de dados rotulada originalmente foi dividida e as 
 
 Como forma de utilizar um conjunto de classificadores unários para resolver um problema de classificação multi-classe, um método de votação com pesos foi utilizado. O peso de cada classificador foi estimado através de um método força-bruta. Os pesos variam de $0$ a $1$, com intervalos de $0,1$, com todos os pesos somando um total de $1$. À medida que os pesos foram alterados, as taxas de aprendizado foram comparadas. Ao final deste processo, um vetor de pesos foi determinado de forma a otimizar as taxas de aprendizado e a medida F1 da classe de elementos antrópicos.
 
+\todo[inline]{falar sobre seleção de atributos}
 \todo[inline]{falar sobre parametrização dos métodos}
 
 O conjunto de classificadores foi escolhido, em um primeiro momento, de acordo com a precisão de cada modelo treinado para uma classe específica. A tabela \ref{tab:experimentoConjuntoDados} exibe os valores de acurácia, precisão e revocação para cada classe do problema em cada um dos algoritmos de classificação unária testados neste experimento.
