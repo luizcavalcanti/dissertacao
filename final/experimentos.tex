@@ -158,14 +158,11 @@ O método SRM conseguiu uma média de erros global e local substancialmente meno
 \end{figure}
 
 
-Adicionalmente, experimentos foram realizados com técnicas de classificação. O objetivo era saber se poderíamos utilizar apenas uma etapa para realizar segmentação e a classificação dos segmentos. 
+Adicionalmente, experimentos foram realizados com técnicas de classificação. O objetivo era saber se poderíamos utilizar apenas uma etapa para realizar segmentação e a classificação dos segmentos. Para que o experimento fosse possível, um conjunto de 13 imagens foi rotulado previamente, pixel a pixel, sendo submetido posteriormente à treinamento e teste de diversos métodos de aprendizado de máquina supervisionado.
 
-\todo[inline]{falar de como foi feito o experimento}
-\todo[inline]{falar por que o método foi descartado (muito ruido, complexidade em fechar regiões para calcular o erro de segmentação, etc (como comparar esta etapa com duas etapas diferentes? Talvez fazendo LCE e GCE para as regiões conectadas e precisão/revocação para a classificação dos pixels}
+Todos os algoritmos obtiveram precisão inferior ao que foi conseguido na etapa de segmentação isoladamente. Além disso, a quantidade de ruído na classificação - pixels de uma classe $c_1$ espalhados por grandes regiões de uma classe $c_2$ - foi muito alta. Outro desvantagem encontrada nesta abordagem é o alto tempo de processamento para cada imagem. Os resultados foram publicados no \textit{$10^{th}$ International Conference on Computer Vision Theory and Applications} e o artigo de \citeonline{cavalcanti:2015} completo pode ser visto no apêndice \ref{cap:visapp2015}.
 
-Todos os algoritmos obtiveram precisão inferior ao que foi conseguido na etapa de segmentação isoladamente. Os resultados foram publicados no \textit{$10^{th}$ International Conference on Computer Vision Theory and Applications} e o artigo de \citeonline{cavalcanti:2015} completo pode ser visto no apêndice \ref{cap:visapp2015}.
-
-Para fins de comparação, os resultados deste segundo experimento são apresentados na tabela \ref{tab:experimentoArtigo}, com o melhor resultado para cada critério destacado em coloração cinza. O tempo de execução da classificação para cada imagem no artigo publicado ignora o tempo de extração de características da imagem. Para uma comparação correta com os métodos de segmentação experimentados anteriormente, esse tempo gasto em extração de características foi acrescido na tabela desta seção.
+Para fins de informação, os resultados deste experimento de segmentação com técnicas de segmentação são apresentados na tabela \ref{tab:experimentoArtigo}, com o melhor resultado para cada critério destacado em coloração cinza. O tempo de execução da classificação para cada imagem no artigo publicado ignora o tempo de extração de características da imagem. Para uma comparação correta deste aspecto dos resultados com os métodos de segmentação apresentados anteriormente, o tempo gasto em extração de características foi acrescido na tabela desta seção. Como a classificação pixel a pixel da imagem não necessariamente resulta em regiões conexas de pixels pertencentes à mesma classe, não é adequado fazer a comparação dos resultados utilizando as métricas de LCE e GCE.
 
 \begin{table}[h]
 \centering
@@ -181,7 +178,7 @@ Decision tree  & 82,2\%                     & 14,49 s \\ \hline
 \label{tab:experimentoArtigo}
 \end{table}
 
-Os segmentos encontrados pelo algoritmo SRM, escolhido nesta etapa, serviram de entrada para a próxima etapa da solução, responsável pela classificações destes mesmos segmentos.
+Com um tempo de processamento baixo e excelentes resultados nas métricas de erro local e global, o algoritmo SRM foi escolhido como método para determinar os segmentos de imagem a servir de entrada para a próxima etapa da solução, responsável pela classificações destes mesmos segmentos.
 
 \section{Classificação}\label{sec:expClassificacao}
 
