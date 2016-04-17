@@ -360,7 +360,9 @@ Elementos antrópicos &     31 &  0,3 \% \\ \hline
 \label{tab:experimentoBiclasseDistribuicao}
 \end{table}
 
-Com uma distribuição de classes ainda mais irregular que a base original, resultados gerais de precisão na base inteira se tornam irrelevantes, uma vez que um simples método de aprendizado que sempre escolha a classe majoritária teria taxa de acurácia superior a 99\%, como pode ser visto na tabela \ref{tab:experimentoBiclasse}, com o melhor resultado para cada critério destacado em coloração cinza.
+Os algoritmos tiveram seus parâmetros definidos com o objetivo de maximizar os valores de precisão e revocação de todas as classes, medidas em última instância pelo valor da medida F1. Para o algoritmo KNN, um valor de $k=3$ e a utilização da distância euclidiana obtiveram os melhores resultados. Para a árvore de decisão, um fator de confiança para poda de 0,4 foi utilizado. Para o algoritmo de \textit{Random Forest}, um número máximo de 200 árvores e um agrupamento de 9 características obtiveram os melhores índices de medida F1. Para o algoritmo SVM um kernel de base radial com $\gamma = 0.13$  obteve melhor desempenho de precisão e revocação.
+
+Com uma distribuição de classes ainda mais irregular que a base original, resultados gerais de precisão na base inteira se tornam irrelevantes, uma vez que um simples método de aprendizado que sempre escolha a classe majoritária teria taxa de acurácia superior a 99\%. A tabela \ref{tab:experimentoBiclasse} mostra como todos os métodos obtiveram bons resultados gerais, com o melhor resultado para cada critério destacado em coloração cinza.
 
 A causa para estes resultados reside em dois fatores: a desigualdade na distribuição das classes do conjunto de dados e a baixa tolerância dos métodos convencionais de aprendizagem supervisionada à bases de dados fortemente desbalanceadas. Os métodos utilizaram os mesmos parâmetros do experimento anterior, de classificadores multi-classe.
 
@@ -406,10 +408,13 @@ SVM                     & 0.030 & 0.591 & 0.057 & 0.806 \\ \hline
 \label{tab:experimentoBiclasseAntropico}
 \end{table}
 
-\todo[inline]{Discutir os resultados método a método}
-\todo[inline]{Porque 100\% de precisão no KNN para a classe é ruim? entendo que isso pode ser ruim para o aprendizado geral, mas a classe é tão minoritária que não consigo ver como um problema (não achei literatura apoiando nenhum dos dois vereditos)}
+Neste experimento, a seleção de atributos através do método CFS obteve bons resultados, reduzindo a dimensionalidade e melhorando a revocação e precisão em quase todos os casos, com exceção do algoritmo \textit{Random Forest}. Os melhores métodos deste experimento não obtiveram desempenho significativamente inferior ao experimento de classificadores multi-classe.
 
-Neste experimento, a seleção de atributos através do método CFS obteve bons resultados, reduzindo a dimensionalidade e melhorando a revocação e precisão em quase todos os casos, com exceção do algoritmo \textit{Random Forest}. Os melhores métodos deste experimento não obtiveram desempenho significativamente inferior ao experimento de classificadores multi-classe. Ainda assim, o uso de métodos de aprendizado que não foram concebidos para lidar com uma base de dados com distribuição de classes tão desigual não é o cenário ideal. Por este motivo, experimentos utilizando algoritmos que levem em consideração a detecção de classes extremamente minoritárias devem ser realizados.
+Considearndo os resultados para a classe de elementos antrópicos, o método KNN com seleção de atributos por CFS obteve os melhores resultados gerais graças a uma precisão de 100\%, embora a revocação tenha relativamente baixa. O algoritmo Naive Bayes obteve a melhor revocação entre as classes, mas obteve muitos falsos positivos, fazendo com que a precisão fosse abaixo de 10\%, tanto com a seleção de atributos quando com o vetor de características inteiro.
+
+Com exceção do algoritmo Naive Bayes e do SVM sem seleção de atributos, todo os métodos obtiveram medida F1 acima de 60\% para a classe de elementos antrópicos. Isto pode ser considerado um bom resultado, visto que o esperado era que a capacidade de generalização da classe majoritária fosse prejudicada pela diversidade das amostras, que verdadeiramente não pertencem à mesma classe.
+
+Ainda assim, o uso de métodos de aprendizado que não foram concebidos para lidar com uma base de dados com distribuição de classes tão desigual não é o cenário ideal. Por este motivo, experimentos utilizando algoritmos que levem em consideração a detecção de classes extremamente minoritárias devem ser realizados.
 
 \subsection{Classificadores unários}
 
