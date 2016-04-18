@@ -480,9 +480,6 @@ OC-SVM        & 0.000 & 0.000 & 0.000 & 0.000 \\ \hline
 \label{tab:experimentoUniclasseAntropico}
 \end{table}
 
-\todo[inline]{Discutir os resultados método a método}
-\todo[inline]{É correto afirmar que apenas OC-SVM aprendeu? Tentei parametrizar o REPTree exaustivamente, sem resultados melhores que este. O que fazer neste caso? }
-
 Assim como no experimento de classificação binária, a seleção de atributos com o método CFS foi responsável por visível melhora no resultado do método OC-SVM, o algoritmo de melhor resultado neste experimento. Apesar dos bons resultados, os resultados deste experimento foram inferiores aos experimentos anteriores. A hipótese é de que as classes de menor interesse (floresta, vegetação rasteira, água e terra) são diversas demais para que um único modelo de aprendizagem possa distinguí-las das amostras anômalas (elementos antrópicos). Com a intenção de separar o modelo de aprendizagem para estas classes e ainda assim obter robustez na detecção de amostras anômalas, experimentos foram conduzidos com conjuntos de classificadores unários.
 
 \subsection{Conjunto de classificadores unários}
@@ -491,8 +488,33 @@ Para este experimento, a base de dados rotulada originalmente foi dividida e as 
 
 Como forma de utilizar um conjunto de classificadores unários para resolver um problema de classificação multi-classe, um método de votação com pesos foi utilizado. O peso de cada classificador foi estimado através de um método força-bruta. Os pesos variam de $0$ a $1$, com intervalos de $0,1$, com todos os pesos somando um total de $1$. À medida que os pesos foram alterados, as taxas de aprendizado foram comparadas. Ao final deste processo, um vetor de pesos foi determinado de forma a otimizar as taxas de aprendizado e a medida F1 da classe de elementos antrópicos.
 
-\todo[inline]{falar sobre seleção de atributos}
-\todo[inline]{falar sobre parametrização dos métodos}
+Assim como nas abordagens de classificação supervisionada anteriores, este experimento utilizou a base completa de segmentos. Os algoritmos de classificação unária foram treinados e avaliados utilizando o conjunto integral de atributos, e também um subconjunto de atributos selecionados pela técnica CFS. O conjunto de atributos selecionados para este experimento para cada classe individualmente treinada pode ser visto na tabela \ref{tab:experimentoConjuntoAtributosFiltrados}.
+
+\begin{table}[h]
+\centering
+\begin{tabulary}{\linewidth}{|L|L|L|R|}
+\hline
+\textbf{Classe majoritária} & \textbf{Atributo} & \textbf{Tipo} & \textbf{Dimensão} \\ \hline
+\multirow{3}{*}{Floresta} & Intensidade - histograma (5/15) & Inteiro & 7x1 \\ \cline{2-4}
+                          & LBP - histograma (1/26)         & Inteiro & 1x1 \\ \cline{2-4}
+                          & Hough - maior reta              & Inteiro & 1x1 \\ \hline \hline
+\multirow{3}{*}{Água}     & Intensidade - histograma (7/15) & Inteiro & 7x1 \\ \cline{2-4}
+                          & LBP - histograma (2/26)         & Inteiro & 2x1 \\ \cline{2-4}
+                          & Hough - número de retas         & Inteiro & 1x1 \\ \hline \hline
+\multirow{3}{*}{Vegetação}& Intensidade - histograma (6/15) & Inteiro & 7x1 \\ \cline{2-4}
+                          & LBP - histograma (1/26)         & Inteiro & 1x1 \\ \cline{2-4}
+                          & Hough - número de retas         & Inteiro & 1x1 \\ \hline \hline
+\multirow{3}{*}{Vegetação}& Intensidade - histograma (6/15) & Inteiro & 7x1 \\ \cline{2-4}
+                          & LBP - histograma (1/26)         & Inteiro & 1x1 \\ \cline{2-4}
+                          & Hough - número de retas         & Inteiro & 1x1 \\ \hline \hline
+\multirow{4}{*}{Terra}    & Intensidade - histograma (7/15) & Inteiro & 7x1 \\ \cline{2-4}
+                          & LBP - histograma (1/26)         & Inteiro & 1x1 \\ \cline{2-4}
+                          & Hough - número de retas         & Inteiro & 1x1 \\ \cline{2-4}
+                          & Hough - maior reta              & Inteiro & 1x1 \\ \hline
+\end{tabulary}
+\caption{Atributos selecionados pela técnica de CFS para a abordagem de classificação unária}
+\label{tab:experimentoConjuntoAtributosFiltrados}
+\end{table}
 
 O conjunto de classificadores foi escolhido, em um primeiro momento, de acordo com a precisão de cada modelo treinado para uma classe específica. A tabela \ref{tab:experimentoConjuntoDados} exibe os valores de acurácia, precisão e revocação para cada classe do problema em cada um dos algoritmos de classificação unária testados neste experimento.
 
@@ -501,14 +523,22 @@ O conjunto de classificadores foi escolhido, em um primeiro momento, de acordo c
 \begin{tabulary}{\linewidth}{|L|R|R|R|R|}
 \hline
 \textbf{Classe/Algoritmo} & \textbf{Acurácia} & \textbf{Precisão} & \textbf{Revocação} & \textbf{F1} \\ \hline
-Floresta/OC-SVM   & 0.942 & 0.941 & 0.943 & 0.939 \\ \hline
-Floresta/REPTree  & 0.856 & 0.847 & 0.856 & 0.792 \\ \hline
-Água/OC-SVM       & 0.975 & 0.971 & 0.976 & 0.969 \\ \hline
-Água/REPTree      & 0.538 & 0.954 & 0.538 & 0.675 \\ \hline
-Vegetação/OC-SVM  & 0.929 & 0.920 & 0.930 & 0.919 \\ \hline
-Vegetação/REPTree & 0.538 & 0.837 & 0.539 & 0.633 \\ \hline
-Terra/OC-SVM      & 0.986 & 0.983 & 0.987 & 0.981 \\ \hline
-Terra/REPTree     & 0.305 & 0.980 & 0.305 & 0.452 \\ \hline
+Floresta/OC-SVM         & 0.942 & 0.941 & 0.943 & 0.939 \\ \hline
+Floresta/OC-SVM (CFS)   & 0.942 & 0.941 & 0.943 & 0.939 \\ \hline
+Floresta/REPTree        & 0.856 & 0.847 & 0.856 & 0.792 \\ \hline
+Floresta/REPTree (CFS)  & 0.805 & 0.821 & 0.805 & 0.812 \\ \hline
+Água/OC-SVM             & 0.975 & 0.971 & 0.976 & 0.969 \\ \hline
+Água/OC-SVM (CFS)       & 0.508 & 0.353 & 0.763 & 0.482 \\ \hline
+Água/REPTree            & 0.538 & 0.954 & 0.538 & 0.675 \\ \hline
+Água/REPTree (CFS)      & 0.445 & 0.952 & 0.445 & 0.590 \\ \hline
+Vegetação/OC-SVM        & 0.929 & 0.920 & 0.930 & 0.919 \\ \hline
+Vegetação/OC-SVM (CFS)  & 0.873 & 0.433 & 0.871 & 0.578 \\ \hline
+Vegetação/REPTree       & 0.538 & 0.837 & 0.539 & 0.633 \\ \hline
+Vegetação/REPTree (CFS) & 0.338 & 0.887 & 0.333 & 0.407 \\ \hline
+Terra/OC-SVM            & 0.986 & 0.983 & 0.987 & 0.981 \\ \hline
+Terra/OC-SVM (CFS)      & 0.632 & 0.954 & 0.453 & 0.614 \\ \hline
+Terra/REPTree           & 0.305 & 0.980 & 0.305 & 0.452 \\ \hline
+Terra/REPTree (CFS)     & 0.363 & 0.979 & 0.363 & 0.519 \\ \hline
 \end{tabulary}
 \caption{Acurácia, precisão, revocação e medida F1 para as classes e algoritmos do experimento de conjunto de classificadores unários, sem ordenação específica}
 \label{tab:experimentoConjuntoDados}
@@ -516,26 +546,79 @@ Terra/REPTree     & 0.305 & 0.980 & 0.305 & 0.452 \\ \hline
 
 Os valores de precisão, revocação e medida F1 para a classe de elementos antrópicos, \textit{outlier} em todos os classificadores deste experimento, estão apresentados na tabela \ref{tab:experimentoConjuntoAntropico}, com o melhor resultado para cada critério destacado em coloração cinza.
 
-Como pode ser visto, ao se comparar as tabelas \ref{tab:experimentoConjuntoDados} e \ref{tab:experimentoConjuntoAntropico}, o melhor conjunto de classificadores não é determinado pelos melhores classificadores individuais. Este fenômeno é considerado uma característica de métodos \textit{ensemble} e é amplamente documentado na literatura de aprendizagem de máquina.
+A combinação de todos os métodos de aprendizado testados neste experimento, somados à variante da redução do conjunto de características, totalizam 256 combinações possíveis. Todos os experimentos foram executados e o resultado de todas estas combinações foram colhidos. Por uma questão de clareza e brevidade, apenas os 6 conjuntos de classificadores com melhor desempenho de medida F1 foram apresentados neste texto.
+
+Como pode ser visto, ao se comparar as tabelas \ref{tab:experimentoConjuntoDados} e \ref{tab:experimentoConjuntoAntropico}, o melhor conjunto de classificadores não é determinado pelos melhores classificadores individuais. Isso pode ser constatado ao perceber que vários dos métodos com melhor desempenho individual não aparecem entre os melhores conjuntos de classificadores. Este fenômeno é considerado uma característica de métodos \textit{ensemble} e é amplamente documentado na literatura de aprendizagem de máquina. A ideia central deste fenômeno é de que o conjunto de classificadores termina por fortalecer classificadores mais simples.
 
 \begin{table}[h]
+\ABNTEXfontereduzida
 \centering
 \begin{tabulary}{\linewidth}{|L|L|L|L|R|R|R|}
 \hline
-\textbf{Floresta} & \textbf{Água} & \textbf{Vegetação} & \textbf{Terra} & \textbf{Precisão} & \textbf{Revocação} & \textbf{F1} \\ \hline
-REPTree & OC-SVM  & REPTree & REPTree & \cellcolor{gray!25}0.850 & 0.730 & \cellcolor{gray!25}0.785 \\ \hline
-REPTree & OC-SVM  & OC-SVM  & REPTree & 0.809 & 0.653 & 0.723 \\ \hline
-OC-SVM  & REPTree & OC-SVM  & OC-SVM  & 0.239 & 0.653 & 0.350 \\ \hline
-OC-SVM  & OC-SVM  & REPTree & OC-SVM  & 0.156 & 0.769 & 0.259 \\ \hline
-OC-SVM  & REPTree & REPTree & OC-SVM  & 0.153 & 0.653 & 0.248 \\ \hline
-OC-SVM  & OC-SVM  & OC-SVM  & REPTree & 0.096 & \cellcolor{gray!25}0.923 & 0.175 \\ \hline
-
+\textbf{Floresta} & \textbf{Água} & \textbf{Vegetação} & \textbf{Terra} & \textbf{Precis.} & \textbf{Revoc.} & \textbf{F1} \\ \hline
+OC-SVM  & OC-SVM (CFS)  & REPTree & OCSVM   & \cellcolor{gray!25}0.947 & 0.692 & \cellcolor{gray!25}0.800 \\ \hline
+REPTree & OC-SVM        & REPTree       & REPTree       & 0.850 & 0.730 & 0.785 \\ \hline
+REPTree & OC-SVM        & OC-SVM        & REPTree (CFS) & 0.809 & 0.653 & 0.723 \\ \hline
+OC-SVM  & REPTree (CFS) & OC-SVM        & OC-SVM        & 0.239 & 0.653 & 0.350 \\ \hline
+OC-SVM  & OC-SVM        & REPTree       & OC-SVM        & 0.156 & \cellcolor{gray!25}0.769 & 0.259 \\ \hline
+OC-SVM  & REPTree       & REPTree (CFS) & OC-SVM        & 0.153 & 0.653 & 0.248 \\ \hline
 \end{tabulary}
-\caption{Comparação de conjuntos de classificadores unários em relação à classe de elementos antrópicos, ordenados pela medida F1}
+\caption{Comparação dos 6 melhores conjuntos de classificadores unários em relação à classe de elementos antrópicos, ordenados pela medida F1}
 \label{tab:experimentoConjuntoAntropico}
 \end{table}
 
-\todo[inline]{Discutir os resultados método a método}
-\todo[inline]{fazer link com próximo capítulo}
+O conjunto de pesos utilizados para os experimentos foi de $0,5$ para o classificador da classe de floresta, $0,3$ para a classe água, $0,1$ para vegetação rasteira e $0,1$ para a classe de terra. Os pesos foram multiplicados ao valor de confiança de classificação de cada algoritmo e o maior valor determinou a classe da amostra. Para que uma amostra pudesse ser considerada uma anomalia, o resultado de todas as classificações precisavam ser $0$.
 
-Uma vez que todos os experimentos foram concluídos e os seus dados colhidos, a próxima seção se ocupa em tecer conclusões sobre os resultados encontrados, bem como sugerir possíveis caminhos para futuras pesquisas sobre o tema.
+Embora o conjunto de classificadores com melhor desempenho tenha tido o melhor resultado para classificação de amostras de água se utilizando de um subconjunto dos atributos, selecionados através da técnica CFS, pode-se dizer que o método foi pouco eficaz, visto que os 6 melhores resultados possuem pouca presença de algoritmos que utilizam o subconjunto.
+
+Uma vez que todos os experimentos foram concluídos e os seus dados colhidos, a próxima seção se ocupa em discutir os resultados.
+
+\section{Discussão}
+
+Dentre as técnicas de segmentação analisadas, o método SRM, que realiza o agrupamento de pixels em uma região de acordo com a similaridade da intensidade e cor dos pixels de regiões vizinhas, obteve erros de consistência global e local inferiores aos demais. É importante notar também que o algoritmo MSEG, que se utiliza de informações de cor e textura, obteve desempenho aproximado ao do SRM, mas com o tempo de execução cerca de quatorze vezes menor. Isto torna o algoritmo MSEG um forte candidato a substituir a técnica SRM em uma aplicação prática, em que o tempo de processamento da segmentação seja um fator de impacto e um pouco da precisão possa ser descartado.
+
+Para a classificação dos segmentos e, por consequência, a detecção de elementos anômalos nas imagens, quatro abordagens de modelagem do problema de aprendizagem de máquina foram avaliadas.
+
+A primeira delas utiliza classificadores multi-classe em uma base com rótulos de cinco classes (floresta, vegetação rasteira, água, terra e elementos antrópicos). Neste experimento o algoritmo \textit{K-Nearest Neighbor} (KNN) com $k=3$ obteve os melhores resultados de todo o trabalho. Apesar dos bons resultados, técnicas de aprendizado preguiçoso (\textit{lazy learning}) como o KNN não criam um modelo de aprendizado sucinto, necessitando de boa parte das amostras de treinamento para realizar a classificação de novas amostras, o que pode ser problemático em um ambiente real, com limitações de tempo de processamento e memória disponível.
+
+Adicionalmente, um problema da abordagem com classificadores multi-classe é a pouca generalização do aprendizado sobre elementos antrópicos, visto que se trata de uma classe pouco previsível. Como os elementos antrópicos fazem parte do modelo de treinamento, novas amostras de objetos antrópicos cujas características se distanciem das amostras de elementos antrópicos da base de treinamento tendem a reduzir a precisão do modelo.
+
+A segunda abordagem analisada, que utiliza classificadores binários, obteve desempenho acima do esperado. A expectativa era de que os modelos gerados por esta abordagem tivessem um baixo desempenho na classificação da classe de elementos antrópicos, uma vez que esta correspondia a apenas 0.3\% da base de dados. Esperava-se também que, por conta da re-classificação das amostras de segmentos que reagrupou as classes de floresta, vegetação rasteira, água e terra em uma única classe, o modelo gerado fosse pouco descritivo, hipótese que não foi comprovada.
+
+Neste experimento, o algoritmo KNN também obteve o melhor desempenho para a classe de elementos antrópicos, desta vez se beneficiando da seleção de características feita através da técnica CFS, que utiliza a correlação entre os atributos do problema para reduzir a dimensão do vetor de características. Os resultados indicam que a seleção de atributos contribuiu significativamente para a simplificação do modelo gerado, tornando-o mais generalista e mais apto a descrever a classe de elementos naturais, resultado inverso ao experimento com classificadores multi-classe.
+
+Na terceira abordagem, pudemos avaliar o desempenho de alguns algoritmos de classificação unária, também conhecidos como detectores de anomalias (\textit{outliers}). Assim como na abordagem de classificação binária, aqui foi preciso agrupar as amostras das classes majoritárias em uma única classe de elementos naturais, agravando o desbalanceamento das classes na base de treinamento.
+
+Os resultados foram bastante similares à abordagem binária, com visível melhora dos resultados quando se usa a seleção de atributos através do método CFS. No entanto, ao contrário da abordagem binária, classificadores unários tendem a responder melhor quando amostras não-usuais da classe de \textit{outliers} aparecem.
+
+A última abordagem analisada neste trabalho se utiliza de um conjunto de classificadores unários. Uma vez que cada classificador é responsável por aprender e criar um modelo para reconhecer uma classe do problema, esta estratégia permitiu que modelos mais especializados fossem criados e que diferentes maneiras de chegar a um consenso sobre a classificação das amostras fossem testados.
+
+Com bons resultados desde o início dos experimentos, o conjunto de classificadores unários se mostra uma abordagem com boa conciliação entre a capacidade de classificar corretamente as amostras de interesse e a capacidade de generalização e detecção de elementos antrópicos ausentes da base de treinamento.
+
+Como métrica para avaliação das abordagens de aprendizado ficou definido que a medida $F1$, que leva em consideração um balanço entre precisão e revocação, seria utilizada para julgar o desempenho dos algoritmos. Por conta da importância da classe, bem como forma de compensar o desequilíbrio na distribuição das classes do problema na base de dados de treinamento, a medida $F1$ da classe de elementos antrópicos foi o critério principal na avaliação dos métodos.
+
+Utilizando este critério para ranquear as abordagens de aprendizado de acordo com seus respectivos melhores resultados, podemos afirmar que o melhor desempenho foi obtido pelos métodos KNN como classificador de um problema multi-classe e por uma combinação de métodos unários, conforme exibido na tabela \ref{tab:resultadosFinais}.
+
+\begin{table}[h]
+\centering
+\begin{tabulary}{\linewidth}{|L|R|R|R|}
+\hline
+\textbf{Abordagem}  & \textbf{Precisão} & \textbf{Revocação} & \textbf{F1} \\ \hline
+Classificadores multi-classe (KNN)   & 0.889 & 0.727 & 0.800 \\ \hline
+Conjunto de classificadores unários  & 0.947 & 0.692 & 0.800 \\ \hline
+Classificadores binários (KNN)       & 1.000 & 0.615 & 0.762 \\ \hline
+Classificadores unários (OC-SVM)     & 0.842 & 0.615 & 0.711 \\ \hline
+\end{tabulary}
+\caption{Comparação do desempenho das abordagens de aprendizagem de máquina para a classe de elementos antrópicos, ordenados pela medida F1}
+\label{tab:resultadosFinais}
+\end{table}
+
+Considerando que existem inúmeros exemplos de elementos antrópicos possíveis em imagens da categoria utilizada neste trabalho e que a base de treinamento possui quantidade e variedade limitadas destes mesmos elementos, é razoável supor que uma abordagem que produza um modelo capaz de reconhecer elementos naturais e não pressupõe características específicas para elementos antrópicos, possa ter melhor desempenho em aplicações reais.
+
+Considerando esse cenário, é válido afirmar que o conjunto de classificadores unários é a abordagem mais promissora dentre as avaliadas para resolver o problema da detecção de elementos antrópicos em imagens aéreas da floresta amazônica. Mesmo que o algoritmo KNN em uma abordagem multi-classe tenha se saído igualmente bem nos experimentos deste trabalho, é esperado que este modelo de aprendizado obtenha pior desempenho em conjuntos de imagens com novos tipos de elementos antrópicos.
+
+Com uma precisão superior a 85\% e baixa taxa de falsos positivos para a classe de elementos antrópicos, é possível considerar que a abordagem que utiliza conjunto de classificadores unários atinge o objetivo geral deste trabalho: realizar a identificação automática de elementos antrópicos com elevadas taxas de acerto.
+
+Todos os conjuntos de dados, implementações dos algoritmos, ferramentas de apoio e avaliação dos resultados deste trabalho estão publicamente disponíveis\footnote{https://github.com/luizcavalcanti/ForestClassifier} e podem ser verificados, reutilizados e reproduzidos por trabalhos futuros na mesma temática ou em áreas relacionadas.
+
+Após esta discussão de resultados, o próximo capítulo se encarrega de tecer conclusões sobre o trabalho como um todo, revisar seus objetivos e sugerir pesquisas futuras sobre o tema.
