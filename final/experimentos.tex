@@ -66,7 +66,7 @@ O conteúdo integral das instruções pode ser encontrado no apêndice \ref{apen
 
 Antes de analisar o desempenho de cada algoritmo de segmentação investigado neste trabalho em relação à segmentação manual, foi preciso aferir a validade da própria segmentação manual, visto que ela foi realizada por diferentes participantes com diferentes interpretações das instruções fornecidas. Segundo \citeonline{martin:2001}, uma forma de validar a consistência das segmentações manuais é medir a consistência entre segmentações de uma mesma imagem feita por diferentes pessoas.
 
-Utilizando as métricas de erro de consistência local (LCE) e global (GCE) para medir a similaridade das segmentações manuais, os resultados confirmam a consisência da segmentação manual feira pelos participantes do experimento. Conforme pode ser visto nas figuras \ref{fig:manual_gce} e \ref{fig:manual_lce}, os coeficientes de erro global e local, respectivamente, ficam abaixo dos 20\% e 10\% para todos os casos.
+Utilizando as métricas de erro de consistência local (LCE) e global (GCE) para medir a similaridade das segmentações manuais, os resultados confirmam a consisência da segmentação manual feita pelos participantes do experimento. Conforme pode ser visto nas figuras \ref{fig:manual_gce} e \ref{fig:manual_lce}, os coeficientes de erro global e local, respectivamente, ficam abaixo dos 20\% e 10\% para todos os casos.
 
 \begin{figure}[h]
   \centering
@@ -160,9 +160,9 @@ O método SRM conseguiu uma média de erros global e local substancialmente meno
 
 Adicionalmente, experimentos foram realizados com técnicas de classificação. O objetivo era saber se poderíamos utilizar apenas uma etapa para realizar segmentação e a classificação dos segmentos. Para que o experimento fosse possível, um conjunto de 13 imagens foi rotulado previamente, pixel a pixel, sendo submetido posteriormente à treinamento e teste de diversos métodos de aprendizado de máquina supervisionado.
 
-Todos os algoritmos obtiveram precisão inferior ao que foi conseguido na etapa de segmentação isoladamente. Além disso, a quantidade de ruído na classificação - pixels de uma classe $c_1$ espalhados por grandes regiões de uma classe $c_2$ - foi muito alta. Outro desvantagem encontrada nesta abordagem é o alto tempo de processamento para cada imagem. Os resultados foram publicados no \textit{$10^{th}$ International Conference on Computer Vision Theory and Applications} e o artigo de \citeonline{cavalcanti:2015} completo pode ser visto no apêndice \ref{cap:visapp2015}.
+Todos os algoritmos obtiveram precisão inferior ao que foi conseguido na etapa de segmentação isoladamente. Além disso, a quantidade de ruído na classificação - pixels de uma classe $c_1$ espalhados por grandes regiões de uma classe $c_2$ - foi muito alta. Outra desvantagem encontrada nesta abordagem é o alto tempo de processamento para cada imagem. Os resultados foram publicados no \textit{$10^{th}$ International Conference on Computer Vision Theory and Applications} e o artigo de \citeonline{cavalcanti:2015} completo pode ser visto no apêndice \ref{cap:visapp2015}.
 
-Para fins de informação, os resultados deste experimento de segmentação com técnicas de segmentação são apresentados na tabela \ref{tab:experimentoArtigo}, com o melhor resultado para cada critério destacado em coloração cinza. O tempo de execução da classificação para cada imagem no artigo publicado ignora o tempo de extração de características da imagem. Para uma comparação correta deste aspecto dos resultados com os métodos de segmentação apresentados anteriormente, o tempo gasto em extração de características foi acrescido na tabela desta seção. Como a classificação pixel a pixel da imagem não necessariamente resulta em regiões conexas de pixels pertencentes à mesma classe, não é adequado fazer a comparação dos resultados utilizando as métricas de LCE e GCE.
+Para fins de informação, os resultados deste experimento com técnicas de segmentação são apresentados na tabela \ref{tab:experimentoArtigo}, com o melhor resultado para cada critério destacado em coloração cinza. O tempo de execução da classificação para cada imagem no artigo publicado ignora o tempo de extração de características da imagem. Para uma comparação correta deste aspecto dos resultados com os métodos de segmentação apresentados anteriormente, o tempo gasto em extração de características foi acrescido na tabela desta seção. Como a classificação pixel a pixel da imagem não necessariamente resulta em regiões conexas de pixels pertencentes à mesma classe, não é adequado fazer a comparação dos resultados utilizando as métricas de LCE e GCE.
 
 \begin{table}[h]
 \centering
@@ -246,9 +246,7 @@ Hough - maior reta        & Inteiro &  1x1 \\ \hline
 \label{tab:experimentoClassificacaoAtributos}
 \end{table}
 
-Para reduzir a dimensionalidade do vetor de características, a seleção de subconjunto de atributos baseada em correlação (\textit{Correlation-based Feature Subset Selection}, ou CFS), introduzida por \citeonline{hall:1998}, foi utilizada.
-
-O vetor de características resultante varia de acordo com a abordagem de aprendizado utilizada, visto que o agrupamento de classes altera a distribuição da base de dados, e por consequência, modifica a correlação entre atributos e a classe da amostra.
+Para reduzir a dimensionalidade do vetor de características, a seleção de subconjunto de atributos baseada em correlação (\textit{Correlation-based Feature Subset Selection}, ou CFS), introduzida por \citeonline{hall:1998}, foi utilizada. O vetor de características resultante varia de acordo com a abordagem de aprendizado utilizada, visto que o agrupamento de classes altera a distribuição da base de dados, e por consequência, modifica a correlação entre atributos e a classe da amostra.
 
 Esta redução da dimensionalidade do vetor de atributos pode ser importante para aumentar a generalização e simplificar os modelos gerados no experimento, bem como diminuir problemas de dimensionalidade enfrentados por alguns dos algoritmos testados. Para efeitos de comparação, todos os algoritmos foram testados com os atributos originais e com o subconjunto de atributos selecionados pela técnica CFS.
 
@@ -256,7 +254,7 @@ Finalmente, todos os algoritmos processaram os conjuntos de treinamento para cri
 
 Para todos os algoritmos testados, o método de validação cruzada foi utilizado para avaliar a variância na taxa de aprendizado e inferir a generalização dos modelos criados. Mais especificamente, o método k-fold foi utilizado, com um valor de $k=10$.
 
-Cada algoritmo testado foi refinado e parametrizado para que consiga produzir uma maior acurácia para todas as classes e que para otimizar a revocação da classe de elementos antrópicos. As seções a seguir detalham o protocolo e os resultados da experimentação para cada abordagem de classificação supervisionada testada no trabalho.
+Cada algoritmo testado foi refinado e parametrizado para que consiga produzir uma maior acurácia para todas as classes e para otimizar a revocação da classe de elementos antrópicos. As seções a seguir detalham o protocolo e os resultados da experimentação para cada abordagem de classificação supervisionada testada no trabalho.
 
 \subsection{Classificadores multi-classe}
 
@@ -264,7 +262,7 @@ Utilizando as técnicas de K vizinhos mais próximos (KNN), máquinas de vetores
 
 Cada algoritmo teve seus parâmetros ajustados de forma a maximizar os índices de precisão e revocação gerais, refletidos pela média da medida F1 de todas as classes do problema. Para o algoritmo KNN, um valor de $k=3$ e a utilização de distância euclidiana obtiveram os melhores resultados. Na árvore de decisão, um fator de confiança para poda de 0,3 foi utilizado. Para o \textit{ensemble} de classificadores \textit{Random Forest}, um número máximo de 200 árvores, com agrupamentos de 10 características obtiveram os melhores resultados. Para o SVM, um kernel de base radial com $\gamma = 0.1$ obteve a melhor medida F1 geral. Naive Bayes, por sua vez, não precisa ser parametrizado.
 
-Todas as amostras disponíveis foram classificadas com os classificadores propostos no experimento. Todos os classificadores foram treinados e avaliados com o conjunto integral de atributos, e também com o conjunto reduzido, utilizando a técnica de seleção de atributos CFS. O conjunto de atributos selecionados para as classes deste experimentos é apresentado na tabela \ref{tab:experimentoMulticlasseAtributosFiltrados}. A acurácia, precisão e revocação são apresentadas na tabela \ref{tab:experimentoClassificacao1}, com o melhor resultado para cada critério destacado em coloração cinza.
+Todas as amostras disponíveis foram classificadas. Todos os classificadores foram treinados e avaliados com o conjunto integral de atributos, e também com o conjunto reduzido, utilizando a técnica de seleção de atributos CFS. O conjunto de atributos selecionados para as classes deste experimentos é apresentado na tabela \ref{tab:experimentoMulticlasseAtributosFiltrados}. A acurácia, precisão e revocação são apresentadas na tabela \ref{tab:experimentoClassificacao1}, com o melhor resultado para cada critério destacado em coloração cinza.
 
 \begin{table}[h]
 \centering
@@ -300,7 +298,7 @@ Hough - maior reta              & Inteiro & 1x1 \\ \hline
 \label{tab:experimentoClassificacao1}
 \end{table}
 
-Tanto por questões de balanceamento das classes como por questões contextuais do problema, falsos positivos para a classe de elementos antrópicos são toleráveis, enquanto falsos negativos devem ser minimizados, mesmo que em detrimento da precisão e revocação de outras classes do problema. A razão contextual para esta afirmação é de que é importante que o maior número de elementos antrópicos seja detectado, mesmo que isso signifique um aumento do número de alarmes falsos para os agentes de segurança responsáveis pela patrulhamento das regiões de floresta. Esta é uma linha de raciocínio intuitiva, não houve consulta a agentes de segurança sobre a questão.
+Tanto por questões de balanceamento das classes como por questões contextuais do problema, falsos positivos para a classe de elementos antrópicos são toleráveis, enquanto falsos negativos devem ser minimizados, mesmo que em detrimento da precisão e revocação de outras classes do problema. A razão contextual para esta afirmação é a seguinte: é importante que o maior número de elementos antrópicos seja detectado, mesmo que isso signifique um aumento do número de alarmes falsos para os agentes de segurança responsáveis pela patrulhamento das regiões de floresta. Esta é uma linha de raciocínio intuitiva, não houve consulta a agentes de segurança sobre a questão.
 
 A avaliação dos resultados de revocação, bem como a análise da curva ROC da classe de elementos antrópicos para cada algoritmo testado podem ser vistas na tabela \ref{tab:experimentoClassificacaoRevocacao}, com o melhor resultado para cada critério destacado em coloração cinza.
 
@@ -328,11 +326,11 @@ Embora tenha tido os melhores resultados em todos os quesitos em uma análise ge
 
 Tanto no aprendizado geral quanto especificamente no aprendizado da classe de elementos antrópicos, o algoritmo KNN obteve bom desempenho, apresentando melhor balanço entre precisão e revocação para a classe de maior interesse no problema. É seguro afirmar, também, que a seleção de atributos utilizando o método CFS não teve impacto positivo na generalização e precisão do aprendizado deste experimento, uma vez que praticamente todos os métodos obtiveram melhor desempenho com o conjunto completo de atributos.
 
-Embora os resultados da classificação multi-classe tenham sido satisfatórias, é importante averiguar outras estratégias de aprendizado. Com o foco na classe de elementos antrópicos, é preciso averiguar se a modelagem do problema para duas classes, onde uma apenas é a classe de interesse, pode melhorar significativamente os resultados. É especialmente importante entender se as demais classes de menos interesse podem ser agrupadas em uma única classe, mantendo a generalização do aprendizado.
+Embora os resultados da classificação multi-classe tenham apresentado elevadas taxas de precisão e revocação, é importante investigar outras estratégias de aprendizado. Com o foco na classe de elementos antrópicos, é preciso averiguar se a modelagem do problema para duas classes, onde uma apenas é a classe de interesse, pode melhorar significativamente os resultados. É especialmente importante entender se as demais classes de menos interesse podem ser agrupadas em uma única classe, mantendo a generalização do aprendizado.
 
 \subsection{Classificadores binários}
 
-O experimento com classificação binária utilizou-se dos mesmos algoritmos testados no experimento de classificação multi-classe. Assim como nesse experimento, os métodos de aprendizado utilizados nesta abordagem foram treinados e avaliados com o conjunto completo de atributos, bem como com o vetor de atributos com sua dimensionalidade reduzida pela técnica de seleção CFS. O conjunto reduzido de atributos para a abordagem binária pode ser visto na tabela \ref{tab:experimentoBiclasseAtributosFiltrados}.
+O experimento com classificação binária utilizou-se dos mesmos algoritmos testados no experimento de classificação multi-classe. Assim como nos experimentos anteriores, os métodos de aprendizado utilizados nesta abordagem foram treinados e avaliados com o conjunto completo de atributos, bem como com o vetor de atributos com sua dimensionalidade reduzida pela técnica de seleção CFS. O conjunto reduzido de atributos para a abordagem binária pode ser visto na tabela \ref{tab:experimentoBiclasseAtributosFiltrados}.
 
 \begin{table}[h]
 \centering
@@ -410,9 +408,9 @@ SVM                     & 0.030 & 0.591 & 0.057 & 0.806 \\ \hline
 
 Neste experimento, a seleção de atributos através do método CFS obteve bons resultados, reduzindo a dimensionalidade e melhorando a revocação e precisão em quase todos os casos, com exceção do algoritmo \textit{Random Forest}. Os melhores métodos deste experimento não obtiveram desempenho significativamente inferior ao experimento de classificadores multi-classe.
 
-Considearndo os resultados para a classe de elementos antrópicos, o método KNN com seleção de atributos por CFS obteve os melhores resultados gerais graças a uma precisão de 100\%, embora a revocação tenha relativamente baixa. O algoritmo Naive Bayes obteve a melhor revocação entre as classes, mas obteve muitos falsos positivos, fazendo com que a precisão fosse abaixo de 10\%, tanto com a seleção de atributos quando com o vetor de características inteiro.
+Considerando os resultados para a classe de elementos antrópicos, o método KNN com seleção de atributos por CFS obteve os melhores resultados gerais graças a uma precisão de 100\%, embora a revocação tenha sido relativamente baixa. O algoritmo Naive Bayes obteve a melhor revocação entre as classes, mas obteve muitos falsos positivos, fazendo com que a precisão fosse abaixo de 10\%, tanto com a seleção de atributos quanto com o vetor de características inteiro.
 
-Com exceção do algoritmo Naive Bayes e do SVM sem seleção de atributos, todo os métodos obtiveram medida F1 acima de 60\% para a classe de elementos antrópicos. Isto pode ser considerado um bom resultado, visto que o esperado era que a capacidade de generalização da classe majoritária fosse prejudicada pela diversidade das amostras, que verdadeiramente não pertencem à mesma classe.
+Com exceção do algoritmo Naive Bayes e do SVM sem seleção de atributos, todos os métodos obtiveram medida F1 acima de 60\% para a classe de elementos antrópicos. Isto pode ser considerado um bom resultado, visto que o esperado era que a capacidade de generalização da classe majoritária fosse prejudicada pela diversidade das amostras, que verdadeiramente não pertencem à mesma classe.
 
 Ainda assim, o uso de métodos de aprendizado que não foram concebidos para lidar com uma base de dados com distribuição de classes tão desigual não é o cenário ideal. Por este motivo, experimentos utilizando algoritmos que levem em consideração a detecção de classes extremamente minoritárias devem ser realizados.
 
@@ -450,7 +448,7 @@ Os dois algoritmos testados neste experimento foram a variação uniclasse do SV
 
 O algoritmo OC-SVM obteve melhores resultados utilizando um kernel de base radial com $\gamma = 0.18$, enquanto o algoritmo REPTree obteve as melhores taxas de medida F1 utilizando um mínimo de 2 instâncias por folha e redução de erro de poda com 3 passadas.
 
-A tabela \ref{tab:experimentoUniclasse} mostra uma evidente diferença na taxa de aprendizado entre os métodos OC-SVM e REPTree, onde o último obteve resultados gerais visivelmente inferiores. O bom desempenho do OC-SVM se mantém quando analisadas a precisão e a revocação para a classe de elementos antrópicos, na tabela \ref{tab:experimentoUniclasseAntropico}. Ambas as tabelas apresentam o melhor resultado para cada critério destacado em coloração cinza.
+A tabela \ref{tab:experimentoUniclasse} mostra uma evidente diferença na taxa de aprendizado entre os métodos OC-SVM e REPTree, onde o último obteve resultados gerais visivelmente inferiores. O bom desempenho do OC-SVM se mantém quando analisadas precisão e revocação para a classe de elementos antrópicos, na tabela \ref{tab:experimentoUniclasseAntropico}. Ambas as tabelas apresentam o melhor resultado para cada critério destacado em coloração cinza.
 
 \begin{table}[h]
 \centering
@@ -484,7 +482,7 @@ Assim como no experimento de classificação binária, a seleção de atributos 
 
 \subsection{Conjunto de classificadores unários}
 
-Para este experimento, a base de dados rotulada originalmente foi dividida e as amostras foram separadas de acordo com sua classe. Dois algoritmos classificadores unários foram treinados exclusivamente com exemplos de cada uma das quatro classes majoritárias, excluindo as amostras das demais classes, totalizando oito modelos de classificação unárias a serem combinados entre si e avaliados neste experimento.
+Para este experimento, a base de dados rotulada originalmente foi dividida e as amostras foram separadas de acordo com sua classe. Dois algoritmos classificadores unários foram treinados exclusivamente com exemplos de cada uma das quatro classes majoritárias, excluindo as amostras das demais classes, totalizando oito modelos de classificação unária a serem combinados entre si e avaliados neste experimento.
 
 Como forma de utilizar um conjunto de classificadores unários para resolver um problema de classificação multi-classe, um método de votação com pesos foi utilizado. O peso de cada classificador foi estimado através de um método força-bruta. Os pesos variam de $0$ a $1$, com intervalos de $0,1$, com todos os pesos somando um total de $1$. À medida que os pesos foram alterados, as taxas de aprendizado foram comparadas. Ao final deste processo, um vetor de pesos foi determinado de forma a otimizar as taxas de aprendizado e a medida F1 da classe de elementos antrópicos.
 
@@ -500,9 +498,6 @@ Assim como nas abordagens de classificação supervisionada anteriores, este exp
                           & Hough - maior reta              & Inteiro & 1x1 \\ \hline \hline
 \multirow{3}{*}{Água}     & Intensidade - histograma (7/15) & Inteiro & 7x1 \\ \cline{2-4}
                           & LBP - histograma (2/26)         & Inteiro & 2x1 \\ \cline{2-4}
-                          & Hough - número de retas         & Inteiro & 1x1 \\ \hline \hline
-\multirow{3}{*}{Vegetação}& Intensidade - histograma (6/15) & Inteiro & 7x1 \\ \cline{2-4}
-                          & LBP - histograma (1/26)         & Inteiro & 1x1 \\ \cline{2-4}
                           & Hough - número de retas         & Inteiro & 1x1 \\ \hline \hline
 \multirow{3}{*}{Vegetação}& Intensidade - histograma (6/15) & Inteiro & 7x1 \\ \cline{2-4}
                           & LBP - histograma (1/26)         & Inteiro & 1x1 \\ \cline{2-4}
@@ -567,9 +562,9 @@ OC-SVM  & REPTree       & REPTree (CFS) & OC-SVM        & 0.153 & 0.653 & 0.248 
 \label{tab:experimentoConjuntoAntropico}
 \end{table}
 
-O conjunto de pesos utilizados para os experimentos foi de $0,5$ para o classificador da classe de floresta, $0,3$ para a classe água, $0,1$ para vegetação rasteira e $0,1$ para a classe de terra. Os pesos foram multiplicados ao valor de confiança de classificação de cada algoritmo e o maior valor determinou a classe da amostra. Para que uma amostra pudesse ser considerada uma anomalia, o resultado de todas as classificações precisavam ser $0$.
+O conjunto de pesos utilizados para os experimentos foi de $0,5$ para o classificador da classe de floresta, $0,3$ para a classe água, $0,1$ para vegetação rasteira e $0,1$ para a classe de terra. Os pesos foram multiplicados ao valor de confiança de classificação de cada algoritmo e o maior valor determinou a classe da amostra. Para que uma amostra pudesse ser considerada uma anomalia, o resultado de todas as classificações precisava ser $0$.
 
-Embora o conjunto de classificadores com melhor desempenho tenha tido o melhor resultado para classificação de amostras de água se utilizando de um subconjunto dos atributos, selecionados através da técnica CFS, pode-se dizer que o método foi pouco eficaz, visto que os 6 melhores resultados possuem pouca presença de algoritmos que utilizam o subconjunto.
+Embora o conjunto de classificadores com melhor desempenho tenha apresentado o melhor resultado para classificação de amostras de água ao utilizar um subconjunto dos atributos, selecionados através da técnica CFS, pode-se dizer que esta seleção foi pouco eficaz, visto que os 6 melhores resultados possuem pouca presença de algoritmos que utilizam um subconjunto das características.
 
 Uma vez que todos os experimentos foram concluídos e os seus dados colhidos, a próxima seção se ocupa em discutir os resultados.
 
@@ -585,17 +580,17 @@ Adicionalmente, um problema da abordagem com classificadores multi-classe é a p
 
 A segunda abordagem analisada, que utiliza classificadores binários, obteve desempenho acima do esperado. A expectativa era de que os modelos gerados por esta abordagem tivessem um baixo desempenho na classificação da classe de elementos antrópicos, uma vez que esta correspondia a apenas 0.3\% da base de dados. Esperava-se também que, por conta da re-classificação das amostras de segmentos que reagrupou as classes de floresta, vegetação rasteira, água e terra em uma única classe, o modelo gerado fosse pouco descritivo, hipótese que não foi comprovada.
 
-Neste experimento, o algoritmo KNN também obteve o melhor desempenho para a classe de elementos antrópicos, desta vez se beneficiando da seleção de características feita através da técnica CFS, que utiliza a correlação entre os atributos do problema para reduzir a dimensão do vetor de características. Os resultados indicam que a seleção de atributos contribuiu significativamente para a simplificação do modelo gerado, tornando-o mais generalista e mais apto a descrever a classe de elementos naturais, resultado inverso ao experimento com classificadores multi-classe.
+Neste experimento, o algoritmo KNN também obteve o melhor desempenho para a classe de elementos antrópicos, desta vez se beneficiando da seleção de características feita através da técnica CFS, que utiliza a correlação entre os atributos do problema para reduzir a dimensão do vetor de características. Os resultados indicam que a seleção de atributos contribuiu significativamente para a simplificação do problema, tornando o classificador mais generalista e mais apto a descrever a classe de elementos naturais, resultado inverso ao experimento com classificadores multi-classe.
 
 Na terceira abordagem, pudemos avaliar o desempenho de alguns algoritmos de classificação unária, também conhecidos como detectores de anomalias (\textit{outliers}). Assim como na abordagem de classificação binária, aqui foi preciso agrupar as amostras das classes majoritárias em uma única classe de elementos naturais, agravando o desbalanceamento das classes na base de treinamento.
 
 Os resultados foram bastante similares à abordagem binária, com visível melhora dos resultados quando se usa a seleção de atributos através do método CFS. No entanto, ao contrário da abordagem binária, classificadores unários tendem a responder melhor quando amostras não-usuais da classe de \textit{outliers} aparecem.
 
-A última abordagem analisada neste trabalho se utiliza de um conjunto de classificadores unários. Uma vez que cada classificador é responsável por aprender e criar um modelo para reconhecer uma classe do problema, esta estratégia permitiu que modelos mais especializados fossem criados e que diferentes maneiras de chegar a um consenso sobre a classificação das amostras fossem testados.
+A última abordagem analisada neste trabalho se utiliza de um conjunto de classificadores unários. Uma vez que cada classificador é responsável por aprender e criar um modelo para reconhecer uma classe do problema, esta estratégia permitiu que modelos mais especializados fossem criados e que diferentes maneiras de chegar a um consenso sobre a classificação das amostras fossem testadas.
 
 Com bons resultados desde o início dos experimentos, o conjunto de classificadores unários se mostra uma abordagem com boa conciliação entre a capacidade de classificar corretamente as amostras de interesse e a capacidade de generalização e detecção de elementos antrópicos ausentes da base de treinamento.
 
-Como métrica para avaliação das abordagens de aprendizado ficou definido que a medida $F1$, que leva em consideração um balanço entre precisão e revocação, seria utilizada para julgar o desempenho dos algoritmos. Por conta da importância da classe, bem como forma de compensar o desequilíbrio na distribuição das classes do problema na base de dados de treinamento, a medida $F1$ da classe de elementos antrópicos foi o critério principal na avaliação dos métodos.
+Como métrica para avaliação das abordagens de aprendizado ficou definido que a medida $F1$, que leva em consideração um compromisso entre precisão e revocação, seria utilizada para julgar o desempenho dos algoritmos. Por conta da importância da classe, bem como forma de compensar o desequilíbrio na distribuição das classes do problema na base de dados de treinamento, a medida $F1$ da classe de elementos antrópicos foi o critério principal na avaliação dos métodos.
 
 Utilizando este critério para ranquear as abordagens de aprendizado de acordo com seus respectivos melhores resultados, podemos afirmar que o melhor desempenho foi obtido pelos métodos KNN como classificador de um problema multi-classe e por uma combinação de métodos unários, conforme exibido na tabela \ref{tab:resultadosFinais}.
 
