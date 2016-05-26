@@ -10,7 +10,7 @@ Uma imagem digital é composta por um número finito de elementos, cada um com u
 
 Ainda de acordo com \citeonline{gonzalez:2002}, o interesse em processamento digital de imagens advém de duas principais áreas de aplicação: melhoramento de informações pictóricas para interpretação humana; e processamento de imagens para armazenamento e transmissão de dados, e representação para percepção de máquinas autônomas.
 
-Para praticamente qualquer aplicação de processamento de imagens, características destas mesmas imagens precisam ser extraídas. Segundo \citeonline{yadav:2009}, as características de imagens digitais podem ser classificadas em baixo e alto nível. As características de baixo nível são extraídas diretamente das imagens, geralmente descrevendo atributos locais ou de pequenos agrupamentos de pixels. As características de alto nível são extraídas a partir de características de baixo nível, e compreendem informações sobre regiões maiores da imagem, ou mesmo da imagem completa.
+Para praticamente qualquer aplicação de processamento de imagens, características destas mesmas imagens precisam ser extraídas. Segundo \citeonline{yadav:2009}, as características de imagens digitais podem ser classificadas em baixo e alto nível. As características de baixo nível são extraídas diretamente das imagens, geralmente descrevendo atributos locais ou de pequenos agrupamentos de pixels. As características de alto nível são extraídas a partir de características de baixo nível, e compreendem informações sobre regiões maiores da imagem, ou mesmo da imagem completa. Na próxima seção, são descritas as características utilizadas neste trabalho.
 
 \subsection{Características de baixo nível}
 
@@ -22,25 +22,29 @@ O uso de cores em processamento de imagem é motivado por dois principais fatore
 
 Os espaços de cores, também conhecidos como modelos de cores ou sistemas de cores, são maneiras padronizadas de representar a cor de pixels em uma imagem digital. A definição do modelo de cores persegue, geralmente, dois propósitos: o hardware ou meio pelo qual a cor será reproduzida (RGB para representação em telas, CMYK para impressão, por exemplo), ou a manipulação de certos elementos da cor, como tom, saturação, etc.
 
-O espaço de cores RGB (\textit{Reg, Green, Blue}) é baseado numa representação de coordenadas cartesianas de três canais de cores: vermelho (R), verde (G) e azul (B). Os 3 canais possuem a mesma amplitude, portanto, em uma imagem RGB de 24 bits, cada canal é representado por 8 bits, que pode ter seu valor de 0 a 255. Por conta destas características, o espaço de cores RGB é geralmente representado por um cubo (Figura \ref{fig:rgb_cubo}), onde as arestas alinhadas aos eixos X, Y e Z são respectivamente os valores primários de vermelho $(255,0,0)$, verde $(0,255,0)$ e azul $(0,0,255)$. Neste espaço de cores, os tons de cinza partem do ponto preto $(0,0,0)$ e acompanham a diagonal do cubo até o ponto branco (255,255,255).
+O espaço de cores RGB (\textit{Red, Green, Blue}) é baseado numa representação de coordenadas cartesianas de três canais de cores: vermelho (R), verde (G) e azul (B). Os 3 canais possuem a mesma amplitude, portanto, em uma imagem RGB de 24 bits, cada canal é representado por 8 bits, que pode ter seu valor de 0 a 255.
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.4\textwidth]{imgs/rgb_cubo}
-  \caption[Cubo do espaço de cores RGB]{Cubo representando o espaço de cores RGB. Em uma imagem RGB de 24 bits, o cubo possui 16.777.216 cores, $(2^8)^3$. Fonte: \cite{gonzalez:2002}}
-  \label{fig:rgb_cubo}
-\end{figure}
+%Por conta destas características, o espaço de cores RGB é geralmente representado por um cubo (Figura \ref{fig:rgb_cubo}), onde as arestas alinhadas aos eixos X, Y e Z são respectivamente os valores primários de vermelho $(255,0,0)$, verde $(0,255,0)$ e azul $(0,0,255)$. Neste espaço de cores, os tons de cinza partem do ponto preto $(0,0,0)$ e acompanham a diagonal do cubo até o ponto branco (255,255,255).
+%
+%\begin{figure}[h]
+%  \centering
+%  \includegraphics[width=0.4\textwidth]{imgs/rgb_cubo}
+%  \caption[Cubo do espaço de cores RGB]{Cubo representando o espaço de cores RGB. Em uma imagem RGB de 24 bits, o cubo possui 16.777.216 cores, $(2^8)^3$. Fonte: \cite{gonzalez:2002}}
+%  \label{fig:rgb_cubo}
+%\end{figure}
 
-O espaço de cores RGB é ideal para a representação de hardware que combine cores através da mistura de luzes, tais como monitores e projetores. Seus canais são cores, e a combinação deles é intuitiva a composição ou geração de cores, mas é muito pouco intuitiva para seres humanos.
+O espaço de cores RGB é ideal para a representação de hardware que combine cores através da mistura de luzes, tais como monitores e projetores. Seus canais são cores, e a combinação deles é intuitiva à composição ou geração de cores, mas é muito pouco intuitiva para seres humanos.
 
-Com esta finalidade, outros espaços de cores podem ser menos intuitivos a seres humanos, mas são definidos de forma que outras características das cores sejam facilmente extraídas. O HSI (\textit{Hue, Saturation, Intensity}), também conhecido como HSV (\textit{Hue, Saturation, Value}) representa uma cor através de seu tom, saturação e intensidade. Este espaço de cores facilita a extração de algumas características como saturação ou intensidade. Seus canais também se parecem mais com a forma como seres humanos descrevem cores, já que um dos canais representa a informação de cor pura, enquanto os outros canais tratam da saturação (força) e itensidade (brilho) da cor. Todos os canais têm seus valores representados por percentuais, com valores decimais de $0$ a $1$. O espaço de cores HSI pode ser representado por um cone, onde a altura é definida pela intensidade, o raio é definido pela saturação e a posição na circunferência é definida pelo tom da cor (Figura \ref{fig:hsi_cone}).
+Com esta finalidade, outros espaços de cores podem ser menos intuitivos a seres humanos, mas são definidos de forma que outras características das cores sejam facilmente extraídas. O HSI (\textit{Hue, Saturation, Intensity}), também conhecido como HSV (\textit{Hue, Saturation, Value}) representa uma cor através de seu tom, saturação e intensidade. Este espaço de cores facilita a extração de algumas características como saturação ou intensidade. Seus canais também se parecem mais com a forma como seres humanos descrevem cores, já que um dos canais representa a informação de cor pura, enquanto os outros canais tratam da saturação (força) e itensidade (brilho) da cor. Todos os canais têm seus valores representados por percentuais, com valores decimais de $0$ a $1$.
 
-\begin{figure}[h]
-  \centering
-  \includegraphics[width=0.8\textwidth]{imgs/hsi_cone}
-  \caption[Cone do espaço de cores HSI]{Cone representando o espaço de cores HSI.}
-  \label{fig:hsi_cone}
-\end{figure}
+%O espaço de cores HSI pode ser representado por um cone, onde a altura é definida pela intensidade, o raio é definido pela saturação e a posição na circunferência é definida pelo tom da cor (Figura \ref{fig:hsi_cone}).
+%
+%\begin{figure}[h]
+%  \centering
+%  \includegraphics[width=0.8\textwidth]{imgs/hsi_cone}
+%  \caption[Cone do espaço de cores HSI]{Cone representando o espaço de cores HSI.}
+%  \label{fig:hsi_cone}
+%\end{figure}
 
 \subsubsection*{Intensidade}
 
@@ -51,7 +55,7 @@ Com esta finalidade, outros espaços de cores podem ser menos intuitivos a seres
 	\label{eq:rgb_intensidade}
 \end{equation}
 
-onde I é a intensidade do pixel e R, G e B são, respectivamente, os canais vermelho, verde e azul do pixel. Esta fórmula também pode ser utilizada para converter imagens coloridas RGB em imagens em tons de cinza, embora, por características intrínseca ao sistema de visão humano, normalmente alguns pesos diferentes são atribuídos ao canais quando o objetivo é a visualização humana da imagem, ao invés da média aritmética simples da equação \ref{eq:rgb_intensidade}, que é considerada pela literatura uma aproximação suficientemente adequada para sistemas de visão computacional.
+onde I é a intensidade do pixel e R, G e B são, respectivamente, os canais vermelho, verde e azul do pixel. Esta fórmula também pode ser utilizada para converter imagens coloridas RGB em imagens em tons de cinza, embora, por características intrínsecas ao sistema de visão humano, normalmente alguns pesos diferentes são atribuídos ao canais quando o objetivo é a visualização humana da imagem, ao invés da média aritmética simples da equação \ref{eq:rgb_intensidade}, que é considerada pela literatura uma aproximação suficientemente adequada para sistemas de visão computacional.
 
 \subsection{Características de alto nível}
 
@@ -59,9 +63,9 @@ Muitas vezes, características de baixo nível não são suficientes para descre
 
 \subsubsection*{Textura}
 
-De acordo com \citeonline{nixon:2008}, não há uma definição formal de textura. \citeonline{gonzalez:2002}, por sua vez, define textura como uma medida de propriedades sensoriais como maciez, coesão e regularidade. Um campo de pesquisa que constantemente apresenta novidades substanciais, as soluções para descrição e extração de texturas em imagens digitais parte de duas principais abordagens: estatística e  espectral.
+De acordo com \citeonline{nixon:2008}, não há uma definição formal de textura. \citeonline{gonzalez:2002}, por sua vez, definem textura como uma medida de propriedades sensoriais como maciez, coesão e regularidade. Um campo de pesquisa que constantemente apresenta novidades substanciais, as soluções para descrição e extração de texturas em imagens digitais partem de duas principais abordagens: estatística e  espectral.
 
-A abordagem estatística consiste no uso de modelos estatísticos do histograma de intensidade de uma imagem ou de uma porção dela. Seja $z$ o uma variável que representa uma intensidade e $p(z_i), i = 0, 1, 2,..., L$, onde $L$ é o número de intensidades distintas na região investigada, o n-ésimo momento de $z$ pode ser definido por:
+A abordagem estatística consiste no uso de modelos estatísticos do histograma de intensidade de uma imagem ou de uma porção dela. Seja $z$ uma variável que representa uma intensidade e $p(z_i), i = 0, 1, 2,..., L$, onde $L$ é o número de intensidades distintas na região investigada, o n-ésimo momento de $z$ pode ser definido por:
 
 \begin{equation}
 	\displaystyle \mu_n(z) = \sum_{i=0}^{L-1} (z_i - m)^n p(z_i)
@@ -116,7 +120,7 @@ Diversas variações de LBP existem na literatura, algumas visando melhorar a de
 
 Segundo \citeonline{nixon:2008}, parte importante da extração de características de alto nível em imagens é a busca por formas e padrões. As abordagens para extrair formas de imagens vão desde as mais simples, como a limiarização, que faz análise pixel a pixel da imagem para tentar separar o componente principal do fundo da imagem (todo o resto que não interessa à análise), passando pelo casamento de padrões, que se utiliza de uma amostra da forma desejada para realizar a busca pelo mesmo padrão na imagem, até poderosos extratores de formas geométricas como a transformada de Hough.
 
-A transformada de Hough, introduzida por \citeonline{hough:1962} é uma técnica criada para extrair formas geométricas de imagens. O objetivo desta técnica está na descrição da imagem ou região através de retas, círculos e elipses presentes na mesma. Inicialmente concebida para detectar apenas linhas em diversos ângulos, atualmente todas as implementações e variações da transformada Hough derivam do trabalho de \citeonline{duda:1972}, responsável pela criação da transformada de Hough generalizada, capaz de detectar os demais círculos e elipses. Desde então, diversas melhorias têm sido feitas para acelerar o algoritmo, bem como suportar a detecção de formas geométricas arbitrárias.
+A transformada de Hough, introduzida por \citeonline{hough:1962} é uma técnica criada para extrair formas geométricas de imagens. O objetivo desta técnica está na descrição da imagem ou região através de retas, círculos e elipses presentes na mesma. Inicialmente concebida para detectar apenas linhas em diversos ângulos, atualmente todas as implementações e variações da transformada Hough derivam do trabalho de \citeonline{duda:1972}, responsáveis pela criação da transformada de Hough generalizada, capaz de detectar os demais círculos e elipses. Desde então, diversas melhorias têm sido feitas para acelerar o algoritmo, bem como suportar a detecção de formas geométricas arbitrárias.
 
 Para detectar linhas em imagens utilizando a transformada Hough, é preciso, primeiramente, compreender que em uma abordagem cartesiana, pontos colineares em uma imagem estão relacionados pela inclinação $m$ e um ponto de interceptação $c$, de forma que:
 
@@ -144,7 +148,7 @@ Esta equação pode ser vista como um sistema de equações e pode ser reescrita
 	\displaystyle c = -x_im + y_i
 \end{equation}
 
-Com a finalidade de encontrar linhas retas na imagem, a transformada de Hough busca satisfazer as incógnitas desta equação, se utilizando também de parâmetros externos para determinar tolerância de inclinação e comprimento mínimo das retas.
+Com a finalidade de encontrar linhas retas na imagem, a transformada de Hough busca satisfazer as incógnitas desta equação, utilizando também parâmetros externos para determinar tolerância de inclinação e comprimento mínimo das retas.
 
 De forma similar, a transformada de Hough busca por círculos que satisfaçam:
 
@@ -168,7 +172,7 @@ Diversas características de baixo e alto nível são aplicadas em regiões da i
 
 \subsection{Segmentação de Imagens}
 
-O processo de segmentação subdivide uma imagem em suas várias regiões ou objetos. O nível em que a subdivisão é feita depende do problema a ser resolvido, ou seja, a segmentação deve parar quando os objetos de interesse de uma aplicação forem isolados. Por exemplo, na inspeção automática de uma linha de montagem de produtos eletrônicos, o interesse reside em analisar imagens dos produtos com o objetivo de determinar a presença ou ausência de anomalias específicas, como componentes faltando ou conexões quebradas. Não há sentido em continuar segmentando além do nível de detalhes necessário para a identificação destes elementos.
+O processo de segmentação subdivide uma imagem em suas várias regiões ou objetos. O nível em que a subdivisão é feita depende do problema a ser resolvido, ou seja, a segmentação deve parar quando os objetos de interesse de uma aplicação forem isolados. Por exemplo, na inspeção automática de uma linha de montagem de produtos eletrônicos, o interesse reside em analisar imagens dos produtos com o objetivo de determinar a presença ou ausência de anomalias específicas, como a falta de componentes ou conexões quebradas. Não há sentido em prosseguir com a segmentação além do nível de detalhes necessário para a identificação destes elementos.
 
 Segmentação de imagens é um dos problemas mais difíceis em processamento digital de imagens \cite{gonzalez:2002}. Algoritmos de segmentação geralmente se baseiam em uma das duas propriedades básicas de valores de intensidade dos pixels: descontinuidade e similaridade. Na primeira propriedade, a abordagem é particionar a imagem baseando-se em mudanças abruptas na intensidade dos pixels, como as bordas. A segunda categoria se baseia no particionamento de uma imagem em regiões que são similares de acordo com um critério em particular, que pode ser coloração, textura, entre outros.
 
@@ -242,7 +246,7 @@ Os problemas de aprendizagem podem ainda ser divididos de acordo com o tipo de s
 	\item Problemas de regressão: quando a saída esperada para o problema é um valor numérico, normalmente contínuo.
 \end{itemize}
 
-Um problema de classificação, ou seja, um problema em que o objetivo é atribuir corretamente classes discretas (rótulos) aos exemplos de dados, consiste na determinação de regras e posterior classificação desses exemplos. Este conjunto de regras é criado por um classificador, que recebe como entrada um vetor de características e oferece como saída uma classe resultante para a instância que as características descrevem, conforme pode ser visto na figura \ref{fig:classificador}.
+Um problema de classificação consiste na determinação de regras e posterior classificação desses exemplos. Este conjunto de regras é criado por um classificador, que recebe como entrada um vetor de características e oferece como saída uma classe resultante para a instância que as características descrevem, conforme pode ser visto na figura \ref{fig:classificador}.
 
 \begin{figure}[h!]
   \centering
@@ -294,11 +298,9 @@ O produto desta etapa é a representação de cada exemplo da base de dados em u
 
 \subsection{Classificação}\label{sec:classificacao}
 
-Nesta etapa, todas as amostras de treinamento são classificadas e um modelo de aprendizado é gerado. Posteriormente ao processo de aprendizado, é nesta mesma etapa que as amostras não classificadas receberão uma classe dentre as envolvidas no problema. É neste momento que podemos comparar o desempenho de diferentes algoritmos de aprendizado para o conjunto de características escolhido para representar o problema.
+Nesta etapa, um modelo de aprendizado é gerado. Pode-se também usar múltiplos classificadores, ao invés de apenas um. Esta abordagem é chamada de sistemas com múltiplos classificadores (do inglês \textit{multiple classifier systems}), também chamados de \textit{ensemble} de classificadores, os quais podem ser compostos por classificadores do mesmo tipo ou de diferentes algoritmos de classificação.
 
-Pode-se também usar múltiplos classificadores, ao invés de apenas um. Esta abordagem é chamada de sistemas com múltiplos classificadores (do inglês \textit{multiple classifier systems}), também chamados de \textit{ensemble} de classificadores, os quais podem ser compostos por classificadores do mesmo tipo ou de diferentes algoritmos de classificação. 
-
-Existe uma grande variedade de algoritmos de aprendizagem de máquina propostos na literatura. Alguns dos mais utilizados são: classificadores estatísticos, redes neurais artificiais, árvores de decisão, máquinas de vetores de suporte (SVM), k vizinhos mais próximos (KNN), etc \cite{jain:1989}. A seguir, descrevemos sucintamente os algoritmos de aprendizagem de máquina utilizados neste trabalho.
+Existe uma grande variedade de algoritmos de aprendizagem de máquina propostos na literatura. Alguns dos mais utilizados são: classificadores estatísticos, redes neurais artificiais, árvores de decisão, máquinas de vetores de suporte (SVM), k vizinhos mais próximos (KNN), etc. A seguir, descrevemos sucintamente os algoritmos de aprendizagem de máquina utilizados neste trabalho.
 
 \subsubsection*{Árvores de decisão}
 
@@ -330,7 +332,7 @@ As máquinas de vetores de suporte, ou SVM (\textit{Support Vector Machines}) s�
 
 Um modelo SVM é a representação das amostras como pontos em um espaço n-dimensional (onde n é o tamanho do vetor de características) de tal forma que as amostras de diferentes classes sejam divididas por um hiperplano de separação que maximiza a distância entre essas classes. Isso se deve ao fato de que o hiperplano de separação possui a maior distância possível às amostras mais próximas entre as classes, o que ajuda a diminuir o erro de generalização do classificador.
 
-A principal vantagem do classificador SVM é seu bom desempenho em conjuntos de dados que possuem muitos atributos, mesmo quando há poucas amostras de treino. No entanto, suas desvantagens são a baixa velocidade e alto consumo de recursos durante as fases de treinamento, assim como a complexidade de parametrização de suas funções \textit{kernel}. As amostras de teste são classificadas ao serem posicionadas no espaço de características e avaliadas em que lado da superfície de separação elas se encontram, como mostrado na figura \ref{fig:svm}.
+A principal vantagem do classificador SVM é seu bom desempenho em conjuntos de dados que possuem muitos atributos, mesmo quando há poucas amostras de treino. No entanto, suas desvantagens são a baixa velocidade e alto consumo de recursos durante as fases de treinamento, assim como a complexidade de parametrização de suas funções \textit{kernel}. As amostras desconhecidas são classificadas ao serem posicionadas no espaço de características e avaliadas em que lado da superfície de separação elas se encontram, como mostrado na figura \ref{fig:svm}.
 
 \begin{figure}[h!]
   \centering
@@ -367,13 +369,11 @@ O algoritmo \textit{Random Forest}, introduzido por \citeonline{breiman:2001} , 
 
 Uma vez que a base de treinamento foi utilizada para gerar os modelos das árvores de decisão, estes modelos podem ser utilizados para classificar novas amostras do problema. Preferencialmente, todas as árvores geradas são envolvidas na classificação, cada uma chegando à sua própria conclusão sobre a classe da amostra apresentada. Cada árvore tem um ``voto'', que é contabilizado para a definição da classe mais votada, que é então escolhida como a classe da amostra. Esta técnica de soma de votos é conhecida como \textit{polling}.
 
-A principal vantagem deste algoritmo é a eliminação de \textit{overfitting}, problema bastante comum quando se utiliza árvores de decisão de forma tradicional. Uma exposição mais detalhada acerca de \textit{overfitting} é feita na seção \ref{sec:avaliacao}.
-
-O trabalho de \citeonline{breiman:2001} ainda afirma que a taxa de erro de um modelo de aprendizado criado com \textit{Random Forest} está relacionada a dois fatores: a correlação entre quaisquer duas árvores geradas no modelo e a ``força'' de cada árvore gerada, ou seja, o quão precisa ela é em relação ao modelo geral. À medida que a correlação entre árvores cresce, também cresce a taxa de erro do modelo final. Quanto menor for a taxa de erro de uma árvore individual, mais ``forte'' é considerado o classificador, e por consequência, menor é a taxa de erro do modelo.
+A principal vantagem deste algoritmo é a eliminação de \textit{overfitting}, problema bastante comum quando se utiliza árvores de decisão de forma tradicional. Uma exposição mais detalhada acerca de \textit{overfitting} é feita na seção \ref{sec:avaliacao}. O trabalho de \citeonline{breiman:2001} ainda afirma que a taxa de erro de um modelo de aprendizado criado com \textit{Random Forest} está relacionada a dois fatores: a correlação entre quaisquer duas árvores geradas no modelo e a ``força'' de cada árvore gerada, ou seja, o quão precisa cada árvore é em relação ao modelo geral. À medida que a correlação entre árvores cresce, também cresce a taxa de erro do modelo final. Quanto menor for a taxa de erro de uma árvore individual, mais ``forte'' é considerado o classificador, e por consequência, menor é a taxa de erro do modelo.
 
 Reduzir o número de variáveis do vetor de características a ser utilizado em cada árvore reduz a correlação entre árvores e também reduz a ``força'' da árvore. Incrementar este número de variáveis incrementa a correlação e a ``força'' da árvore. A parametrização do algoritmo deve se preocupar em encontrar o número de variáveis do vetor de características que melhor minimize a correlação e maximize a ``força'' das árvores do modelo.
 
-Os algoritmos descrito até então podem ser utilizados em qualquer problema de classificação binária ou multi-classe. Entretanto, há um grupo de algoritmos em aprendizagem de máquina que tem como objetivo a detecção de anomalias a partir de um modelo formado por apenas uma classe. A próxima seção trata desta classe de algoritmos.
+Os algoritmos descritos até então podem ser utilizados em qualquer problema de classificação binária ou multi-classe. Entretanto, há um grupo de algoritmos em aprendizagem de máquina que tem como objetivo a detecção de anomalias a partir de um modelo formado por apenas uma classe. A próxima seção trata desta classe de algoritmos.
 
 \subsubsection*{Classificadores unários}
 
@@ -399,7 +399,7 @@ Avaliar o desempenho de uma técnica de aprendizagem de máquina é útil para d
 
 Comumente, o percentual de acerto obtido na classificação das amostras é um importante parâmetro para medir o desempenho do modelo. Este parâmetro é conhecido como acurácia ou taxa de reconhecimento. O oposto da acurácia é conhecido como taxa de erro.
 
-De grande importância também é a composição da matriz de confusão (tabela \ref{tab:matrixConfusao}). Nela pode-se avaliar como um modelo está se comportando em termos de falsos positivos (Um exemplo é classificado como pertencente à classe C, mas não é) e falsos negativos (um exemplo é atribuído a outra classe, mas deveria ser da classe C). A principal função desta matriz é dar possibilidade de pensar sobre o custo dos erros, ou seja, mesmo que a taxa de acerto para o problema seja alta, uma ou mais classes do problema pode ter uma taxa de acerto bem abaixo do esperado.
+De grande importância também é a composição da matriz de confusão (tabela \ref{tab:matrixConfusao}). Nela pode-se avaliar como um modelo está se comportando em termos de falsos positivos (um exemplo é classificado como pertencente à classe C, mas não é) e falsos negativos (um exemplo é atribuído a outra classe, mas deveria ser da classe C). A principal função desta matriz é dar possibilidade de pensar sobre o custo dos erros, ou seja, mesmo que a taxa de acerto para o problema seja alta, uma ou mais classes do problema pode ter uma taxa de acerto bem abaixo do esperado.
 
 \begin{table}[h]
   \centering
@@ -439,29 +439,31 @@ Como forma de medir o equilíbrio entre precisão e revocação, a média harmô
 \label{eq:f1}
 \end{equation}
 
-Embora a maximização das métricas apresentadas seja desejável para o ajuste de um algoritmo de aprendizado, é necessário evitar o sobreajuste (\textit{overfitting}) que pode ser gerado a partir disto. O \textit{overfitting} é o termo utilizado quando o modelo criado se ajusta em excesso às amostras de treinamento, tendo altas taxas de acurácia para esta base, mas falhando em classificar com boa taxa de acurácia as demais amostras de teste ou amostras reais.
+Embora a maximização das métricas apresentadas seja desejável para o ajuste de um algoritmo de aprendizado, é necessário evitar o sobreajuste (\textit{overfitting}) que pode ser gerado a partir disto. O \textit{overfitting} é o termo utilizado quando o modelo criado se ajusta em excesso às amostras de treinamento, tendo altas taxas de acurácia para esta base, mas falhando em classificar com boa taxa de acurácia as demais amostras de teste ou amostras reais. Em resumo, o problema é ter um modelo que possui bom desempenho na etapa de treinamento mas não é uma boa representação das amostras reais.
 
-Em resumo, o problema é ter um modelo que possui bom desempenho na etapa de treinamento mas não é uma boa representação das amostras reais. A figura \ref{fig:overfitting} exemplifica um modelo de classificação generalista (linha preta) e um modelo que provavelmente sofre de \textit{overfitting} (linha verde).
-
-\begin{figure}[h!]
-  \centering
-  \includegraphics[scale=0.4]{imgs/overfitting}
-  \caption[Modelo de aprendizado generalista]{Modelo de aprendizado em um problema de duas classes, a linha preta indica uma função mais generalista, enquanto a linha verde representa uma função com acurácia maior em relação às amostras de treinamento, mas que provavelmente sofre de \textit{overfitting.}}
-  \label{fig:overfitting}
-\end{figure}
-
-Para detectar problemas de \textit{overfitting}, pode-se testar o modelo em diversas outras bases de amostras, medindo a variância da acurácia entre estas bases. Uma alta variância indica que o modelo não é genérico o suficiente, apontando para um provável caso de \textit{overfitting}.
+%A figura \ref{fig:overfitting} exemplifica um modelo de classificação generalista (linha preta) e um modelo que provavelmente sofre de \textit{overfitting} (linha verde).
+%
+%\begin{figure}[h!]
+%  \centering
+%  \includegraphics[scale=0.4]{imgs/overfitting}
+%  \caption[Modelo de aprendizado generalista]{Modelo de aprendizado em um problema de duas classes, a linha preta indica uma função mais generalista, enquanto a linha verde representa uma função com acurácia maior em relação às amostras de treinamento, mas que provavelmente sofre de \textit{overfitting.}}
+%  \label{fig:overfitting}
+%\end{figure}
+%
+%Para detectar problemas de \textit{overfitting}, pode-se testar o modelo em diversas outras bases de amostras, medindo a variância da acurácia entre estas bases. Uma alta variância indica que o modelo não é genérico o suficiente, apontando para um provável caso de \textit{overfitting}.
 
 Um método bastante utilizado para medir a generalização de um modelo de aprendizado é a validação cruzada. O conceito principal deste método é o particionamento do conjunto de amostras em um número de subconjuntos mutuamente exclusivos, divindindo estes subconjuntos entre base de treinamento e teste.
 
-A técnica de validação cruzada conhecida como \textit{k-fold} divide a base em $k$ subconjuntos de mesmo tamanho, escolhe um dos subconjuntos como base de testes e utiliza os demais subconjuntos como bases de treinamento do modelo. A razão para estar distribuição é a premissa de que é preciso de mais amostras para treinamento que para testes, a fim de criar um modelo robusto. O procedimento é repetido $k$ vezes, de forma que todos os subconjuntos possam ser utilizados para construir uma versão de modelo de aprendizado e ser validado pelos demais subconjuntos. A precisão do modelo é obtida através de uma média aritmética simples das $k$ execuções da validação cruzada. Em problemas de regressão, a precisão do modelo é obtida pela equação \ref{eq:kfold}, onde $k$ é o número de subconjuntos e $y_i - y'_i$ é a diferença entre o valor esperado e o valor predito pelo modelo.
+A técnica de validação cruzada conhecida como \textit{k-fold} divide a base em $k$ subconjuntos de mesmo tamanho, escolhe um dos subconjuntos como base de testes e utiliza os demais subconjuntos como bases de treinamento do modelo. A razão para estar distribuição é a premissa de que é preciso de mais amostras para treinamento que para testes, a fim de criar um modelo robusto. O procedimento é repetido $k$ vezes, de forma que todos os subconjuntos possam ser utilizados para construir uma versão de modelo de aprendizado e ser validado pelos demais subconjuntos.
 
-\begin{equation}
-  \displaystyle Ac_f = \frac{1}{k} \sum_{i=1}^k{(y_i - y'_i)}
-\label{eq:kfold}
-\end{equation}
-
-Segundo \citeonline{witten:2011}, é prática comum repetir a execução da validação \textit{k-fold}, por $k$ vezes. A razão disto é o efeito provocado pela variação na escolha dos subconjuntos de treinamento e teste, que ocasiona pequenas variações nas taxas de erro e precisão entre diferentes execuções de um mesmo modelo no mesmo conjunto geral de dados. A execução de $k^2$ validações tende a diminuir esta variação, ao custo de um esforço computacional mais intenso.
+%A precisão do modelo é obtida através de uma média aritmética simples das $k$ execuções da validação cruzada. Em problemas de regressão, a precisão do modelo é obtida pela equação \ref{eq:kfold}, onde $k$ é o número de subconjuntos e $y_i - y'_i$ é a diferença entre o valor esperado e o valor predito pelo modelo.
+%
+%\begin{equation}
+%  \displaystyle Ac_f = \frac{1}{k} \sum_{i=1}^k{(y_i - y'_i)}
+%\label{eq:kfold}
+%\end{equation}
+%
+%Segundo \citeonline{witten:2011}, é prática comum repetir a execução da validação \textit{k-fold}, por $k$ vezes. A razão disto é o efeito provocado pela variação na escolha dos subconjuntos de treinamento e teste, que ocasiona pequenas variações nas taxas de erro e precisão entre diferentes execuções de um mesmo modelo no mesmo conjunto geral de dados. A execução de $k^2$ validações tende a diminuir esta variação, ao custo de um esforço computacional mais intenso.
 
 Uma outra avaliação importante a ser feita é a da relação entre a taxa de acerto (verdadeiros positivos) e  a taxa de falsos positivos. Para tal análise, pode ser feito o estudo da curva ROC (do inglês \textit{Receiver Operating Characteristic}), um gráfico bidimensional que exibe no eixo y o percentual de verdadeiros positivos na amostra e, no eixo x, o percentual de falsos positivos da mesma amostra (figura \ref{fig:roc}).
 
@@ -472,6 +474,6 @@ Uma outra avaliação importante a ser feita é a da relação entre a taxa de a
   \label{fig:roc}
 \end{figure}
 
-Originalmente utilizada em detecção de sinais para mostrar a relação entre sensibilidade (taxa de acerto) e o inverso da especificidade (alarme falso) em canais com ruído, pode-se utilizar este gráfico na avaliação de modelos de aprendizagem de máquina. Em geral, o cálculo da área abaixo da linha do gráfico é calculado para determinar a relação entre verdadeiros positivos e falsos negativos para um conjunto de amostras. Quanto maior a área abaixo da curva, melhor é considerado o aprendizado sob esta avaliação.
+Originalmente utilizada em detecção de sinais para mostrar a relação entre sensibilidade (taxa de acerto) e o inverso da especificidade (alarme falso) em canais com ruído, pode-se utilizar este gráfico na avaliação de modelos de aprendizagem de máquina. Em geral, o cálculo da área abaixo da linha do gráfico é realizado para determinar a relação entre verdadeiros positivos e falsos negativos para um conjunto de amostras. Quanto maior a área abaixo da curva, melhor é considerado o aprendizado sob esta avaliação.
 
 Uma vez que a fundamentação teórica necessária foi coberta, é necessário fazer um levantamento na literatura pelos trabalhos considerados estado da arte em suas respectivas áreas. O capítulo a seguir trata deste levantamento.
