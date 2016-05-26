@@ -2,15 +2,13 @@
 
 Neste capítulo é descrita a sequência de etapas que serão realizadas neste trabalho para que os objetivos de pesquisa sejam alcançados.
 
-Em imagens aéreas como as utilizadas neste trabalho, é comum que os elementos que indicam presença humana sejam relativamente grandes (pista de pouso, estradas, clareiras, etc.), podendo ser definidas como uma região durante a segmentação da imagem.
+Em imagens aéreas, como as utilizadas neste trabalho, é comum que os elementos que indicam presença humana sejam relativamente grandes (pista de pouso, estradas, clareiras, etc.), podendo ser definidas como uma região durante a segmentação da imagem. Portanto, classificar pixels tende a apresentar custo computacional elevado, visto que mesmo uma pequena imagem provê dezenas de milhares deles, que devem ter suas características extraídas e providas ao modelo de aprendizado, para que possam ser classificados. Portanto, utilizar técnicas de segmentação de imagem para agrupar os pixels espacialmente e caracteristicamente relacionados em uma única amostra não só possibilita uma execução mais rápida da solução computacional, como também torna o resultado final menos ruidoso.
 
-Classificar pixels tende a ser custoso, visto que mesmo uma pequena imagem provê dezenas de milhares deles, que devem ter suas características extraídas e providas ao modelo de aprendizado, para que possam ser classificados. Portanto, utilizar técnicas de segmentação de imagem para agrupar os pixels espacialmente e caracteristicamente relacionados em uma única amostra não só possibilita uma execução mais rápida da solução computacional, como também torna o resultado final menos ruidoso.
-
-Por este motivo, a arquitetura para a solução proposta prevê uma etapa de segmentação das imagens, seguida de uma etapa de classificação, responsável pela determinação do tipo de cada região encontrada na segmentação. Desta forma, elementos antrópicos podem ser separados como mais uma das regiões das imagens e classificados como tal. O diagrama da arquitetura geral da solução pode ser visto na figura \ref{fig:metDiagramaGeral}.
+Por este motivo, a arquitetura para a solução proposta neste trabalho prevê uma etapa de segmentação das imagens, seguida de uma etapa de classificação, responsável pela determinação do tipo de cada região encontrada na segmentação. Desta forma, elementos antrópicos podem ser separados como mais uma das regiões das imagens e classificados como tal. O diagrama da arquitetura geral da solução pode ser visto na figura \ref{fig:metDiagramaGeral}.
 
 \begin{figure}[h]
     \includegraphics[width=\textwidth]{imgs/arquitetura_geral}
-    \caption{Arquitetura geral da solução a ser desenvolvida para detecção de elementos antrópicos em imagens aéreas da floresta amazônica}
+    \caption{Arquitetura geral da solução desenvolvida para detecção de elementos antrópicos em imagens aéreas da floresta amazônica}
     \label{fig:metDiagramaGeral}
 \end{figure}
 
@@ -46,7 +44,7 @@ Como requisito da composição da base de dados de segmentos, bem como para aval
 
 \section{Classificador}\label{sec:metClassificador}
 
-Nesta etapa, quatro estratégias de classificação presentes na literatura serão abordadas: classificadores multi-classe, binários, unários e conjuntos de classificadores unários. Elas não demandam alterações na arquitetura geral da solução, mas mudam a forma como a base é rotulada e organizada. As métricas de avaliação do aprendizado precisam ser ponderadas para cada estratégia.
+Nesta etapa, quatro estratégias de classificação presentes na literatura serão abordadas: classificadores multi-classe, binários, unários e conjuntos de classificadores unários. Essas estratégias não demandam alterações na arquitetura geral da solução, mas mudam a forma como a base é rotulada e organizada. As métricas de avaliação do aprendizado precisam ser ponderadas para cada estratégia.
 
 A motivação para explorar estas quatro abordagens é a diversidade de estratégias encontradas na literatura relacionada. É importante destacar que a classe de interesse, elementos antrópicos, permanece a mesma em todas as abordagens, e sua inspeção mais cuidadosa é vital na avaliação de todos os métodos utilizados. Como esta classe é absolutamente minoritária (<1\% das instâncias) na base de imagens utilizada no trabalho, abordagens que lidam com anomalias de forma mais robusta serão investigadas.
 
@@ -62,7 +60,7 @@ Cada algoritmo deve ser responsável pela classificação de toda a base. Ao fim
 
 \subsection{Classificador binário}
 
-Neste cenário, a base de segmentos gerada será rotulada entre duas classes: elementos naturais e elementos antrópicos. A classe de elementos naturais agrupa o que originalmente seriam as classes de floresta, vegetação rasteira, água e terra. A motivação desta modelagem é realizar experimentos com algoritmos que permitam o aprendizado bi-classe, abordagem pouco usada nos trabalhos encontrados na literatura, bem como avaliar se o agrupamento das classes secundárias (as classes que não são de elementos antrópicos), podem ser descritas de forma eficaz pelos algoritmos testados.
+Neste cenário, a base de segmentos gerada será rotulada entre duas classes: elementos naturais e elementos antrópicos. A classe de elementos naturais agrupa o que originalmente seriam as classes de floresta, vegetação rasteira, água e terra. A motivação desta modelagem é realizar experimentos com algoritmos que permitam o aprendizado bi-classe, abordagem pouco usada nos trabalhos encontrados na literatura, bem como avaliar se o agrupamento das classes secundárias (as classes que não são de elementos antrópicos), pode ser descrito de forma eficaz pelos algoritmos testados.
 
 Os classificadores utilizados serão os mesmos do experimento com classificadores multi-classe, visto que não há grande diferença metodológica nas duas abordagens. Todos os métodos também serão testados com seletores de características, e o impacto desta seleção também será avaliado.
 
@@ -74,7 +72,7 @@ Assim como no experimento de classificadores binários, a base de dados de segme
 
 Os métodos de classificação unária tendem a lidar melhor com bases de dados cujas classes estão fortemente desbalanceadas, provável caso da base de imagens utilizada neste trabalho, especialmente depois do rearranjo entre elementos antrópicos e demais classes de elementos naturais. Por esta razão, a abordagem que utiliza classificadores unários precisa ser avaliada.
 
-Como o aprendizado unário utiliza o conceito de classe majoritária e classe anômala (\textit{outlier}), é preciso definir que classes do problema exercerão estes papéis. Por uma simples questão de frequência estatística, fica definido que a classe de elementos naturais é a classe majoritária, enquanto a classe de elementos antrópicos é considerada a classe anômala.
+Como o aprendizado unário utiliza o conceito de classe majoritária e classe anômala (\textit{outlier}), é preciso definir quais classes do problema exercerão estes papéis. Por uma simples questão de frequência estatística, fica definido que a classe de elementos naturais é a classe majoritária, enquanto a classe de elementos antrópicos é considerada a classe anômala.
 
 Apoiando-se nos casos apresentados pela literatura, em especial nos trabalhos relacionados que se propõem a realizar detecção de anomalias, os algoritmos utilizados neste experimento serão os \textit{One-Class Support Vector Machines} (OC-SVM) e o REPTree. Aqui também deve ser avaliado o impacto de um seletor de atributos aplicado ao vetor de características da base de dados, a fim de entender se há mudança significativa na taxa de aprendizado da classe anômala.
 
@@ -84,7 +82,7 @@ Esta abordagem consiste na criação de modelos de aprendizado unários para cad
 
 A preparação da base de dados é um importante passo nesta estratégia de aprendizado, visto que diversas versões da base de segmentos terão de ser geradas, cada uma representando a classe não-anômala em questão como a classe majoritária e todas as demais como anomalias.
 
-O conjunto de classificadores criados serão agrupados em um \textit{ensemble} de classificadores e cada um dos modelos será utilizado na composição do veredito final, para a classificação da amostra. Por uma limitação de escopo do trabalho, uma abordagem simples de votação com pesos deve ser utilizada. Os pesos utilizados, bem como as implicações desta abordagem devem ser discutidas nos resultados do experimento.
+O classificadores criados serão agrupados em um \textit{ensemble} de classificadores e cada um dos modelos será utilizado na composição do veredito final, para a classificação da amostra. Por uma limitação de escopo do trabalho, uma abordagem simples de votação com pesos deve ser utilizada. Os pesos utilizados, bem como as implicações desta abordagem devem ser discutidas nos resultados do experimento.
 
 Assim como todas as outras estratégias de classificação presentes neste trabalho, as métricas mais relevantes serão a acurácia, precisão e revocação da classe de interesse, de elementos antrópicos, que aqui é a classe anômala. As abordagens de classificação com melhor desempenho nestes quesitos ou mais promissoras devem ser apontadas ao fim destes experimentos.
 
