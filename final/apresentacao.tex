@@ -6,10 +6,10 @@
 \usepackage[brazil]{babel}
 \usepackage[round,authoryear]{natbib}
 \usepackage{tabulary}
-\usepackage{multicol}
 \usepackage[table]{xcolor}
 \usepackage{gensymb}
 \usepackage{multicol}
+\usepackage{multirow}
 
 %%%% TEMAS %%%%
 %\usetheme{Antibes}
@@ -713,6 +713,10 @@ Objetos de interesse:
 	Diversas bases criadas, uma para cada classificador a ser treinado, levando em consideração a classe de interesse no contexto e a classe anômala.
 
 	\vspace{0.5cm}
+	
+	Os métodos devem ser combinados e o resultado final de classificação deve se dar por votação com pesos.
+
+	\vspace{0.5cm}
 
 	Algoritmos:
 	\begin{itemize}
@@ -895,10 +899,13 @@ Objetos de interesse:
 		\end{table}
 	}
 
+	\centering
+	Base disponível em \textbf{github.com/luizcavalcanti/geoma-database}.
+
 \end{frame}
 
 \begin{frame}[c]
-	\frametitle{Classificação}
+	\frametitle{Classificação - Multiclasse}
 
 	\centering
 	Distribuição de classes
@@ -917,21 +924,9 @@ Objetos de interesse:
 	\end{tabulary}
 	\end{table}
 	}
+
 	\centering
-	Base disponível em \textbf{github.com/luizcavalcanti/geoma-database}.
-
-\end{frame}
-
-\begin{frame}
-	\frametitle{Classificação - Multiclasse}
-
-	Vetor de características do segmento:
-	\begin{itemize}
-		\item Cor média dos canais R, G e B;
- 		\item Grayscale médio;
-		\item Histograma grayscale.
-		\item Histograma de Local Binary Patterns
-	\end{itemize}
+	Vetor de características após seleção via CFS
 
 	\small{
 	\begin{table}[h]
@@ -943,57 +938,368 @@ Objetos de interesse:
 	LBP - histograma (1/26)         & Inteiro & 1x1 \\ \hline
 	Hough - maior reta              & Inteiro & 1x1 \\ \hline
 	\end{tabulary}
-	\caption{Atributos selecionados pela técnica de CFS para a abordagem de classificação multi-classe}
-	\label{tab:experimentoMulticlasseAtributosFiltrados}
 	\end{table}
+	}
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Classificação - Multiclasse}
+
+	\centering
+	Resultados para todas as classes
+
+	\small{
+	\begin{table}[h]
+		\centering
+		\begin{tabulary}{\linewidth}{|L|R|R|R|}
+			\hline
+			\textbf{Método} & \textbf{Precisão} & \textbf{Revocação} & \textbf{F1} \\ \hline
+			Random Forest          & \cellcolor{gray!25}0.917 & \cellcolor{gray!25}0.930 & \cellcolor{gray!25}0.921 \\ \hline
+			KNN                     & 0.907 & 0.920 & 0.909 \\ \hline
+			SVM                     & 0.899 & 0.915 & 0.900 \\ \hline
+			Random Forest (CFS)     & 0.893 & 0.910 & 0.899 \\ \hline
+			Árvore de decisão             & 0.898 & 0.904 & 0.901 \\ \hline
+			KNN (CFS)               & 0.880 & 0.898 & 0.887 \\ \hline
+			Árvore de decisão (CFS) & 0.880 & 0.894 & 0.886 \\ \hline
+			SVM (CFS)               & 0.798 & 0.866 & 0.808 \\ \hline
+			Naive Bayes (CFS)       & 0.845 & 0.816 & 0.824 \\ \hline
+			Naive Bayes             & 0.857 & 0.563 & 0.101 \\ \hline
+		\end{tabulary}
+	\end{table}
+	}
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Classificação - Multiclasse}
+
+	\centering
+	Resultados para a classe de elementos antrópicos
+
+	\small{
+		\begin{table}[h]
+		\centering
+		\begin{tabulary}{\linewidth}{|L|R|R|R|}
+		\hline
+		\textbf{Método} & \textbf{Precisão} & \textbf{Revocação} & \textbf{F1} \\ \hline
+		KNN                     & 0.889 & 0.727 & \cellcolor{gray!25}0.800 \\ \hline
+		Random Forest           & \cellcolor{gray!25}0.917 & 0.500 & 0.647 \\ \hline
+		SVM (CFS)               & 0.813 & 0.591 & 0.684 \\ \hline
+		Árvore de decisão       & 0.700 & 0.636 & 0.667 \\ \hline
+		Random Forest (CFS)     & 0.846 & 0.500 & 0.629 \\ \hline
+		KNN (CFS)               & 0.722 & 0.591 & 0.650 \\ \hline
+		Árvore de decisão (CFS) & 0.588 & 0.455 & 0.513 \\ \hline
+		Naive Bayes             & 0.054 & \cellcolor{gray!25}0.955 & 0.101 \\ \hline
+		Naive Bayes (CFS)       & 0.030 & 0.909 & 0.058 \\ \hline
+		SVM                     & 0.030 & 0.591 & 0.057 \\ \hline
+		\end{tabulary}
+		\end{table}
+	}
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Classificação - Biclasse}
+
+	\centering
+	Distribuição de classes
+
+	\small{
+		\begin{table}[h]
+		\centering
+		\begin{tabulary}{\linewidth}{|L|R|R|}
+		\hline
+		\textbf{Classe} & \textbf{Amostras} & \textbf{Percentual} \\ \hline
+		Elementos naturais   & 10.026 & 99,7 \% \\ \hline
+		Elementos antrópicos &     31 &  0,3 \% \\ \hline
+		\end{tabulary}
+	\end{table}
+	}
+
+	\centering
+	Vetor de características após seleção via CFS
+
+	\small{
+		\begin{table}[h]
+		\centering
+		\begin{tabulary}{\linewidth}{|L|L|R|}
+		\hline
+		\textbf{Atributo} & \textbf{Tipo} & \textbf{Dimensão} \\ \hline
+		Intensidade - histograma (5/15) & Inteiro & 5x1 \\ \hline
+		LBP - histograma (1/26)         & Inteiro & 1x1 \\ \hline
+		Hough - maior reta              & Inteiro & 1x1 \\ \hline
+		\end{tabulary}
+		\end{table}
 	}
 
 \end{frame}
 
-\begin{frame}
-	\frametitle{Próximos passos}
+\begin{frame}[c]
+	\frametitle{Classificação - Biclasse}
 
-	\begin{itemize}
-		\item Melhorar precisão da classe de elementos antrópicos;
-		\item Incluir morfologia no vetor de características;
-		\item Produzir elementos antrópicos em amostrar para próxima fase de classificação;
-		\item Realizar experimentos com classificadores unitários.
-	\end{itemize}
+	\centering
+	Resultados para todas as classes
+
+	\small{
+		\begin{table}[h]
+		\centering
+		\begin{tabulary}{\linewidth}{|L|R|R|R|R|}
+			\hline
+			\textbf{Método} & \textbf{Precisão} & \textbf{Revocação} & \textbf{F1} \\ \hline
+			KNN (CFS)               & \cellcolor{gray!25}0.999 & \cellcolor{gray!25}0.999 & \cellcolor{gray!25}0.999 \\ \hline
+			Random Forest           & 0.999 & 0.999 & 0.999 \\ \hline
+			KNN                     & 0.999 & 0.999 & 0.999 \\ \hline
+			Random Forest (CFS)     & 0.998 & 0.998 & 0.998 \\ \hline
+			Árvore de decisão       & 0.999 & 0.999 & 0.999 \\ \hline
+			Árvore de decisão (CFS) & 0.999 & 0.999 & 0.999 \\ \hline
+			SVM (CFS)               & 0.999 & 0.999 & 0.999 \\ \hline
+			SVM                     & 0.995 & 0.997 & 0.996 \\ \hline
+			Naive Bayes (CFS)       & 0.997 & 0.973 & 0.984 \\ \hline
+			Naive Bayes             & 0.997 & 0.939 & 0.966 \\ \hline
+		\end{tabulary}
+	\end{table}
+	}
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Classificação - Biclasse}
+
+	\centering
+	Resultados para a classe de elementos antrópicos
+
+	\small{
+		\begin{table}[h]
+		\centering
+		\begin{tabulary}{\linewidth}{|L|R|R|R|R|}
+		\hline
+		\textbf{Método} & \textbf{Precisão} & \textbf{Revocação} & \textbf{F1} \\ \hline
+		KNN (CFS)               & \cellcolor{gray!25}1.000 & 0.615 & \cellcolor{gray!25}0.762 \\ \hline
+		Random Forest           & 0.941 & 0.615 & 0.744 \\ \hline
+		Árvore de decisão (CFS) & 0.941 & 0.615 & 0.744 \\ \hline
+		SVM (CFS)               & 0.889 & 0.615 & 0.727 \\ \hline
+		Árvore de decisão       & 0.842 & 0.615 & 0.711 \\ \hline
+		KNN                     & 0.733 & 0.654 & 0.708 \\ \hline
+		Random Forest (CFS)     & 0.727 & 0.615 & 0.667 \\ \hline
+		Naive Bayes (CFS)       & 0.075 & 0.846 & 0.137 \\ \hline
+		Naive Bayes             & 0.039 & \cellcolor{gray!25}0.962 & 0.076 \\ \hline
+		SVM                     & 0.030 & 0.591 & 0.057 \\ \hline
+		\end{tabulary}
+		\end{table}
+	}
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Classificação - Unária}
+	
+	\centering
+	Distribuição de classes
+
+	\small{
+		\begin{table}[h]
+		\centering
+		\begin{tabulary}{\linewidth}{|L|R|R|}
+		\hline
+		\textbf{Classe} & \textbf{Amostras} & \textbf{Percentual} \\ \hline
+		Elementos naturais (target)    & 10.026 & 99,7 \% \\ \hline
+		Elementos antrópicos (outlier) &     31 &  0,3 \% \\ \hline
+		\end{tabulary}
+	\end{table}
+	}
+
+	\centering
+	Vetor de características após seleção via CFS
+
+	\small{
+		\begin{table}[h]
+		\centering
+		\begin{tabulary}{\linewidth}{|L|L|R|}
+		\hline
+		\textbf{Atributo} & \textbf{Tipo} & \textbf{Dimensão} \\ \hline
+		Intensidade - histograma (1/15) & Inteiro & 1x1 \\ \hline
+		Hough - maior reta              & Inteiro & 1x1 \\ \hline
+		\end{tabulary}
+		\end{table}
+	}
+	
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Classificação - Unária}
+
+	\centering
+	Resultados para todas as classes
+
+	\small{
+		\begin{table}[h]
+		\centering
+		\begin{tabulary}{\linewidth}{|L|R|R|R|R|}
+		\hline
+		\textbf{Método} & \textbf{Precisão} & \textbf{Revocação} & \textbf{F1} \\ \hline
+		OC-SVM (CFS)  & \cellcolor{gray!25}0.999 & \cellcolor{gray!25}0.999 & \cellcolor{gray!25}0.999 \\ \hline
+		OC-SVM        & 0.995 & 0.997 & 0.996 \\ \hline
+		REPTree       & 0.996 & 0.465 & 0.632 \\ \hline
+		REPTree (CFS) & 0.997 & 0.384 & 0.552 \\ \hline
+		\end{tabulary}
+		\end{table}
+	}
+
+	\centering
+	Resultados para a classe de elementos antrópicos
+
+	\small{
+		\begin{table}[h]
+		\centering
+		\begin{tabulary}{\linewidth}{|L|R|R|R|}
+		\hline
+		\textbf{Método} & \textbf{Precisão} & \textbf{Revocação} & \textbf{F1} \\ \hline
+		OC-SVM (CFS)  & \cellcolor{gray!25}0.842 & 0.615 & \cellcolor{gray!25}0.711 \\ \hline
+		REPTree (CFS) & 0.004 & \cellcolor{gray!25}0.962 & 0.008 \\ \hline
+		REPTree       & 0.003 & 0.692 & 0.007 \\ \hline
+		OC-SVM        & 0.000 & 0.000 & 0.000 \\ \hline
+		\end{tabulary}
+		\end{table}
+	}
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Classificação - Conjunto de unários}
+
+	\centering
+	Vetor de características após seleção via CFS
+
+	\small{
+		\begin{table}[h]
+		\centering
+		\begin{tabulary}{\linewidth}{|L|L|R|}
+		\hline
+		\textbf{Classe majoritária} & \textbf{Atributo} & \textbf{Dimensão} \\ \hline
+		\multirow{3}{*}{Floresta} & Intensidade - histograma (5/15) & 7x1 \\ \cline{2-3}
+        		                  & LBP - histograma (1/26)         & 1x1 \\ \cline{2-3}
+                			          & Hough - maior reta              & 1x1 \\ \hline \hline
+		\multirow{3}{*}{Água}     & Intensidade - histograma (7/15) & 7x1 \\ \cline{2-3}
+        		                  & LBP - histograma (2/26)         & 2x1 \\ \cline{2-3}
+	                		          & Hough - número de retas         & 1x1 \\ \hline \hline
+		\multirow{3}{*}{Vegetação}& Intensidade - histograma (6/15) & 7x1 \\ \cline{2-3}
+        		                  & LBP - histograma (1/26)         & 1x1 \\ \cline{2-3}
+                			          & Hough - número de retas         & 1x1 \\ \hline \hline
+		\multirow{4}{*}{Terra}    & Intensidade - histograma (7/15) & 7x1 \\ \cline{2-3}
+        		                  & LBP - histograma (1/26)         & 1x1 \\ \cline{2-3}
+                		        		  & Hough - número de retas         & 1x1 \\ \cline{2-3}
+                    			      & Hough - maior reta              & 1x1 \\ \hline
+		\end{tabulary}
+		\end{table}
+	}
 
 \end{frame}
+
+\begin{frame}[c]
+	\frametitle{Classificação - Conjunto de unários}
+
+	\centering
+	Resultados para classificadores individuais
+
+	\small{
+		\begin{table}[h]
+		\centering
+		\begin{tabulary}{\linewidth}{|L|R|R|R|}
+		\hline
+		\textbf{Classe/Algoritmo} & \textbf{Precisão} & \textbf{Revocação} & \textbf{F1} \\ \hline
+		Floresta/OCSVM         & 0.941 & 0.943 & 0.939 \\ \hline
+		Floresta/OCSVM (CFS)   & 0.941 & 0.943 & 0.939 \\ \hline
+		Floresta/REPTree        & 0.847 & 0.856 & 0.792 \\ \hline
+		Floresta/REPTree (CFS)  & 0.821 & 0.805 & 0.812 \\ \hline
+		Água/OCSVM             & 0.971 & 0.976 & 0.969 \\ \hline
+		Água/OCSVM (CFS)       & 0.353 & 0.763 & 0.482 \\ \hline
+		Água/REPTree            & 0.954 & 0.538 & 0.675 \\ \hline
+		Água/REPTree (CFS)      & 0.952 & 0.445 & 0.590 \\ \hline
+		Vegetação/OCSVM        & 0.920 & 0.930 & 0.919 \\ \hline
+		Vegetação/OCSVM (CFS)  & 0.433 & 0.871 & 0.578 \\ \hline
+		Vegetação/REPTree       & 0.837 & 0.539 & 0.633 \\ \hline
+		Vegetação/REPTree (CFS) & 0.887 & 0.333 & 0.407 \\ \hline
+		Terra/OCSVM            & 0.983 & 0.987 & 0.981 \\ \hline
+		Terra/OCSVM (CFS)      & 0.954 & 0.453 & 0.614 \\ \hline
+		Terra/REPTree           & 0.980 & 0.305 & 0.452 \\ \hline
+		Terra/REPTree (CFS)     & 0.979 & 0.363 & 0.519 \\ \hline
+		\end{tabulary}
+		\end{table}
+	}
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Classificação - Conjunto de unários}
+
+	Pesos utilizados:
+	\begin{itemize}
+		\item Floresta = 0.5
+		\item Água = 0.3
+		\item Vegetação = 0.1
+		\item Terra = 0.1
+	\end{itemize}
+
+	\centering
+	Melhores resultados dentre as combinações de classificadores
+
+	\small{
+		\begin{table}[h]
+		\centering
+		\begin{tabulary}{\linewidth}{|C|C|C|C|C|C|C|}
+		\hline
+		\textbf{Flor.} & \textbf{Água} & \textbf{Veg.} & \textbf{Terra} & \textbf{Pr} & \textbf{Rv} & \textbf{F1} \\ \hline
+		OS & OS (CFS) & RT       & OS       & \cellcolor{gray!25}0.947 & 0.692 & \cellcolor{gray!25}0.800 \\ \hline
+		RT & OS       & RT       & RT       & 0.850 & 0.730 & 0.785 \\ \hline
+		RT & OS       & OS       & RT (CFS) & 0.809 & 0.653 & 0.723 \\ \hline
+		OS & RT (CFS) & OS       & OS       & 0.239 & 0.653 & 0.350 \\ \hline
+		OS & OS       & RT       & OS       & 0.156 & \cellcolor{gray!25}0.769 & 0.259 \\ \hline
+		OS & RT       & RT (CFS) & OS       & 0.153 & 0.653 & 0.248 \\ \hline
+		\end{tabulary}
+		\end{table}
+	}
+
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Resultados}
+	
+	\centering
+	Resultados gerais para a classe de elementos antrópicos
+
+	\small{
+		\begin{table}[h]
+		\centering
+		\begin{tabulary}{\linewidth}{|L|R|R|R|}
+		\hline
+		\textbf{Abordagem}  & \textbf{Precisão} & \textbf{Revocação} & \textbf{F1} \\ \hline
+		Classificadores multi-classe (KNN)   & 0.889 & \cellcolor{gray!25}0.727 & \cellcolor{gray!25}0.800 \\ \hline
+		Conjunto de classificadores unários  & 0.947 & 0.692 & \cellcolor{gray!25}0.800 \\ \hline
+		Classificadores binários (KNN)       & \cellcolor{gray!25}1.000 & 0.615 & 0.762 \\ \hline
+		Classificadores unários (OC-SVM)     & 0.842 & 0.615 & 0.711 \\ \hline
+		\end{tabulary}
+		\end{table}
+	}
+\end{frame}
+
 %%%%%%%%%%%%%%%
 
 \section{Conclusão}
 
 \begin{frame}[c]
-	\frametitle{Cronograma}
-	\begin{table}[h]
-	\resizebox{\textwidth}{!}{%
-	\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|c|}
-		\hline
-		Atividade/Mês & 02/14 & 03/14 & 04/14 & 05/14 & 06/14 & 07/14 & 08/14 & 09/14 & 10/14 & 11/14 & 12/14 & 01/14 \\ \hline
-		Disciplinas & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} \\ \hline
-		Levantamento &  &  &  & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} &  &  &  &  &  \\ \hline
-		Experimentos &  &  &  &  &  &  & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} \\ \hline
-	\end{tabular}
-	}
-	\end{table}
+	\frametitle{Conclusão}
 
-	\begin{table}[h]
-	\resizebox{\textwidth}{!}{%
-	\begin{tabular}{|l|c|c|c|c|c|c|c|c|c|c|c|c|}
-		\hline
-		Atividade/Mês & 02/15 & 03/15 & 04/15 & 05/15 & 06/15 & 07/15 & 08/15 & 09/15 & 10/15 & 11/15 & 12/15 & 01/16 \\ \hline
-		Experimentos & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} \\ \hline
-		Sub. de artigos & & & & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} &  &  &  &  &  \\ \hline
-		Dissertação &  &  &  & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} & \cellcolor{blue!25} \\ \hline
-	\end{tabular}
-	}
-	\end{table}
-
+	\begin{itemize}
+		\item O algoritmo SRM obteve o melhor desempenho dentre as técnicas de segmentação experimentadas;
+		\item Embora tenha empatado com a abordagem multi-classe, o conjunto de classificadores obteve resultados promissores e se mostra a proposta mais robusta;
+		\item O conjunto de características escolhido demonstrou boa capacidade de descrição das classes do problema;
+		\item A base de imagens, de segmentos e todos os algoritmos e resultados encontrados estão publicamente disponíveis.
+	\end{itemize}
 \end{frame}
 
-\section{Trabalhos futuros}
+\begin{frame}[c]
+	\frametitle{Trabalhos futuros}
+
+	\begin{itemize}
+		\item Ampliar o conjunto de imagens, a fim de reduzir o desequilíbrio das classes.
+		\item Explorar mais algoritmos para classificação unária;
+		\item Explorar outras técnicas de votação/decisão em conjuntos de classificadores;
+	\end{itemize}
+\end{frame}
 
 
 %\section{Bibliografia}
