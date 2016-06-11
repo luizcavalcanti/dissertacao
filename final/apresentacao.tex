@@ -8,12 +8,14 @@
 \usepackage{tabulary}
 \usepackage{multicol}
 \usepackage[table]{xcolor}
+\usepackage{gensymb}
+\usepackage{multicol}
 
 %%%% TEMAS %%%%
 %\usetheme{Antibes}
 %\usetheme{Bergen}
 %\usetheme{Berkeley}
-\usetheme{Berlin}
+%\usetheme{Berlin}
 %\usetheme{Copenhagen}
 %\usetheme{Darmstadt}
 %\usetheme{Dresden}
@@ -30,7 +32,7 @@
 %\usetheme{PaloAlto}
 %\usetheme{Pittsburgh}
 %\usetheme{Rochester}
-%\usetheme{Singapore}
+\usetheme{Singapore}
 %\usetheme{Szeged}
 %\usetheme{Warsaw}
 %\usetheme{boxes}
@@ -39,7 +41,7 @@
 
 %%%% CORES %%%%
 
-%\usecolortheme{default}
+\usecolortheme{default}
 %\usecolortheme{albatross}
 %\usecolortheme{beaver}
 %\usecolortheme{beetle}
@@ -56,24 +58,20 @@
 %\usecolortheme{wolverine}
 
 %%%% TITULO %%%%
+\institute[Universities Here and There] % (optional)
+{
+  Programa de Pós-graduação em Informática\\
+  Instituto de Computação\\
+  Unversidade Federal do Amazonas
+}
 \title % (optional, only for long titles)
-{Uma solução de aprendizagem de máquina para detecção de anomalias em imagens aéreas da floresta amazônica}
+{Detecção de elementos antrópicos em imagens aéreas da floresta amazônica}
 %\subtitle{Evidence from India}
 \author %[Author, Anders] % (optional, for multiple authors)
-{Aluno: Luiz Carlos A. M. Cavalcanti
+{Luiz Carlos A. M. Cavalcanti
 \\Orientadora: Dr$^a$ Eulanda Miranda dos Santos} %\inst{1}}
-%\institute[Universities Here and There] % (optional)
-%{
-%  \inst{1}%
-%  Institute of Computer Science\\
-%  University Here
-%  \and
-%  \inst{2}%
-%  Institute of Theoretical Philosophy\\
-%  University There
-%}
 \date[] % (optional)
-{Exame de qualificação}
+{}
 \subject{Computer Science}
 
 \AtBeginSection[]
@@ -91,9 +89,8 @@
 
 \section{Contextualização}
 
-\begin{frame}
+\begin{frame}[c]
 \frametitle{Introdução}
-
 	Amazônia legal:
 	\begin{itemize}
 		\item 11 mil km de fronteiras;
@@ -103,16 +100,16 @@
 
 	\vspace{0.5cm}
 
-	Veículos Aéreos Não-Tripulados (VANTs) podem ser utilizados:
+	VANTs podem ser utilizados no patrulhamento:
 	\begin{itemize}
+		\item Diminuição do risco humano;
 		\item Maior cobertura de área;
 		\item Aproximação discreta;
 		\item Variedade de sensores embarcados.
 	\end{itemize}
-
 \end{frame}
 
-\begin{frame}
+\begin{frame}[c]
 \frametitle{Motivação}
 
 A quantidade maciça de dados gerados pelos VANTs leva à necessidade de desenvolvimento de procedimentos capazes de avaliar essa grande quantidade de material e identificar os prováveis objetos de interesse.
@@ -135,21 +132,22 @@ Objetos de interesse:
 
 \end{frame}
 
-\begin{frame}
+\begin{frame}[c]
 \frametitle{Objetivos}
 
-Geral:
+\textbf{Geral:}
 
 \begin{itemize}
-	\item Solução computacional que envolva PDI e AM para detecção de anomalias em imagens aéreas de floresta amazônica.
+	\item Propor uma abordagem utilizando PDI e AM para detecção automática de elementos antrópicos em imagens aéreas da floresta amazônica.
 \end{itemize}
 
-Específicos:
+\textbf{Específicos:}
 
 \begin{itemize}
-    \item Organizar uma base de dados de imagens devidamente rotuladas que sirva de referência para futuros estudos desta problemática.
+    \item Organizar uma base de imagens devidamente rotuladas que sirva de referência para futuros estudos desta problemática;
+    \item Investigar e definir métodos para segmentação de imagens aéreas da floresta amazônica;
     \item Investigar e definir métodos para extração e seleção de características mais adequadas ao problema em questão.
-    \item Realizar experimentos e apontar o melhor conjunto de técnicas para a detecção de anomalias em imagens aéreas da floresta amazônica.
+    \item Apontar o melhor conjunto de técnicas para a detecção de elementos antrópicos em imagens aéreas da floresta amazônica.
 \end{itemize}
 
 \end{frame}
@@ -158,24 +156,26 @@ Específicos:
 
 \section{Trabalhos relacionados}
 
-\begin{frame}
+\begin{frame}[c]
 	\frametitle{Trabalhos relacionados}
-	
+
 	O trabalho se propõe a utilizar técnicas de PDI e AM, portanto o levantamento bibliográfico foi dividido entre essas duas áreas de pesquisa, com os temas centrais:
-	
 	\vspace{0.5cm}
-	
 	\begin{itemize}
 		\item Segmentação de imagens;
-		\item Classificação de imagens aéreas.
+		\item Classificação de imagens aéreas;
+		\item Detecção de anomalias.
 	\end{itemize}
-	
 \end{frame}
 
-\begin{frame}
+\begin{frame}[c]
 	\frametitle{Trabalhos relacionados: Segmentação de imagens}
-	
+
+	\vspace{.5cm}
+
 	\textbf{\textit{Berkeley Segmentation Dataset 500} (BSD500)}
+	
+	\textit{Arbelaez et al. (2011)}
 	
 	\vspace{.5cm}
 		
@@ -183,63 +183,68 @@ Específicos:
 	
 	\vspace{.5cm}
 	
-	Considerada uma das mais importantes bases de imagens naturais para comparação entre algoritmos de segmentação.
+	Uma importante base de imagens naturais para comparação entre algoritmos de segmentação.
 
 \end{frame}
 
-\begin{frame}
+\begin{frame}[c]
 	\frametitle{Trabalhos relacionados: Segmentação de imagens}
 
-	\textbf{Systematic benchmarking of aerial image segmentation}
-	
-	\textit{Yuan, Gleason e Cheriyadat (2013)}
-	
 	\vspace{.5cm}
-	
+
+	\textbf{Systematic benchmarking of aerial image segmentation}
+
+	\textit{Yuan, Gleason e Cheriyadat (2013)}
+
+	\vspace{.5cm}
+
 	Revisão dos algoritmos mais bem sucedidos na BSD500, utilizando uma nova base de imagens, composta apenas de imagens aéreas.
-	
+
 	\small{
 	\begin{table}[h]
 	\centering
 	\begin{tabulary}{\linewidth}{|L|L|C|C|}
 	\hline
-	\textbf{Técnica} & \textbf{Características} & \textbf{Prec. bordas} & \textbf{Prec. regiões } \\ \hline
-	Manual      & \hspace{1cm} -    & 69\% & 84\% \\ \hline
-	gPb-owt-ucm & Cor, borda       & 65\% & 69\% \\ \hline
-	FSEG        & Textura          & 61\% & 66\% \\ \hline
-	SRM         & Cor, intensidade & 60\% & 60\% \\ \hline
-	JSEG        & Cor, borda       & 56\% & 66\% \\ \hline
-	MSEG        & Cor, morfologia  & 57\% & 50\% \\ \hline
-	Mean-shift  & Cor, posição     & 58\% & 48\% \\ \hline
+	\textbf{Técnica} & \textbf{Características} & \textbf{Pr. bordas} & \textbf{Pr. regiões } \\ \hline
+	Manual      & \hspace{1cm} -       & 69\% & 84\% \\ \hline
+	\cellcolor{gray!25} gPb-owt-ucm & \cellcolor{gray!25} Brilho, cor, textura & \cellcolor{gray!25} 65\% & \cellcolor{gray!25} 69\% \\ \hline
+	FSEG        & Textura              & 61\% & 66\% \\ \hline
+	SRM         & Cor, intensidade     & 60\% & 60\% \\ \hline
+	JSEG        & Cor, borda           & 56\% & 66\% \\ \hline
+	MSEG        & Cor, morfologia      & 57\% & 50\% \\ \hline
+	Mean-shift  & Cor, posição         & 58\% & 48\% \\ \hline
 	\end{tabulary}
 	\end{table}
 	}
-
 \end{frame}
 
 %\begin{frame}
 %	\frametitle{Trabalhos relacionados: Segmentação de imagens}
 %
+%	\vspace{0.2cm}
+%
 %	\textbf{Unsupervised segmentation of color-texture regions in images and video}
 %
 %	\textit{Deng e Manjunath (2001)}
+%	
+%	\begin{figure}[h]
+%  		\centering
+%		\includegraphics[scale=0.25]{imgs/demo_jseg}
+%	\end{figure}
 %
-%	\vspace{.5cm}
-%
-%	Apresenta o algoritmo JSEG, que segmenta a imagem em duas etapas:
+%	Descreve o algoritmo JSEG, que segmenta a imagem em duas etapas:
 %	\begin{enumerate}
 %		\item Quantização das cores em diversas classes;
-%		\item Computação da intensidade das bordas ($J$) a partir das cores quantizadas.
+%		\item Computação de um limiar ($J$) para determinar as bordas a partir das cores quantizadas.
 %	\end{enumerate}
-%
-%	\vspace{.5cm}
 %
 %	As regiões são obtidas a partir de crescimento de região com base no valor de $J$.
 %
 %\end{frame}
-%
+
 %\begin{frame}
 %	\frametitle{Trabalhos relacionados: Segmentação de imagens}
+%
 %	\textbf{Mean shift: a robust approach toward feature space analysis}
 %
 %	\textit{Comaniciu e Meer (2002)}
@@ -252,9 +257,8 @@ Específicos:
 %
 %	Parâmetros como largura de banda espacial, de cores e o tamanho do menor \textit{cluster} podem ser utilizados para adequar o algoritmo ao problema em questão.
 %
-%
 %\end{frame}
-%
+
 %\begin{frame}
 %	\frametitle{Trabalhos relacionados: Segmentação de imagens}
 %
@@ -342,22 +346,21 @@ Específicos:
 %
 %\end{frame}
 
-\begin{frame}
+\begin{frame}[c]
 	\frametitle{Trabalhos relacionados: Classificação de imagens aéreas}
 
 	Os trabalhos levantados acerca desta seção tratam de classificação de imagens aéreas para fins de mapeamento ou detecção de características específicas. 
-	
+
 	\vspace{0.5cm}
 
 	Os trabalhos foram selecionados por estar de acordo com as seguintes características das imagens utilizadas:
 
 	\begin{itemize}
-		\item Altitude entre 1000 e 5000 metros;
-		\item Inclinação de aproximadamente 90\%;
-		\item Imagens com forte presença de vegetação.
+		\item Cenas naturais;
+		\item Forte presença de vegetação.
+ 		\item Ortogonais ao solo ou inclinadas à aproximadamente 90\degree;
 	\end{itemize}
-
-%\end{frame}
+\end{frame}
 
 %\begin{frame}
 %	\frametitle{Trabalhos relacionados: Classificação de imagens aéreas}
@@ -417,7 +420,21 @@ Específicos:
 %
 %	A imagem é dividida em superpixels (fluxos geométricos de Levishtein) e características de cor (RGB) e textura (LBP-HF) são extraídas. Cada superpixel é classificado com KNN.
 %
-\end{frame}
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Trabalhos relacionados: Classificação de imagens aéreas}
+%
+%	FERNANDES
+%
+%\end{frame}
+%
+%\begin{frame}
+%	\frametitle{Trabalhos relacionados: Classificação de imagens aéreas}
+%
+%	MUNOZ-MARI
+%
+%\end{frame}
 
 \begin{frame}[c]
 	\frametitle{Trabalhos relacionados: Classificação de imagens aéreas}
@@ -426,112 +443,306 @@ Específicos:
 		\centering
 		\begin{tabulary}{\linewidth}{|L|L|L|L|C|}
 		\hline
-		\textbf{Trabalho} &  \textbf{Aprendizado} & \textbf{Problema investigado} &  \textbf{Precisão} \\ \hline
-		Dub-Jolly & Máxima veross. & Atualização de mapas           & 91,86\% \\ \hline
-		Sadgal    & Redes neurais          & Classificação de terreno       & -       \\ \hline
-		Ahmadi    & KNN                    & Classificação de terreno       & 82,23\% \\ \hline
-		Ghiasi    & KNN                    & Busca por objetos & 95\%    \\ \hline
+		\textbf{Trabalho} &  \textbf{Aprendizado} & \textbf{Problema investigado} &  \textbf{Acurácia} \\ \hline
+		Dub-Jolly  & Máxima veross. & Atualização de mapas      & 91,8\%  \\ \hline
+		Sadgal     & Redes neurais  & Classificação de terreno  & -       \\ \hline
+		Munoz-Mari & Class. unários & Det. de áreas urbanas     & 97,2\%  \\ \hline
+		Fernandes  & SVM            & Det. de desmatamento      & 87,0\%  \\ \hline
+		Ahmadi     & KNN            & Classificação de terreno  & 82,2\% \\ \hline
+		Ghiasi     & KNN            & Busca por objetos         & 95,0\%  \\ \hline
 		\end{tabulary}
 		\end{table}
 	}
 \end{frame}
+
+
+\begin{frame}[c]
+	\frametitle{Trabalhos relacionados: Detecção de anomalias}
+
+	\vspace{0.5cm}
+
+	Os trabalhos levantados acerca desta seção tratam de utilização de aprendizagem de máquina com métodos unários para encontrar outliers em imagens.
+	
+	\vspace{0.5cm}
+
+	\small{
+		\begin{table}[h]
+		\begin{tabulary}{\linewidth}{|L|L|L|R|}
+			\hline
+			\textbf{Trabalho} & \textbf{Aprendizado} & \textbf{Problema investigado} & \textbf{Acurácia} \\ \hline
+			Hegenbart & OC-SVM & Diagnóstico médico       & 82,9\% \\ \hline
+			Pla       & OC-SVM & Det. de vegetação        & -      \\ \hline
+			Wang      & SCSVDD & Det. de objetos incomuns & 94,0\% \\ \hline
+		\end{tabulary}
+		\end{table}
+	}
+\end{frame}
+
+%\begin{frame}
+%	\frametitle{Trabalhos relacionados: Detecção de anomalias}
+%
+%	Hegenbart
+%
+%\end{frame}
+
+%\begin{frame}
+%	\frametitle{Trabalhos relacionados: Detecção de anomalias}
+%
+%	Pla
+%
+%\end{frame}
+
+%\begin{frame}
+%	\frametitle{Trabalhos relacionados: Detecção de anomalias}
+%
+%	Wang
+%
+%\end{frame}
 
 %%%%%%%%%%%%%%%
 
 \section{Metodologia}
 
 \begin{frame}[c]
-	\frametitle{Metodologia}
+	\frametitle{Metodologia: Arquitetura geral}
 	\begin{figure}[h]
-    	\includegraphics[width=\textwidth]{imgs/arquitetura}
+    	\includegraphics[width=\textwidth]{imgs/arquitetura_geral}
 	\end{figure}
 \end{frame}
 
 \begin{frame}[c]
-	\frametitle{Metodologia: Segmentação}
+	\frametitle{Metodologia: Entrada}
 	\begin{figure}[h]
     	\includegraphics[width=\textwidth]{imgs/arquitetura_1}
 	\end{figure}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Metodologia: Segmentação}
+\begin{frame}[c] 
+	\frametitle{Metodologia: Entrada}
+	
+	Imagens aéreas da floresta amazônica serão a entrada para a solução. Todas as imagens serão coloridas, com 24 bits de profundidade de cores.
 
-	A primeira etapa do trabalho é a segmentação das imagens por tipo de terreno. Uma porção da base de imagens será manualmente segmentada por seres humanos e servirá de base de comparação para a segmentação realizada pelos métodos experimentados.
+	\vspace{0.5cm}
 
-	\begin{multicols}{2}
-		\begin{figure}
-			\includegraphics[scale=0.4]{imgs/exemplo_segmentacao}
-		\end{figure}
-		\begin{figure}
-			\includegraphics[scale=0.2]{imgs/exemplo_segmentacao2}
-		\end{figure}
-	\end{multicols}
-
+	Não é esperado qualquer tipo de tratamento ou filtragem prévia das imagens.
 \end{frame}
 
 \begin{frame}[c]
-	\frametitle{Metodologia: Primeira classificação}
+	\frametitle{Metodologia: Segmentador}
 	\begin{figure}[h]
     	\includegraphics[width=\textwidth]{imgs/arquitetura_2}
 	\end{figure}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Metodologia: Primeira classificação}
+\begin{frame}[c]
 
-	As regiões encontradas na fase de segmentação são rotuladas por tipo de terreno:
+	\frametitle{Metodologia: Segmentador}
 
-	\begin{itemize}
-		\item Floresta;
-		\item Vegetação rasteira;
-		\item Clareira/descampado;
-		\item Água;
-		\item Elementos anômalos.
-	\end{itemize}
+	Uma parcela da base de imagens será manualmente segmentada por seres humanos e servirá de \textit{ground-truth} para a segmentação realizada pelos métodos experimentados.
 
-	Regiões rotuladas como "elementos anômalos" são consideradas regiões de interesse. As demais serão inspecionadas em uma segunda etapa de classificação. Os resultados de cada método serão comparados à uma classificação realizada por seres humanos.
+	\vspace{0.5cm}
 
+	As taxas de erro de consistência local (LCE) e global (GCE) [Martin et al., 2001] serão utilizados para aferir a qualidade da segmentação.
+
+	\begin{equation*}
+		\displaystyle GCE(S_1,S_2) = \frac{1}{n} min \biggl\{ \sum_{i} E(S_1,S_2,p_i), \sum_{i} E(S_2,S_1,p_i) \biggr\}
+	\end{equation*}
+
+	\begin{equation*}
+		\displaystyle LCE(S_1,S_2) = \frac{1}{n} \sum_{i} min \biggl\{ E(S_1,S_2,p_i), E(S_2,S_1,p_i) \biggr\}
+	\end{equation*}
 \end{frame}
 
 \begin{frame}[c]
-	\frametitle{Metodologia: Segunda classificação}
+	\frametitle{Metodologia: Extrator}
 	\begin{figure}[h]
     	\includegraphics[width=\textwidth]{imgs/arquitetura_3}
 	\end{figure}
 \end{frame}
 
-\begin{frame}
-	\frametitle{Metodologia: Segunda classificação}
+\begin{frame}[c]
 
-	A última etapa de classificação consiste em utilizar modelos de aprendizado específicos para cada tipo de terreno, para detectar objetos de interesse que não foram encontrados na etapa de segmentação, normalmente pequenos demais para serem definidos como uma região \textit{per se}, e que estão contidos em regiões maiores.
+	\frametitle{Metodologia: Extrator}
 
-	\vspace{0.5cm} 
-
-	Isso permite que cada tipo de terreno possa usar seus próprios métodos de aprendizado e características da imagem.
-
-	\vspace{0.5cm}
-
-	Nesta etapa serão explorados classificadores unários e multi-classe a fim de obter o melhor resultado na detecção dos objetos de interesse e um classificador, com seus parâmetros e vetor de características, será selecionado para cada tipo de terreno.
+	Nesta etapa serão extraídas informações sobre cor, intensidade, textura e morfologia das imagens. A escolha das características foi baseada nas utilizadas em trabalhos relacionados: 
+	
+	\begin{itemize}
+		\item Canais de cores (RBG, HSV)
+		\item Histogramas de intensidade
+		\item \textit{Local Binary Patterns}
+		\item Transformada de Hough
+	\end{itemize}
 \end{frame}
 
 \begin{frame}[c]
-	\frametitle{Metodologia: Saída}
+
+	\frametitle{Metodologia: Extrator}
+
+	O algoritmo de seleção de características CFS será utilizado, e os resultados comparados ao conjunto total de características.
+
+	\vspace{0.5cm}
+
+	\begin{equation*}
+		\displaystyle p(C=c|V_i=v_i) \neq p(C=c)
+	\end{equation*}
+
+	\vspace{0.5cm}
+
+	Todas as amostras serão rotuladas manualmente, a fim de compor a base de dados de segmentos a ser classificada.
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Metodologia: Classificador}
 	\begin{figure}[h]
     	\includegraphics[width=\textwidth]{imgs/arquitetura_4}
 	\end{figure}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[c]
+	\frametitle{Metodologia: Classificador}
+	
+	Quatro abordagens de classificação:
+	\begin{itemize}
+		\item Multiclasse;
+		\item Biclasse;
+		\item Unária;
+		\item Conjunto de unários.
+	\end{itemize}
+
+	\vspace{0.5cm}
+
+	A motivação é a diversidade de estratégias encontradas na literatura e a falta de um trabalho que sirva de baseline.
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Metodologia: Classificador}
+
+	Todos os experimentos serão realizados com e sem seleção de características através do método CFS.
+
+	\vspace{0.5cm}
+
+	Para comparação dos resultados de classificação, os valores de precisão, revocação e medida F1 para todas as classes e para a classe de interesse (elementos antrópicos) serão utilizados.
+
+	\begin{equation*}
+		\displaystyle Pr = \frac{TP}{TP+FP}
+	\end{equation*}
+
+	\begin{equation*}
+		\displaystyle Rv = \frac{TP}{TP+FN}
+	\end{equation*}
+
+	\begin{equation*}
+  		\displaystyle F_1 = 2 \cdot \frac{Pr \cdot Rv}{Pr + Rv}
+	\end{equation*}
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Metodologia: Classificador - Multiclasse}
+	
+	Base rotulada e dividida entre 5 classes:
+	\vspace{0.3cm}
+	\begin{itemize}
+		\begin{minipage}{0.4\linewidth}
+    		\item Floresta;
+			\item Água;
+			\item Vegetação rasteira;
+		\end{minipage}
+		\begin{minipage}{0.4\linewidth}
+    		\item Terra;
+			\item Elementos antrópicos.
+		\end{minipage} 	
+	\end{itemize}
+
+	\vspace{0.5cm}
+	
+	Algoritmos:
+	\begin{itemize}
+		\item Random Forest;
+		\item Árvores de decisão;
+		\item KNN;
+		\item SVM;
+		\item Naive Bayes.
+	\end{itemize}\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Metodologia: Classificador - Biclasse}
+
+	Base rotulada e dividida entre 2 classes:
+	\vspace{0.3cm}
+	\begin{itemize}
+    	\item Elementos naturais;
+		\item Elementos antrópicos.
+	\end{itemize}
+
+	\vspace{0.5cm}
+
+	Algoritmos:
+	\begin{itemize}
+		\item Random Forest;
+		\item Árvores de decisão;
+		\item KNN;
+		\item SVM;
+		\item Naive Bayes.
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Metodologia: Classificador - Unário}
+
+	Base dividida em 2 classes, mas parcialmente rotulada para apenas uma classe:
+	\vspace{0.3cm}
+	\begin{itemize}
+    	\item Elementos naturais (target);
+    	\item Elementos antrópicos (outlier).
+	\end{itemize}
+
+	\vspace{0.5cm}
+
+	Algoritmos:
+	\begin{itemize}
+		\item OC-SVM;
+		\item REPTree.
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Metodologia: Classificador - Conjunto de classificadores}
+	
+	Diversas bases criadas, uma para cada classificador a ser treinado, levando em consideração a classe de interesse no contexto e a classe anômala.
+
+	\vspace{0.5cm}
+
+	Algoritmos:
+	\begin{itemize}
+		\item OC-SVM;
+		\item REPTree.
+	\end{itemize}
+	
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Metodologia: Saída}
+	\begin{figure}[h]
+    	\includegraphics[width=\textwidth]{imgs/arquitetura_5}
+	\end{figure}
+\end{frame}
+
+\begin{frame}[c]
 	\frametitle{Metodologia: Saída}
 
-	Por fim, unindo a saída do primeiro nível de classificação, onde regiões de "elementos anômalos" podem ser encontradas, com a saída do segundo nível de classificação, onde os objetos de interesse serão procurados no interior das demais regiões, teremos uma saída única, apontando as regiões de uma imagem que possuam objetos de interesse na problemática em questão.
+	O resultado final do processo é uma indicação de quais segmentos da imagem são considerados elementos antrópicos.
+
+	\vspace{0.5cm}	
+
+	A partir do resultado final, pode ser indicado o melhor conjunto de segmentador e classificador para detecção de elementos antrópicos em imagens aéreas da floresta amazônica.
 
 \end{frame}
 
 %%%%%%%%%%%%%%%
 
-\section{Resultados preliminares}
+\section{Experimentos}
 
 \begin{frame}
 	\frametitle{Base de dados}
@@ -539,6 +750,7 @@ Específicos:
 	\begin{itemize}
 		\item 3.044 imagens em cores;
 		\item Formato: JPEG;
+		\item Nenhum filtro ou tratamento adicional;
 		\item Dimensões: 640 x 480 pixels;
 		\item 1,02 GB de dados.
 	\end{itemize}
@@ -560,7 +772,12 @@ Específicos:
 \begin{frame}
 	\frametitle{Segmentação}
 
-	Uma ferramenta foi construída para determinar o \textit{ground-truth} da segmentação das imagens, obedecendo o lastro estatístico apresentado por Martin et al., 2001.
+	Uma ferramenta\footnote{amazonsegmentation.ddns.net} foi construída para coletar a segmentação manual (ground-truth):
+	\begin{itemize}
+		\item 31 voluntários;
+		\item 5 segmentações por imagem;
+		\item 203 imagens diferentes;
+	\end{itemize}
 
 	\begin{figure}[h]
   		\centering
@@ -570,42 +787,22 @@ Específicos:
 \end{frame}
 
 
-\begin{frame}
+\begin{frame}[c]
 	\frametitle{Segmentação}
 	Validação estatística da segmentação manual
 	\begin{figure}[h]
-		\centering
-		\includegraphics[scale=0.10]{imgs/manual_gce}
-		\includegraphics[scale=0.10]{imgs/manual_lce}
+		\includegraphics[scale=0.18]{imgs/manual_gce}
 	\end{figure}
 \end{frame}
 
-\begin{frame}
+\begin{frame}[c]
 	\frametitle{Segmentação}
-
-	\begin{itemize}
-		\item 302 imagens (até então);
-		\item Resultados do cálculo dos erros de consistência local e global (Martin et al., 2001)
-	\end{itemize}
-
-	\small{
-	\begin{table}
-	\centering
-	\begin{tabulary}{\linewidth}{|L|R|R|R|}
-		\hline
-		\textbf{Algoritmo} & \textbf{GCE médio} & \textbf{LCE médio} & \textbf{Tempo (s)} \\ \hline
-		Manual      & 0.01762          & 0.00525 & - \\ \hline
-		Mean-shift  & 0.02528          & 0.00278 & 6,39 \\ \hline
-		JSEG        & 0.03209          & 0.00532 & 14,82 \\ \hline
-		MSEG        & 0.01021          & 0.00069 & \textbf{0,33} \\ \hline
-		SRM         & \textbf{0.00651} & \textbf{0.0066} & 4,66 \\ \hline
-		gPb-owt-ucm & 0.00903 & 0.00397 & 237,32 \\ \hline
-		FSEG        & 0.03385 & 0.00278 & 13,91 \\ \hline
-	\end{tabulary}
-	\end{table}
-	}
-
+	Validação estatística da segmentação manual
+	\begin{figure}[h]
+		\includegraphics[scale=0.18]{imgs/manual_lce}
+	\end{figure}
 \end{frame}
+
 
 \begin{frame}[c]
 	\frametitle{Segmentação}
@@ -625,6 +822,28 @@ Específicos:
 		\includegraphics[width=\textwidth]{imgs/gambi_apresentacao}
 	\end{figure}
 
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Segmentação}
+
+	Resultados do cálculo dos erros de consistência local e global (Martin et al., 2001) para as 203 imagens utilizadas no benchmark:
+
+	\small{
+	\begin{table}[h]
+		\begin{tabulary}{\linewidth}{|L|R|R|R|}
+		\hline
+			\textbf{Algoritmo} & \textbf{GCE médio} & \textbf{LCE médio} & \textbf{Tempo (s)} \\ \hline
+			Manual      & 0.01822          & 0.00537         & - \\ \hline
+			FSEG        & 0.03063          & 0.00273         & 13,91 \\ \hline
+			gPb-owt-ucm & 0.00655          & 0.00297         & 237,32 \\ \hline
+			JSEG        & 0.02990          & 0.00486         & 14,82 \\ \hline
+			Mean-shift  & 0.02237          & 0.00271         & 6,39 \\ \hline
+			MSEG        & 0.01005          & 0.00072         & \cellcolor{gray!25} 0,33 \\ \hline
+			SRM         & \cellcolor{gray!25} 0.00622 & \cellcolor{gray!25} 0.00066 & 4,66 \\ \hline
+		\end{tabulary}
+	\end{table}
+	}
 \end{frame}
 
 %\begin{frame}
@@ -648,11 +867,41 @@ Específicos:
 %
 %\end{frame}
 
-\begin{frame}
-	\frametitle{Primeira classificação}
+\begin{frame}[c]
+	\frametitle{Classificação}
+
+	Resultantes da etapa de segmentação com o método SRM, todos os \textbf{10.057} segmentos tiveram características extraídas e foram manualmente rotulados.
+	
+	\vspace{0.5cm}
+	
+	\centering
+	Vetor de características
+
+	\small{
+		\begin{table}[h]
+		\centering
+		\begin{tabulary}{\linewidth}{|L|L|R|}
+		\hline
+		\textbf{Atributo} & \textbf{Tipo} & \textbf{Dimensão} \\ \hline
+		Vermelho médio            & Real    &  1x1 \\ \hline
+		Verde médio               & Real    &  1x1 \\ \hline
+		Azul médio                & Real    &  1x1 \\ \hline
+		Intensidade média         & Real    &  1x1 \\ \hline
+		Intensidade - histograma  & Inteiro & 16x1 \\ \hline
+		LBP - histograma          & Inteiro & 26x1 \\ \hline
+		Hough - número de retas   & Inteiro &  1x1 \\ \hline
+		Hough - maior reta        & Inteiro &  1x1 \\ \hline
+		\end{tabulary}
+		\end{table}
+	}
+
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Classificação}
 
 	\centering
-	10.057 amostras
+	Distribuição de classes
 
 	\small{
 	\begin{table}[h]
@@ -660,20 +909,21 @@ Específicos:
 	\begin{tabulary}{\linewidth}{|L|R|R|}
 		\hline
 		\textbf{Classe} & \textbf{Amostras} & \textbf{Percentual} \\ \hline
-		Floresta             & 8686 & 86,36\% \\ \hline
-		Vegetação rasteira   & 944  &  9,38\% \\ \hline
-		Água                 & 287  &  2,85\% \\ \hline
-		Clareira             & 136  &  1,35\% \\ \hline
-		Elementos antrópicos & 24   &  0,23\% \\ \hline
+		Floresta             & 8.686 & 86,36\% \\ \hline
+		Vegetação rasteira   & 944   &  9,38\% \\ \hline
+		Água                 & 287   &  2,85\% \\ \hline
+		Clareira             & 136   &  1,35\% \\ \hline
+		Elementos antrópicos & 24    &  0,23\% \\ \hline
 	\end{tabulary}
 	\end{table}
 	}
+	\centering
+	Base disponível em \textbf{github.com/luizcavalcanti/geoma-database}.
 
 \end{frame}
 
-
 \begin{frame}
-	\frametitle{Primeira classificação}
+	\frametitle{Classificação - Multiclasse}
 
 	Vetor de características do segmento:
 	\begin{itemize}
@@ -683,18 +933,18 @@ Específicos:
 		\item Histograma de Local Binary Patterns
 	\end{itemize}
 
-	Resultados: (66\%/33\%)
 	\small{
 	\begin{table}[h]
 	\centering
-	\begin{tabulary}{\linewidth}{|L|R|R|R|}
-		\hline
-		\textbf{Método} & \textbf{Acurácia} & \textbf{Precisão} & \textbf{Revocação} \\ \hline
-		Random Forest     & 92,70\% & 0.939 & 0.926 \\ \hline
-		KNN (3)           & 92,26\% & 0.920 & 0.922 \\ \hline
-		SVM               & 91,27\% & 0.899 & 0.913 \\ \hline
-		Árvore de decisão & 90,21\% & 0.907 & 0.902 \\ \hline
+	\begin{tabulary}{\linewidth}{|L|L|R|}
+	\hline
+	\textbf{Atributo} & \textbf{Tipo} & \textbf{Dimensão} \\ \hline
+	Intensidade - histograma (5/15) & Inteiro & 5x1 \\ \hline
+	LBP - histograma (1/26)         & Inteiro & 1x1 \\ \hline
+	Hough - maior reta              & Inteiro & 1x1 \\ \hline
 	\end{tabulary}
+	\caption{Atributos selecionados pela técnica de CFS para a abordagem de classificação multi-classe}
+	\label{tab:experimentoMulticlasseAtributosFiltrados}
 	\end{table}
 	}
 
@@ -713,7 +963,7 @@ Específicos:
 \end{frame}
 %%%%%%%%%%%%%%%
 
-\section{Cronograma}
+\section{Conclusão}
 
 \begin{frame}[c]
 	\frametitle{Cronograma}
@@ -742,6 +992,9 @@ Específicos:
 	\end{table}
 
 \end{frame}
+
+\section{Trabalhos futuros}
+
 
 %\section{Bibliografia}
 
