@@ -133,15 +133,15 @@ Objetos de interesse:
 \end{frame}
 
 \begin{frame}[c]
-\frametitle{Objetivos}
-
-\textbf{Geral:}
+\frametitle{Objetivo geral}
 
 \begin{itemize}
-	\item Propor uma abordagem utilizando PDI e AM para detecção automática de elementos antrópicos em imagens aéreas da floresta amazônica.
+	\item Propor uma abordagem utilizando processamento digital de imagens e aprendizagem de máquina para detecção automática de elementos antrópicos em imagens aéreas da floresta amazônica.
 \end{itemize}
+\end{frame}
 
-\textbf{Específicos:}
+\begin{frame}[c]
+\frametitle{Objetivos específicos}
 
 \begin{itemize}
     \item Organizar uma base de imagens devidamente rotuladas que sirva de referência para futuros estudos desta problemática;
@@ -349,10 +349,6 @@ Objetos de interesse:
 \begin{frame}[c]
 	\frametitle{Trabalhos relacionados: Classificação de imagens aéreas}
 
-	Os trabalhos levantados acerca desta seção tratam de classificação de imagens aéreas para fins de mapeamento ou detecção de características específicas. 
-
-	\vspace{0.5cm}
-
 	Os trabalhos foram selecionados por estar de acordo com as seguintes características das imagens utilizadas:
 
 	\begin{itemize}
@@ -461,7 +457,7 @@ Objetos de interesse:
 
 	\vspace{0.5cm}
 
-	Os trabalhos levantados acerca desta seção tratam de utilização de aprendizagem de máquina com métodos unários para encontrar outliers em imagens.
+	Os trabalhos levantados tratam de utilização de aprendizagem de máquina com métodos unários para encontrar outliers em imagens.
 	
 	\vspace{0.5cm}
 
@@ -520,7 +516,7 @@ Objetos de interesse:
 \begin{frame}[c] 
 	\frametitle{Metodologia: Entrada}
 	
-	Imagens aéreas da floresta amazônica serão a entrada para a solução. Todas as imagens serão coloridas, com 24 bits de profundidade de cores.
+	Imagens aéreas da floresta amazônica são a entrada para a solução.
 
 	\vspace{0.5cm}
 
@@ -535,12 +531,26 @@ Objetos de interesse:
 \end{frame}
 
 \begin{frame}[c]
-
 	\frametitle{Metodologia: Segmentador}
 
-	Uma parcela da base de imagens será manualmente segmentada por seres humanos e servirá de \textit{ground-truth} para a segmentação realizada pelos métodos experimentados.
+	Nesta etapa, diversos métodos de segmentação de imagens são testados e seus resultados comparados com um \textit{ground-truth} gerado por seres humanos.
 
 	\vspace{0.5cm}
+
+	Neste trabalho foram utilizados os seguintes métodos:
+	\begin{itemize}
+		\item FSEG;
+		\item gPb-owt-ucm;
+		\item JSEG;
+		\item Mean-shift;
+		\item MSEG;
+		\item SRM;
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Metodologia: Segmentador}
 
 	As taxas de erro de consistência local (LCE) e global (GCE) [Martin et al., 2001] serão utilizados para aferir a qualidade da segmentação.
 
@@ -564,8 +574,8 @@ Objetos de interesse:
 
 	\frametitle{Metodologia: Extrator}
 
-	Nesta etapa serão extraídas informações sobre cor, intensidade, textura e morfologia das imagens. A escolha das características foi baseada nas utilizadas em trabalhos relacionados: 
-	
+	Nesta etapa são extraídas informações sobre cor, intensidade, textura e morfologia das imagens. A escolha das características foi baseada nas utilizadas em trabalhos relacionados:
+
 	\begin{itemize}
 		\item Canais de cores (RBG, HSV)
 		\item Histogramas de intensidade
@@ -578,7 +588,7 @@ Objetos de interesse:
 
 	\frametitle{Metodologia: Extrator}
 
-	O algoritmo de seleção de características CFS será utilizado, e os resultados comparados ao conjunto total de características.
+	O algoritmo de seleção de características CFS é utilizado, e os resultados comparados ao conjunto total de características.
 
 	\vspace{0.5cm}
 
@@ -588,7 +598,7 @@ Objetos de interesse:
 
 	\vspace{0.5cm}
 
-	Todas as amostras serão rotuladas manualmente, a fim de compor a base de dados de segmentos a ser classificada.
+	Todas as amostras são rotuladas manualmente, a fim de compor a base de dados de segmentos a ser classificada.
 \end{frame}
 
 \begin{frame}[c]
@@ -617,11 +627,11 @@ Objetos de interesse:
 \begin{frame}[c]
 	\frametitle{Metodologia: Classificador}
 
-	Todos os experimentos serão realizados com e sem seleção de características através do método CFS.
+	Todos os experimentos são realizados com e sem seleção de características através do método CFS.
 
 	\vspace{0.5cm}
 
-	Para comparação dos resultados de classificação, os valores de precisão, revocação e medida F1 para todas as classes e para a classe de interesse (elementos antrópicos) serão utilizados.
+	Para comparação dos resultados de classificação, os valores de precisão, revocação e medida F1 para todas as classes e para a classe de interesse (elementos antrópicos) são utilizados.
 
 	\begin{equation*}
 		\displaystyle Pr = \frac{TP}{TP+FP}
@@ -634,96 +644,6 @@ Objetos de interesse:
 	\begin{equation*}
   		\displaystyle F_1 = 2 \cdot \frac{Pr \cdot Rv}{Pr + Rv}
 	\end{equation*}
-\end{frame}
-
-\begin{frame}[c]
-	\frametitle{Metodologia: Classificador - Multiclasse}
-	
-	Base rotulada e dividida entre 5 classes:
-	\vspace{0.3cm}
-	\begin{itemize}
-		\begin{minipage}{0.4\linewidth}
-    		\item Floresta;
-			\item Água;
-			\item Vegetação rasteira;
-		\end{minipage}
-		\begin{minipage}{0.4\linewidth}
-    		\item Terra;
-			\item Elementos antrópicos.
-		\end{minipage} 	
-	\end{itemize}
-
-	\vspace{0.5cm}
-	
-	Algoritmos:
-	\begin{itemize}
-		\item Random Forest;
-		\item Árvores de decisão;
-		\item KNN;
-		\item SVM;
-		\item Naive Bayes.
-	\end{itemize}\end{frame}
-
-\begin{frame}[c]
-	\frametitle{Metodologia: Classificador - Biclasse}
-
-	Base rotulada e dividida entre 2 classes:
-	\vspace{0.3cm}
-	\begin{itemize}
-    	\item Elementos naturais;
-		\item Elementos antrópicos.
-	\end{itemize}
-
-	\vspace{0.5cm}
-
-	Algoritmos:
-	\begin{itemize}
-		\item Random Forest;
-		\item Árvores de decisão;
-		\item KNN;
-		\item SVM;
-		\item Naive Bayes.
-	\end{itemize}
-
-\end{frame}
-
-\begin{frame}[c]
-	\frametitle{Metodologia: Classificador - Unário}
-
-	Base dividida em 2 classes, mas parcialmente rotulada para apenas uma classe:
-	\vspace{0.3cm}
-	\begin{itemize}
-    	\item Elementos naturais (target);
-    	\item Elementos antrópicos (outlier).
-	\end{itemize}
-
-	\vspace{0.5cm}
-
-	Algoritmos:
-	\begin{itemize}
-		\item OC-SVM;
-		\item REPTree.
-	\end{itemize}
-
-\end{frame}
-
-\begin{frame}[c]
-	\frametitle{Metodologia: Classificador - Conjunto de classificadores}
-	
-	Diversas bases criadas, uma para cada classificador a ser treinado, levando em consideração a classe de interesse no contexto e a classe anômala.
-
-	\vspace{0.5cm}
-	
-	Os métodos devem ser combinados e o resultado final de classificação deve se dar por votação com pesos.
-
-	\vspace{0.5cm}
-
-	Algoritmos:
-	\begin{itemize}
-		\item OC-SVM;
-		\item REPTree.
-	\end{itemize}
-	
 \end{frame}
 
 \begin{frame}[c]
@@ -907,6 +827,35 @@ Objetos de interesse:
 \begin{frame}[c]
 	\frametitle{Classificação - Multiclasse}
 
+	Base rotulada e dividida entre 5 classes:
+	\vspace{0.3cm}
+	\begin{itemize}
+		\begin{minipage}{0.4\linewidth}
+			\item Floresta;
+			\item Água;
+			\item Vegetação rasteira;
+		\end{minipage}
+		\begin{minipage}{0.4\linewidth}
+			\item Terra;
+			\item Elementos antrópicos.
+		\end{minipage}
+	\end{itemize}
+
+	\vspace{0.5cm}
+
+	Algoritmos:
+	\begin{itemize}
+		\item Random Forest;
+		\item Árvores de decisão;
+		\item KNN;
+		\item SVM;
+		\item Naive Bayes.
+	\end{itemize}
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Classificação - Multiclasse}
+
 	\centering
 	Distribuição de classes
 
@@ -994,6 +943,30 @@ Objetos de interesse:
 		\end{tabulary}
 		\end{table}
 	}
+\end{frame}
+
+
+\begin{frame}[c]
+	\frametitle{Classificação - Biclasse}
+
+	Base rotulada e dividida entre 2 classes:
+	\vspace{0.3cm}
+	\begin{itemize}
+		\item Elementos naturais;
+		\item Elementos antrópicos.
+	\end{itemize}
+
+	\vspace{0.5cm}
+
+	Algoritmos:
+	\begin{itemize}
+		\item Random Forest;
+		\item Árvores de decisão;
+		\item KNN;
+		\item SVM;
+		\item Naive Bayes.
+	\end{itemize}
+
 \end{frame}
 
 \begin{frame}[c]
@@ -1088,6 +1061,26 @@ Objetos de interesse:
 
 \begin{frame}[c]
 	\frametitle{Classificação - Unária}
+
+	Base dividida em 2 classes, mas parcialmente rotulada para apenas uma classe:
+	\vspace{0.3cm}
+	\begin{itemize}
+		\item Elementos naturais (target);
+		\item Elementos antrópicos (outlier).
+	\end{itemize}
+
+	\vspace{0.5cm}
+
+	Algoritmos:
+	\begin{itemize}
+		\item OC-SVM;
+		\item REPTree.
+	\end{itemize}
+
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Classificação - Unária}
 	
 	\centering
 	Distribuição de classes
@@ -1157,6 +1150,24 @@ Objetos de interesse:
 		\end{tabulary}
 		\end{table}
 	}
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Classificação - Conjunto de unários}
+
+	Diversas bases criadas, uma para cada classificador a ser treinado, levando em consideração a classe de interesse no contexto e a classe anômala.
+
+	\vspace{0.5cm}
+
+	Os métodos devem ser combinados e o resultado final de classificação deve se dar por votação com pesos.
+
+	\vspace{0.5cm}
+
+	Algoritmos:
+	\begin{itemize}
+		\item OC-SVM;
+		\item REPTree.
+	\end{itemize}
 \end{frame}
 
 \begin{frame}[c]
