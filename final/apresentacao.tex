@@ -688,7 +688,7 @@ Objetos de interesse:
 
 \section{Experimentos}
 
-\begin{frame}
+\begin{frame}[c]
 	\frametitle{Base de dados}
 
 	\begin{itemize}
@@ -699,35 +699,35 @@ Objetos de interesse:
 		\item 1,02 GB de dados.
 	\end{itemize}
 
-	\begin{multicols}{3}
-		\begin{figure}
-			\includegraphics[scale=0.3]{imgs/amostra1}
-		\end{figure}
-		\begin{figure}
-			\includegraphics[scale=0.3]{imgs/amostra2}
-		\end{figure}
-		\begin{figure}
-			\includegraphics[scale=0.3]{imgs/amostra3}
-		\end{figure}
-	\end{multicols}
+	\begin{figure}[h]
+		\includegraphics[width=.3\textwidth]{imgs/amostra1}
+		\hspace{0.1cm}
+		\includegraphics[width=.3\textwidth]{imgs/amostra2}
+		\hspace{0.1cm}
+		\includegraphics[width=.3\textwidth]{imgs/amostra3}
+	\end{figure}
 
 \end{frame}
 
-\begin{frame}
+\begin{frame}[c]
 	\frametitle{Segmentação}
 
 	Uma ferramenta\footnote{amazonsegmentation.ddns.net} foi construída para coletar a segmentação manual (ground-truth):
-	\begin{itemize}
-		\item 31 voluntários;
-		\item 5 segmentações por imagem;
-		\item 203 imagens diferentes;
-	\end{itemize}
 
-	\begin{figure}[h]
-  		\centering
-		\includegraphics[scale=0.25]{imgs/manualseg}
-	\end{figure}
+	%\vspace{0.5cm}
 
+	\begin{minipage}{0.49\linewidth}
+		\begin{itemize}
+			\item 31 voluntários;
+			\item 5 segmentações p/ imagem;
+			\item 203 imagens diferentes;
+		\end{itemize}
+	\end{minipage}
+	\begin{minipage}[r]{0.49\linewidth}
+		\begin{figure}[h]
+			\includegraphics[width=\textwidth]{imgs/manualseg}
+		\end{figure}
+	\end{minipage}
 \end{frame}
 
 
