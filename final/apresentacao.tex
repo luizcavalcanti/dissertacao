@@ -98,28 +98,40 @@
 
 \begin{frame}[c]
 \frametitle{Introdução}
-	Amazônia legal:
-	\begin{itemize}
-		\item 11 mil km de fronteiras;
-		\item 22 mil km de vias fluviais;
-		\item 66\% do território nacional.
-	\end{itemize}
 
-	\vspace{0.5cm}
+	\begin{minipage}{0.7\linewidth}
+		Amazônia legal:
+		\begin{itemize}
+			\item 11 mil km de fronteiras;
+			\item 22 mil km de vias fluviais;
+			\item 66\% do território nacional.
+		\end{itemize}
 
-	VANTs podem ser utilizados no patrulhamento:
-	\begin{itemize}
-		\item Diminuição do risco humano;
-		\item Maior cobertura de área;
-		\item Aproximação discreta;
-		\item Variedade de sensores embarcados.
-	\end{itemize}
+		\vspace{0.5cm}
+
+		VANTs podem ser usados no patrulhamento:
+		\begin{itemize}
+			\item Diminuição do risco humano;
+			\item Maior cobertura de área;
+			\item Aproximação discreta;
+			\item Variedade de sensores embarcados.
+		\end{itemize}
+	\end{minipage}
+	\begin{minipage}{0.28\linewidth}
+		\begin{figure}[h]
+			\includegraphics[width=\textwidth]{imgs/amazonia_legal}
+		\end{figure}
+
+		\begin{figure}[h]
+			\includegraphics[width=\textwidth]{imgs/hermes}
+		\end{figure}
+	\end{minipage}
 \end{frame}
 
 \begin{frame}[c]
 \frametitle{Motivação}
 
-A quantidade maciça de dados gerados pelos VANTs leva à necessidade de desenvolvimento de procedimentos capazes de avaliar essa grande quantidade de material e identificar os prováveis objetos de interesse.
+A nova quantidade de dados causa problemas. É desejável uma solução computacional que proporcione:
 
 \begin{itemize}
 	\item Maior rapidez na análise de dados;
@@ -128,23 +140,20 @@ A quantidade maciça de dados gerados pelos VANTs leva à necessidade de desenvo
 \end{itemize}
 
 Objetos de interesse:
-\begin{itemize}
-	\item Veículos terrestres e navais;
-	\item Acampamentos, construções;
-	\item Clareiras, pistas de pouso, estradas.
-\end{itemize}
-
-
-%Técnicas de PDI e AM podem ajudar a encontrar:
+	\begin{figure}[h]
+		\includegraphics[width=.3\textwidth]{imgs/pesca_ilegal}
+		\hspace{0.1cm}
+		\includegraphics[width=.3\textwidth]{imgs/pista_de_pouso}
+		\hspace{0.1cm}
+		\includegraphics[width=.32\textwidth]{imgs/garimpo}
+	\end{figure}
 
 \end{frame}
 
 \begin{frame}[c]
 \frametitle{Objetivo geral}
 
-\begin{itemize}
-	\item Propor uma abordagem utilizando processamento digital de imagens e aprendizagem de máquina para detecção automática de elementos antrópicos em imagens aéreas da floresta amazônica.
-\end{itemize}
+	Propor uma abordagem utilizando processamento digital de imagens e aprendizagem de máquina para detecção automática de elementos antrópicos em imagens aéreas da floresta amazônica.
 \end{frame}
 
 \begin{frame}[c]
@@ -166,7 +175,7 @@ Objetos de interesse:
 \begin{frame}[c]
 	\frametitle{Trabalhos relacionados}
 
-	O trabalho se propõe a utilizar técnicas de PDI e AM, portanto o levantamento bibliográfico foi dividido entre essas duas áreas de pesquisa, com os temas centrais:
+	O levantamento bibliográfico foi feito a partir de três temas de pesquisa:
 	\vspace{0.5cm}
 	\begin{itemize}
 		\item Segmentação de imagens;
@@ -178,18 +187,24 @@ Objetos de interesse:
 \begin{frame}[c]
 	\frametitle{Trabalhos relacionados: Segmentação de imagens}
 
-	\vspace{.5cm}
-
 	\textbf{\textit{Berkeley Segmentation Dataset 500} (BSD500)}
 	
+	\begin{figure}[h]
+		\includegraphics[width=.3\textwidth]{imgs/bsd500_1}
+		\hspace{0.1cm}
+		\includegraphics[width=.3\textwidth]{imgs/bsd500_2}
+		\hspace{0.1cm}
+		\includegraphics[width=.3\textwidth]{imgs/bsd500_3}
+	\end{figure}
+
 	\textit{Arbelaez et al. (2011)}
-	
+
 	\vspace{.5cm}
-		
+	
 	Conjunto de 500 imagens naturais. Todas as imagens possuem \textit{ground truth} de segmentação por seres humanos.
-	
+
 	\vspace{.5cm}
-	
+
 	Uma importante base de imagens naturais para comparação entre algoritmos de segmentação.
 
 \end{frame}
@@ -197,15 +212,13 @@ Objetos de interesse:
 \begin{frame}[c]
 	\frametitle{Trabalhos relacionados: Segmentação de imagens}
 
-	\vspace{.5cm}
-
 	\textbf{Systematic benchmarking of aerial image segmentation}
 
 	\textit{Yuan, Gleason e Cheriyadat (2013)}
 
-	\vspace{.5cm}
-
-	Revisão dos algoritmos mais bem sucedidos na BSD500, utilizando uma nova base de imagens, composta apenas de imagens aéreas.
+	\begin{figure}[h]
+		\includegraphics[width=\textwidth]{imgs/yuan_2013}
+	\end{figure}
 
 	\small{
 	\begin{table}[h]
@@ -1292,6 +1305,10 @@ Objetos de interesse:
 		\end{tabulary}
 		\end{table}
 	}
+
+	\begin{figure}
+		\includegraphics[width=\textwidth]{imgs/resultado_final}
+	\end{figure}
 \end{frame}
 
 %%%%%%%%%%%%%%%
