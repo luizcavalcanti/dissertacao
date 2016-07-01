@@ -4,7 +4,8 @@
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
 \usepackage[brazil]{babel}
-\usepackage[round,authoryear]{natbib}
+%\usepackage[round,authoryear]{natbib}
+\usepackage[square,sort,numbers]{natbib}
 \usepackage{tabulary}
 \usepackage[table]{xcolor}
 \usepackage{gensymb}
@@ -63,6 +64,13 @@
 %\usecolortheme{wolverine}
 
 \setbeamertemplate{navigation symbols}{}%remove navigation symbols
+
+\addtobeamertemplate{navigation symbols}{}{%
+    \usebeamerfont{footline}%
+    \usebeamercolor[fg]{footline}%
+    \hspace{1em}%
+    \insertframenumber/\inserttotalframenumber
+}
 
 %%%% TITULO %%%%
 \institute[Universities Here and There] % (optional)
@@ -179,7 +187,7 @@ Objetos de interesse:
 	\begin{itemize}
 		\item Segmentação de imagens;
 		\item Classificação de imagens aéreas;
-		\item Detecção de anomalias.
+		\item Detecção de anomalias em imagens.
 	\end{itemize}
 \end{frame}
 
@@ -619,10 +627,6 @@ Objetos de interesse:
 		\item Unária;
 		\item Conjunto de unários.
 	\end{itemize}
-
-	\vspace{0.5cm}
-
-	A motivação é a diversidade de estratégias encontradas na literatura e a falta de um trabalho que sirva de baseline.
 \end{frame}
 
 \begin{frame}[c]
@@ -640,7 +644,6 @@ Objetos de interesse:
 	\vspace{0.5cm}	
 
 	A partir do resultado final, pode ser indicado o melhor conjunto de segmentador e classificador para detecção de elementos antrópicos em imagens aéreas da floresta amazônica.
-
 \end{frame}
 
 %%%%%%%%%%%%%%%
@@ -693,7 +696,27 @@ Objetos de interesse:
 \begin{frame}[c]
 	\frametitle{Metodologia: Segmentador}
 
-	As taxas de erro de consistência local (LCE) e global (GCE) [Martin et al., 2001] serão utilizados para aferir a qualidade da segmentação.
+	\begin{figure}[h]
+		\includegraphics[width=.25\textwidth]{imgs/granularidade_1}
+		\hspace{0.1cm}
+		\includegraphics[width=.25\textwidth]{imgs/granularidade_2}
+		\hspace{0.1cm}
+		\includegraphics[width=.25\textwidth]{imgs/granularidade_3}
+	\end{figure}
+
+	Se $S_1$ e $S_2$ são duas segmentações de uma mesma imagem.	O erro de consistência entre $S_1$ e $S_2$ para uma região que contém o pixel $p_i$ é dado por:
+	
+	\begin{equation*}
+		\displaystyle E(S_1,S_2,p_i) = \frac{|R(S_1,p_i) \setminus R(S_2,p_i)|}{|R(S_1,p_i)|}
+	\end{equation*}
+\end{frame}
+
+\begin{frame}[c]
+	\frametitle{Metodologia: Segmentador}
+
+	As taxas de erro de consistência local (LCE) e global (GCE) (Martin et al., 2001) avaliam a qualidade da segmentação.
+
+	\vspace{0.5cm}
 
 	\begin{equation*}
 		\displaystyle GCE(S_1,S_2) = \frac{1}{n} min \biggl\{ \sum_{i} E(S_1,S_2,p_i), \sum_{i} E(S_2,S_1,p_i) \biggr\}
@@ -791,7 +814,7 @@ Objetos de interesse:
 	\vspace{0.5cm}
 	3.044 imagens $\Rightarrow$ 10.057 segmentos\\
 	\vspace{0.5cm}
-	Todos os segmentos foram manualmente rotulados.
+	Todos os segmentos foram manualmente rotulados em: Floresta, água, vegetação rasteira, terra e elemento antrópico.
 	\vspace{0.2cm}
 
 	\centering
@@ -822,10 +845,6 @@ Objetos de interesse:
 \begin{frame}[c]
 	\frametitle{Classificação - Avaliação}
 
-	Todos os experimentos foram realizados com e sem seleção de características através do método CFS.
-
-	\vspace{0.5cm}
-
 	Para comparação dos resultados de classificação, os valores de precisão, revocação e medida F1 para todas as classes e para a classe de interesse (elementos antrópicos) foram avaliados:
 
 	\begin{equation*}
@@ -839,6 +858,10 @@ Objetos de interesse:
 	\begin{equation*}
 		\displaystyle F_1 = 2 \cdot \frac{Pr \cdot Rv}{Pr + Rv}
 	\end{equation*}
+
+	\vspace{0.5cm}	
+
+	Todos os experimentos foram realizados com e sem seleção de características através do método CFS.
 \end{frame}
 
 \begin{frame}[c]
@@ -1315,7 +1338,7 @@ Objetos de interesse:
 	\frametitle{Conclusão}
 
 	\begin{itemize}
-		\item O algoritmo SRM obteve o melhor desempenho dentre as técnicas de segmentação experimentadas;
+		\item O algoritmo SRM obteve o menor erro de consistência dentre as técnicas de segmentação experimentadas;
 		\item O conjunto de características escolhido demonstrou boa capacidade de descrição das classes do problema e a seleção de características CFS se mostrou importante em diversos casos;
 		\item Embora tenha empatado com a abordagem multi-classe, o conjunto de classificadores unários obteve resultados promissores e se mostra a proposta mais robusta.
 	\end{itemize}
@@ -1329,7 +1352,7 @@ Objetos de interesse:
 		\item Definido um método de segmentação adequado para o tipo de imagem do problema;
 		\item Definido um conjunto de características que descrevem as classes do problema;
 		\item Definido um conjunto de técnicas de aprendizado de máquina para detecção de elementos antrópicos em imagens aéreas da floresta amazônica;
-		\item A base de imagens, de segmentos e todos os algoritmos e resultados encontrados estão publicamente disponíveis e são um bom ponto de apoio a trabalhos futuros.
+%		\item A base de imagens, de segmentos e todos os algoritmos e resultados encontrados estão publicamente disponíveis e são um bom ponto de apoio a trabalhos futuros.
 	\end{itemize}
 \end{frame}
 
@@ -1343,18 +1366,31 @@ Objetos de interesse:
 	\end{itemize}
 \end{frame}
 
-\begin{frame}[c]
+\begin{frame}
+
+	\vspace{0.4\textheight}
+
 	\centering
 	\huge Obrigado
+	
+	\vspace{100cm}
+	
+	\cite{martin:2001}
+	\cite{arbelaez:2011}
+	\cite{yuan2:2013}
+	\cite{hall:1998}
+	\cite{alpaydin:2010}
+	\cite{mitchell:1997}
+	\cite{gonzalez:2002}
+	\cite{jain:1989}
+	\cite{nixon:2008}
 \end{frame}
 
-%\section{Bibliografia}
-
-%\begin{frame}{Referências}
-%	\tiny{\bibliographystyle{abbrv}}
+\begin{frame}{Referências}
+	\tiny{\bibliographystyle{abbrv}}
 %	\tiny{\bibliographystyle{apacite}}
-%	\bibliographystyle{humannat}
-%	\bibliography{qualificacao}
-%\end{frame}
+	\bibliographystyle{humannat}
+	\bibliography{dissertacao}
+\end{frame}
 
 \end{document}
