@@ -18,13 +18,13 @@ Embora esta seja uma arquitetura simples, bastante difundida na literatura, nuan
 
 \section{Entrada}
 
-Uma base de dados com imagens aéreas de floresta tropical precisa ser formada. Todas as imagens precisam ter as mesmas dimensões, condições visuais semelhantes e preferencialmente pertencerem à região de floresta amazônica, excluindo imagens de cidades e povoados da região.
+Uma base de dados com imagens aéreas de floresta tropical precisa ser formada. As imagens não precisam ter as mesmas dimensões, mas devem ter condições visuais claras do cenário e pertencerem à região de floresta amazônica, excluindo imagens de cidades e povoados da região.
 
 Como serão processadas por uma etapa de segmentação, as imagens não sofrerão nenhum tipo de filtragem, ficando estas a cargo dos segmentadores a serem avaliados. A base de imagens gerada nesta etapa é um dos objetivos específicos deste trabalho.
 
 \section{Segmentador}\label{sec:metSegmentador}
 
-Para encontrarmos o segmentador ideal, os métodos de segmentação de imagens considerados estado-da-arte serão aplicados à uma parte da base de imagens aéreas da floresta amazônica. Conforme levantado no capítulo \ref{cap:trabalhos}, os seguintes métodos serão avaliados: Mean-shift, JSEG, MSEG, SRM, FSEG e gPb-owt-ucm. Estes métodos foram escolhidos por terem os melhores desempenhos em dois trabalhos comparativos de segmentação: o \textit{benchmark} de segmentação da base de imagens naturais BSD500, de \citeonline{arbelaez:2011}, e o \textit{benchmark} de segmentação de uma base de imagens aéreas de \citeonline{yuan2:2013}.
+Para encontrarmos o segmentador ideal, os métodos de segmentação de imagens considerados estado-da-arte serão aplicados à uma parte da base de imagens aéreas da floresta amazônica. Conforme levantado no capítulo \ref{cap:trabalhos}, os seguintes métodos serão avaliados: Mean-shift, JSEG, MSEG, SRM, FSEG e gPb-owt-ucm. Estes métodos foram escolhidos por terem os melhores desempenhos no \textit{benchmark} de segmentação de uma base de imagens aéreas de \citeonline{yuan2:2013}.
 
 Também será realizado um experimento que funde as etapas de segmentação e classificação em uma só, utilizando algoritmos de aprendizado de máquina supervisionados para segmentar as imagens diretamente para suas classes (floresta, água, etc) pixel a pixel. Isto é importante para determinar se há ganhos reais na separação entre segmentação e classificação das imagens, ou se realizar todo o procedimento em um único passo produz melhores resultados de acurácia e custo computacional.
 
