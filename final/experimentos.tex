@@ -100,18 +100,18 @@ Os resultados do experimento são apresentados na tabela \ref{tab:experimentoSeg
 
 \begin{table}[h]
 \centering
-\begin{tabulary}{\linewidth}{|L|R|R|R|}
+\begin{tabulary}{\linewidth}{|L|R|R|R|R|R|}
 \hline
-\textbf{Algoritmo} & \textbf{GCE médio} & \textbf{LCE médio} & \textbf{Tempo (s)} \\ \hline
-Manual      & 0.01822          & 0.00537         & - \\ \hline
-FSEG        & 0.03063          & 0.00273         & 13,91 \\ \hline
-gPb-owt-ucm & 0.00655          & 0.00297         & 237,32 \\ \hline
-JSEG        & 0.02990          & 0.00486         & 14,82 \\ \hline
-Mean-shift  & 0.02237          & 0.00271         & 6,39 \\ \hline
-MSEG        & 0.01005          & 0.00072         & \cellcolor{gray!25} 0,33 \\ \hline
-SRM         & \cellcolor{gray!25} 0.00622 & \cellcolor{gray!25} 0.00066 & 4,66 \\ \hline
+\textbf{Algoritmo} & \textbf{GCE médio} & \textbf{Desvio} & \textbf{LCE médio} &\textbf{Desvio} &  \textbf{Tempo (s)} \\ \hline
+Manual      & 0.01822 & $\pm 0.04612$ & 0.00537 & $\pm 0.04795$ & - \\ \hline
+FSEG        & 0.03063 & $\pm 0.05644$ & 0.00273 & $\pm 0.06352$ & 13,91 \\ \hline
+gPb-owt-ucm & 0.00655 & $\pm 0.01368$ & 0.00297 & $\pm 0.01409$ & 237,32 \\ \hline
+JSEG        & 0.02990 & $\pm 0.05527$ & 0.00486 & $\pm 0.06105$ & 14,82 \\ \hline
+Mean-shift  & 0.02237 & $\pm 0.05818$ & 0.00271 & $\pm 0.06214$ & 6,39 \\ \hline
+MSEG        & 0.01005 & $\pm 0.01429$ & 0.00072 & $\pm 0.01429$ & \cellcolor{gray!25}0,33 \\ \hline
+SRM         & \cellcolor{gray!25}0.00622 & \cellcolor{gray!25}$\pm 0.00822$ & \cellcolor{gray!25}0.00066 & \cellcolor{gray!25}$\pm 0.00999$ & 4,66 \\ \hline
 \end{tabulary}
-\caption{Comparação de métodos de segmentação em parte da base de imagens deste trabalho, em ordem alfabética}
+\caption{Comparação de métodos de segmentação em parte da base de imagens deste trabalho, em ordem alfabética. Os erros médios da segmentação manual foram calculados entre diferentes segmentações da mesma imagem.}
 \label{tab:experimentoSegmentacao}
 \end{table}
 
